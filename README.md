@@ -22,4 +22,4 @@ Navigate to the specific project folder you're interested in and follow the inst
 
 Forever and always: 🚧 **WORK IN PROGRESS** 🚧
 
-*"It's not a bug, it's a feature I haven't implemented yet."*
+_"It's not a bug, it's a feature I haven't implemented yet."_
