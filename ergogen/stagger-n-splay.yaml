@@ -1,0 +1,184 @@
+meta:
+  engine: 4.1.0
+units:
+  # Proxy Spacing Variables
+  kx: u
+  ky: u
+  # Padding Variables
+  px: kx + 2
+  py: ky + 2
+points:
+  zones:
+    matrix:
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        outer:
+          key:
+            splay: 8
+          rows.mod.skip: true
+          rows.bottom.skip: true
+        pinky:
+          key:
+            splay: -4
+          rows.mod.skip: true
+        ring:
+          key:
+            splay: -4
+            stagger: 5
+            rotate: 0
+        middle:
+          key:
+            stagger: 15
+            rotate: -1
+        index:
+          key:
+            stagger: -10
+            rotate: -2
+        inner:
+          key:
+            rotate: -3
+            stagger: -5
+      rows:
+        mod:
+        bottom:
+        home:
+        top:
+        num:
+    thumbs:
+      key:
+        padding: 1kx
+        spread: 1ky
+        anchor:
+        ref: matrix_inner_mod
+      columns:
+        layer:
+          key:
+            splay: -15
+            shift: [80,10]
+        2nd:
+          key:
+            splay: -15
+            shift: [78,28]
+        space:
+          key:
+            width: 1.5kx
+            splay: 75
+            shift: [50,-71]
+      rows:
+        cluster:
+
+  mirror: &mirror
+    ref: matrix_inner_num
+    distance: 4kx
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_outer_num
+          shift: [-0.5px,0.5py]
+        - ref: matrix_ring_num
+          shift: [-0.5px,0.5py]
+        - ref: matrix_middle_num
+          shift: [-0.5px,0.5py]
+        - ref: matrix_middle_num
+          shift: [0.5px,0.5py]
+        - ref: matrix_inner_num
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_inner_num
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_middle_num
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_middle_num
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_ring_num
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_outer_num
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_ring_mod
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_thumbs_layer_cluster
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_thumbs_space_cluster
+          shift: [-0.5py,-0.5px]
+        - ref: thumbs_space_cluster
+          shift: [-0.5py,-0.5px]
+        - ref: thumbs_layer_cluster
+          shift: [-0.5px,-0.5py]
+        - ref: matrix_ring_mod
+          shift: [-0.5px,-0.5py]
+      fillet: 2
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  stagger_n_splay:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      promicro:
+        what: promicro
+        params:
+          orientation: "down"
+        where:
+          ref.aggregate.parts: [matrix_inner_top, mirror_matrix_inner_top]
+          shift: [0,0]
+          rotate: -90
+      oled:
+          what: oled
+          params:
+            side: "F"
+            SDA: P2
+            SCL: P3
+          where:
+            ref.aggregate.parts: [matrix_inner_home, mirror_matrix_inner_home]
+            shift: [-6,-19]
+            rotate: 90
+      reset:
+        what: button
+        params:
+          from: GND
+          to: RST
+        where:
+          ref.aggregate.parts: [matrix_index_mod, mirror_matrix_index_mod]
+          shift: [0, -1]
+          rotate: -90
+      holeBottomInnerRight:
+        what: ceoloide/mounting_hole_npth
+        where:
+          ref: [mirror_matrix_index_mod]
+          shift: [0.5kx, -0.35ky]
+
+cases:
+  bottom:
+    - name: board
+      extrude: 1
