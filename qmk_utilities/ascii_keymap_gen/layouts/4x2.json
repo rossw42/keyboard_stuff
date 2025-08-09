@@ -1,0 +1,13 @@
+{
+  "name": "4x2",
+  "description": "Small 4x2 macropad",
+  "key_count": 10,
+  "layout_functions": [
+    "LAYOUT"
+  ],
+  "template_file": "4x2.txt",
+  "author": "rossw42",
+  "tags": [
+    "macropad"
+  ]
+}

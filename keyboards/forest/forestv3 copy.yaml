@@ -1,0 +1,404 @@
+# Forest Keyboard v3 - Ergonomic Split Keyboard Design
+# Generated with Ergogen - https://ergogen.xyz
+# 
+# DESIGN PHILOSOPHY:
+# - 34-36 key split layout optimized for comfortable typing
+# - Aggressive column stagger based on natural finger lengths
+# - Enhanced thumb cluster with 3 keys per side
+# - Integrated electronics with clean cable management
+# - Modular case design for easy assembly and maintenance
+
+units:
+  # Basic measurements for 3D printing
+  X: 0.9                    # Extrusion width
+  B: 2.7                    # Binding offset (3*X)
+  
+  # Column stagger values optimized for natural finger reach
+  # Based on average finger length differences from middle finger
+  pinky_stagger: 5          # Pinky column stagger (upward)
+  ring_stagger: 2           # Ring finger column stagger  
+  middle_stagger: 0         # Middle finger baseline (no stagger)
+  index_stagger: -4         # Index finger column stagger (downward)
+  inner_stagger: -8         # Inner column stagger (downward)
+  
+  # Column spacing - increased to prevent overlap
+  col_spread: 20            # Horizontal spacing between columns (1U+)
+  
+  # Thumb cluster positioning - optimized for better ergonomics
+  thumb_offset_x: 25        # Thumb cluster horizontal offset from matrix
+  thumb_offset_y: -25       # Thumb cluster vertical offset (moved down more)
+  thumb_splay_near: 15      # Near thumb key rotation (upward angle)
+  thumb_splay_home: 0       # Home thumb key rotation (neutral)
+  thumb_splay_far: -15      # Far thumb key rotation (downward angle)
+  
+  # Electronics housing dimensions - positioned to the right of inner column
+  mcu_width: 21             # Raspberry Pi Pico width
+  mcu_height: 51            # Raspberry Pi Pico height
+  mcu_padding: 2            # Clearance around MCU
+  mcu_offset_x: 30          # MCU offset X from inner column (to the right)
+  mcu_offset_y: 25          # MCU offset Y from inner.top (upward)
+  
+  # Case construction parameters
+  plate_thickness: 1.6      # Switch plate thickness
+  case_wall_height: 8       # Case wall height for electronics
+  lid_thickness: 1.6        # Removable lid thickness
+  screw_radius: 1.25        # M2.5 mounting screw radius
+  
+  # Switch specifications
+  switch_cutout: 14         # MX switch cutout size
+
+points:
+  key:
+    # Default properties for all keys
+    bind: [B, B, B, B]      # Binding margins for plate generation
+    tags.1u: true           # Tag all keys as 1U size
+  
+  zones:
+    # MAIN FINGER MATRIX
+    # 5 columns arranged for optimal finger reach with scientific stagger
+    matrix:
+      anchor:
+        shift: [100, 100]    # Position the entire matrix in workspace
+      
+      columns:
+        # PINKY COLUMN - Outermost finger, needs upward stagger
+        pinky:
+          key:
+            stagger: pinky_stagger
+            splay: 3          # Reduced outward rotation to prevent overlap
+          rows:
+            bottom: {}
+            home: {}
+            top: {}
+        
+        # RING FINGER COLUMN - Second finger, slight upward stagger
+        ring:
+          key:
+            stagger: ring_stagger
+            spread: col_spread
+            splay: 1          # Reduced outward angle to prevent overlap
+          rows:
+            bottom: {}
+            home: {}
+            top: {}
+        
+        # MIDDLE FINGER COLUMN - Reference baseline (longest finger)
+        middle:
+          key:
+            stagger: middle_stagger
+            spread: col_spread
+            splay: 0          # No rotation needed
+          rows:
+            bottom: {}
+            home: {}
+            top: {}
+            num: {}           # Extra number key for middle finger
+        
+        # INDEX FINGER COLUMN - Most dexterous, slight downward stagger
+        index:
+          key:
+            stagger: index_stagger
+            spread: col_spread
+            splay: -2         # Slight inward angle
+          rows:
+            bottom: {}
+            home: {}
+            top: {}
+            num: {}           # Extra number key for index finger
+        
+        # INNER COLUMN - Index finger reach, significant downward stagger
+        inner:
+          key:
+            stagger: inner_stagger
+            spread: col_spread
+            splay: -5         # More pronounced inward angle
+          rows:
+            bottom: {}
+            home: {}
+            top: {}
+      
+      rows:
+        # Row definitions from bottom to top
+        bottom: {}            # Bottom modifier row
+        home: {}              # Home row (ASDF position)
+        top: {}               # Top row (QWERTY position)
+        num: {}               # Number row (partial, middle and index only)
+    
+    # ENHANCED THUMB CLUSTER
+    # 3-key thumb cluster for better layer access and comfort
+    thumbs:
+      anchor:
+        ref: matrix_index_bottom
+        shift: [thumb_offset_x, thumb_offset_y]
+      
+      columns:
+        # NEAR THUMB KEY - Most accessible thumb key
+        near:
+          key:
+            splay: thumb_splay_near
+            origin: [0, -9.5]     # -0.5U converted to mm
+          rows:
+            thumb: 
+              shift: [0, 6]       # Fine positioning adjustment
+        
+        # HOME THUMB KEY - Primary thumb key (space/enter)
+        home:
+          key:
+            splay: thumb_splay_home
+            spread: 19            # Closer spacing for better reach
+          rows:
+            thumb: {}
+        
+        # FAR THUMB KEY - Secondary thumb key (backspace/layer)
+        far:
+          key:
+            splay: thumb_splay_far
+            spread: 19            # Closer spacing for better reach
+          rows:
+            thumb:
+              shift: [0, -2]      # Reduced downward offset
+      
+      rows:
+        thumb: {}
+
+outlines:
+  # SWITCH CUTOUTS - Precise holes for mechanical switches
+  _switch_cutouts:
+    - what: rectangle
+      where: true              # Apply to all positions
+      size: switch_cutout
+      bound: false
+  
+  # SWITCH RETENTION CLIPS - Hold switches securely  
+  _switch_clips:
+    - what: rectangle
+      where: true              # Apply to all positions
+      size: [5, 16]
+      bound: false
+  
+  # KEYCAP VISUALIZATION - Show keycap boundaries
+  _keycaps:
+    - what: rectangle
+      where: true              # Show keycaps for all positions
+      size: [18, 18]           # 1U - 1mm converted to explicit size
+      bound: false
+  
+  # MAIN BOARD OUTLINE - Contoured shape around all components including MCU (clockwise)
+  board_outline:
+    - what: polygon
+      operation: stack
+      fillet: 5
+      points:
+        # Start top-left and go clockwise
+        - ref: matrix_pinky_top
+          shift: [-9, 9]       # Top-left of key matrix
+        - ref: matrix_ring_top
+          shift: [-7, 9]
+        - ref: matrix_middle_top
+          shift: [-6, 9]
+        - ref: matrix_index_top
+          shift: [-5, 9]
+        - ref: matrix_inner_top
+          shift: [-5, 9]       # Top of inner column
+        # MCU area - top edge
+        - ref: matrix_inner_top
+          shift: [20, 55]      # MCU top-left with margin
+        - ref: matrix_inner_top
+          shift: [50, 55]      # MCU top-right with margin
+        # Right edge including MCU
+        - ref: matrix_inner_top
+          shift: [50, -5]      # MCU right edge down to inner column level
+        - ref: matrix_inner_top
+          shift: [9, -5]       # Right edge of inner column
+        # Thumb cluster right edge
+        - ref: thumbs_far_thumb
+          shift: [12, 8]       # Far thumb top-right
+        - ref: thumbs_far_thumb
+          shift: [18, -5]      # Far thumb right edge
+        - ref: thumbs_home_thumb
+          shift: [8, -15]      # Home thumb bottom
+        - ref: thumbs_near_thumb
+          shift: [-3, -12]     # Near thumb left edge
+        # Bottom edge (right to left)
+        - ref: matrix_inner_bottom
+          shift: [-5, -10]     # Inner column bottom
+        - ref: matrix_index_bottom
+          shift: [-6, -9]      # Index column bottom
+        - ref: matrix_middle_bottom
+          shift: [-7, -9]      # Middle column bottom
+        - ref: matrix_ring_bottom
+          shift: [-8, -9]      # Ring column bottom
+        - ref: matrix_pinky_bottom
+          shift: [-9, -9]      # Pinky column bottom
+        # Left edge (bottom to top)
+        - ref: matrix_pinky_bottom
+          shift: [-9, -5]      # Pinky left edge
+        - ref: matrix_pinky_home
+          shift: [-9, 0]       # Pinky left edge middle
+        - ref: matrix_pinky_top
+          shift: [-9, 5]       # Pinky left edge top
+  
+  # ELECTRONICS CUTOUTS
+  _mcu_cutout:
+    - what: rectangle
+      adjust:
+        ref: matrix_inner_top
+        shift: [mcu_offset_x, mcu_offset_y]
+      size: [22, 52]         # mcu_width + 1, mcu_height + 1
+  
+  _usb_cutout:
+    - what: rectangle
+      adjust:
+        ref: matrix_inner_top
+        shift: [mcu_offset_x, mcu_offset_y + 28]  # MCU top edge + margin for USB connector
+      size: [9, 4]           # USB-C connector access
+  
+  _reset_access:
+    - what: circle
+      adjust:
+        ref: matrix_inner_top
+        shift: [mcu_offset_x + 8, mcu_offset_y]  # Reset button access relative to MCU position
+      radius: 2              # Reset button access hole
+  
+  # MOUNTING SYSTEM - 4-point mounting for stability
+  _mount_posts:
+    - what: circle
+      adjust:
+        ref: matrix_pinky_top
+        shift: [-8, 8]
+      radius: 3
+    - what: circle
+      adjust:
+        ref: matrix_inner_top
+        shift: [8, 8]
+      radius: 3
+    - what: circle
+      adjust:
+        ref: matrix_pinky_bottom
+        shift: [-8, -8]
+      radius: 3
+    - what: circle
+      adjust:
+        ref: thumbs_home_thumb
+        shift: [0, -15]
+      radius: 3
+  
+  _mount_holes:
+    - what: circle
+      adjust:
+        ref: matrix_pinky_top
+        shift: [-8, 8]
+      radius: screw_radius
+    - what: circle
+      adjust:
+        ref: matrix_inner_top
+        shift: [8, 8]
+      radius: screw_radius
+    - what: circle
+      adjust:
+        ref: matrix_pinky_bottom
+        shift: [-8, -8]
+      radius: screw_radius
+    - what: circle
+      adjust:
+        ref: thumbs_home_thumb
+        shift: [0, -15]
+      radius: screw_radius
+  
+  # COMPLETE ASSEMBLIES
+  switchplate:
+    - what: outline
+      name: board_outline
+    - what: outline
+      name: _switch_cutouts
+      operation: subtract
+    - what: outline
+      name: _mount_holes
+      operation: subtract
+  
+  bottom_plate:
+    - what: outline
+      name: board_outline
+      fillet: 2
+    - what: outline
+      name: _mcu_cutout
+      operation: subtract
+    - what: outline
+      name: _usb_cutout
+      operation: subtract
+    - what: outline
+      name: _reset_access
+      operation: subtract
+    - what: outline
+      name: _mount_holes
+      operation: subtract
+  
+  # PREVIEW - Complete layout visualization
+  preview:
+    - what: outline
+      name: board_outline
+    - what: outline
+      name: _keycaps
+      operation: stack
+    - what: outline
+      name: _switch_cutouts
+      operation: stack
+    - what: outline
+      name: _switch_clips
+      operation: stack
+    - what: outline
+      name: _mcu_cutout
+      operation: stack
+    - what: outline
+      name: _usb_cutout
+      operation: stack
+    - what: outline
+      name: _reset_access
+      operation: stack
+    - what: outline
+      name: _mount_posts
+      operation: stack
+    - what: outline
+      name: _mount_holes
+      operation: stack
+
+cases:
+  # MAIN CASE - Integrated electronics housing
+  case:
+    # Bottom electronics compartment
+    - name: bottom_plate
+      extrude: plate_thickness
+    
+    # Main case walls
+    - name: board_outline
+      extrude: case_wall_height
+      shift: [0, 0, plate_thickness]
+    
+    # Switch mounting plate
+    - name: switchplate
+      extrude: plate_thickness
+      shift: [0, 0, 9.6]      # case_wall_height + plate_thickness
+    
+    # Switch retention clips
+    - name: _switch_clips
+      extrude: 1
+      shift: [0, 0, 11.2]     # case_wall_height + plate_thickness * 2
+      operation: subtract
+    
+    # Mounting posts
+    - name: _mount_posts
+      extrude: case_wall_height
+      shift: [0, 0, plate_thickness]
+    - name: _mount_holes
+      extrude: 11.2           # case_wall_height + plate_thickness * 2
+      shift: [0, 0, 0]
+      operation: subtract
+  
+  # REMOVABLE LID - For maintenance access
+  lid:
+    - name: board_outline
+      extrude: lid_thickness
+    - name: _mount_holes
+      extrude: 1.8            # lid_thickness + 0.2
+      shift: [0, 0, -0.1]
+      operation: subtract

@@ -1,0 +1,148 @@
+# Forest Keyboard v1.1 - Ergonomic Split Keyboard Design
+# Proven 34-key split layout with integrated electronics
+#
+# DESIGN PHILOSOPHY:
+# - Asymmetric column layout optimized for finger reach
+# - Integrated MCU housing within the case design
+# - Modular thumb cluster with 2-key setup
+# - Binding system creates contiguous plate structure
+
+units:
+  X: 0.9 # Extrusion width - controls binding thickness
+  B: 3*X # Binding distance (2.7mm) - creates connected plate areas
+  ColStagger: 1U
+  ColSpread: 1.5U
+  mcu_width: 21
+  mcu_len: 51
+  #Adafruit Product ID: 5764
+  ttrs_socket_len: 17
+  ttrs_socket_width: 17
+  ttrs_connector_radius: 11 #important for case extrude height
+  case_fillet: 3
+  # Extrudes
+  case_lip_extrude: 1.6
+  case_top_extrude: 2
+
+points:
+  key:
+    bind: [ B, B, B, B ]
+    tags.1U: true
+  zones:
+    layers:
+      columns:
+        list:
+      rows:
+        photos:
+        blender:
+        web:
+        music:
+        game:
+    numpad:
+      anchor:
+        ref: layers_list_photos
+        shift: [ ColSpread, 0 ]
+
+      columns:
+        col_num_esc:
+          rows:
+            row_num_0.skip: true
+
+        col_num_blank:
+          rows:
+            row_num_0.width: 2U
+
+        col_num_minus:
+
+        col_num_plus:
+      rows:
+
+        row_num_0:
+
+        row_num_1:
+
+        row_num_4:
+
+        row_num_7:
+
+        row_num_esc:
+
+
+    extras:
+      anchor:
+        ref: numpad_col_num_plus_row_num_0
+        shift: [ ColSpread +0.5U, 0 ]
+      columns:
+        col_enc_1:
+          rows:
+            row_extras_bottom:
+              width: 2U
+            row_extras_big_enc:
+              shift: [ 0, 0.5U ]
+            row_extras_encoders:
+              shift: [ -0.5U, 0.5U ]
+            row_extras_screen:
+              width: 2U
+              shift: [ 0.5U, 0 ]
+        col_enc_2:
+          rows:
+            row_extras_bottom.skip: true
+            row_extras_encoders.skip: false
+            row_extras_encoders.shift: [ -0.5U, 1U ]
+            row_extras_big_enc.skip: true
+            row_extras_screen.skip: true
+
+      rows:
+        row_extras_bottom:
+        row_extras_big_enc:
+        row_extras_encoders:
+        row_extras_screen:
+          shift: [ 0, 0 ]
+
+# columns first, left-to-right by default.
+# Within columns, the rows are built from bottom to top by default.
+
+
+outlines:
+  # SWITCH CUTOUTS AND VISUALIZATION
+  _switch_holes:
+  - what: rectangle
+    where: -component # All key positions
+    size: 14 # 14x14mm square for MX switch cutout
+    bound: false # Don't include in binding calculations
+
+  _switch_clips:
+  - what: rectangle
+    where: -component # All key positions  
+    size: [ 5, 16 ] # 5x16mm clips for switch retention
+    bound: false
+
+  _keys:
+  - what: rectangle
+    where: -component # All key positions
+    size: 18 # 18x18mm keycap visualization
+    bound: false
+
+  # PLATE OUTLINES - Progressive insets for case structure
+  plate:
+  - what: rectangle
+    where: true # All key positions
+    bound: true # Use binding system for connected outline
+    size: 1U # 19x19mm base size
+    corner: 0.5 # 0.5mm corner radius
+    fillet: case_fillet
+
+  _plate_inner_2:
+  - what: rectangle
+    where: true
+    bound: true # Connected outline
+    size: 1U - 2 * 2X # 19-3.6=15.4mm (2X inset on each side)
+    corner: 0.5
+    fillet: case_fillet
+
+  _plate_inner_3:
+  - what: rectangle
+    where: true
+    bound: true # Connected outline
+    size: 1U - 2 *3X # 19-5.4=13.6mm (3X inset on each side) 
+    corner: 0.5
+    fillet: case_fillet

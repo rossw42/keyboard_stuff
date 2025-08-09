@@ -1,0 +1,9 @@
+{
+  "name": "preonic",
+  "description": "Preonic - 5x12 ortholinear grid layout",
+  "key_count": 60,
+  "layout_functions": ["LAYOUT_preonic_grid"],
+  "template_file": "preonic.txt",
+  "author": "Generated from QMK default",
+  "tags": ["ortholinear", "5x12", "grid"]
+}

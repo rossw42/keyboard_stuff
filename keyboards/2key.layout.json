@@ -1,0 +1,12 @@
+{
+  "name": "2key",
+  "vendorProductId": 4276944896,
+  "macros": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  "layers": [
+    ["KC_P1", "KC_RALT"],
+    ["KC_TRNS", "KC_TRNS"],
+    ["KC_TRNS", "KC_TRNS"],
+    ["KC_TRNS", "KC_TRNS"]
+  ],
+  "encoders": []
+}

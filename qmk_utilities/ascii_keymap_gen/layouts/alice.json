@@ -1,0 +1,9 @@
+{
+  "name": "alice",
+  "description": "Alice - Ergonomic staggered layout with split spacebar",
+  "key_count": 65,
+  "layout_functions": ["LAYOUT_alice_split_bs"],
+  "template_file": "alice.txt",
+  "author": "Generated from QMK default",
+  "tags": ["ergonomic", "staggered", "split_spacebar"]
+}

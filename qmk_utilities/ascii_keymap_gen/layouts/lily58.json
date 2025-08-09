@@ -1,0 +1,9 @@
+{
+  "name": "lily58",
+  "description": "Lily58 - Split ergonomic keyboard with 58 keys",
+  "key_count": 58,
+  "layout_functions": ["LAYOUT"],
+  "template_file": "lily58.txt",
+  "author": "Generated from existing keymap",
+  "tags": ["split", "ergonomic", "encoders"]
+}

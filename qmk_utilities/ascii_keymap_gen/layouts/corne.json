@@ -1,0 +1,9 @@
+{
+  "name": "corne",
+  "description": "Corne (CRKBD) - Split 3x6+3 keyboard",
+  "key_count": 37,
+  "layout_functions": ["LAYOUT_split_3x6_3"],
+  "template_file": "corne.txt",
+  "author": "Generated from QMK default",
+  "tags": ["split", "compact", "3x6+3"]
+}

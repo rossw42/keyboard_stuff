@@ -1,0 +1,15 @@
+{
+  "name": "lets_split",
+  "description": "Let's Split - Simple 40% split ortholinear keyboard",
+  "key_count": 48,
+  "layout_functions": [
+    "LAYOUT"
+  ],
+  "template_file": "lets_split.txt",
+  "author": "Generated from QMK default",
+  "tags": [
+    "split",
+    "ortholinear",
+    "40%"
+  ]
+}

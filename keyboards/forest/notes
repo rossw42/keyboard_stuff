@@ -1,0 +1,549 @@
+# Forest Keyboard v1.1 - Ergonomic Split Keyboard Design
+# Proven 34-key split layout with integrated electronics
+# 
+# DESIGN PHILOSOPHY:
+# - Asymmetric column layout optimized for finger reach
+# - Integrated MCU housing within the case design
+# - Modular thumb cluster with 2-key setup
+# - Binding system creates contiguous plate structure
+
+units:
+  X: 0.9                    # Extrusion width - controls binding thickness
+  B: 3*X                    # Binding distance (2.7mm) - creates connected plate areas
+  ColStagger: 1U
+  ColSpread: 1U
+  mcu_width: 21
+  mcu_len: 51
+  #Adafruit Product ID: 5764
+  ttrs_socket_len: 17
+  ttrs_socket_width: 17
+  ttrs_connector_radius: 11 #important for case extrude height
+  case_fillet: 3
+  # Extrudes
+  case_lip_extrude: 1.6
+  case_top_extrude: 2
+  
+points:
+  key:
+    bind: [B, B, B, B]
+    tags.1U: true
+  zones:
+    fingers:
+      anchor:
+        shift: [100, -100]
+      columns:
+        col_one:
+          key:
+            bind: [B, B, 4.5B, B]
+          rows:
+            thumb:
+              skip: true
+            row_0:
+              skip: true
+            row_1:
+            row_2:
+            row_3:
+        col_two:
+          key:
+            stagger: ColStagger / 2
+            spread: ColSpread
+            bind: [B, B, B, B]
+          rows:
+            thumb:
+              skip: true
+            row_0:
+            row_1:
+            row_2:
+            row_3:
+        col_three:
+          key:
+            stagger: ColStagger / 5
+            spread: ColSpread
+            bind: [2.63B, B, B, B]
+          rows:
+            thumb:
+              skip: true
+            row_0:
+            row_1:
+            row_2:
+            row_3:
+        col_four:
+          key:
+            stagger: ColStagger - 10
+            spread: ColSpread
+            bind: [2.242B, B, 4B, B]
+          rows:
+            thumb:
+              skip: true
+            row_0:
+            row_1:
+            row_2:
+            row_3:
+        col_five:
+          key:
+            stagger: ColStagger - 25
+            spread: ColSpread
+            bind: [2.13B, B, 3B, B]
+          rows:
+            thumb:
+              skip: true  # Removed - now using 3-key thumbfan instead
+            row_0:
+            row_1:
+            row_2:
+            row_3:
+        col_six:
+          key:
+            stagger: ColStagger - 16
+            spread: ColSpread
+            # Calculated binding to reach MCU area 
+            # the +2 is for case wall clearance
+            bind: [B,ColSpread/4+mcu_width+B+2, 10B-1, 2B]
+          rows:
+            thumb:
+              skip: true
+            row_0:
+            row_1:
+            row_2:
+            row_3:
+      rows:
+        thumb:
+        row_0:
+        row_1:
+        row_2:
+        row_3:
+    thumbfan:
+      anchor:
+        ref: fingers_col_six_row_0
+        shift: [-2B -2, -1.25U]
+      columns:
+        near:
+          key:
+            splay: -11.9
+            origin: [0.05U, -0.25U]
+            # Binding to connect to main matrix - extra binding toward fingers
+            bind: [B, 8B, B+1, 22B]
+          rows:
+            thumb:
+              shift: [0, 0U]
+              #spread: ColSpread
+        middle:
+          key:
+            splay: -11.9
+            origin: [0.5U, -0.5U]
+            bind: [B, B, B, B]
+          rows:
+            thumb:
+              shift: [2, -B]
+              spread: ColSpread - 2
+        far:
+          key:
+            splay: -11.9
+            origin: [-0.5U, -0.5U]
+            # Extended binding to reach toward outer case area
+            bind: [2B, B, B, 2B]
+          rows:
+            thumb:
+              shift: [6, -B]
+              spread: ColSpread -3 
+      rows:
+        thumb:
+
+    # component zones
+    _mcu_position:
+      anchor:
+        ref: fingers_col_six_row_3
+        shift: [ ColSpread/8+mcu_width, -mcu_len/B+2]
+      key:
+        tags: [mcu, component]
+
+    _trrs_connector_position:
+      anchor:
+        ref: _mcu_position
+        shift: [0, -mcu_len/B]
+      key:
+        tags: [ttrs, component]
+
+outlines:
+  # SWITCH CUTOUTS AND VISUALIZATION
+  _switch_holes:
+    - what: rectangle
+      where: -component          # All key positions
+      size: 14             # 14x14mm square for MX switch cutout
+      bound: false         # Don't include in binding calculations
+  
+  _switch_clips:
+    - what: rectangle
+      where: -component          # All key positions  
+      size: [5, 16]        # 5x16mm clips for switch retention
+      bound: false
+  
+  _keys:
+    - what: rectangle
+      where: -component          # All key positions
+      size: 18             # 18x18mm keycap visualization
+      bound: false
+  
+  # PLATE OUTLINES - Progressive insets for case structure
+  plate:
+    - what: rectangle
+      where: true          # All key positions
+      bound: true          # Use binding system for connected outline
+      size: 1U             # 19x19mm base size
+      corner: .5           # 0.5mm corner radius
+      fillet: case_fillet
+      
+  _plate_inner_2:
+    - what: rectangle
+      where: true
+      bound: true          # Connected outline
+      size: 1U - 2 * 2X    # 19-3.6=15.4mm (2X inset on each side)
+      corner: .5
+      fillet: case_fillet
+  
+  _plate_inner_3:
+    - what: rectangle
+      where: true  
+      bound: true          # Connected outline
+      size: 1U - 2 *3X    # 19-5.4=13.6mm (3X inset on each side) 
+      corner: .5
+      fillet: case_fillet
+  # MCU AND CONNECTIVITY COMPONENTS
+  _rpi_pico:
+    - what: rectangle
+      adjust:
+        ref: _mcu_position  
+        shift: [0,0]
+      size: [mcu_width+2, mcu_len] 
+  _mcu_holder:
+    - what: rectangle
+      adjust:
+        ref: _mcu_position  
+        shift: [0,-2]
+      size: [mcu_width+2B, mcu_len+B]          
+  _usb_cutout:
+    - what: rectangle
+      adjust:
+        ref: _mcu_position
+        # [right+, up+ ]
+        shift: [0, mcu_len/2+B]
+      size: [8, 6X]           # USB-C cutout: 8x4.5mm
+
+  _ttrs_cutout:
+    - what: circle
+      adjust:
+        ref: _mcu_position
+        # ttrs connector cutout position (parametric offset with MCU)
+        shift: [mcu_width/2+B+2, -mcu_len/2-16]
+        # look up size
+      radius: ttrs_connector_radius/2 - 0.75         # ttrs cutout 11mm
+  
+  _ttrs_socket:
+    - what: rectangle  
+      adjust:
+        ref: _mcu_position
+        shift: [mcu_width/4, -mcu_len/2-16]
+      size: [ttrs_socket_len+1, ttrs_socket_width+2]         # ttrs socket footprint
+  
+  _ttrs_socket_holder:
+    - what: rectangle
+      adjust:
+        ref: _mcu_position
+        shift: [mcu_width/4-2, -mcu_len/2-16]
+      size: [ttrs_socket_len+B, ttrs_socket_width+2B]
+
+  
+  # MOUNTING SYSTEM - 6-point screw posts for enhanced structural support
+  _posts_template:
+    $params: [__r__]         # Parameterized radius for different purposes
+    top_left:
+      what: circle
+      adjust:
+        ref: fingers_col_one_row_3 # Upper left corner reference
+        shift: [0.5U-2, -0.5U]        # Position outside key area
+      radius: __r__
+    top_middle:
+      what: circle
+      adjust:
+        ref: fingers_col_three_row_3  # Upper middle support
+        shift: [0.5U-3, -0.5U]             # Above top row
+      radius: __r__
+    top_right:
+      what: circle
+      adjust:
+        ref: fingers_col_six_row_2     # Upper right in MCU area
+        shift: [0.5U-2, 0.5U]          # Clear of MCU footprint
+      radius: __r__
+    bottom_left:
+      what: circle
+      adjust:
+        ref: fingers_col_one_row_1 # Lower left corner
+        shift: [0.5U+2, 0U]             # Position below key
+      radius: __r__
+    middle_middle:
+      what: circle
+      adjust:
+        ref: fingers_col_four_row_2  # Lower middle support
+        shift: [0.5U-2, -0.5U]            # Below bottom row
+      radius: __r__
+    middle_right_middle:
+      what: circle
+      adjust:
+        ref: fingers_col_five_row_2  # Lower middle support
+        shift: [0.5U-2, -0.5U]            # Below bottom row
+      radius: __r__
+    bottom_middle:
+      what: circle
+      adjust:
+        ref: fingers_col_three_row_1  # Lower middle support
+        shift: [0.5U, -1.5U]            # Below bottom row
+      radius: __r__
+    bottom_right:
+      what: circle
+      adjust:
+        ref: fingers_col_six_row_1      # Lower right near thumb cluster
+        shift: [0.5U, -0.5U]        # Clear of thumb cluster
+      radius: __r__
+    thumb_support:
+      what: circle
+      adjust:
+        ref: fingers_col_six_row_0     # Lower right near thumb cluster
+        shift: [0.5U, -0.5U]        # Clear of thumb cluster
+      radius: __r__
+  
+  _posts:
+    $extends: outlines._posts_template
+    $args: [2.6]             # 2.6mm radius mounting posts
+  
+  _screw_holes:
+    $extends: outlines._posts_template  
+    $args: [0.8]             # 0.8mm radius screw holes (M3 screws)
+  
+  _lid_bosses:
+    $extends: outlines._posts_template
+    $args: [3.5]             # 3.5mm radius lid mounting bosses
+  
+  _lid_screw_heads:
+    $extends: outlines._posts_template
+    $args: [2.4]             # 2.4mm radius screw head recesses
+
+  # CASE STRUCTURE OUTLINES
+
+  mcu_group:
+    - what: outline
+      name: _mcu_holder
+      operation: stack
+    - what: outline
+      name: _rpi_pico
+      operation: subtract
+
+  ttrs_socket_holder:
+    - what: outline
+      name: _ttrs_socket_holder
+    - what: outline
+      name: _ttrs_socket
+      operation: subtract
+
+
+  case_top:
+    - what: outline
+      name: plate
+    - what: outline
+      name: _switch_holes   # Remove switch cutouts
+      operation: subtract
+
+  case_wall:
+    - what: outline
+      name: plate            # Full plate outline
+    - what: outline
+      name: _plate_inner_3   # Remove inner area (deepest inset)
+      operation: subtract    # Creates wall thickness
+  
+  case_lip:
+    - what: outline
+      name: plate            # Full plate outline  
+    - what: outline
+      name: _plate_inner_2   # Remove inner area (middle inset)
+      operation: subtract    # Creates lid seating lip
+    # COMPREHENSIVE PREVIEW - Shows all design elements
+
+  mcu_on_plate:
+    - what: outline
+      name: plate  
+    - what: outline
+      name: mcu_group
+      operation: stack            # Base plate outline
+    - what: outline
+      name: _rpi_pico           # Keycap visualization
+      operation: stack
+    - what: outline
+      name: _usb_cutout
+      operation: stack
+    - what: outline
+      name: _ttrs_cutout      # Power connector cutout
+      operation: stack
+    - what: outline
+      name: _ttrs_socket
+      operation: stack
+    - what: outline
+      name: ttrs_socket_holder
+      operation: stack
+
+
+  preview:    
+    - what: outline
+      name: plate            # Base plate outline
+    - what: outline
+      name: _keys            # Keycap visualization
+      operation: stack
+    - what: outline
+      name: _switch_holes    # Switch cutouts
+      operation: stack
+    - what: outline
+      name: _switch_clips    # Switch clips
+      operation: stack
+    - what: outline
+      name: mcu_group         # MCU footprint
+      operation: stack
+    - what: outline
+      name: _usb_cutout      # USB connector access
+      operation: stack
+    - what: outline
+      name: _ttrs_cutout      # Power connector cutout
+      operation: stack  
+    - what: outline
+      name: _ttrs_socket      # Power connector footprint
+      operation: stack
+    - what: outline
+      name: _posts           # Mounting posts
+      operation: stack
+    - what: outline
+      name: _lid_bosses      # Lid mounting points
+      operation: stack
+    # Case wall visualization
+    - what: outline
+      name: _plate_inner_3   # Inner wall boundary
+      operation: stack
+
+  preview_no_switches:    
+    - what: outline
+      name: plate            # Base plate outline
+    - what: outline
+      name: mcu_group
+      operation: stack            # Base plate outline
+    - what: outline
+      name: _rpi_pico           # Keycap visualization
+      operation: stack
+    - what: outline
+      name: _usb_cutout      # USB connector access
+      operation: stack
+    - what: outline
+      name: _ttrs_cutout      # Power connector cutout
+      operation: stack  
+    - what: outline
+      name: _ttrs_socket      # Power connector footprint
+      operation: stack
+    - what: outline
+      name: ttrs_socket_holder
+      operation: stack
+    - what: outline
+      name: _posts           # Mounting posts
+      operation: stack
+    - what: outline
+      name: _lid_bosses      # Lid mounting points
+      operation: stack
+    # Case wall visualization
+    - what: outline
+      name: _plate_inner_3   # Inner wall boundary
+      operation: stack
+
+
+cases:
+  # MAIN CASE BODY - Layered construction
+  _body:
+    # DEPTH CALCULATIONS:
+    # - Switch depth: 8.3mm (PCB to switch top)
+    # - Plate thickness: 2mm  
+    # - Case depth: 6.0mm (electronics clearance)
+    # - Lid thickness: 1.6mm
+    # - Total height: 10mm, Inner clearance: 8.4mm
+    
+    # Layer 1: Lid seating lip (bottom)
+    - name: case_lip
+      extrude: case_lip_extrude           # 1.6mm lip for lid seating
+    
+    # Layer 2: Main case walls  
+    - name: case_wall
+      extrude: ttrs_connector_radius
+        # 6.1           # 6.1mm wall height 
+      shift: [0, 0, case_lip_extrude]     # Start above lip
+    
+    # Layer 3: Switch plate (top)
+    - name: case_top
+      extrude: case_top_extrude             # 2mm plate thickness
+      shift: [0, 0,ttrs_connector_radius] # 7.6mm from bottom
+    
+    # Switch retention clips (subtract from plate)
+    - name: _switch_clips
+      extrude: 1             # 1mm deep clips
+      shift: [0, 0, 6 + case_lip_extrude] # At plate level
+      operation: subtract
+    
+    # Mounting posts (internal support)
+    - name: _posts
+      extrude: ttrs_connector_radius       # 4.4mm post height
+      shift: [0, 0, case_top_extrude]     # Centered in case volume
+    
+    # Screw holes through posts
+    - name: _screw_holes
+      extrude: ttrs_connector_radius- case_top_extrude     # Through post height
+      shift: [0, 0, case_top_extrude]     # Aligned with posts
+      operation: subtract
+    
+    # USB connector access
+    - name: _usb_cutout
+      extrude: 4.5           
+      shift: [0, 0, ttrs_connector_radius - case_top_extrude - 1.5]     # Position for connector access
+      operation: subtract
+    
+    # ttrs power connector access  
+    - name: _ttrs_cutout
+      extrude: 20          #  cutout depth
+      shift: [10, 0, ttrs_connector_radius/2 ]  # From top surface down
+      rotate: [0,-90,0]
+      operation: subtract
+
+    - name: ttrs_socket_holder
+      shift: [0, 0,ttrs_connector_radius - case_top_extrude]
+      extrude: 3
+    - name: mcu_group       
+      shift: [0, 0, ttrs_connector_radius - case_top_extrude]
+      extrude: 3
+
+
+  # CASE VARIANTS - Different feature combinations
+  body:
+    - name: _body           # Standard case body
+      what: case
+
+  # REMOVABLE LID - Provides access to electronics
+  lid:
+    # Base lid plate
+    - name: _plate_inner_2   # Fits inside case lip
+      extrude: 1.6           # 1.6mm lid thickness
+    
+    # Mounting bosses for secure attachment
+    - name: _lid_bosses
+      extrude: 1.6           # Boss height matches lid thickness
+      shift: [0, 0, 1.6]     # On top of lid base
+    
+    # Screw holes through lid and bosses
+    - name: _screw_holes
+      extrude: 1.8           # 1.8mm deep (through lid + margin)
+      shift: [0, 0, 1.5]     # Start 1.5mm from bottom
+      operation: subtract
+    
+    # Countersunk screw head recesses
+    - name: _lid_screw_heads
+      extrude: 1.8           # 1.8mm deep recess
+      shift: [0, 0, -0.1]    # Start below lid surface
+      operation: subtract

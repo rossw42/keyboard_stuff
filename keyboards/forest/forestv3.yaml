@@ -1,0 +1,434 @@
+# Forest Keyboard v3 - Ergonomic Split Keyboard Design
+# Based on proven forestv1 concepts with enhanced layout
+# 
+# DESIGN PHILOSOPHY:
+# - 34 key split layout with enhanced thumb cluster  
+# - Proper binding system for contiguous plate
+# - Integrated electronics housing
+# - Modular case design for 3D printing
+
+units:
+  X: 0.9                    # Extrusion width (from forestv1)
+  B: 3*X                    # Binding distance (from forestv1)
+  voff: 11                  # Vertical offset for MCU area items (like tempest)
+
+points:
+  zones:
+    matrix:
+      key:
+        bind: [B, B, B, B]   # Default binding for contiguous plate
+      columns:
+        # PINKY COLUMN - Outermost, needs special binding
+        pinky:
+          key:
+            stagger: 5
+            splay: 3
+            # no bind at left edge
+            bind: [0, B, B, B]
+          rows:
+            bottom:
+              # no bind below for edge
+              bind: [0, B, 0, B]
+            home:
+            top:
+        
+        # RING FINGER COLUMN
+        ring:
+          key:
+            stagger: 2
+            splay: 1
+          rows:
+            bottom:
+            home:
+            top:
+        
+        # MIDDLE FINGER COLUMN - Reference baseline
+        middle:
+          key:
+            stagger: 0
+            splay: 0
+          rows:
+            bottom:
+            home:
+            top:
+            num:           # Extra number key
+        
+        # INDEX FINGER COLUMN  
+        index:
+          key:
+            stagger: -4
+            splay: -2
+          rows:
+            bottom:
+            home:
+            top:
+            num:           # Extra number key
+        
+        # INNER COLUMN - MCU positioned like forestv1, needs special binding
+        inner:
+          key:
+            stagger: -8
+            splay: -5
+            # increased right binding to give space for MCU (from forestv1)
+            bind: [B, B+3+21+0.5+3*X, B, B]
+          rows:
+            bottom:
+            home:
+            middle:
+              # special binding for MCU area like forestv1
+              bind: [B+3, B, B, B]
+            top:
+              # special binding for MCU area
+              bind: [B, 0, B+B, B+B]
+      
+      rows:
+        bottom:
+        home:
+        middle:
+        top:
+          # no bind above for edge
+          bind: [0, B, B, B]
+        num:
+          # no bind above for edge  
+          bind: [0, B, B, B]
+    
+    # ENHANCED THUMB CLUSTER - 3 keys with proper binding
+    thumbs:
+      anchor:
+        ref: matrix_index_bottom
+        shift: [1U + 1, -0.5U]
+      columns:
+        near:
+          key:
+            splay: 15
+            origin: [-0.5U, -0.5U]
+          rows:
+            thumb:
+              shift: [0, 0]
+              bind: [0, B, 0.25U + 0.5, 27]
+        home:
+          key:
+            splay: 0
+            origin: [-0.5U, -0.5U]
+          rows:
+            thumb:
+              shift: [0, 0] 
+              bind: [0.25U, B, 0.25U, B]
+        far:
+          key:
+            splay: -15
+            origin: [-0.5U, -0.5U]
+          rows:
+            thumb:
+              shift: [0, 0]
+              bind: [0.25U, 0, 0.25U, 35]
+      rows:
+        thumb:
+
+outlines:
+  # SWITCH CUTOUTS
+  _switch_holes:
+    - what: rectangle
+      where: true
+      size: 14
+      bound: false
+  
+  _switch_clips:
+    - what: rectangle
+      where: true
+      size: [5, 16]
+      bound: false
+  
+  # KEYCAP VISUALIZATION
+  _keys:
+    - what: rectangle
+      where: true
+      size: 18
+      bound: false
+  
+  # MAIN PLATE - Contiguous outline from binding system
+  plate:
+    - what: rectangle
+      where: true
+      bound: true
+      size: 1U
+      corner: 0.5
+  
+  # INNER PLATE AREAS (from forestv1)
+  _plate_inner_2:
+    - what: rectangle
+      where: true
+      bound: true
+      size: 1U - 2 * 2*X
+      corner: 0.5
+  
+  _plate_inner_3:
+    - what: rectangle
+      where: true
+      bound: true
+      size: 1U - 2 * 3*X
+      corner: 0.5
+  
+  # MCU COMPONENTS - Simple forestv1 approach
+  _mcu:
+    - what: rectangle
+      adjust:
+        ref: matrix_inner_middle
+        shift: [0.5U+B+3+21/2, 0.5U + 3 - 51/2 - 0.5]
+      size: [21, 51]
+  
+  _usb_cutout:
+    - what: rectangle
+      adjust:
+        ref: matrix_inner_middle
+        shift: [0.5U+B+3 + 21.0/2, 0.5U + 3 - 1*X + 5*X/2]
+      size: [8, 5*X]
+  
+  _reset_access:
+    - what: circle
+      adjust:
+        ref: matrix_inner_middle
+        shift: [0.5U+B+3 + 8, 0.5U + 3 - 15]
+      radius: 2
+  
+  # MOUNTING POSTS (4-point system like forestv1)
+  _posts_template:
+    $params: [__r__]
+    top_left:
+      what: circle
+      adjust:
+        ref: matrix_pinky_top
+        shift: [-0.5U, 0.5U]
+      radius: __r__
+    top_right:
+      what: circle
+      adjust:
+        ref: matrix_inner_top
+        shift: [0.5U+2, 0.5U]
+      radius: __r__
+    bottom_left:
+      what: circle
+      adjust:
+        ref: matrix_pinky_bottom
+        shift: [-0.5U, -0.5U]
+      radius: __r__
+    bottom_right:
+      what: circle
+      adjust:
+        ref: thumbs_home_thumb
+        shift: [0.5U+2, -0.5U]
+      radius: __r__
+  
+  _posts:
+    $extends: outlines._posts_template
+    $args: [2.6]
+  
+  _screw_holes:
+    $extends: outlines._posts_template
+    $args: [0.8]
+  
+  _lid_bosses:
+    $extends: outlines._posts_template
+    $args: [3.5]
+  
+  _lid_screw_heads:
+    $extends: outlines._posts_template
+    $args: [2.4]
+  
+  # PROGRESSIVE OUTLINE BUILDING (forestv1 approach)
+  # Step 1: Combine plate with MCU area
+  _plate_and_mcu:
+    - what: outline
+      name: plate
+    - what: outline
+      name: _mcu
+      operation: stack
+
+  # Step 2: Create board outline with expansion
+  board_outline:
+    - what: outline
+      name: _plate_and_mcu
+      expand: 0.1
+      fillet: 1
+  
+  # Step 3: All key outline for preview (like tempest.yaml all_key_outline)
+  all_key_outline:
+    - what: outline
+      name: board_outline
+    - what: outline
+      name: _keys
+      operation: subtract
+
+  # CASE COMPONENTS (forestv1 structure)
+  case_top:
+    - what: outline
+      name: plate
+    - what: outline
+      name: _switch_holes
+      operation: subtract
+  
+  case_wall:
+    - what: outline
+      name: plate
+    - what: outline
+      name: _plate_inner_3
+      operation: subtract
+  
+  case_lip:
+    - what: outline
+      name: plate
+    - what: outline
+      name: _plate_inner_2
+      operation: subtract
+  
+  # PREVIEW
+  preview:
+    - what: outline
+      name: all_key_outline
+    - what: outline
+      name: _switch_holes
+      operation: stack
+    - what: outline
+      name: _switch_clips
+      operation: stack
+    - what: outline
+      name: _usb_cutout
+      operation: stack
+    - what: outline
+      name: _reset_access
+      operation: stack
+    - what: outline
+      name: _posts
+      operation: stack
+    - what: outline
+      name: _lid_bosses
+      operation: stack
+    # wall outline
+    - what: outline
+      name: _plate_inner_3
+      operation: stack
+
+cases:
+  # MAIN BODY (forestv1 structure)
+  _body:
+    # switch depth: 8.3mm, plate: 2mm, case: 6.0mm, lid: 1.6mm
+    # total: 10mm depth, 8.4mm inner
+    - name: case_lip
+      extrude: 1.6
+    - name: case_wall
+      extrude: 6.1
+      shift: [0, 0, 1.6]
+    - name: case_top
+      extrude: 2
+      shift: [0, 0, 6 + 1.6]
+    - name: _switch_clips
+      extrude: 1
+      shift: [0, 0, 6 + 1.6]
+      operation: subtract
+    - name: _posts
+      extrude: 6 - 1.6
+      shift: [0, 0, 3.2]
+    - name: _screw_holes
+      extrude: 6 - 1.6
+      shift: [0, 0, 3.2]
+      operation: subtract
+    - name: _usb_cutout
+      extrude: 3.6
+      shift: [0, 0, 2.2]
+      operation: subtract
+  
+  # FINAL BODY
+  body:
+    - name: _body
+      what: case
+  
+  # REMOVABLE LID
+  lid:
+    - name: _plate_inner_2
+      extrude: 1.6
+    - name: _lid_bosses
+      extrude: 1.6
+      shift: [0, 0, 1.6]
+    - name: _screw_holes
+      extrude: 1.8
+      shift: [0, 0, 1.5]
+      operation: subtract
+    - name: _lid_screw_heads
+      extrude: 1.8
+      shift: [0, 0, -0.1]
+      operation: subtract
+
+pcbs:
+  forest_v3:
+    outlines:
+      main:
+        outline: board_outline
+        layer: Edge.Cuts
+    footprints:
+      # MX SWITCHES
+      mx_switches:
+        what: mx
+        where: true
+        params:
+          hotswap: true
+          reverse: true
+          keycaps: true
+          from: "{{colrow}}"
+          to: "{{column_net}}"
+      
+      # DIODES
+      diodes:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+          rotate: 180
+      
+      # MICROCONTROLLER - Using matrix_inner_middle reference to match outline
+      mcu:
+        what: promicro
+        where:
+          - ref: matrix_inner_middle
+            shift: [0.5U+B+3+21/2, 0.5U + 3 - 51/2 - 0.5]
+            rotate: 270
+        params:
+          orientation: down
+          P4: P4
+          P5: P5
+          P6: P6
+          P7: P7
+          P14: P14
+          P15: P15
+          P18: P18
+          P19: P19
+          P20: P20
+          P3: P3
+      
+      # RESET BUTTON - Using matrix_inner_middle reference to match MCU
+      reset:
+        what: button
+        where:
+          - ref: matrix_inner_middle
+            shift: [0.5U+B+3 + 8, 0.5U + 3 - 15]
+        params:
+          from: GND
+          to: RST
+      
+      # MOUNTING HOLES
+      mounting_holes:
+        what: ceoloide/mounting_hole_npth
+        where:
+          - ref: matrix_pinky_top
+            shift: [-0.5U, 0.5U]
+          - ref: matrix_inner_top
+            shift: [0.5U+2, 0.5U]
+          - ref: matrix_pinky_bottom
+            shift: [-0.5U, -0.5U]
+          - ref: thumbs_home_thumb
+            shift: [0.5U+2, -0.5U]
+        params:
+          hole_size: 2.5
+          hole_drill: 2.5

@@ -1,0 +1,9 @@
+{
+  "name": "iris",
+  "description": "Iris - Split ortholinear keyboard with 4x6+5 layout",
+  "key_count": 54,
+  "layout_functions": ["LAYOUT"],
+  "template_file": "iris.txt",
+  "author": "Generated from QMK default",
+  "tags": ["split", "ortholinear", "4x6+5"]
+}

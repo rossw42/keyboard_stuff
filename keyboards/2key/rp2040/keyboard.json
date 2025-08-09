@@ -1,0 +1,31 @@
+{
+    "keyboard_name": "2key",
+    "maintainer:": "rossw",
+    "manufacturer": "woodhome",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "cols": ["GP4"],
+        "rows": ["GP5", "GP7"]
+    },
+    "diode_direction": "COL2ROW",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0x"
+    },
+
+    "backlight": {
+        "pin": "GP25"
+    },
+    "ws2812": {
+        "pin": "GP25"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+          { "matrix": [0, 0], "x": 0, "y": 0 },
+          { "matrix": [1, 0], "x": 0, "y": 1 }]
+        }
+    }
+}

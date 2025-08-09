@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+"""
+QMK Format Converter - Simple Entry Point
+
+This is a user-friendly wrapper for the QMK Format Converter CLI.
+Simply run: ./qmk-convert [options]
+"""
+import sys
+import os
+from pathlib import Path
+
+# Add the current directory to the Python path
+script_dir = Path(__file__).parent
+sys.path.insert(0, str(script_dir))
+
+# Import and run the CLI
+from cli import main
+
+if __name__ == '__main__':
+    sys.exit(main())

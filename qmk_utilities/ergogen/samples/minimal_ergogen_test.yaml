@@ -1,0 +1,24 @@
+# Minimal Ergogen Test - Just Points and Outline
+# This should definitely work in https://ergogen.xyz
+
+points:
+  zones:
+    main:
+      key:
+        padding: 19.05
+        tags: [key]
+      columns:
+        c0:
+        c1:
+        c2:
+      rows:
+        r0:
+        r1:
+        r2:
+
+outlines:
+  board:
+    - what: rectangle
+      where: [key]
+      size: [80, 80]
+      fillet: 2

@@ -1,0 +1,16 @@
+{
+    "name": "3key-1x3",
+    "vendorId": "00103",
+    "productId": "0x0000",
+    "matrix": {
+        "rows": 3,
+        "cols": 1
+    },
+    "layouts": {
+        "keymap": [
+        ["0,0"], 
+        ["1,0"], 
+        ["2,0"]
+    ]
+    }
+}

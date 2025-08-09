@@ -1,0 +1,15 @@
+{
+    "name": "4key-2x2",
+    "vendorId": "00202",
+    "productId": "0x0000",
+    "matrix": {
+        "rows": 2,
+        "cols": 2
+    },
+    "layouts": {
+        "keymap": [
+        ["0,0"], ["0,1"],
+        ["1,0"], ["1,1"]
+    ]
+    }
+}

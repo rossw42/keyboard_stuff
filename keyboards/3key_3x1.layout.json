@@ -1,0 +1,12 @@
+{
+  "name": "3key-3x1",
+  "vendorProductId": 50528256,
+  "macros": ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  "layers": [
+    ["KC_1", "KC_2", "KC_3"],
+    ["KC_TRNS", "KC_TRNS", "KC_TRNS"],
+    ["KC_TRNS", "KC_TRNS", "KC_NO"],
+    ["KC_NO", "KC_NO", "KC_NO"]
+  ],
+  "encoders": []
+}

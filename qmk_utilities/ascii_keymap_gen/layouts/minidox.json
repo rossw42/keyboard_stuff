@@ -1,0 +1,14 @@
+{
+  "name": "minidox",
+  "description": "Minidox - Compact 36-key split keyboard",
+  "key_count": 36,
+  "layout_functions": [
+    "LAYOUT"
+  ],
+  "template_file": "minidox.txt",
+  "author": "Generated from QMK default",
+  "tags": [
+    "split",
+    "split"
+  ]
+}

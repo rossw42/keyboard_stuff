@@ -1,0 +1,158 @@
+{
+  "name": "ergogen-dxf-viewer",
+  "displayName": "Ergogen DXF Viewer",
+  "description": "Integrated DXF viewer for Ergogen keyboard design workflow",
+  "version": "2.0.0",
+  "publisher": "ergogen-tools",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "dxf",
+    "ergogen",
+    "keyboard",
+    "cad",
+    "viewer"
+  ],
+  "activationEvents": [
+    "onCommand:ergogen-dxf-viewer.openViewer",
+    "onCommand:ergogen-dxf-viewer.runErgogen",
+    "workspaceContains:**/*.yaml",
+    "workspaceContains:**/*.yml"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ergogen-dxf-viewer.openViewer",
+        "title": "Open DXF Viewer",
+        "category": "Ergogen",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "ergogen-dxf-viewer.runErgogen",
+        "title": "Run Ergogen",
+        "category": "Ergogen",
+        "icon": "$(play)"
+      },
+      {
+        "command": "ergogen-dxf-viewer.refreshViewer",
+        "title": "Refresh DXF Viewer",
+        "category": "Ergogen",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "ergogen-dxf-viewer.fitToWindow",
+        "title": "Fit DXF to Window",
+        "category": "Ergogen",
+        "icon": "$(screen-full)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ergogen-dxf-viewer.runErgogen",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "resourceExtname == .yaml || resourceExtname == .yml"
+      },
+      {
+        "command": "ergogen-dxf-viewer.openViewer",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceExtname == .yaml || resourceExtname == .yml",
+          "command": "ergogen-dxf-viewer.runErgogen",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceExtname == .yaml || resourceExtname == .yml",
+          "command": "ergogen-dxf-viewer.runErgogen",
+          "group": "1_ergogen"
+        },
+        {
+          "when": "resourceExtname == .dxf",
+          "command": "ergogen-dxf-viewer.openViewer",
+          "group": "1_ergogen"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Ergogen DXF Viewer",
+      "properties": {
+        "ergogen-dxf-viewer.autoRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically refresh the viewer when DXF files change"
+        },
+        "ergogen-dxf-viewer.autoRunErgogen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run Ergogen when YAML files are saved"
+        },
+        "ergogen-dxf-viewer.ergogenCommand": {
+          "type": "string",
+          "default": "ergogen",
+          "description": "Command to run Ergogen (e.g., 'npx ergogen' or full path)"
+        },
+        "ergogen-dxf-viewer.outputDirectory": {
+          "type": "string",
+          "default": "output",
+          "description": "Default output directory name for Ergogen"
+        },
+        "ergogen-dxf-viewer.theme": {
+          "type": "string",
+          "enum": ["dark", "light", "auto"],
+          "default": "auto",
+          "description": "Color theme for the DXF viewer"
+        },
+        "ergogen-dxf-viewer.lineWidth": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0.5,
+          "maximum": 5,
+          "description": "Line width for DXF rendering"
+        },
+        "ergogen-dxf-viewer.gridEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show grid in the DXF viewer"
+        },
+        "ergogen-dxf-viewer.showDimensions": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show dimensions in the DXF viewer"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo 'No compilation needed for JS'",
+    "package": "vsce package",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@vscode/vsce": "^2.22.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/ergogen-dxf-viewer"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ergogen-dxf-viewer/issues"
+  },
+  "homepage": "https://github.com/yourusername/ergogen-dxf-viewer#readme",
+  "license": "MIT"
+}

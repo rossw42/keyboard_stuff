@@ -1,0 +1,9 @@
+{
+  "name": "planck",
+  "description": "Planck - 4x12 ortholinear keyboard",
+  "key_count": 48,
+  "layout_functions": ["LAYOUT_planck_grid"],
+  "template_file": "planck.txt",
+  "author": "Generated from QMK default",
+  "tags": ["ortholinear", "compact", "40%"]
+}

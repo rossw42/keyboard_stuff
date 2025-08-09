@@ -1,0 +1,12 @@
+{
+    "name": "2key",
+    "vendorId": "0FEED",
+    "productId": "0x0000",
+    "matrix": {
+        "rows": 2,
+        "cols": 1
+    },
+    "layouts": {
+        "keymap": [["0,0"], ["1,0"]]
+    }
+}

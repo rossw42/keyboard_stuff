@@ -1,0 +1,13 @@
+{
+  "name": "ortho75",
+  "description": "Ortho75 - 75% ortholinear keyboard - 5x15 grid layout",
+  "key_count": 75,
+  "layout_functions": [
+    "LAYOUT"
+  ],
+  "template_file": "ortho75.txt",
+  "author": "Generated from QMK default",
+  "tags": [
+    "ortholinear"
+  ]
+}

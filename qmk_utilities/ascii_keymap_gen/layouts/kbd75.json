@@ -1,0 +1,13 @@
+{
+  "name": "kbd75",
+  "description": "Kbd75 - Popular 75% keyboard with function row and arrow keys",
+  "key_count": 82,
+  "layout_functions": [
+    "LAYOUT"
+  ],
+  "template_file": "kbd75.txt",
+  "author": "Generated from QMK default",
+  "tags": [
+    "standard"
+  ]
+}
