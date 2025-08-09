@@ -6,8 +6,8 @@ This repository consolidates various keyboard-related projects and utilities.
 
 ## Contents
 
-- **ergogen/** - Keyboard layout generation using Ergogen, plus DXF viewers and related tools (when I can figure out how YAML works)
-- **keyboards/** - Keyboard configurations and layouts (spoiler: most don't compile)
+- **ergogen/** - Keyboard layout generation using Ergogen, plus DXF viewers and related tools 
+- **keyboards/** - Keyboard configurations and layouts 
 - **qmk_utilities/** - Utilities for working with QMK firmware (emphasis on "utilities" not "working")
 - **switch_research/** - Research and documentation on mechanical keyboard switches
 
