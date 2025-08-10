@@ -1,0 +1,169 @@
+# Sandwich Mount Example - 2x2 Keyboard
+# Through-bolts sandwich plate between case halves
+# Balanced typing, even force distribution
+
+meta:
+  engine: 4.1.0
+  name: sandwich_mount_example
+  version: 1.0
+
+units:
+  kx: 19.05
+  ky: 19.05
+  # Minimalistic parameters
+  case_wall: 2.0
+  case_height: 6  # Each half
+  plate_thickness: 1.6
+
+points:
+  zones:
+    matrix:
+      key:
+        padding: ky
+        tags: [key]
+      columns:
+        col0:
+        col1:
+      rows:
+        row0:
+        row1:
+
+outlines:
+  # PCB outline
+  board:
+    - what: polygon
+      operation: stack
+      fillet: 2
+      points:
+        - ref: matrix_col0_row0
+          shift: [-10, -10]
+        - ref: matrix_col1_row0
+          shift: [10, -10]
+        - ref: matrix_col1_row1
+          shift: [10, 10]
+        - ref: matrix_col0_row1
+          shift: [-10, 10]
+
+  # Switch cutouts for plate
+  switch_cutouts:
+    - what: rectangle
+      where: [key]
+      size: [14, 14]
+      operation: add
+
+  # Switch plate with through-holes
+  switch_plate:
+    - what: outline
+      name: board
+      fillet: 1
+    # Switch cutouts
+    - what: rectangle
+      where: [key]
+      size: [14, 14]
+      operation: subtract
+    # Through-holes for sandwich bolts
+    - what: circle
+      where: matrix_col0_row0
+      radius: 1.1
+      adjust:
+        shift: [-kx/2, -ky/2]
+      operation: subtract
+    - what: circle
+      where: matrix_col1_row0
+      radius: 1.1
+      adjust:
+        shift: [kx/2, -ky/2]
+      operation: subtract
+    - what: circle
+      where: matrix_col1_row1
+      radius: 1.1
+      adjust:
+        shift: [kx/2, ky/2]
+      operation: subtract
+    - what: circle
+      where: matrix_col0_row1
+      radius: 1.1
+      adjust:
+        shift: [-kx/2, ky/2]
+      operation: subtract
+
+  # Minimalistic case outline
+  case_outline:
+    - what: outline
+      name: board
+      expand: case_wall
+      fillet: 2
+
+  # Through-holes for sandwich bolts
+  through_holes:
+    - what: circle
+      where: matrix_col0_row0
+      radius: 1.1
+      adjust:
+        shift: [-kx/2, -ky/2]
+    - what: circle
+      where: matrix_col1_row0
+      radius: 1.1
+      adjust:
+        shift: [kx/2, -ky/2]
+    - what: circle
+      where: matrix_col1_row1
+      radius: 1.1
+      adjust:
+        shift: [kx/2, ky/2]
+    - what: circle
+      where: matrix_col0_row1
+      radius: 1.1
+      adjust:
+        shift: [-kx/2, ky/2]
+
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: board
+      holes:
+        outline: through_holes
+        layer: Edge.Cuts
+
+cases:
+  # Switch plate
+  plate:
+    - name: switch_plate
+      extrude: 1.6
+
+  # Bottom case half
+  bottom_case:
+    - name: case_outline
+      extrude: case_height
+    - name: through_holes
+      extrude: case_height + 1
+      operation: subtract
+
+  # Top case half
+  top_case:
+    - name: case_outline
+      extrude: case_height
+    - name: through_holes
+      extrude: case_height + 1
+      operation: subtract
+
+  # Complete sandwich assembly
+  sandwich_assembly:
+    # Bottom half
+    - name: case_outline
+      extrude: case_height
+    # Plate layer
+    - name: switch_plate
+      extrude: plate_thickness
+      shift: [0, 0, case_height]
+      operation: add
+    # Top half
+    - name: case_outline
+      extrude: case_height
+      shift: [0, 0, case_height + plate_thickness]
+      operation: add
+    # Through-holes for bolts
+    - name: through_holes
+      extrude: case_height * 2 + plate_thickness + 1
+      operation: subtract

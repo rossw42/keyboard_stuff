@@ -1,0 +1,166 @@
+# Gasket Mount Example - 2x2 Keyboard
+# Plate floats on gaskets between case halves
+# Superior typing comfort, excellent sound dampening
+
+meta:
+  engine: 4.1.0
+  name: gasket_mount_example
+  version: 1.0
+
+units:
+  # Standard MX key spacing
+  kx: 19.05
+  ky: 19.05
+  
+  # Minimalistic case parameters
+  case_wall: 2.0
+  case_height: 10
+  plate_thickness: 1.6
+  
+  # Gasket parameters
+  gasket_thickness: 1.5
+  gasket_width: 3
+  gasket_depth: 0.8
+  
+  # Mounting parameters
+  mount_hole_diameter: 2.2
+
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [50, -50]
+      key:
+        padding: ky
+        spread: kx
+        tags: [key, switch]
+      columns:
+        col0:
+          key.column_net: col0
+        col1:
+          key.column_net: col1
+      rows:
+        row0:
+          row_net: row0
+        row1:
+          row_net: row1
+    
+    # Gasket contact points
+    gasket_points:
+      anchor:
+        ref: matrix_col0_row0
+        shift: [-kx/2 - gasket_width/2, ky/2]
+      key:
+        width: gasket_width
+        height: gasket_width
+        tags: [gasket_contact]
+      columns:
+        gasket_left:
+        gasket_right:
+          key.shift: [kx + gasket_width, 0]
+      rows:
+        top_gaskets:
+        bottom_gaskets:
+          shift: [0, -ky]
+    
+    # Case mounting points (screws only connect case halves)
+    case_mounts:
+      anchor:
+        ref: matrix_col0_row0
+        shift: [-kx/2 - 10, ky/2 + 10]
+      key:
+        tags: [case_mount]
+      columns:
+        case_left:
+        case_right:
+          key.shift: [kx + 20, 0]
+      rows:
+        top_case:
+        bottom_case:
+          shift: [0, -ky - 20]
+
+outlines:
+  # Floating plate (no direct mounting)
+  switch_plate:
+    - what: rectangle
+      where: [switch]
+      bound: true
+      size: [kx, ky]
+      fillet: 1
+    # Switch cutouts
+    - what: rectangle
+      where: [switch]
+      size: [14, 14]
+      operation: subtract
+    # Gasket contact areas on plate
+    - what: rectangle
+      where: [gasket_contact]
+      size: [gasket_width, gasket_width]
+      operation: add
+  
+  # Case with gasket channels
+  case_outline:
+    - what: outline
+      name: switch_plate
+      expand: case_wall
+      fillet: 2
+    # Case mounting holes (screws only connect case halves)
+    - what: circle
+      where: [case_mount]
+      radius: mount_hole_diameter/2
+      operation: subtract
+
+  # Gasket channels
+  gasket_channels:
+    - what: rectangle
+      where: [gasket_contact]
+      size: [gasket_width + 0.5, gasket_width + 0.5]
+
+cases:
+  # Floating plate (no direct mounting)
+  plate:
+    - name: switch_plate
+      extrude: 1.6
+
+  # Gasket mount case with channels
+  gasket_mount_case:
+    # Bottom case half
+    - name: case_outline
+      extrude: case_height/2
+    # Bottom gasket channels
+    - name: gasket_channels
+      extrude: gasket_depth
+      shift: [0, 0, case_height/2 - gasket_depth]
+      operation: subtract
+    
+    # Top case half
+    - name: case_outline
+      extrude: case_height/2
+      shift: [0, 0, case_height/2 + plate_thickness + gasket_thickness]
+      operation: add
+    # Top gasket channels
+    - name: gasket_channels
+      extrude: gasket_depth
+      shift: [0, 0, case_height/2 + plate_thickness + gasket_thickness - gasket_depth]
+      operation: subtract
+    
+    # Case mounting holes (only connect case halves)
+    - what: circle
+      where: [case_mount]
+      radius: mount_hole_diameter/2
+      extrude: case_height + plate_thickness + gasket_thickness + 1
+      operation: subtract
+
+pcbs:
+  gasket_mount_pcb:
+    outlines:
+      main:
+        outline: switch_plate
+    footprints:
+      switches:
+        what: mx
+        where: [switch]
+        params:
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"

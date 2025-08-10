@@ -1,0 +1,140 @@
+# Bottom Mount Example - 2x2 Keyboard
+# Plate attaches to mounting points on the bottom case
+# More consistent stiffness, allows floating top case design
+
+meta:
+  engine: 4.1.0
+  name: bottom_mount_example
+  version: 1.0
+
+units:
+  # Standard MX key spacing
+  kx: 19.05
+  ky: 19.05
+  
+  # Minimalistic case parameters
+  case_wall: 2.0
+  case_height: 10
+  plate_thickness: 1.6
+  
+  # Mounting parameters
+  mount_hole_diameter: 2.2
+  boss_height: 4
+
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [50, -50]
+      key:
+        padding: ky
+        spread: kx
+        tags: [key, switch]
+      columns:
+        col0:
+          key.column_net: col0
+        col1:
+          key.column_net: col1
+      rows:
+        row0:
+          row_net: row0
+        row1:
+          row_net: row1
+    
+    # Bottom mounting points
+    bottom_mounts:
+      anchor:
+        ref: matrix_col0_row0
+        shift: [-kx/2, ky/2]
+      key:
+        tags: [bottom_mount]
+      columns:
+        mount_left:
+        mount_right:
+          key.shift: [kx, 0]
+      rows:
+        top_mounts:
+        bottom_mounts:
+          shift: [0, -ky]
+
+outlines:
+  # Plate with bottom mounting holes
+  switch_plate:
+    - what: rectangle
+      where: [switch]
+      bound: true
+      size: [kx, ky]
+      fillet: 1
+    # Switch cutouts
+    - what: rectangle
+      where: [switch]
+      size: [14, 14]
+      operation: subtract
+    # Bottom mounting holes
+    - what: circle
+      where: [bottom_mount]
+      radius: mount_hole_diameter/2
+      operation: subtract
+  
+  # Bottom case with mounting bosses
+  case_bottom:
+    - what: outline
+      name: switch_plate
+      expand: case_wall
+      fillet: 2
+    # Add mounting boss areas
+    - what: circle
+      where: [bottom_mount]
+      radius: 3
+      operation: add
+  
+  # Floating top case (suspended design)
+  case_top:
+    - what: outline
+      name: switch_plate
+      expand: case_wall - 0.5
+      fillet: 2
+
+cases:
+  # Switch plate with bottom mounting holes
+  plate:
+    - name: switch_plate
+      extrude: 1.6
+
+  # Minimalistic bottom mount case
+  bottom_mount_case:
+    # Bottom case with mounting bosses
+    - name: case_bottom
+      extrude: case_height
+    # Mounting bosses
+    - what: circle
+      where: [bottom_mount]
+      radius: 3
+      extrude: boss_height
+      shift: [0, 0, case_height - boss_height]
+      operation: add
+    # Floating top case
+    - name: case_top
+      extrude: 2
+      shift: [0, 0, case_height - 2]
+      operation: add
+    # Mounting holes
+    - what: circle
+      where: [bottom_mount]
+      radius: mount_hole_diameter/2
+      extrude: case_height + 1
+      operation: subtract
+
+pcbs:
+  bottom_mount_pcb:
+    outlines:
+      main:
+        outline: switch_plate
+    footprints:
+      switches:
+        what: mx
+        where: [switch]
+        params:
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"

@@ -19,8 +19,33 @@ class DxfParser {
             max_y: -Infinity
         };
 
-        let i = 0;
-        while (i < lines.length) {
+        // Find the ENTITIES section
+        let entitiesStart = -1;
+        let entitiesEnd = -1;
+        
+        for (let i = 0; i < lines.length - 1; i++) {
+            if (lines[i] === '2' && lines[i + 1] === 'ENTITIES') {
+                entitiesStart = i + 2;
+            } else if (entitiesStart !== -1 && lines[i] === '0' && lines[i + 1] === 'ENDSEC') {
+                entitiesEnd = i;
+                break;
+            }
+        }
+        
+        if (entitiesStart === -1) {
+            // No ENTITIES section found
+            return {
+                entities: [],
+                entity_count: 0,
+                bounds: { min_x: 0, min_y: 0, max_x: 100, max_y: 100 },
+                entity_types: {},
+                layers: []
+            };
+        }
+        
+        // Process entities within the ENTITIES section
+        let i = entitiesStart;
+        while (i < (entitiesEnd !== -1 ? entitiesEnd : lines.length)) {
             if (lines[i] === '0' && i + 1 < lines.length) {
                 const entityType = lines[i + 1];
                 

@@ -2,11 +2,11 @@
   "name": "ergogen-dxf-viewer",
   "displayName": "Ergogen DXF Viewer",
   "description": "Integrated DXF viewer for Ergogen keyboard design workflow",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "publisher": "ergogen-tools",
-  "icon": "icon.png",
+
   "engines": {
-    "vscode": "^1.74.0"
+    "vscode": "^1.102.0"
   },
   "categories": [
     "Visualization",
@@ -112,7 +112,11 @@
         },
         "ergogen-dxf-viewer.theme": {
           "type": "string",
-          "enum": ["dark", "light", "auto"],
+          "enum": [
+            "dark",
+            "light",
+            "auto"
+          ],
           "default": "auto",
           "description": "Color theme for the DXF viewer"
         },
@@ -143,16 +147,18 @@
     "test": "node ./test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.74.0",
-    "@vscode/vsce": "^2.22.0"
+    "@types/vscode": "^1.102.0",
+    "@vscode/vsce": "^2.32.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yourusername/ergogen-dxf-viewer"
+    "url": "git+https://github.com/yourusername/ergogen-dxf-viewer.git"
   },
   "bugs": {
     "url": "https://github.com/yourusername/ergogen-dxf-viewer/issues"
   },
   "homepage": "https://github.com/yourusername/ergogen-dxf-viewer#readme",
-  "license": "MIT"
+  "license": "MIT",
+  "author": "",
+  "type": "commonjs"
 }

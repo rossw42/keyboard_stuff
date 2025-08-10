@@ -149,8 +149,15 @@ async function runErgogen() {
         const config = vscode.workspace.getConfiguration('ergogen-dxf-viewer');
         const ergogenCmd = config.get('ergogenCommand', 'ergogen');
         
-        outputChannel.appendLine(`Command: ${ergogenCmd} ${yamlFile.fileName}`);
+        // Create output directory based on filename
+        const yamlBaseName = path.basename(yamlFile.fileName, path.extname(yamlFile.fileName));
+        const outputDir = path.join(workingDir, yamlBaseName);
+        
+        const args = ['-o', outputDir, yamlFile.fileName];
+        
+        outputChannel.appendLine(`Command: ${ergogenCmd} ${args.join(' ')}`);
         outputChannel.appendLine(`Working directory: ${workingDir}`);
+        outputChannel.appendLine(`Output directory: ${outputDir}`);
         
         // Show progress
         vscode.window.withProgress({
@@ -159,7 +166,7 @@ async function runErgogen() {
             cancellable: true
         }, async (progress, token) => {
             return new Promise((resolve, reject) => {
-                const ergogenProcess = spawn(ergogenCmd, [yamlFile.fileName], {
+                const ergogenProcess = spawn(ergogenCmd, args, {
                     cwd: workingDir,
                     shell: true
                 });
@@ -184,8 +191,7 @@ async function runErgogen() {
                         outputChannel.appendLine('✅ Ergogen completed successfully!');
                         vscode.window.showInformationMessage('✅ Ergogen completed!');
                         
-                        // Set up file watching
-                        const outputDir = path.join(workingDir, config.get('outputDirectory', 'output'));
+                        // Set up file watching for the filename-based output directory
                         setupFileWatching(outputDir);
                         
                         // Refresh viewer
@@ -364,7 +370,15 @@ async function loadDxfFile(filename) {
     }
     
     try {
-        const filePath = path.join(outputDir, filename);
+        // Find the file in the scanned files list to get the correct path
+        const files = scanForDxfFiles(outputDir);
+        const fileInfo = files.find(f => f.name === filename);
+        
+        if (!fileInfo) {
+            throw new Error(`File not found in scan results: ${filename}`);
+        }
+        
+        const filePath = fileInfo.fullPath;
         if (!fs.existsSync(filePath)) {
             throw new Error(`File not found: ${filePath}`);
         }
@@ -522,26 +536,76 @@ function findYamlFiles() {
 }
 
 function getOutputDirectory() {
-    const config = vscode.workspace.getConfiguration('ergogen-dxf-viewer');
-    const outputDirName = config.get('outputDirectory', 'output');
-    
     if (state.currentOutputDir && fs.existsSync(state.currentOutputDir)) {
         return state.currentOutputDir;
     }
     
     if (state.lastActiveYamlFile) {
-        const outputDir = path.join(state.lastActiveYamlFile.workingDir, outputDirName);
-        if (fs.existsSync(outputDir)) {
-            return outputDir;
+        const workingDir = state.lastActiveYamlFile.workingDir;
+        
+        // Primary: filename-based directory (what the extension creates)
+        const yamlBaseName = path.basename(state.lastActiveYamlFile.fileName, path.extname(state.lastActiveYamlFile.fileName));
+        const filenameDir = path.join(workingDir, yamlBaseName);
+        if (fs.existsSync(filenameDir)) {
+            return filenameDir;
+        }
+        
+        // Fallback: meta.name from YAML file
+        const projectName = getProjectNameFromYaml(state.lastActiveYamlFile.filePath);
+        if (projectName) {
+            const projectDir = path.join(workingDir, projectName);
+            if (fs.existsSync(projectDir)) {
+                return projectDir;
+            }
+        }
+        
+        // Final fallback: simple output directory
+        const config = vscode.workspace.getConfiguration('ergogen-dxf-viewer');
+        const outputDirName = config.get('outputDirectory', 'output');
+        const simpleOutputDir = path.join(workingDir, outputDirName);
+        if (fs.existsSync(simpleOutputDir)) {
+            return simpleOutputDir;
         }
     }
     
-    if (vscode.workspace.workspaceFolders) {
-        const workspaceRoot = vscode.workspace.workspaceFolders[0].uri.fsPath;
-        const outputDir = path.join(workspaceRoot, outputDirName);
-        if (fs.existsSync(outputDir)) {
-            return outputDir;
+    return null;
+}
+
+/**
+ * Extract project name from YAML file's meta.name field
+ */
+function getProjectNameFromYaml(yamlFilePath) {
+    try {
+        const content = fs.readFileSync(yamlFilePath, 'utf8');
+        
+        // Simple regex to extract meta.name (works for most YAML structures)
+        const metaNameMatch = content.match(/^\s*name:\s*(.+)$/m);
+        if (metaNameMatch) {
+            return metaNameMatch[1].trim().replace(/['"]/g, ''); // Remove quotes if present
         }
+        
+        // Alternative pattern for nested meta structure
+        const lines = content.split('\n');
+        let inMeta = false;
+        for (const line of lines) {
+            const trimmed = line.trim();
+            if (trimmed === 'meta:') {
+                inMeta = true;
+                continue;
+            }
+            if (inMeta) {
+                if (trimmed.startsWith('name:')) {
+                    const name = trimmed.substring(5).trim().replace(/['"]/g, '');
+                    return name;
+                }
+                // Exit meta section if we hit another top-level key
+                if (line.match(/^[a-zA-Z]/)) {
+                    break;
+                }
+            }
+        }
+    } catch (error) {
+        outputChannel.appendLine(`Warning: Could not parse YAML file for project name: ${error.message}`);
     }
     
     return null;
