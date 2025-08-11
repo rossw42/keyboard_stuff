@@ -1,0 +1,323 @@
+# Gasket Mount Keyboard Example
+# Most complex mounting with gasket channels and no metal-to-metal contact
+# Based on ergogen_design_prompt.md guidelines
+
+meta:
+  name: gasket_mount_macropad
+  description: 4x2 macropad with gasket mount system
+  author: Ergogen Design Prompt
+  version: 1.0
+
+units:
+  # Key spacing
+  kx: 19.05  # MX key spacing
+  ky: 19.05  # MX key spacing
+  
+  # Gasket specifications
+  gasket_width: 3           # Width of gasket channel
+  gasket_depth: 1.5         # Depth of gasket channel
+  gasket_thickness: 2       # Gasket material thickness
+  plate_thickness: 1.5      # Plate thickness
+  
+  # Case specifications
+  wall_thickness: 4         # Thicker walls for gasket channels
+  case_height: 15           # Taller for gasket system
+  gasket_clearance: 0.2     # Clearance around gasket
+  board_fillet: 2
+
+points:
+  zones:
+    matrix:
+      key:
+        padding: ky
+        spread: kx
+        tags: [key]
+      columns:
+        col0:
+          key:
+            column_net: C0
+        col1:
+          key:
+            column_net: C1
+        col2:
+          key:
+            column_net: C2
+        col3:
+          key:
+            column_net: C3
+      rows:
+        row0:
+          row_net: R0
+        row1:
+          row_net: R1
+    
+    # Gasket contact points around plate perimeter
+    gasket_contacts:
+      anchor:
+        ref: matrix_col1_row0
+        shift: [0, 0]
+      key:
+        tags: [gasket]
+      columns:
+        # Top gasket line
+        gasket_t1:
+          key:
+            name: gasket_t1
+          shift: [-25, 12]
+        gasket_t2:
+          key:
+            name: gasket_t2
+          shift: [0, 12]
+        gasket_t3:
+          key:
+            name: gasket_t3
+          shift: [25, 12]
+        # Bottom gasket line
+        gasket_b1:
+          key:
+            name: gasket_b1
+          shift: [-25, -27]
+        gasket_b2:
+          key:
+            name: gasket_b2
+          shift: [0, -27]
+        gasket_b3:
+          key:
+            name: gasket_b3
+          shift: [25, -27]
+        # Left gasket line
+        gasket_l1:
+          key:
+            name: gasket_l1
+          shift: [-35, 2]
+        gasket_l2:
+          key:
+            name: gasket_l2
+          shift: [-35, -12]
+        # Right gasket line
+        gasket_r1:
+          key:
+            name: gasket_r1
+          shift: [35, 2]
+        gasket_r2:
+          key:
+            name: gasket_r2
+          shift: [35, -12]
+
+outlines:
+  # Basic board outline (for PCB)
+  board:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-10, -10]
+        - ref: matrix_col3_row0
+          shift: [10, -10]
+        - ref: matrix_col3_row1
+          shift: [10, 10]
+        - ref: matrix_col0_row1
+          shift: [-10, 10]
+
+  # Plate outline with gasket contact areas
+  plate_main:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-15, -15]
+        - ref: matrix_col3_row0
+          shift: [15, -15]
+        - ref: matrix_col3_row1
+          shift: [15, 15]
+        - ref: matrix_col0_row1
+          shift: [-15, 15]
+
+  # Plate gasket contact surfaces
+  plate_gasket_contacts:
+    - what: circle
+      where: [gasket]
+      radius: gasket_width/2
+      bound: false
+
+  # Case outline (larger for gasket channels)
+  case_outline:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-40, -32]
+        - ref: matrix_col3_row0
+          shift: [40, -32]
+        - ref: matrix_col3_row1
+          shift: [40, 20]
+        - ref: matrix_col0_row1
+          shift: [-40, 20]
+
+  # Case walls
+  case_walls:
+    - what: outline
+      name: case_outline
+      expand: wall_thickness
+
+  # Gasket channels in case (top and bottom)
+  gasket_channels:
+    - what: circle
+      where: [gasket]
+      radius: gasket_width/2 + gasket_clearance
+      bound: false
+
+  # Inner gasket channel (smaller)
+  gasket_channels_inner:
+    - what: circle
+      where: [gasket]
+      radius: gasket_width/2 - gasket_thickness/2
+      bound: false
+
+  # Switch cutouts
+  switch_cutouts:
+    - what: rectangle
+      where: [key]
+      size: 14  # MX switch cutout
+      bound: false
+
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: board
+      switches:
+        outline: switch_cutouts
+        layer: Edge.Cuts
+    footprints:
+      # Switches with diodes
+      switches:
+        what: mx
+        where: [key]
+        params:
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        
+      diodes:
+        what: diode
+        where: [key]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+
+      # Controller (ProMicro)
+      controller:
+        what: promicro
+        where:
+          ref: matrix_col1_row0
+          shift: [0, -25]
+          rotate: 270
+        params:
+          orientation: down
+
+cases:
+  # Plate with gasket contact surfaces
+  plate:
+    - name: plate_main
+      extrude: plate_thickness
+    - name: switch_cutouts
+      extrude: plate_thickness + 1
+      operation: subtract
+    - name: plate_gasket_contacts
+      extrude: gasket_thickness/2
+      operation: add
+
+  # Top case components
+  _top_outer:
+    - name: case_walls
+      extrude: case_height/2
+
+  _top_inner:
+    - name: case_outline
+      extrude: case_height/2
+
+  _top_gasket_channels:
+    - name: gasket_channels
+      extrude: gasket_depth
+
+  _top_gasket_channels_inner:
+    - name: gasket_channels_inner
+      extrude: gasket_depth + 1
+
+  # Top case with gasket channels
+  case_top:
+    - what: case
+      name: _top_outer
+      operation: add
+    - what: case
+      name: _top_inner
+      operation: subtract
+    - what: case
+      name: _top_gasket_channels
+      operation: subtract
+    - what: case
+      name: _top_gasket_channels_inner
+      operation: add
+
+  # Bottom case components
+  _bottom_outer:
+    - name: case_walls
+      extrude: case_height/2
+
+  _bottom_inner:
+    - name: case_outline
+      extrude: case_height/2
+
+  _bottom_gasket_channels:
+    - name: gasket_channels
+      extrude: gasket_depth
+
+  _bottom_gasket_channels_inner:
+    - name: gasket_channels_inner
+      extrude: gasket_depth + 1
+
+  # Bottom case with gasket channels
+  case_bottom:
+    - what: case
+      name: _bottom_outer
+      operation: add
+    - what: case
+      name: _bottom_inner
+      operation: subtract
+    - what: case
+      name: _bottom_gasket_channels
+      operation: subtract
+    - what: case
+      name: _bottom_gasket_channels_inner
+      operation: add
+
+  # Gasket material (for reference)
+  gasket_material:
+    - name: gasket_channels
+      extrude: gasket_thickness
+    - name: gasket_channels_inner
+      extrude: gasket_thickness + 1
+      operation: subtract
+
+  # Assembly view (no direct metal contact)
+  assembly:
+    - what: case
+      name: case_bottom
+      operation: add
+    - what: case
+      name: gasket_material
+      operation: add
+      shift: [0, 0, case_height/2 - gasket_depth + gasket_thickness/2]
+    - what: case
+      name: plate
+      operation: add
+      shift: [0, 0, case_height/2]
+    - what: case
+      name: case_top
+      operation: add
+      shift: [0, 0, case_height/2 + plate_thickness + gasket_clearance]

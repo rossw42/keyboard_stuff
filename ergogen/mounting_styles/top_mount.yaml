@@ -1,0 +1,284 @@
+# Top Mount Keyboard Example
+# Plate mounting tabs attach to top case
+# Based on ergogen_design_prompt.md guidelines
+
+meta:
+  name: top_mount_macropad
+  description: 4x2 macropad with top mount system
+  author: Ergogen Design Prompt
+  version: 1.0
+
+units:
+  # Key spacing
+  kx: 19.05  # MX key spacing
+  ky: 19.05  # MX key spacing
+  
+  # Mounting specifications
+  plate_tab_width: 8        # Width of mounting tabs
+  plate_tab_length: 6       # Length of mounting tabs
+  mount_screw_radius: 1.1   # M2 screw clearance
+  plate_thickness: 1.5      # Plate thickness
+  
+  # Case specifications
+  wall_thickness: 3
+  case_height: 12           # Taller for top mount
+  plate_recess: 2           # How deep plate sits in case
+  board_fillet: 2
+
+points:
+  zones:
+    matrix:
+      key:
+        padding: ky
+        spread: kx
+        tags: [key]
+      columns:
+        col0:
+          key:
+            column_net: C0
+        col1:
+          key:
+            column_net: C1
+        col2:
+          key:
+            column_net: C2
+        col3:
+          key:
+            column_net: C3
+      rows:
+        row0:
+          row_net: R0
+        row1:
+          row_net: R1
+    
+    # Plate mounting tabs
+    plate_tabs:
+      anchor:
+        ref: matrix_col0_row0
+        shift: [-15, 0]
+      key:
+        tags: [plate_mount]
+      columns:
+        tab_left:  # Left side tab
+          key:
+            name: tab_left
+        tab_right: # Right side tab
+          key:
+            name: tab_right
+          shift: [95.5, 0]  # 4 key widths + margins
+        tab_top:   # Top center tab
+          key:
+            name: tab_top
+          shift: [47.75, 15]  # Center, above keys
+        tab_bottom: # Bottom center tab
+          key:
+            name: tab_bottom
+          shift: [47.75, -34]  # Center, below keys
+
+    # Case mounting points (corresponding to plate tabs)
+    case_mounts:
+      anchor:
+        ref: matrix_col0_row0
+        shift: [-15, 0]
+      key:
+        tags: [case_mount]
+      columns:
+        mount_left:
+          key:
+            name: mount_left
+        mount_right:
+          key:
+            name: mount_right
+          shift: [95.5, 0]
+        mount_top:
+          key:
+            name: mount_top
+          shift: [47.75, 15]
+        mount_bottom:
+          key:
+            name: mount_bottom
+          shift: [47.75, -34]
+
+outlines:
+  # Basic board outline (for PCB)
+  board:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-10, -10]
+        - ref: matrix_col3_row0
+          shift: [10, -10]
+        - ref: matrix_col3_row1
+          shift: [10, 10]
+        - ref: matrix_col0_row1
+          shift: [-10, 10]
+
+  # Plate outline with mounting tabs
+  plate_main:
+    - what: outline
+      name: board
+
+  # Plate mounting tabs
+  plate_tabs:
+    - what: rectangle
+      where: [plate_mount]
+      size: [plate_tab_width, plate_tab_length]
+      bound: false
+
+  # Combined plate (main + tabs)
+  plate_complete:
+    - what: outline
+      name: plate_main
+      operation: stack
+    - what: outline
+      name: plate_tabs
+      operation: add
+
+  # Case outline (larger to accommodate plate tabs)
+  case_outline:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-20, -25]
+        - ref: matrix_col3_row0
+          shift: [20, -25]
+        - ref: matrix_col3_row1
+          shift: [20, 25]
+        - ref: matrix_col0_row1
+          shift: [-20, 25]
+
+  # Case wall outline
+  case_walls:
+    - what: outline
+      name: case_outline
+      expand: wall_thickness
+
+  # Switch cutouts
+  switch_cutouts:
+    - what: rectangle
+      where: [key]
+      size: 14  # MX switch cutout
+      bound: false
+
+  # Mounting screw holes in plate tabs
+  plate_mount_holes:
+    - what: circle
+      where: [plate_mount]
+      radius: mount_screw_radius
+      bound: false
+
+  # Case mount holes (threaded inserts)
+  case_mount_holes:
+    - what: circle
+      where: [case_mount]
+      radius: mount_screw_radius
+      bound: false
+
+  # Plate recess in case top
+  plate_recess:
+    - what: outline
+      name: plate_complete
+      expand: 0.2  # Small clearance
+
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: board
+      switches:
+        outline: switch_cutouts
+        layer: Edge.Cuts
+    footprints:
+      # Switches with diodes
+      switches:
+        what: mx
+        where: [key]
+        params:
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        
+      diodes:
+        what: diode
+        where: [key]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+
+      # Controller (ProMicro)
+      controller:
+        what: promicro
+        where:
+          ref: matrix_col1_row0
+          shift: [0, -25]
+          rotate: 270
+        params:
+          orientation: down
+
+cases:
+  # Plate with mounting tabs
+  plate:
+    - name: plate_complete
+      extrude: plate_thickness
+    - name: switch_cutouts
+      extrude: plate_thickness + 1
+      operation: subtract
+    - name: plate_mount_holes
+      extrude: plate_thickness + 1
+      operation: subtract
+
+  # Case components
+  _case_outer:
+    - name: case_walls
+      extrude: case_height
+
+  _case_inner:
+    - name: case_outline
+      extrude: case_height
+
+  _plate_recess:
+    - name: plate_recess
+      extrude: plate_recess
+
+  _case_mount_holes:
+    - name: case_mount_holes
+      extrude: case_height + 1
+
+  # Top case (where plate mounts)
+  case_top:
+    - what: case
+      name: _case_outer
+      operation: add
+    - what: case
+      name: _case_inner
+      operation: subtract
+    - what: case
+      name: _plate_recess
+      operation: subtract
+    - what: case
+      name: _case_mount_holes
+      operation: subtract
+
+  # Bottom case (simple)
+  case_bottom:
+    - name: case_outline
+      extrude: 3  # Simple bottom
+
+  # Assembly view
+  assembly:
+    - what: case
+      name: case_top
+      operation: add
+    - what: case
+      name: plate
+      operation: add
+      shift: [0, 0, case_height - plate_recess - plate_thickness]
+    - what: case
+      name: case_bottom
+      operation: add
+      shift: [0, 0, -3]

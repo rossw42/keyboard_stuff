@@ -1,0 +1,191 @@
+# Tray Mount Keyboard Example
+# Simplest mounting style with standoff posts and screws
+# Based on ergogen_design_prompt.md guidelines
+
+meta:
+  name: tray_mount_macropad
+  description: 4x2 macropad with tray mount system
+  author: Ergogen Design Prompt
+  version: 1.0
+
+units:
+  # Key spacing
+  kx: 19.05  # MX key spacing
+  ky: 19.05  # MX key spacing
+  
+  # Mounting specifications
+  mount_post_radius: 2.5    # For M2 screws
+  mount_screw_radius: 1.1   # M2 screw clearance
+  mount_post_height: 4      # PCB clearance
+  
+  # Case specifications
+  wall_thickness: 3
+  case_height: 5.6
+  board_fillet: 2
+
+points:
+  zones:
+    matrix:
+      key:
+        padding: ky
+        spread: kx
+        tags: [key]
+      columns:
+        col0:
+          key:
+            column_net: C0
+        col1:
+          key:
+            column_net: C1
+        col2:
+          key:
+            column_net: C2
+        col3:
+          key:
+            column_net: C3
+      rows:
+        row0:
+          row_net: R0
+        row1:
+          row_net: R1
+    
+    # Mounting holes - triangular pattern for stability
+    mounting:
+      anchor:
+        ref: matrix_col1_row0
+        shift: [0, 15]
+      key:
+        tags: [mount]
+      columns:
+        mount_tl:  # Top left
+          key:
+            name: mount_tl
+        mount_tr:  # Top right
+          key:
+            name: mount_tr
+            shift: [57.15, 0]  # 3 key widths
+        mount_b:   # Bottom center
+          key:
+            name: mount_b
+            shift: [28.575, -34.05]  # Center, 1.5 key heights down
+
+outlines:
+  # Basic board outline
+  board:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-10, -10]
+        - ref: matrix_col3_row0
+          shift: [10, -10]
+        - ref: matrix_col3_row1
+          shift: [10, 10]
+        - ref: matrix_col0_row1
+          shift: [-10, 10]
+
+  # Expanded board for case walls
+  expanded_board:
+    - what: outline
+      name: board
+      expand: wall_thickness
+
+  # Switch cutouts
+  switch_cutouts:
+    - what: rectangle
+      where: [key]
+      size: 14  # MX switch cutout
+      bound: false
+
+  # Mounting post outlines
+  mounting_posts:
+    - what: circle
+      where: [mount]
+      radius: mount_post_radius
+      bound: false
+
+  # Mounting screw holes
+  mounting_holes:
+    - what: circle
+      where: [mount]
+      radius: mount_screw_radius
+      bound: false
+
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: board
+      switches:
+        outline: switch_cutouts
+        layer: Edge.Cuts
+      mounting:
+        outline: mounting_holes
+        layer: Edge.Cuts
+    footprints:
+      # Switches with diodes
+      switches:
+        what: mx
+        where: [key]
+        params:
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        
+      diodes:
+        what: diode
+        where: [key]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+
+      # Controller (ProMicro)
+      controller:
+        what: promicro
+        where:
+          ref: matrix_col1_row0
+          shift: [0, -25]
+          rotate: 270
+        params:
+          orientation: down
+
+cases:
+  # Individual case components
+  _outer_wall:
+    - name: expanded_board
+      extrude: case_height
+
+  _inner_cavity:
+    - name: board
+      extrude: case_height
+
+  _mounting_posts:
+    - name: mounting_posts
+      extrude: mount_post_height
+
+  _mounting_holes:
+    - name: mounting_holes
+      extrude: mount_post_height + 1  # Through holes
+
+  # Combined case with mounting system
+  case_bottom:
+    - what: case
+      name: _outer_wall
+      operation: add
+    - what: case
+      name: _inner_cavity
+      operation: subtract
+    - what: case
+      name: _mounting_posts
+      operation: add
+    - what: case
+      name: _mounting_holes
+      operation: subtract
+
+  # Assembly view
+  assembly:
+    - what: case  
+      name: case_bottom
+      operation: add

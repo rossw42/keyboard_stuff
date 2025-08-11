@@ -914,12 +914,307 @@ From simplest to most complex to implement in Ergogen:
 - Consider switch type (3-pin vs 5-pin) for plateless designs
 - Gasket material selection is critical for gasket mount success
 
+---
+
+## Physical Case Design Workflow
+
+After generating your Ergogen configuration, you'll need to create the physical 3D case. This section provides a detailed workflow adapted from Sadek Baroudi's comprehensive case design guide.
+
+### Prerequisites
+
+- Basic understanding of KiCad
+- Inkscape installed (for SVG to DXF conversion)
+- Fusion 360 installed
+- Completed PCB design from Ergogen
+
+### Complete Workflow: Ergogen → KiCad → Fusion 360 → 3D Print
+
+#### Step 1: Prepare KiCad PCB for Case Design
+
+After generating your PCB from Ergogen, you need to identify key elements for case design:
+
+**Essential Elements to Consider:**
+- PCB outline (Edge.Cuts layer)
+- Switch locations and cutouts
+- Controller placement and cutouts
+- Reset switch location
+- TRRS/USB connector openings
+- Rotary encoders (if present)
+- OLED displays (if present)
+- Mounting holes for standoffs
+
+**Layer Management for Export:**
+1. Hide copper layers to see PCB structure clearly
+2. Show only essential layers:
+   - `User.Eco2` (for custom markings)
+   - `Edge.Cuts` (PCB outline)
+   - `F.Courtyard` (component boundaries)
+
+**Add Mounting Hole Indicators:**
+If mounting holes aren't visible on your selected layers:
+1. Edit each mounting hole footprint
+2. Add a circle on the `User.Eco2` layer centered on the hole
+3. Save the footprint updates
+
+#### Step 2: Export PCB Data for Case Design
+
+**Export SVG from KiCad:**
+1. Plot → SVG
+2. Include only the layers identified above
+3. Ensure proper scaling and units
+
+**Convert SVG to DXF:**
+1. Open SVG in Inkscape
+2. Save As → DXF
+3. Use R14 format
+4. Set units to millimeters
+
+#### Step 3: Fusion 360 Case Design Process
+
+**Initial Setup:**
+1. Enable "Capture Design History" in Fusion 360
+2. Import the DXF file
+3. Verify all elements imported correctly
+
+**Critical Dimension Checks:**
+```yaml
+# Switch hole dimensions to verify:
+choc_switches: 13.95mm
+mx_switches: 14mm
+mx_hotswap_compatible: 14mm  # Works for both MX and Choc
+
+# Mounting hole dimensions:
+m2_screws: 2.5mm diameter
+m3_screws: 3.5mm diameter
+```
+
+**Adjust Switch Holes if Needed:**
+1. Select all switch holes
+2. Use Offset tool to adjust to correct dimensions
+3. Confirm measurements with Dimension tool
+
+**Clean Up PCB Outline:**
+1. Check perimeter for continuity
+2. Fix any broken lines or unwanted curves
+3. Ensure clean geometric shapes
+
+**Fix Mounting Holes:**
+1. Find center point of each mounting hole
+2. Delete imported circles
+3. Create new circles with correct diameter (2.5mm for M2)
+
+#### Step 4: Create Case Structure
+
+**Case Wall Design:**
+```yaml
+# Typical case parameters
+inner_wall_offset: 1mm      # Clearance for PCB manufacturing tolerance
+outer_wall_offset: 3mm      # For 2mm thick walls (1mm + 2mm)
+wall_thickness: 2-3mm       # Structural strength
+case_height: varies_by_mount_style
+```
+
+**Wall Creation Process:**
+1. Offset PCB outline by 1mm inward (inner wall clearance)
+2. Offset again by wall thickness amount (outer wall)
+3. This creates the case wall profile
+
+**Switch Plate Extrusion:**
+```yaml
+# Plate thickness guidelines
+standard_plate: 1.6mm
+thick_plate: 2.0mm        # Maximum recommended
+thin_plate: 1.2mm         # Minimum for stability
+```
+
+Extrude the plate area (excluding switch holes and component cutouts).
+
+**Case Wall Heights by Mount Style:**
+```yaml
+# From mounting style examples above
+tray_mount:
+  choc_soldered: 3mm
+  choc_hotswap: 4.5mm
+  mx_soldered: 6.5mm
+  mx_hotswap: 8mm
+
+top_mount:
+  varies: "depends on plate attachment method"
+
+bottom_mount:
+  varies: "depends on boss height and plate thickness"
+
+gasket_mount:
+  varies: "depends on gasket thickness and compression"
+```
+
+#### Step 5: Component Accommodations
+
+**Controller/MCU Cutouts:**
+1. Measure controller dimensions from PCB layout
+2. Create cutout with 1-2mm clearance on all sides
+3. Consider cable routing and connector access
+
+**TRRS/USB Connector Openings:**
+```yaml
+# Common connector clearances
+trrs_3.5mm: 
+  width: 8mm
+  height: 6mm
+  depth: 12mm    # For cable clearance
+
+usb_c:
+  width: 10mm
+  height: 4mm
+  depth: 8mm
+
+micro_usb:
+  width: 8mm
+  height: 3mm
+  depth: 6mm
+```
+
+**Reset Button Access:**
+- Create small hole or channel for reset button access
+- Typical diameter: 2-3mm
+- Consider adding a funnel shape for easier access
+
+#### Step 6: Bottom Plate Design
+
+**Create Bottom Plate:**
+1. Copy case outer outline
+2. Copy mounting holes
+3. Extrude to desired thickness (typically 2mm)
+
+**Optional Enhancements:**
+- Chamfer mounting holes for countersunk screws
+- Add rubber bumper recesses
+- Include cable routing channels
+- Add ventilation holes if needed
+
+#### Step 7: Case Assembly Integration
+
+**Mounting System Design:**
+Depending on your chosen mounting style:
+
+**Tray Mount:**
+- Integrate mounting posts into bottom case
+- Posts should align with PCB mounting holes
+- Post height = case height - plate thickness - PCB thickness
+
+**Top/Bottom Mount:**
+- Create mounting tabs or bosses
+- Ensure proper screw access
+- Consider tool clearance for assembly
+
+**Gasket Mount:**
+- Design gasket channels with proper tolerances
+- Account for gasket compression
+- Create separate mounting for case halves
+
+#### Step 8: Finalization and Export
+
+**Add Style Elements:**
+- Chamfer sharp edges (0.5-1mm typical)
+- Add texture or branding elements
+- Consider ergonomic improvements
+
+**Final Checks:**
+1. Verify all mounting holes align
+2. Check component clearances
+3. Confirm switch hole dimensions
+4. Test fit with 3D printed prototype
+
+**Export for 3D Printing:**
+- Export as STL or 3MF
+- Separate files for each case component
+- Include assembly instructions/BOM
+
+### Case Design Best Practices
+
+**Tolerances:**
+```yaml
+# 3D printing tolerances
+tight_fit: 0.1-0.2mm      # Press fit
+loose_fit: 0.3-0.5mm      # Easy assembly
+clearance: 0.5-1.0mm      # Component movement
+```
+
+**Structural Considerations:**
+- Minimum wall thickness: 1.5mm for PLA
+- Add ribs for large flat surfaces
+- Consider print orientation for strength
+- Design for your printer's capabilities
+
+**Assembly Considerations:**
+- Minimize support material needs
+- Design screw access carefully
+- Consider cable routing from start
+- Plan for disassembly/maintenance
+
+**Material Selection:**
+```yaml
+PLA: 
+  pros: "Easy to print, rigid"
+  cons: "Can deform with heat"
+  
+PETG:
+  pros: "Chemical resistance, flexibility"
+  cons: "Harder to print"
+  
+ABS:
+  pros: "Strong, heat resistant"
+  cons: "Requires heated bed, fumes"
+```
+
+### Common Design Issues and Solutions
+
+**Problem: Switch holes too tight/loose**
+- Solution: Measure and adjust offset in Fusion 360
+- Test with single switch before full print
+
+**Problem: PCB doesn't fit in case**
+- Solution: Increase inner wall offset
+- Check for component interference
+
+**Problem: Mounting holes misaligned**
+- Solution: Export fresh DXF from KiCad
+- Verify mounting hole footprint placement
+
+**Problem: Case too tall/short**
+- Solution: Adjust extrusion heights
+- Consider switch type and mounting style
+
+### Testing and Iteration
+
+**Prototype Testing Process:**
+1. Print single corner section first
+2. Test PCB fit and switch alignment
+3. Print full case with cheap filament
+4. Test assembly and function
+5. Iterate design as needed
+6. Final print with quality filament
+
+**Common Iterations:**
+- Mounting hole position tweaks
+- Component clearance adjustments
+- Wall thickness optimization
+- Aesthetic improvements
+
 ## Next Steps
 
 1. Choose a mounting style based on your priorities (cost, feel, complexity)
 2. Adapt the example to your specific keyboard layout
 3. Add electronics (MCU, connectors) to the design
-4. Generate and test with 3D printed prototypes
-5. Iterate on tolerances and fit
+4. Follow the physical case design workflow above
+5. Generate and test with 3D printed prototypes
+6. Iterate on tolerances and fit
 
 Each mounting style offers different trade-offs between cost, complexity, typing feel, and sound characteristics. Start with simpler designs and work up to more complex implementations as you gain experience with Ergogen and keyboard design.
+
+### Additional Resources
+
+- [Sadek Baroudi's Complete Case Design Guide](https://github.com/sadekbaroudi/keyboard-guides)
+- [Ergogen Documentation](https://docs.ergogen.xyz/)
+- [KiCad PCB Design Best Practices](https://docs.kicad.org/)
+- [Fusion 360 Learning Resources](https://www.autodesk.com/products/fusion-360/learning-training-certification)

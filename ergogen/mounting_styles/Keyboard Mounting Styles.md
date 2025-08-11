@@ -9,6 +9,8 @@ https://akkogear.eu/blogs/news/keyboard-mounting-style?srsltid=AfmBOoosBO8Gfb743
 
 https://www.monsgeek.com/blog/comprehensive-guide-to-keyboard-mounting-styles/?srsltid=AfmBOopnAYbeL63bq6740B47Z4BZtY7oEFtA-cNu0mQm2coR8Og0KcLH
 
+https://kbd.news/Keyboard-Case-Design-1764.html
+
 ---
 
 ## Summary of Keyboard Mounting Styles

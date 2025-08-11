@@ -1,0 +1,271 @@
+# Integrated Mount Keyboard Example
+# Single-piece top case/plate design with switch cutouts in case
+# Based on ergogen_design_prompt.md guidelines
+
+meta:
+  name: integrated_mount_macropad
+  description: 4x2 macropad with integrated plate mount system
+  author: Ergogen Design Prompt
+  version: 1.0
+
+units:
+  # Key spacing
+  kx: 19.05  # MX key spacing
+  ky: 19.05  # MX key spacing
+  
+  # Mounting specifications (simplified - no separate plate)
+  mount_screw_radius: 1.1   # M2 screw clearance
+  mount_post_radius: 2.5    # For threaded inserts
+  
+  # Case specifications
+  wall_thickness: 3
+  case_height: 12           # Taller single piece
+  switch_depth: 5           # How deep switch wells are
+  board_fillet: 2
+
+points:
+  zones:
+    matrix:
+      key:
+        padding: ky
+        spread: kx
+        tags: [key]
+      columns:
+        col0:
+          key:
+            column_net: C0
+        col1:
+          key:
+            column_net: C1
+        col2:
+          key:
+            column_net: C2
+        col3:
+          key:
+            column_net: C3
+      rows:
+        row0:
+          row_net: R0
+        row1:
+          row_net: R1
+    
+    # Mounting holes for case assembly
+    case_mounts:
+      anchor:
+        ref: matrix_col1_row0
+        shift: [0, 15]
+      key:
+        tags: [mount]
+      columns:
+        mount_tl:  # Top left
+          key:
+            name: mount_tl
+        mount_tr:  # Top right
+          key:
+            name: mount_tr
+          shift: [57.15, 0]  # 3 key widths
+        mount_bl:  # Bottom left
+          key:
+            name: mount_bl
+          shift: [0, -50]
+        mount_br:  # Bottom right
+          key:
+            name: mount_br
+          shift: [57.15, -50]
+
+outlines:
+  # Basic board outline (for PCB)
+  board:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-10, -10]
+        - ref: matrix_col3_row0
+          shift: [10, -10]
+        - ref: matrix_col3_row1
+          shift: [10, 10]
+        - ref: matrix_col0_row1
+          shift: [-10, 10]
+
+  # Integrated case outline (larger for structure)
+  case_outline:
+    - what: polygon
+      operation: stack
+      fillet: board_fillet
+      points:
+        - ref: matrix_col0_row0
+          shift: [-15, -20]
+        - ref: matrix_col3_row0
+          shift: [15, -20]
+        - ref: matrix_col3_row1
+          shift: [15, 20]
+        - ref: matrix_col0_row1
+          shift: [-15, 20]
+
+  # Case walls
+  case_walls:
+    - what: outline
+      name: case_outline
+      expand: wall_thickness
+
+  # Switch cutouts (directly in case)
+  switch_cutouts:
+    - what: rectangle
+      where: [key]
+      size: 14  # MX switch cutout
+      bound: false
+
+  # Switch wells (larger area around switches)
+  switch_wells:
+    - what: rectangle
+      where: [key]
+      size: 16  # Slightly larger for switch housing
+      bound: false
+
+  # Mounting holes
+  mounting_holes:
+    - what: circle
+      where: [mount]
+      radius: mount_screw_radius
+      bound: false
+
+  # Mounting posts
+  mounting_posts:
+    - what: circle
+      where: [mount]
+      radius: mount_post_radius
+      bound: false
+
+  # Bottom case outline (simpler)
+  bottom_outline:
+    - what: outline
+      name: case_outline
+
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: board
+      switches:
+        outline: switch_cutouts
+        layer: Edge.Cuts
+    footprints:
+      # Switches with diodes
+      switches:
+        what: mx
+        where: [key]
+        params:
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+        
+      diodes:
+        what: diode
+        where: [key]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+
+      # Controller (ProMicro)
+      controller:
+        what: promicro
+        where:
+          ref: matrix_col1_row0
+          shift: [0, -25]
+          rotate: 270
+        params:
+          orientation: down
+
+cases:
+  # Integrated top case components
+  _top_outer:
+    - name: case_walls
+      extrude: case_height
+
+  _top_inner:
+    - name: case_outline
+      extrude: case_height
+
+  _switch_wells:
+    - name: switch_wells
+      extrude: switch_depth
+
+  _switch_cutouts:
+    - name: switch_cutouts
+      extrude: case_height + 1
+
+  _mounting_holes:
+    - name: mounting_holes
+      extrude: case_height + 1
+
+  # Integrated top case (plate + case in one piece)
+  case_top_integrated:
+    - what: case
+      name: _top_outer
+      operation: add
+    - what: case
+      name: _top_inner  
+      operation: subtract
+    - what: case
+      name: _switch_wells
+      operation: subtract
+    - what: case
+      name: _switch_cutouts
+      operation: subtract
+    - what: case
+      name: _mounting_holes
+      operation: subtract
+
+  # Bottom case components
+  _bottom_outer:
+    - name: case_walls
+      extrude: 4
+
+  _bottom_inner:
+    - name: case_outline
+      extrude: 4
+
+  _bottom_mounting_posts:
+    - name: mounting_posts
+      extrude: case_height - 4
+
+  _bottom_mounting_holes:
+    - name: mounting_holes
+      extrude: case_height
+
+  # Bottom case with mounting posts
+  case_bottom:
+    - what: case
+      name: _bottom_outer
+      operation: add
+    - what: case
+      name: _bottom_inner
+      operation: subtract
+    - what: case
+      name: _bottom_mounting_posts
+      operation: add
+    - what: case
+      name: _bottom_mounting_holes
+      operation: subtract
+
+  # Simple base plate
+  case_base:
+    - name: bottom_outline  
+      extrude: 2
+
+  # Assembly view
+  assembly:
+    - what: case
+      name: case_base
+      operation: add
+    - what: case
+      name: case_bottom
+      operation: add
+      shift: [0, 0, 2]
+    - what: case
+      name: case_top_integrated
+      operation: add
+      shift: [0, 0, 6]
