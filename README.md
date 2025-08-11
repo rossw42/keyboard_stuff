@@ -2,7 +2,7 @@
 
 A comprehensive collection of tools, utilities, and resources for mechanical keyboard development - from initial design concepts through firmware implementation.
 
-> **Disclaimer**: I'm not really a programmer, I just play one on GitHub. This entire repo is a perpetual work-in-progress that will probably never be "finished" - much like my quest for the perfect keyboard layout. Expect things to be broken, half-implemented, or completely abandoned as I chase the next shiny keyboard idea. 🤷‍♂️
+> **Disclaimer**: I'm not really a programmer, I dont even play one on GitHub. This entire repo is a perpetual work-in-progress that will probably never be "finished" - much like my quest for the perfect keyboard layout. Expect things to be broken, half-implemented, or completely abandoned as I chase the next shiny keyboard idea. 🤷‍♂️
 
 ## 🛠 Tool Categories
 

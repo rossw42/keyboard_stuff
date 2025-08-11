@@ -1,0 +1,311 @@
+# =============================================================================
+# Keyboard Development Ecosystem .gitignore
+# Because nobody wants to see your messy build artifacts and failed experiments
+# =============================================================================
+
+# -------------------------
+# Node.js & NPM
+# -------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.npm
+.yarn-integrity
+*.tgz
+*.tar.gz
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# -------------------------
+# Python
+# -------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.pixi
+
+# Python testing & coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py.cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# -------------------------
+# VS Code Extensions & IDE
+# -------------------------
+*.vsix
+.vscode/
+.vscode-test/
+out/
+*.log
+
+# JetBrains
+.idea/
+*.iml
+
+# -------------------------
+# Build Artifacts & Output
+# -------------------------
+output/
+outputs/
+build/
+builds/
+dist/
+lib/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ergogen output directories (because we generate a LOT of these)
+*/output/
+*/outputs/
+**/ergogen_output/
+**/output/
+gerbers/
+drill/
+pos/
+
+# -------------------------
+# 3D Printing & CAD Files
+# -------------------------
+# Keep source files, ignore sliced/processed variants
+*.gcode
+*.bgcode
+*_sliced.*
+*_processed.*
+
+# Temporary CAD files
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# -------------------------
+# PCB & Electronics
+# -------------------------
+# KiCad backup files
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-backups/
+*-cache.lib
+*-rescue.lib
+fp-info-cache
+
+# Eagle backup files
+*.s#?
+*.b#?
+*.l#?
+*.pro
+eagle.epf
+
+# -------------------------
+# Keyboard Specific
+# -------------------------
+# QMK build artifacts
+*.hex
+*.bin
+*.uf2
+*.map
+*.elf
+
+# VIA/VIAL backup files
+*_backup_*.json
+*_backup_*.vil
+
+# Temporary layout files
+*_temp.json
+*_temp.layout
+*.layout.bak
+
+# -------------------------
+# Documentation & Generated Files
+# -------------------------
+docs/_build/
+*.pdf
+*.ps
+*.dvi
+*.aux
+*.log
+*.out
+*.toc
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+
+# Auto-generated README files (keep our handcrafted ones!)
+README_auto.md
+**/README_generated.md
+
+# -------------------------
+# System & OS Files
+# -------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.nfs*
+
+# -------------------------
+# Development & Testing
+# -------------------------
+# Test output
+test_results/
+test_output/
+coverage/
+*.cover
+
+# Development task tracking (keep it local, folks)
+TASKS.md
+TODO.md
+NOTES.md
+**/TASKS.md
+**/TODO.md
+**/NOTES.md
+
+# Personal development files
+scratch/
+experiments/
+playground/
+sandbox/
+*.draft
+*.wip
+
+# Archive directories (for all those "I'll fix this later" files)
+archive/
+old/
+deprecated/
+legacy/
+*/archive/
+*/old/
+*/deprecated/
+
+# -------------------------
+# Secrets & Config
+# -------------------------
+.env.local
+.env.*.local
+config.local.*
+secrets.*
+*.key
+*.pem
+*.p12
+*.pfx
+
+# -------------------------
+# Logs & Debug
+# -------------------------
+*.log
+logs/
+*.sqlite
+*.sqlite3
+*.db
+
+# -------------------------
+# Package Managers & Tools
+# -------------------------
+# Ruff
+.ruff_cache/
+
+# Cursor AI
+.cursorignore
+.cursorindexingignore
+
+# UV
+uv.lock
+
+# Other tools
+.kiro/
+kiro/
+
+# -------------------------
+# Because We're Human
+# -------------------------
+# Those files we create and immediately regret
+WHY_DOES_THIS_NOT_WORK.txt
+DEBUGGING_HELL.md
+I_HATE_THIS_LAYOUT.json
+KEYBOARD_GRAVEYARD/
+failed_attempts/
+why_did_i_think_this_would_work/
+another_broken_config/
