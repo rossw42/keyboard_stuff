@@ -377,7 +377,7 @@ outlines:
 
   switchplate:
     - what: outline
-      name: _complete_outline
+      name: plate
     - what: outline
       name: _regular_numpad_cutout
       operation: subtract

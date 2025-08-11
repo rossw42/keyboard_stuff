@@ -1,0 +1,162 @@
+{
+  "name": "ergogen-toolkit",
+  "displayName": "Ergogen Toolkit",
+  "description": "Complete toolkit for Ergogen keyboard design workflow with DXF/JSCAD viewing and build automation",
+  "version": "3.0.0",
+  "publisher": "ergogen-tools",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "dxf",
+    "ergogen",
+    "keyboard",
+    "cad",
+    "viewer"
+  ],
+  "activationEvents": [
+    "onCommand:ergogen-toolkit.openViewer",
+    "onCommand:ergogen-toolkit.runErgogen",
+    "workspaceContains:**/*.yaml",
+    "workspaceContains:**/*.yml"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ergogen-toolkit.openViewer",
+        "title": "Open DXF Viewer",
+        "category": "Ergogen",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "ergogen-toolkit.runErgogen",
+        "title": "Run Ergogen",
+        "category": "Ergogen",
+        "icon": "$(play)"
+      },
+      {
+        "command": "ergogen-toolkit.refreshViewer",
+        "title": "Refresh DXF Viewer",
+        "category": "Ergogen",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "ergogen-toolkit.fitToWindow",
+        "title": "Fit DXF to Window",
+        "category": "Ergogen",
+        "icon": "$(screen-full)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "ergogen-toolkit.runErgogen",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "resourceExtname == .yaml || resourceExtname == .yml"
+      },
+      {
+        "command": "ergogen-toolkit.openViewer",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "resourceExtname == .yaml || resourceExtname == .yml",
+          "command": "ergogen-toolkit.runErgogen",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceExtname == .yaml || resourceExtname == .yml",
+          "command": "ergogen-toolkit.runErgogen",
+          "group": "1_ergogen"
+        },
+        {
+          "when": "resourceExtname == .dxf",
+          "command": "ergogen-toolkit.openViewer",
+          "group": "1_ergogen"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Ergogen Toolkit",
+      "properties": {
+        "ergogen-toolkit.autoRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically refresh the viewer when DXF files change"
+        },
+        "ergogen-toolkit.autoRunErgogen": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically run Ergogen when YAML files are saved"
+        },
+        "ergogen-toolkit.ergogenCommand": {
+          "type": "string",
+          "default": "ergogen",
+          "description": "Command to run Ergogen (e.g., 'npx ergogen' or full path)"
+        },
+        "ergogen-toolkit.outputDirectory": {
+          "type": "string",
+          "default": "output",
+          "description": "Default output directory name for Ergogen"
+        },
+        "ergogen-toolkit.theme": {
+          "type": "string",
+          "enum": [
+            "dark",
+            "light",
+            "auto"
+          ],
+          "default": "auto",
+          "description": "Color theme for the DXF viewer"
+        },
+        "ergogen-toolkit.lineWidth": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0.5,
+          "maximum": 5,
+          "description": "Line width for DXF rendering"
+        },
+        "ergogen-toolkit.gridEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show grid in the DXF viewer"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "echo 'No compilation needed for JS'",
+    "package": "vsce package",
+    "test": "node ./test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.102.0",
+    "@vscode/vsce": "^2.15.0",
+    "vsce": "^1.103.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/ergogen-toolkit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/ergogen-toolkit/issues"
+  },
+  "homepage": "https://github.com/yourusername/ergogen-toolkit#readme",
+  "license": "MIT",
+  "author": "",
+  "type": "commonjs",
+  "dependencies": {
+    "dxf-parser": "^1.1.2"
+  }
+}
