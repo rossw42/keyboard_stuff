@@ -239,6 +239,32 @@ function createDxfViewerPanel(dxfFiles, errorMessage = null) {
   // Generate HTML content
   panel.webview.html = generateDxfViewerHtml(dxfFiles, errorMessage);
   
+  // Handle messages from webview
+  panel.webview.onDidReceiveMessage(
+    async message => {
+      switch (message.command) {
+        case 'runErgogen':
+          outputChannel.appendLine('🔄 Running Ergogen from DXF viewer...');
+          await runErgogen();
+          break;
+        case 'refreshViewer':
+          outputChannel.appendLine('🔄 Refreshing DXF viewer...');
+          // Re-scan for DXF files and update the panel
+          const outputDir = getOutputDirectory();
+          if (outputDir && fs.existsSync(outputDir)) {
+            const newDxfFiles = scanForDxfFiles(outputDir);
+            panel.webview.html = generateDxfViewerHtml(newDxfFiles);
+            outputChannel.appendLine(`📂 Refreshed viewer with ${newDxfFiles.length} files`);
+          } else {
+            panel.webview.html = generateDxfViewerHtml([], "No DXF files found. Run Ergogen to generate files.");
+          }
+          break;
+      }
+    },
+    undefined,
+    []
+  );
+  
   outputChannel.appendLine(`📂 Opened DXF viewer panel with ${dxfFiles.length} files`);
 }
 
@@ -663,6 +689,40 @@ function generateDxfViewerHtml(dxfFiles, errorMessage = null) {
         .file-count {
           font-size: 12px;
           color: #888;
+          margin-bottom: 12px;
+        }
+        
+        .action-buttons {
+          display: flex;
+          gap: 8px;
+        }
+        
+        .action-button {
+          padding: 6px 12px;
+          background: #0e639c;
+          color: white;
+          border: none;
+          border-radius: 3px;
+          font-size: 11px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+        }
+        
+        .action-button:hover {
+          background: #1177bb;
+        }
+        
+        .action-button:disabled {
+          background: #555;
+          cursor: not-allowed;
+        }
+        
+        .action-button.secondary {
+          background: #555;
+        }
+        
+        .action-button.secondary:hover {
+          background: #666;
         }
         
         .file-list {
@@ -801,6 +861,10 @@ function generateDxfViewerHtml(dxfFiles, errorMessage = null) {
           <div class="sidebar-header">
             <div class="sidebar-title">DXF Files</div>
             <div class="file-count">${dxfFiles.length} file${dxfFiles.length !== 1 ? 's' : ''} found</div>
+            <div class="action-buttons">
+              <button class="action-button" onclick="runErgogen()">▶ Run Ergogen</button>
+              <button class="action-button secondary" onclick="refreshViewer()">🔄 Refresh</button>
+            </div>
           </div>
           <div class="file-list">
             ${fileListItems}
@@ -859,6 +923,57 @@ function generateDxfViewerHtml(dxfFiles, errorMessage = null) {
           document.querySelector('.viewer-title').textContent = fileName[index];
           
           selectedIndex = index;
+        }
+        
+        // Acquire VS Code API once at startup
+        const vscode = (typeof acquireVsCodeApi !== 'undefined') ? acquireVsCodeApi() : null;
+        
+        function runErgogen() {
+          console.log('Run Ergogen button clicked');
+          const button = event.target;
+          const originalText = button.textContent;
+          
+          // Disable button and show loading state
+          button.disabled = true;
+          button.textContent = '⏳ Running...';
+          
+          if (vscode) {
+            vscode.postMessage({ command: 'runErgogen' });
+            
+            // Re-enable button after a delay
+            setTimeout(() => {
+              button.disabled = false;
+              button.textContent = originalText;
+            }, 3000);
+          } else {
+            console.error('VS Code API not available');
+            button.disabled = false;
+            button.textContent = originalText;
+          }
+        }
+        
+        function refreshViewer() {
+          console.log('Refresh button clicked');
+          const button = event.target;
+          const originalText = button.textContent;
+          
+          // Disable button and show loading state
+          button.disabled = true;
+          button.textContent = '⏳ Refreshing...';
+          
+          if (vscode) {
+            vscode.postMessage({ command: 'refreshViewer' });
+            
+            // Re-enable button after a delay
+            setTimeout(() => {
+              button.disabled = false;
+              button.textContent = originalText;
+            }, 1000);
+          } else {
+            console.error('VS Code API not available');
+            button.disabled = false;
+            button.textContent = originalText;
+          }
         }
       </script>
     </body>
@@ -1021,6 +1136,11 @@ function getOutputDirectory() {
       return filenameDir;
     }
 
+    // Check if we're in a directory that already contains DXF files
+    if (containsDxfFiles(workingDir)) {
+      return workingDir;
+    }
+
     // Fallback: simple output directory
     const config = vscode.workspace.getConfiguration("ergogen-toolkit");
     const outputDirName = config.get("outputDirectory", "output");
@@ -1030,6 +1150,63 @@ function getOutputDirectory() {
     }
   }
 
+  // Last resort: scan workspace for any DXF files
+  if (vscode.workspace.workspaceFolders) {
+    const workspaceRoot = vscode.workspace.workspaceFolders[0].uri.fsPath;
+    const dxfDir = findDxfDirectory(workspaceRoot);
+    if (dxfDir) {
+      return dxfDir;
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Check if directory contains DXF files
+ */
+function containsDxfFiles(dir) {
+  try {
+    const items = fs.readdirSync(dir);
+    return items.some(item => item.toLowerCase().endsWith('.dxf'));
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Find directory containing DXF files in workspace
+ */
+function findDxfDirectory(rootDir, depth = 0) {
+  if (depth > 4) return null; // Limit search depth
+  
+  try {
+    const items = fs.readdirSync(rootDir);
+    
+    // Check if current directory has DXF files
+    if (items.some(item => item.toLowerCase().endsWith('.dxf'))) {
+      return rootDir;
+    }
+    
+    // Search subdirectories
+    for (const item of items) {
+      if (item.startsWith('.') || item === 'node_modules') continue;
+      
+      const fullPath = path.join(rootDir, item);
+      try {
+        if (fs.statSync(fullPath).isDirectory()) {
+          const result = findDxfDirectory(fullPath, depth + 1);
+          if (result) return result;
+        }
+      } catch (error) {
+        // Skip inaccessible directories
+        continue;
+      }
+    }
+  } catch (error) {
+    // Skip inaccessible directories
+  }
+  
   return null;
 }
 

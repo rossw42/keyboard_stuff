@@ -32,7 +32,7 @@ points:
         col0:
           key:
             column_net: col0
-            bind: [0,0,0,ky]
+            #bind: [0,0,0,ky]
           rows:
             row0: # Num Lock
               tags: [key, numpad_key, regular_numpad_key]
@@ -78,7 +78,7 @@ points:
         col3:
           key:
             column_net: col3
-            bind: [0,2.8ky,0,0]
+            #bind: [0,2.8ky,0,0]
           rows:
             row0: # -
               tags: [key, numpad_key, regular_numpad_key]
@@ -208,9 +208,9 @@ points:
 outlines:
   _numpad_outline:
     - what: rectangle
-      where: [regular_numpad_key] # Only regular 1U numpad keys
+      where: [numpad_key] # Only regular 1U numpad keys
       bound: true # Use binding system for connected outline
-      size: [capx, capy] # Standard key size
+      size: [U, U] # Standard key size
 
   _zero_key_outline:
     - what: rectangle
@@ -339,6 +339,10 @@ outlines:
       where: -component # All key positions
       size: [5, 16] # 5x16mm clips for switch retention
       bound: false
+
+  numpad2:
+    - what: outline
+      name: _numpad_outline
 
   numpad:
     - what: outline
