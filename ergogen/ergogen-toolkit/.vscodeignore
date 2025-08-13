@@ -11,3 +11,9 @@ vsc-extension-quickstart.md
 .nyc_output
 coverage
 **/*.vsix
+test/**
+build/**
+.DS_Store
+package-lock.json
+*.md
+!README.md

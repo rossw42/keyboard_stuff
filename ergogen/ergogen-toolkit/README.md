@@ -1,165 +1,124 @@
-# Connection Diagram Generator for Ergogen Toolkit
+# Ergogen Toolkit
 
-This VSCode extension now includes an automated **Connection Diagram Generator** that creates detailed markdown documentation of your keyboard's physical layout and electrical connections directly from ergogen YAML files.
+A simple VS Code extension for Ergogen keyboard design workflow. Run Ergogen on YAML files and view DXF output files.
 
-## 🌟 New Feature: Automated Connection Diagrams
+## 🎯 Core Functions
 
-The Connection Diagram Generator automatically analyzes your ergogen configuration files and generates comprehensive documentation including:
+This extension has **two simple functions**:
 
-- **Physical Layout Diagrams**: ASCII-art representation of your keyboard layout
-- **Electrical Connection Matrix**: Complete pin mapping tables for columns and rows  
-- **Special Connections**: Encoder, OLED, and other component wiring details
-- **Matrix Scanning Logic**: Technical details about keyboard scanning approach
-- **Key Layout Details**: Analysis of key sizes, special keys, and components
-- **Physical Dimensions**: Spacing and measurement information
+1. **Run Ergogen** - Execute ergogen command on YAML files
+2. **View DXF Files** - Open DXF files using your system's default viewer
 
-## 🚀 How It Works
+That's it. No complexity, no heavy dependencies, just the essentials.
 
-### Automatic Generation
-When you run ergogen with this extension, connection diagrams are automatically generated alongside your DXF and other output files. No LLM required!
+## 🚀 Quick Start
+
+1. **Install the extension**
+2. **Open a YAML file** (keyboard config)
+3. **Run Ergogen**: `Ctrl+Shift+E` or Command Palette → "Run Ergogen"
+4. **View DXF files**: `Ctrl+Shift+D` or Command Palette → "Open DXF Viewer"
+
+## 📋 Commands
+
+| Command | Shortcut | Description |
+|---------|----------|-------------|
+| Run Ergogen | `Ctrl+Shift+E` | Execute ergogen on current YAML file |
+| Open DXF Viewer | `Ctrl+Shift+D` | View generated DXF files |
+
+## ⚙️ Configuration
+
+Simple configuration options in VS Code settings:
+
+```json
+{
+  "ergogen-toolkit.ergogenCommand": "ergogen",  // Command to run (default: "ergogen")
+  "ergogen-toolkit.outputDirectory": "output"   // Output directory name (default: "output")
+}
+```
+
+## 🔧 Requirements
+
+- **Ergogen CLI** installed and available in PATH
+- **DXF Viewer** application for viewing files (optional)
+
+### Installing Ergogen
+
+```bash
+npm install -g ergogen
+```
+
+### DXF Viewers
+
+The extension opens DXF files using your system's default application. Popular options:
+
+- **Windows**: DraftSight, AutoCAD, FreeCAD
+- **macOS**: LibreCAD, FreeCAD, AutoCAD
+- **Linux**: LibreCAD, FreeCAD, QCAD
+
+## 🎯 How It Works
+
+1. **YAML Detection**: Extension automatically detects YAML files in your workspace
+2. **Ergogen Execution**: Runs `ergogen -o <output-dir> <yaml-file>` 
+3. **Output Scanning**: Finds generated DXF files in output directory
+4. **System Integration**: Opens DXF files with your system's default viewer
+
+## 📁 File Structure
 
 ```
 Your Project/
 ├── config.yaml           # Your ergogen config
-├── config/               # Generated ergoen outputs
+├── config/               # Generated outputs (named after YAML file)
 │   ├── pcbs/
-│   ├── outlines/
-│   └── keyboard_connection_diagram.md  # 🆕 Auto-generated!
+│   │   └── keyboard.dxf  # Generated DXF files
+│   └── outlines/
+│       └── board.dxf
 ```
 
-### Manual Generation
-You can also generate diagrams manually:
+## 🛠️ Troubleshooting
 
-1. **Command Palette**: `Ctrl+Shift+P` → "Generate Connection Diagram"
-2. **Right-click menu**: Right-click on any YAML file → "Generate Connection Diagram"
+### Ergogen Command Not Found
+- Install Ergogen CLI: `npm install -g ergogen`
+- Or specify full path in settings: `"ergogen-toolkit.ergogenCommand": "/path/to/ergogen"`
 
-## 📋 Configuration
+### No DXF Viewer Available
+- Install a DXF viewer application
+- The extension will show a helpful message with installation guidance
 
-The connection diagram generator can be configured in VSCode settings:
+### No YAML Files Found
+- Ensure your files have `.yaml` or `.yml` extension
+- Open the YAML file in VS Code before running Ergogen
 
-```json
-{
-  "ergogen-toolkit.generateConnectionDiagram": true,  // Enable/disable auto-generation
-}
-```
+## 🎹 Context Menus
 
-## 🔧 What Gets Analyzed
+- **YAML files**: Right-click → "Run Ergogen"
+- **DXF files**: Right-click → "Open DXF Viewer"
 
-The generator extracts information from your ergogen YAML files including:
+## 📊 Extension Size
 
-### Layout Information
-- Zone definitions and key positions
-- Special key sizes (2U, 1.5U, etc.)
-- Component placement (encoders, OLED screens, MCU)
+This extension is lightweight:
+- **Package size**: Under 100KB
+- **Dependencies**: None (uses system DXF viewer)
+- **Memory usage**: Minimal
 
-### Electrical Information  
-- Column and row network assignments
-- Pro Micro pin mappings
-- Diode configurations
-- I2C connections for displays
+## 🔄 Version 4.0.0 - Simplified
 
-### Physical Information
-- Key spacing and dimensions
-- Component distances
-- Case and mounting details
+This version focuses on the core functionality:
 
-## 📊 Example Output
+- ✅ Run Ergogen command
+- ✅ View DXF files with system viewer
+- ❌ Removed complex DXF viewer (use system apps instead)
+- ❌ Removed connection diagram generation
+- ❌ Removed heavy dependencies
 
-Here's what the generated connection diagram looks like:
+## 📄 License
 
-```markdown
-# My Keyboard Connection Diagram
+MIT License - Simple and permissive.
 
-## Physical Layout Diagram
-```
-┌─────────────────────────────────────────┐
-│              MY KEYBOARD                │
-├──────────┬──────────────┬───────────────┤
-│   NAV    │   MAIN GRID  │  COMPONENTS   │
-│          │              │               │
-└──────────┴──────────────┴───────────────┘
-```
+## 🙏 Acknowledgments
 
-## Electrical Connection Matrix
-
-### Column Networks:
-| Column | Pro Micro Pin | Connected Keys |
-|--------|---------------|----------------|
-| col0   | P0           | NumLock, 7, 4, 1, 0 |
-| col1   | P1           | /, 8, 5, 2 |
-...
-```
-
-## 🛠️ Integration Details
-
-### How It Integrates with Ergogen
-1. **Automatic Trigger**: Runs after successful ergogen execution
-2. **Smart Parsing**: Analyzes YAML structure to extract layout and electrical data
-3. **Template Generation**: Uses parsed data to generate structured markdown
-4. **File Output**: Saves alongside other ergogen outputs
-
-### No LLM Required!
-Unlike the original manually-created diagram, this automated version:
-- ✅ Parses YAML configurations programmatically
-- ✅ Extracts electrical and physical data automatically  
-- ✅ Generates consistent, structured output
-- ✅ Updates automatically when configs change
-- ✅ Works offline without any external dependencies
-
-## 🏗️ Architecture
-
-```
-ergogen YAML → ConnectionDiagramGenerator → Markdown Diagram
-     ↓                      ↓                       ↓
-  Parse zones,         Extract layout,         Generate ASCII,
-  footprints,         electrical, and         tables, and
-  PCB configs         component data          documentation
-```
-
-### Key Components
-
-1. **YAML Parser**: Extracts structured data from ergogen configs
-2. **Layout Analyzer**: Interprets zones, keys, and component placement
-3. **Electrical Mapper**: Maps pin assignments and network connections
-4. **Diagram Generator**: Creates ASCII layouts and markdown tables
-5. **Template Engine**: Formats everything into readable documentation
-
-## 🎯 Supported Features
-
-- ✅ **Matrix keyboards** (any size)
-- ✅ **Numpad layouts**
-- ✅ **Split keyboards** 
-- ✅ **Rotary encoders** (with switch functionality)
-- ✅ **OLED displays** (I2C)
-- ✅ **Special key sizes** (2U, 1.5U, etc.)
-- ✅ **Pro Micro controllers**
-- ✅ **Custom column/row networks**
-- ✅ **Mixed zone layouts**
-
-## 🔧 Customization
-
-The generator can be extended to support:
-- Additional MCU types
-- Different controller pin mappings
-- Custom component types
-- Alternative ASCII layout styles
-- Additional documentation sections
-
-## 🚀 Installation & Usage
-
-1. **Install the extension** (or update if you have an older version)
-2. **Open your ergogen project** in VSCode
-3. **Run ergogen** as usual - diagrams generate automatically!
-4. **Find your diagram** in the output folder alongside PCB files
-
-## 🎉 Benefits
-
-- **Save Time**: No manual documentation needed
-- **Stay Synchronized**: Diagrams update automatically with config changes  
-- **Reduce Errors**: Programmatic parsing eliminates human mistakes
-- **Improve Communication**: Clear visuals for sharing keyboard designs
-- **Enhance Understanding**: See the complete picture of your keyboard's internals
+- [Ergogen](https://github.com/ergogen/ergogen) - The amazing keyboard design tool
+- VS Code team for the excellent extension API
 
 ---
 
-This feature transforms the ergogen workflow by making keyboard documentation as automated as PCB generation. Your connection diagrams will always be accurate, complete, and up-to-date! 🎹✨
+**Keep it simple.** This extension does two things well: run Ergogen and open DXF files. Nothing more, nothing less.

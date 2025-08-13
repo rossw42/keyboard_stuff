@@ -1,0 +1,18 @@
+# Test Ergogen Configuration
+meta:
+  name: test-keyboard
+  version: 1.0
+
+points:
+  zones:
+    main:
+      columns:
+        outer:
+        pinky:
+        ring:
+        middle:
+        index:
+      rows:
+        bottom:
+        home:
+        top:
