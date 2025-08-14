@@ -8,18 +8,18 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 ## Table of Contents
 
 ### Manufacturers
-- [[#Cherry MX Switches]]
-- [[#Gateron Switches]]
-- [[#Kailh Switches]]
-- [[#Gazzew Switches]]
-- [[#AKKO Switches]]
-- [[#Outemu Switches]]
-- [[#HMX Switches]]
-- [[#JWK/Durock Switches]]
-- [[#TTC Switches]]
-- [[#NovelKeys (NK) Switches]]
-- [[#KTT Switches]]
-- [[#Tecsee Switches]]
+- [Cherry MX Switches](#cherry-mx-switches)
+- [Gateron Switches](#gateron-switches)
+- [Kailh Switches](#kailh-switches)
+- [Gazzew Switches](#gazzew-switches)
+- [AKKO Switches](#akko-switches)
+- [Outemu Switches](#outemu-switches)
+- [HMX Switches](#hmx-switches)
+- [JWK/Durock Switches](#jwkdurock-switches)
+- [TTC Switches](#ttc-switches)
+- [NovelKeys (NK) Switches](#novelkeys-nk-switches)
+- [KTT Switches](#ktt-switches)
+- [Tecsee Switches](#tecsee-switches)
 
 ### Quick Navigation by Switch Type
 **Linear Switches:**
@@ -38,8 +38,8 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 - [[#KTT Switches|KTT Series Navigation]] (Fruit, Color, Specialty, Premium, Food/Beverage, Collaboration)
 
 ### Reference Sections
-- [[#Stem Type Definitions]]
-- [[#Notes]]
+- [Stem Type Definitions](#stem-type-definitions)
+- [Notes](#notes)
 
 
 ---
@@ -112,7 +112,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## Gateron Switches
 
@@ -206,7 +206,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## Kailh Switches
 
@@ -276,7 +276,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## Gazzew Switches
 
@@ -312,7 +312,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## AKKO Switches
 
@@ -364,7 +364,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## Outemu Switches
 
@@ -410,7 +410,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## JWK/Durock Switches
 
@@ -465,7 +465,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## TTC Switches
 
@@ -514,7 +514,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## NovelKeys (NK) Switches
 
@@ -552,7 +552,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## HMX Switches
 
@@ -654,7 +654,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## Tecsee Switches
 
@@ -679,7 +679,7 @@ Comprehensive database of currently available MX stem mechanical keyboard switch
 
 ---
 
-[[#MX Stem Mechanical Keyboard Switches Database|↑ Back to Top]]
+[↑ Back to Top](#mx-stem-mechanical-keyboard-switches-database)
 
 ## KTT Switches
 

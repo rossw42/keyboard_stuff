@@ -30,7 +30,7 @@
 ## Overview
 This dashboard organizes MX stem switches by their key characteristics, making it easier to compare similar switches across different manufacturers.
 
-**Note:** This is a simplified comparison view. For complete and up-to-date specifications including bottom-out forces and spring types, refer to the [[MX-Switches-Database|Main Switch Database]].
+**Note:** This is a simplified comparison view. For complete and up-to-date specifications including bottom-out forces and spring types, refer to the [Main Switch Database](MX-Switches-Database.md).
 
 ---
 
@@ -309,8 +309,8 @@ This dashboard organizes MX stem switches by their key characteristics, making i
 ## Quick Navigation
 
 ### Database Links
-- [[MX-Switches-Database|Main Switch Database]] - Complete specifications
-- [[MX-Switches-Database Stats|Main Dashboard]] - Overview and stats
+- [Main Switch Database](MX-Switches-Database.md) - Complete specifications
+- [Database Stats](MX-Switches-Database%20Stats.md) - Overview and stats
 
 ### Stem Type Definitions
 
