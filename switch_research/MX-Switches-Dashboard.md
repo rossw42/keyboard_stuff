@@ -7,25 +7,25 @@
 ## Table of Contents
 
 ### By Switch Type
-- [[#Linear Switches]] - Light, Medium, Heavy, Ultra Light
-- [[#Tactile Switches]] - Light, Medium, Heavy
-- [[#Clicky Switches]] - Light, Medium, Heavy
+- [Linear Switches](#linear-switches) - Light, Medium, Heavy, Ultra Light
+- [Tactile Switches](#tactile-switches) - Light, Medium, Heavy
+- [Clicky Switches](#clicky-switches) - Light, Medium, Heavy
 
 ### By Sound Profile
-- [[#Quiet & Smooth Switches]] - Minimal noise, smooth operation
-- [[#Thocky & Deep Switches]] - Deep, satisfying sound
-- [[#Clacky & Crisp Switches]] - Sharp, bright sound
-- [[#Silent Switches]] - Dampened for quiet environments
-- [[#Click Switches]] - Audible click feedback
+- [Quiet & Smooth Switches](#quiet--smooth-switches) - Minimal noise, smooth operation
+- [Thocky & Deep Switches](#thocky--deep-switches) - Deep, satisfying sound
+- [Clacky & Crisp Switches](#clacky--crisp-switches) - Sharp, bright sound
+- [Silent Switches](#silent-switches) - Dampened for quiet environments
+- [Click Switches](#click-switches) - Audible click feedback
 
 ### By Special Features
-- [[#Speed Switches]] - Low actuation distance
-- [[#Box Switches]] - Dust/water resistant
-- [[#Premium Switches]] - Enhanced materials/tolerances
+- [Speed Switches](#speed-switches-low-actuation-distance) - Low actuation distance
+- [Box Switches](#box-switches-dustwater-resistant) - Dust/water resistant
+- [Premium Switches](#premium-switches-enhanced-materialstolerancess) - Enhanced materials/tolerances
 
 ### Navigation
-- [[#Quick Navigation]] - Links to main database
-- [[#Notes]] - Important information
+- [Quick Navigation](#quick-navigation) - Links to main database
+- [Notes](#notes) - Important information
 
 ## Overview
 This dashboard organizes MX stem switches by their key characteristics, making it easier to compare similar switches across different manufacturers.
