@@ -63,7 +63,7 @@ Use **[MX-Switches-Database Stats.md](MX-Switches-Database%20Stats.md)** for:
 
 ## 🔬 Research Methodology
 
-This database follows strict research standards documented in [switch-research-guidelines.md](.kiro/steering/switch-research-guidelines.md):
+This database follows strict research standards:
 
 ### Source Hierarchy
 1. **Manufacturer Official Sources** (Highest Priority)
