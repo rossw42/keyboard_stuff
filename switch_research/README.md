@@ -11,20 +11,20 @@ Because apparently I needed to catalog every single way to make a plastic cross 
 ## 🎯 How to Use This Database
 
 ### For Quick Reference
-Start with **`MX-Switches-Dashboard.md`** for:
+Start with **[MX-Switches-Dashboard.md](MX-Switches-Dashboard.md)** for:
 - Overview statistics (12 manufacturers, 400+ switches)
 - Manufacturer specializations and market positioning
 - Quick navigation links to specific sections
 
 ### For Detailed Specifications
-Use **`MX-Switches-Database.md`** for:
+Use **[MX-Switches-Database.md](MX-Switches-Database.md)** for:
 - Complete switch specifications with bottom-out forces
 - Organized by manufacturer (Cherry, Gateron, Kailh, etc.)
 - Historical information and release dates
 - Spring types and stem classifications
 
 ### For Database Analysis
-Use **`MX-Switches-Database Stats.md`** for:
+Use **[MX-Switches-Database Stats.md](MX-Switches-Database%20Stats.md)** for:
 - Statistical analysis and insights
 - Database completeness tracking
 - Research progress overview
@@ -63,7 +63,7 @@ Use **`MX-Switches-Database Stats.md`** for:
 
 ## 🔬 Research Methodology
 
-This database follows strict research standards documented in `switch-research-guidelines.md`:
+This database follows strict research standards documented in [switch-research-guidelines.md](.kiro/steering/switch-research-guidelines.md):
 
 ### Source Hierarchy
 1. **Manufacturer Official Sources** (Highest Priority)
