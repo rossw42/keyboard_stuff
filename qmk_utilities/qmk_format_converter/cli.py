@@ -6,6 +6,7 @@ Command-line interface for converting between KLE, VIA, and keymap.c formats.
 """
 
 import argparse
+import logging
 import sys
 from pathlib import Path
 from typing import Optional
@@ -13,11 +14,13 @@ from typing import Optional
 # Handle both standalone and module execution
 try:
     from .qmk_converter import QMKFormatConverter, SupportedFormat
+    from .batch_processor import BatchProcessor
 except ImportError:
     # Running as standalone script
     import os
     sys.path.insert(0, os.path.dirname(__file__))
     from qmk_converter import QMKFormatConverter, SupportedFormat
+    from batch_processor import BatchProcessor
 
 
 def format_from_string(format_str: str) -> SupportedFormat:
@@ -40,6 +43,31 @@ def format_from_string(format_str: str) -> SupportedFormat:
     return format_map[format_str]
 
 
+def setup_logging(verbose: bool = False, log_file: Optional[str] = None):
+    """Setup logging configuration."""
+    level = logging.DEBUG if verbose else logging.INFO
+    format_str = '%(asctime)s - %(levelname)s - %(message)s'
+    
+    handlers = [logging.StreamHandler(sys.stdout)]
+    if log_file:
+        handlers.append(logging.FileHandler(log_file))
+    
+    logging.basicConfig(
+        level=level,
+        format=format_str,
+        handlers=handlers
+    )
+
+
+def progress_callback(current: int, total: int, filename: str):
+    """Progress callback for batch operations."""
+    percentage = (current / total) * 100
+    print(f"\rProgress: {current}/{total} ({percentage:.1f}%) - {filename}",
+          end='', flush=True)
+    if current == total:
+        print()  # New line when complete
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -47,14 +75,18 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Convert KLE to VIA (auto-detect input format)
+  # Single file conversion
   %(prog)s layout.json -o output.json --to via
   
-  # Convert keymap.c to KLE with explicit formats
-  %(prog)s keymap.c --from keymap --to kle -o layout.json
+  # Batch convert directory
+  %(prog)s --batch-dir input_dir --output-dir output_dir --to via
   
-  # Validate a layout file
+  # Batch convert with file list
+  %(prog)s --batch-files file1.json file2.c --output-dir output_dir --to kle
+  
+  # Validate files
   %(prog)s layout.json --validate
+  %(prog)s --batch-validate input_dir
   
   # List supported formats
   %(prog)s --list-formats
@@ -64,29 +96,59 @@ Examples:
     # Input/output options
     parser.add_argument('input', nargs='?', help='Input file path')
     parser.add_argument('-o', '--output', help='Output file path')
-    parser.add_argument('--from', dest='input_format', help='Input format (kle, via, keymap)')
-    parser.add_argument('--to', dest='output_format', help='Output format (kle, via, keymap)')
+    parser.add_argument('--from', dest='input_format', 
+                       help='Input format (kle, via, keymap, qmk_configurator)')
+    parser.add_argument('--to', dest='output_format', 
+                       help='Output format (kle, via, keymap, qmk_configurator)')
     
-    # Actions
+    # Batch processing options
+    parser.add_argument('--batch-dir', help='Process all files in directory')
+    parser.add_argument('--batch-files', nargs='+', 
+                       help='Process specific list of files')
+    parser.add_argument('--output-dir', help='Output directory for batch processing')
+    parser.add_argument('--recursive', action='store_true',
+                       help='Search directories recursively')
+    parser.add_argument('--naming-pattern', default='{name}',
+                       help='Output filename pattern (default: {name})')
+    parser.add_argument('--overwrite', action='store_true',
+                       help='Overwrite existing output files')
+    
+    # Validation options
     parser.add_argument('--validate', action='store_true', help='Validate input file')
-    parser.add_argument('--list-formats', action='store_true', help='List supported formats')
+    parser.add_argument('--batch-validate', help='Validate all files in directory')
+    
+    # Information commands
+    parser.add_argument('--list-formats', action='store_true', 
+                       help='List supported formats')
     parser.add_argument('--info', help='Get information about a specific format')
     
-    # Options
+    # Logging and output options
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
-    parser.add_argument('--version', action='version', version='QMK Format Converter 1.0.0')
+    parser.add_argument('--log-file', help='Write logs to file')
+    parser.add_argument('--quiet', action='store_true', 
+                       help='Suppress progress output')
+    parser.add_argument('--version', action='version', 
+                       version='QMK Format Converter 1.0.0')
     
     args = parser.parse_args()
     
-    # Initialize converter
+    # Setup logging
+    setup_logging(args.verbose, args.log_file)
+    
+    # Initialize converter and batch processor
     converter = QMKFormatConverter()
+    batch_processor = BatchProcessor(converter)
+    
+    # Set up progress callback if not quiet
+    if not args.quiet:
+        batch_processor.set_progress_callback(progress_callback)
     
     # Handle list formats command
     if args.list_formats:
         print("Supported formats:")
         formats = converter.list_supported_formats()
         for fmt, desc in formats.items():
-            print(f"  {fmt:<8} - {desc}")
+            print(f"  {fmt:<15} - {desc}")
         return 0
     
     # Handle format info command
@@ -104,9 +166,104 @@ Examples:
             return 1
         return 0
     
-    # Require input file for other operations
+    # Handle batch validation
+    if args.batch_validate:
+        try:
+            input_format = None
+            if args.input_format:
+                input_format = format_from_string(args.input_format)
+            
+            results = batch_processor.validate_directory(
+                args.batch_validate, input_format, args.recursive
+            )
+            
+            print(f"Validation Results:")
+            print(f"  Total files: {results['total_files']}")
+            print(f"  Valid files: {len(results['valid_files'])}")
+            print(f"  Invalid files: {len(results['invalid_files'])}")
+            
+            if results['invalid_files'] and args.verbose:
+                print("\nInvalid files:")
+                for file_path in results['invalid_files']:
+                    errors = results['validation_errors'].get(file_path, [])
+                    print(f"  {file_path}:")
+                    for error in errors:
+                        print(f"    - {error}")
+            
+            return 0 if len(results['invalid_files']) == 0 else 1
+            
+        except Exception as e:
+            print(f"Error during batch validation: {e}", file=sys.stderr)
+            return 1
+    
+    # Handle batch processing
+    if args.batch_dir or args.batch_files:
+        if not args.output_dir:
+            parser.error("--output-dir is required for batch processing")
+            return 1
+        
+        if not args.output_format:
+            parser.error("--to (output format) is required for batch processing")
+            return 1
+        
+        try:
+            # Parse format arguments
+            input_format = None
+            if args.input_format:
+                input_format = format_from_string(args.input_format)
+            
+            output_format = format_from_string(args.output_format)
+            
+            # Perform batch processing
+            if args.batch_dir:
+                result = batch_processor.process_directory(
+                    args.batch_dir,
+                    args.output_dir,
+                    input_format,
+                    output_format,
+                    args.recursive,
+                    args.naming_pattern,
+                    args.overwrite
+                )
+            else:  # args.batch_files
+                result = batch_processor.process_file_list(
+                    args.batch_files,
+                    args.output_dir,
+                    input_format,
+                    output_format,
+                    args.naming_pattern,
+                    args.overwrite
+                )
+            
+            # Print results summary
+            summary = result.summary()
+            print(f"\nBatch Processing Results:")
+            print(f"  Total files: {summary['total_files']}")
+            print(f"  Successful: {summary['successful']}")
+            print(f"  Failed: {summary['failed']}")
+            print(f"  Skipped: {summary['skipped']}")
+            print(f"  Success rate: {summary['success_rate']}")
+            print(f"  Duration: {summary['duration']}")
+            
+            if result.failed_conversions and args.verbose:
+                print("\nFailed conversions:")
+                for file_path, error in result.failed_conversions:
+                    print(f"  {file_path}: {error}")
+            
+            if result.skipped_files and args.verbose:
+                print("\nSkipped files:")
+                for file_path, reason in result.skipped_files:
+                    print(f"  {file_path}: {reason}")
+            
+            return 0 if result.failure_count == 0 else 1
+            
+        except Exception as e:
+            print(f"Error during batch processing: {e}", file=sys.stderr)
+            return 1
+    
+    # Require input file for single file operations
     if not args.input:
-        parser.error("Input file is required")
+        parser.error("Input file is required for single file operations")
         return 1
     
     input_path = Path(args.input)
@@ -114,7 +271,7 @@ Examples:
         print(f"Error: Input file '{input_path}' not found", file=sys.stderr)
         return 1
     
-    # Handle validation
+    # Handle single file validation
     if args.validate:
         try:
             input_format = None
@@ -146,9 +303,9 @@ Examples:
             print(f"Error validating file: {e}", file=sys.stderr)
             return 1
     
-    # Handle conversion
+    # Handle single file conversion
     if not args.output:
-        parser.error("Output file (-o/--output) is required for conversion")
+        parser.error("Output file (-o/--output) is required for single file conversion")
         return 1
     
     if not args.output_format:
@@ -172,7 +329,7 @@ Examples:
         
         converter.convert_file(input_path, input_format, output_path, output_format)
         
-        if args.verbose:
+        if not args.quiet:
             print("Conversion completed successfully")
         
         return 0
