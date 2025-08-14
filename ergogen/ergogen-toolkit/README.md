@@ -72,10 +72,10 @@ The extension is designed to work out of the box, but if you're the tweaking typ
 
 ## 🎮 Keyboard Shortcuts
 
-| Shortcut | Action | When |
-|----------|--------|------|
-| `Ctrl+Shift+E` | Run Ergogen | YAML file is open |
-| `Ctrl+Shift+D` | Open DXF Viewer | Anytime |
+| Shortcut       | Action          | When              |
+| -------------- | --------------- | ----------------- |
+| `Ctrl+Shift+E` | Run Ergogen     | YAML file is open |
+| `Ctrl+Shift+D` | Open DXF Viewer | Anytime           |
 
 *Mac users: Replace `Ctrl` with `Cmd` because Apple likes to be different.*
 

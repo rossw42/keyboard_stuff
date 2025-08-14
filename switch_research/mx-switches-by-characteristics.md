@@ -28,11 +28,16 @@ This database organizes MX stem switches by their key characteristics, making it
 | Outemu Red | Outemu | 45g | 2.0mm | Standard | Red | Smooth | 2015 |
 | Outemu Silent Red | Outemu | 45g | 2.0mm | Silent | Red | Very Quiet | 2018 |
 | TTC Red | TTC | 45g | 2.0mm | Standard | Red | Smooth | 2020 |
+| TTC Gold Red | TTC | 45g | 2.0mm | Standard | Red | Premium Smooth | 2021 |
 | TTC Ace | TTC | 45g | 2.0mm | Standard | Clear | Premium Smooth | 2022 |
+| TTC Silent Red | TTC | 45g | 2.0mm | Silent | Red | Very Quiet | 2021 |
 
 ### Medium Linear (50-55g)
 | Switch Name | Manufacturer | Actuation Force (g) | Actuation Distance (mm) | Stem Type | Stem Color | Sound Profile | Release Date |
 |-------------|--------------|-------------------|------------------------|-----------|------------|---------------|--------------|
+| TTC Yellow | TTC | 50g | 2.0mm | Standard | Yellow | Smooth | 2020 |
+| TTC Neptune | TTC | 52g | 2.0mm | Standard | Blue | Deep, Smooth | 2022 |
+| TTC Flame Red | TTC | 54g | 2.0mm | Standard | Red | Smooth, Thocky | 2022 |
 | Gateron Yellow | Gateron | 50g | 2.0mm | Standard | Yellow | Smooth, Quiet | 2016 |
 | Gateron Pro Yellow | Gateron | 50g | 2.0mm | Standard | Yellow | Premium Smooth | 2021 |
 | Gateron Milky Yellow | Gateron | 50g | 2.0mm | Standard | Yellow | Creamy, Muted | 2019 |
@@ -60,6 +65,9 @@ This database organizes MX stem switches by their key characteristics, making it
 | Outemu Black | Outemu | 60g | 2.0mm | Standard | Black | Smooth | 2015 |
 | Outemu Silent Black | Outemu | 60g | 2.0mm | Silent | Black | Very Quiet | 2018 |
 | TTC Black | TTC | 60g | 2.0mm | Standard | Black | Smooth | 2020 |
+| TTC Silent Black | TTC | 60g | 2.0mm | Silent | Black | Very Quiet | 2021 |
+| TTC Watermelon | TTC | 62g | 2.0mm | Standard | Green | Fruity Theme | 2023 |
+| TTC Wild | TTC | 63.5g | 2.0mm | Standard | Clear | Heavy Linear | 2023 |
 | Bobo U4 | Bobo | 62g | 2.0mm | Silent | Clear | Smooth, Silent | 2020 |
 | Bobo Bobagum | Bobo | 62g | 2.0mm | Silent | Pink | Silent, Smooth | 2021 |
 | Durock L7 | Durock | 62g | 2.0mm | Standard | Black | Premium Smooth | 2021 |
@@ -98,12 +106,18 @@ This database organizes MX stem switches by their key characteristics, making it
 | Outemu Brown | Outemu | 55g | 2.0mm | Standard | Brown | Light Tactile | 2015 |
 | Outemu Silent Brown | Outemu | 55g | 2.0mm | Silent | Brown | Quiet Tactile | 2018 |
 | TTC Brown | TTC | 55g | 2.0mm | Standard | Brown | Medium Tactile | 2020 |
+| TTC Gold Brown V2 | TTC | 55g | 2.0mm | Standard | Brown | Premium Tactile | 2022 |
+| TTC Gold Brown V3 | TTC | 55g | 2.0mm | Standard | Brown | Enhanced Tactile | 2023 |
+| TTC Silent Brown | TTC | 55g | 2.0mm | Silent | Brown | Silent Tactile | 2021 |
+| TTC Heart | TTC | 55g | 2.0mm | Standard | Pink | Sharp Tactile | 2022 |
 | Gateron Aliaz | Gateron | 60g/70g/80g/100g | 2.0mm | Silent | Clear | Silent Tactile | 2018 |
 | Kailh Polia | Kailh | 60g | 2.0mm | Standard | Clear | Sharp Tactile | 2020 |
 
 ### Heavy Tactile (65g+)
 | Switch Name | Manufacturer | Actuation Force (g) | Actuation Distance (mm) | Stem Type | Stem Color | Sound Profile | Release Date |
 |-------------|--------------|-------------------|------------------------|-----------|------------|---------------|--------------|
+| TTC Frozen | TTC | 67g | 2.0mm | Standard | Blue | Heavy Tactile | 2022 |
+| TTC Screw | TTC | 65g | 2.0mm | Standard | Clear | Sharp Tactile | 2023 |
 | Cherry MX Clear | Cherry | 65g | 2.0mm | Standard | Clear | Moderate | 2012 |
 | Bobo U4T | Bobo | 62g | 2.0mm | Silent | Clear | Sharp Tactile | 2020 |
 | JWK Tactile | JWK | 63.5g | 2.0mm | Standard | Brown | Medium Tactile | 2019 |
@@ -129,11 +143,13 @@ This database organizes MX stem switches by their key characteristics, making it
 | Gateron Blue | Gateron | 60g | 2.3mm | Standard | Blue | Crisp Click | 2014 |
 | Outemu Blue | Outemu | 60g | 2.2mm | Standard | Blue | Crisp Click | 2015 |
 | TTC Blue | TTC | 60g | 2.2mm | Standard | Blue | Crisp Click | 2020 |
+| TTC Gold Blue | TTC | 60g | 2.2mm | Standard | Blue | Premium Click | 2021 |
 | Kailh Box Navy | Kailh | 60g | 1.8mm | Box | Dark Blue | Very Heavy Click | 2017 |
 
 ### Heavy Clicky (80g+)
 | Switch Name | Manufacturer | Actuation Force (g) | Actuation Distance (mm) | Stem Type | Stem Color | Sound Profile | Release Date |
 |-------------|--------------|-------------------|------------------------|-----------|------------|---------------|--------------|
+| TTC Green | TTC | 80g | 2.2mm | Standard | Green | Heavy Click | 2020 |
 | Cherry MX Green | Cherry | 80g | 2.2mm | Standard | Green | Loud Click | 2012 |
 | Gateron Green | Gateron | 80g | 2.3mm | Standard | Green | Heavy Click | 2014 |
 
@@ -170,6 +186,7 @@ This database organizes MX stem switches by their key characteristics, making it
 | Kailh Speed Silver | Kailh | 40g | 1.1mm | Speed | Silver | Fast, Light | 2017 |
 | Kailh Speed Copper | Kailh | 40g | 1.1mm | Speed | Copper | Fast, Light | 2017 |
 | Cherry MX Speed Silver | Cherry | 45g | 1.2mm | Speed | Silver | Quiet | 2016 |
+| TTC Speed Silver | TTC | 40g | 1.1mm | Speed | Silver | Fast, Light | 2021 |
 | AKKO CS Silver | AKKO | 40g | 1.2mm | Speed | Silver | Fast, Light | 2022 |
 | Kailh Pro Red | Kailh | 50g | 1.7mm | Standard | Red | Premium Smooth | 2019 |
 
