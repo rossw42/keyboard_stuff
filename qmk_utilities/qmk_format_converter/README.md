@@ -1,33 +1,33 @@
 # QMK Format Converter
 
-A powerful and comprehensive utility for converting between different QMK keyboard layout formats: **KLE (Keyboard Layout Editor)**, **VIA keymap specifications**, **QMK keymap.c source files**, and **QMK Configurator JSON exports**.
+A utility for converting between different QMK keyboard layout formats that works most of the time! Supports **KLE (Keyboard Layout Editor)**, **VIA keymap specifications**, **QMK keymap.c source files**, and **QMK Configurator JSON exports**.
 
-[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-passing-green.svg)](#testing)
+> **Honest Assessment**: This tool has the ambitious goal of converting between all keyboard formats. Sometimes it succeeds brilliantly, sometimes it counts keys wrong, and sometimes it just gives up. But hey, when it works, it's pretty neat! 🎹
 
-## 🚀 Features
+## 🚀 Features (That Mostly Work)
 
-- **🔄 Bidirectional Conversion**: Convert seamlessly between KLE, VIA, keymap.c, and QMK Configurator formats
-- **🔍 Automatic Format Detection**: Smart detection of input file formats
-- **✅ Data Integrity**: Perfect preservation of keyboard layouts during conversion
-- **🎯 Comprehensive Validation**: Built-in validation for all supported formats
-- **⚡ High Performance**: Fast conversion with optimized parsing (< 1ms average)
-- **🧪 Extensively Tested**: Comprehensive test suite with multiple component and integration tests
-- **📚 Universal Data Model**: Robust intermediate representation supporting all format features
-- **💻 CLI Interface**: Easy-to-use command-line interface for batch operations
-- **🐍 Python API**: Programmatic access for integration into other tools
+- **🔄 Bidirectional Conversion**: Convert between KLE, VIA, keymap.c, and QMK Configurator formats (when the stars align)
+- **🔍 Automatic Format Detection**: Smart-ish detection of input file formats
+- **✅ Data Integrity**: Preservation of keyboard layouts during conversion (results may vary)
+- **🎯 Validation**: Built-in validation that catches some errors
+- **⚡ Performance**: Fast conversion when it doesn't crash
+- **🧪 Testing**: Has some test files in the `valid/` folder
+- **📚 Universal Data Model**: Intermediate representation that tries to support all format features - this is a dream state, will it ever be true..
+- **💻 CLI Interface**: Command-line interface with helpful error messages
+- **🐍 Python API**: Programmatic access for the brave
 
 ## 📋 Supported Formats
 
-| Format | Description | Extension | Features |
-|--------|-------------|-----------|----------|
-| **KLE** | [Keyboard Layout Editor](http://keyboard-layout-editor.com) JSON | `.json` | Physical layout, key positioning, visual styling, labels |
-| **VIA** | [VIA/VIAL](https://caniusevia.com) keymap specification | `.json` | Keymap layers, keyboard metadata, matrix definitions, feature flags |
-| **keymap.c** | QMK firmware keymap source code | `.c` | Layer definitions, custom functions, compile-ready code, QMK macros |
-| **QMK Configurator** | [QMK Configurator](https://config.qmk.fm) JSON export | `.json` | Flat layer arrays, keyboard metadata, direct QMK compatibility, web editor export |
+| Format               | Description                                                      | Extension | Features                                                                          |
+| -------------------- | ---------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------- |
+| **KLE**              | [Keyboard Layout Editor](http://keyboard-layout-editor.com) JSON | `.json`   | Physical layout, key positioning, visual styling, labels                          |
+| **VIA**              | [VIA/VIAL](https://caniusevia.com) keymap specification          | `.json`   | Keymap layers, keyboard metadata, matrix definitions, feature flags               |
+| **keymap.c**         | QMK firmware keymap source code                                  | `.c`      | Layer definitions, custom functions, compile-ready code, QMK macros               |
+| **QMK Configurator** | [QMK Configurator](https://config.qmk.fm) JSON export            | `.json`   | Flat layer arrays, keyboard metadata, direct QMK compatibility, web editor export |
 
 ## 🛠 Installation
+
+So you're brave enough to try this? Excellent! Just remember: this tool has personality. Sometimes it converts perfectly, sometimes it gets creative with your key counts, and occasionally it produces layouts that would make even the most experimental keyboard enthusiast question their life choices. But hey, that's half the fun!
 
 ### Prerequisites
 - Python 3.7 or higher
@@ -203,14 +203,14 @@ The converter uses a **Universal Data Model** as an intermediate representation:
 
 
 
-## 🔧 Advanced Usage
+## 🔧 Advanced Usage (For the Adventurous)
 
 ### Custom Key Mappings
 
 ```python
 from qmk_format_converter.data_models.keycode_mappings import QMK_TO_VIA_KEYCODE_MAP
 
-# Add custom keycode mappings
+# Add custom keycode mappings (if you're feeling lucky)
 QMK_TO_VIA_KEYCODE_MAP['KC_CUSTOM'] = 'custom_key'
 ```
 
@@ -246,8 +246,8 @@ cd qmk_format_converter
 
 # No external dependencies required!
 
-# Run tests to ensure everything works
-python archive/tests/test_suite.py
+# Test with the sample files in valid/ folder
+python cli.py valid/kle-lily58-default-layer.json --to via -o test-output.json
 ```
 
 ### Adding New Formats
@@ -269,7 +269,7 @@ python archive/tests/test_suite.py
 
 Detailed format specifications are available in [`docs/format_specifications.md`](docs/USAGE_GUIDE.md).
 
-## 🐛 Troubleshooting
+## 🐛 Troubleshooting (AKA "Why Isn't This Working?")
 
 ### Common Issues
 
@@ -277,21 +277,26 @@ Detailed format specifications are available in [`docs/format_specifications.md`
 ```bash
 # Ensure you're in the right directory
 cd qmk_format_converter
-# Use absolute imports
-python -c "import sys; sys.path.append('.'); from qmk_converter import *"
+# Try the CLI directly
+python cli.py --help
 ```
 
 **Q: "Format detection failed"**
-```python
-# Specify format explicitly
-converter.load_file('file.json', SupportedFormat.KLE)
+```bash
+# Specify format explicitly (the converter gets confused sometimes)
+qmk-convert file.json --from kle --to via -o output.json
 ```
 
-**Q: "Validation errors"**
-```python
-# Check specific errors
-result = converter.validate_file('file.json')
-print(result['errors'])  # See what's wrong
+**Q: "Key count mismatch" or weird conversion results**
+```bash
+# This is a known issue - try with a different keyboard layout
+# Or check the valid/ folder for working examples
+```
+
+**Q: "It worked yesterday but not today"**
+```bash
+# Welcome to software development! Try turning it off and on again.
+# Check if your input file format changed.
 ```
 
 ## 📄 License
@@ -311,14 +316,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [VIA](https://github.com/the-via/app) - Visual keymap editor
 - [Keyboard Layout Editor](http://keyboard-layout-editor.com) - Web-based keyboard layout designer
 
-## 📈 Project Stats
+## 📈 Project Stats (The Real Numbers)
 
 - **Languages**: Python 3.7+
 - **Core Files**: 20+ source files across parsers, generators, and data models
-- **Tests**: Comprehensive test suite in archive/tests/
+- **Tests**: Sample files in `valid/` folder (Lily58 examples)
 - **Formats Supported**: 4 (KLE, VIA, keymap.c, QMK Configurator)
-- **Key Preservation**: 100% in round-trip tests
+- **Key Preservation**: Usually pretty good, sometimes creative
 - **Dependencies**: Zero external dependencies required
+- **Success Rate**: High when used with supported keyboards, variable otherwise
 
 ---
 

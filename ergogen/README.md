@@ -1,45 +1,52 @@
 # Ergogen Toolkit
 
-A simple VS Code extension for Ergogen keyboard design workflow. Run Ergogen on YAML files and view DXF output files.
+A collection of Ergogen-related tools and utilities for keyboard design, because apparently designing keyboards wasn't complicated enough already.
 
-## 🎯 Core Functions
+> **Philosophy**: Keep it simple, stupid. Most of these tools do one thing and try to do it well. Some succeed better than others. 🎯
 
-This extension has **two simple functions**:
+## 🛠 What's Actually Here
 
+### [`ergogen-toolkit/`](ergogen-toolkit/) ✅ **The Star of the Show**
+A simple VS Code extension with **two functions**:
 1. **Run Ergogen** - Execute ergogen command on YAML files
-2. **View DXF Files** - Open DXF files using your system's default viewer
+2. **View DXF Files** - Open DXF files with your system's default viewer
 
-That's it. No complexity, no heavy dependencies, just the essentials.
+That's it. No complexity, no heavy dependencies, just the essentials that actually work. Born from the noble quest to avoid carpal tunnel from constantly copy-pasting YAML files to those very cool online Ergogen viewers. So I asked Claude to help dream up a local solution that's decidedly less cool but requires more button clicks - because apparently that's progress!
 
-## 🚀 Quick Start
+### [`working_samples/`](working_samples/) 📁 **The Examples Folder**
+Example Ergogen YAML files that definitely worked at some point in time. Includes configs for various keyboards that may or may not generate valid PCBs. Your mileage may vary.
 
-1. **Install the extension**
+### [`mounting_styles/`](mounting_styles/) 📚 **The Reference Library**
+Examples and documentation for different keyboard mounting approaches. Contains YAML files for tray mount, gasket mount, and other mounting styles with varying degrees of completeness. This is a research project to see if Ergogen can generate these different kinds of cases - spoiler alert: the jury's still out, but we're having fun trying! The methodology: throw documentation, YAML files, pretty pictures at an AI, then see what sticks. Results may require creative interpretation and liberal application of nano tape.
+
+### [`kle_to_ergogen/`](kle_to_ergogen/) 🔄 **The Converter**
+Converts Keyboard Layout Editor (KLE) layouts to Ergogen point definitions. Sometimes works brilliantly, sometimes produces coordinates that exist in a parallel dimension. The dream workflow: design in KLE → generate PCB with Ergogen → 3D print cases → wake up to a new keyboard ready for handwiring. Reality: usually involves more debugging than sleeping, but when it works, it's magical! 
+
+### [`ergogen_to_qmk_converter/`](ergogen_to_qmk_converter/) 🚧 **The Ambitious Project**
+Attempts to bridge the gap between Ergogen PCB design and QMK firmware. Currently in the "I have a plan" phase of development.
+
+### [`keyboards/`](keyboards/) 🎹 **The Keyboard Collection**
+Specific keyboard projects and configurations. Contains actual keyboard designs in various states of completion. Bonus feature: automatically generating keyboard connection diagrams would be pretty cool - maybe someday when the stars align and the code cooperates. Check out the [macropad connection diagram](keyboards/macropad/keyboard_connection_diagram.md) for an example of what this could look like.
+
+## 🚀 Quick Start ( These instructions might work )
+
+### For the VS Code Extension
+1. **Install the extension** from `ergogen-toolkit/`
 2. **Open a YAML file** (keyboard config)
 3. **Run Ergogen**: `Ctrl+Shift+E` or Command Palette → "Run Ergogen"
 4. **View DXF files**: `Ctrl+Shift+D` or Command Palette → "Open DXF Viewer"
 
-## 📋 Commands
-
-| Command | Shortcut | Description |
-|---------|----------|-------------|
-| Run Ergogen | `Ctrl+Shift+E` | Execute ergogen on current YAML file |
-| Open DXF Viewer | `Ctrl+Shift+D` | View generated DXF files |
-
-## ⚙️ Configuration
-
-Simple configuration options in VS Code settings:
-
-```json
-{
-  "ergogen-toolkit.ergogenCommand": "ergogen",  // Command to run (default: "ergogen")
-  "ergogen-toolkit.outputDirectory": "output"   // Output directory name (default: "output")
-}
-```
+### For Everything Else
+1. **Browse the folders** - each has its own README with varying degrees of accuracy
+2. **Start with `working_samples/`** - these configs probably work
+3. **Check `mounting_styles/`** - learn about different mounting approaches
+4. **Try `kle_to_ergogen/`** - if you have a KLE layout to convert
 
 ## 🔧 Requirements
 
 - **Ergogen CLI** installed and available in PATH
-- **DXF Viewer** application for viewing files (optional)
+- **DXF Viewer** application for viewing files (optional but recommended)
+- **Patience** - some of these tools are more experimental than others
 
 ### Installing Ergogen
 
@@ -47,68 +54,6 @@ Simple configuration options in VS Code settings:
 npm install -g ergogen
 ```
 
-### DXF Viewers
-
-The extension opens DXF files using your system's default application. Popular options:
-
-- **Windows**: DraftSight, AutoCAD, FreeCAD
-- **macOS**: LibreCAD, FreeCAD, AutoCAD
-- **Linux**: LibreCAD, FreeCAD, QCAD
-
-## 🎯 How It Works
-
-1. **YAML Detection**: Extension automatically detects YAML files in your workspace
-2. **Ergogen Execution**: Runs `ergogen -o <output-dir> <yaml-file>` 
-3. **Output Scanning**: Finds generated DXF files in output directory
-4. **System Integration**: Opens DXF files with your system's default viewer
-
-## 📁 File Structure
-
-```
-Your Project/
-├── config.yaml           # Your ergogen config
-├── config/               # Generated outputs (named after YAML file)
-│   ├── pcbs/
-│   │   └── keyboard.dxf  # Generated DXF files
-│   └── outlines/
-│       └── board.dxf
-```
-
-## 🛠️ Troubleshooting
-
-### Ergogen Command Not Found
-- Install Ergogen CLI: `npm install -g ergogen`
-- Or specify full path in settings: `"ergogen-toolkit.ergogenCommand": "/path/to/ergogen"`
-
-### No DXF Viewer Available
-- Install a DXF viewer application
-- The extension will show a helpful message with installation guidance
-
-### No YAML Files Found
-- Ensure your files have `.yaml` or `.yml` extension
-- Open the YAML file in VS Code before running Ergogen
-
-## 🎹 Context Menus
-
-- **YAML files**: Right-click → "Run Ergogen"
-- **DXF files**: Right-click → "Open DXF Viewer"
-
-## 📊 Extension Size
-
-This extension is lightweight:
-- **Package size**: Under 100KB
-- **Dependencies**: None (uses system DXF viewer)
-- **Memory usage**: Minimal
-
-## 🔄 Version 4.0.0 - Simplified
-
-This version focuses on the core functionality:
-
-- ✅ Run Ergogen command
-- ✅ View DXF files with system viewer
-- ❌ Removed complex DXF viewer (use system apps instead)
-- ❌ Removed connection diagram generation
-- ❌ Removed heavy dependencies
 
 ## 📄 License
 
@@ -116,9 +61,10 @@ MIT License - Simple and permissive.
 
 ## 🙏 Acknowledgments
 
-- [Ergogen](https://github.com/ergogen/ergogen) - The amazing keyboard design tool
+- [Ergogen](https://github.com/ergogen/ergogen) - The amazing keyboard design tool that makes this all possible
 - VS Code team for the excellent extension API
+- The keyboard community for endless inspiration and complexity
 
 ---
 
-**Keep it simple.** This extension does two things well: run Ergogen and open DXF files. Nothing more, nothing less.
+**Philosophy**: Each tool in this collection tries to do one thing well. Some succeed better than others, but they're all honest about their limitations.

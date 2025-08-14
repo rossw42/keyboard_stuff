@@ -1,6 +1,8 @@
 # QMK Keymap ASCII Generator
 
-A modular collection of utilities for working with QMK (Quantum Mechanical Keyboard) firmware, focused on generating ASCII art representations of keyboard layouts from keymap.c files.
+A tool that turns your boring keymap.c files into beautiful ASCII art because apparently we needed to make keyboard layouts even more nerdy. This is the one tool in this repo that actually works reliably!
+
+> **Success Story**: Unlike its siblings in this repository, this tool has achieved the rare status of "actually does what it says." It's like the responsible child in a family of chaos. 🎨
 
 ## What This Does
 
@@ -23,17 +25,17 @@ Converts QMK keymap.c files into readable ASCII art representations like this:
  */
 ```
 
-## Features
+## Features (That Actually Work!)
 
-- **18 Keyboards Supported**: Comprehensive support for popular split, ortholinear, traditional, and ergonomic keyboards
-- **Smart Detection**: Automatically identifies your keyboard from the keymap file
-- **Easy Extension**: Add new keyboards with simple JSON configuration files
-- **QMK Integration**: Converts QMK keycodes to readable labels
-- **Safe Updates**: Creates backups when modifying files
-- **Modular Architecture**: Easily add support for new keyboards
-- **External Configuration**: Layouts defined in JSON files with separate template files
-- **Smart Parsing**: Filters out ASCII art comments and decorations
-- **Auto-Detection**: Identifies keyboard layout based on LAYOUT function and key count
+- **19 Keyboards Supported**: From tiny macropads to full ergonomic splits - we've got ASCII art for days
+- **Smart Detection**: Usually figures out what keyboard you're using (it's surprisingly good at this)
+- **Easy Extension**: Add new keyboards with JSON configs - no PhD in regex required
+- **QMK Integration**: Converts cryptic keycodes to human-readable labels
+- **Safe Updates**: Creates backups because we're not monsters
+- **Modular Architecture**: Clean separation of layouts and templates
+- **External Configuration**: No hardcoded layouts hiding in the code
+- **Smart Parsing**: Ignores existing ASCII art so it doesn't get confused by its own output
+- **Auto-Detection**: Matches keyboards by layout function and key count (works better than you'd expect)
 
 ## Usage
 
@@ -54,7 +56,7 @@ python3 modular_keymap_ascii_generator.py keymap.c --layout lily58
 
 ## Supported Keyboards
 
-Currently supports 18 keyboard layouts organized by category:
+Currently supports 19 keyboard layouts organized by category:
 
 ### Split Ergonomic Keyboards
 - **Alice** (65 keys) - Ergonomic staggered layout with split spacebar
@@ -79,6 +81,9 @@ Currently supports 18 keyboard layouts organized by category:
 - **KBD67** (67 keys) - 65% layout with arrow keys
 - **KBD75** (82 keys) - 75% compact layout
 - **TKL** (87 keys) - Tenkeyless layout
+
+### Macropads
+- **4x2** (10 keys) - Small macropad for testing or simple tasks
 
 ## Adding New Keyboard Layouts
 
@@ -164,7 +169,8 @@ Create an ASCII art template using Python string formatting:
 
 ```
 ├── modular_keymap_ascii_generator.py  # Main script
-├── layouts/                           # Keyboard configurations (18 layouts)
+├── layouts/                           # Keyboard configurations (19 layouts)
+│   ├── 4x2.json
 │   ├── alice.json
 │   ├── corne.json
 │   ├── dz60.json
@@ -183,7 +189,8 @@ Create an ASCII art template using Python string formatting:
 │   ├── redox.json
 │   ├── sofle.json
 │   └── tkl.json
-├── templates/                         # ASCII templates (18 templates)
+├── templates/                         # ASCII templates (19 templates)
+│   ├── 4x2.txt
 │   ├── alice.txt
 │   ├── corne.txt
 │   ├── dz60.txt
@@ -255,7 +262,7 @@ The script automatically:
 
 ## Legacy Version
 
-The original `keymap_ascii_generator.py` and `universal_keymap_ascii_generator.py` are available in the `archive/` directory for legacy compatibility, but the modular version is recommended for all new projects.
+The original versions of this tool have been lost to the sands of time (and poor git hygiene). This modular version is the current and recommended approach. If you're looking for the old versions, they probably exist somewhere in my commit history, but honestly, you don't want them - they were held together with regex and hope.
 
 ## Contributing
 
@@ -273,26 +280,32 @@ Popular keyboards that could be added:
 - **Levinson** - Split ortholinear
 - **Nyquist** - Split ortholinear
 
-## Troubleshooting
+## Troubleshooting (The Rare Times It Doesn't Work)
 
 ### Layout Not Detected
 If your keyboard isn't detected automatically:
 1. Check if it's in the supported list (`--list`)
-2. Verify your keymap.c uses standard QMK LAYOUT() functions
+2. Verify your keymap.c uses standard QMK LAYOUT() functions (not some custom macro)
 3. Force a specific layout with `--layout <name>`
-4. Consider adding support for your keyboard
+4. Consider adding support for your keyboard (it's easier than you think!)
 
 ### Key Count Mismatch
 If you get key count errors:
+- Count your keys again (seriously, we've all been there)
 - Ensure your LAYOUT() function has the expected number of parameters
 - Check for extra commas or missing keys in your keymap
-- Verify the layout configuration matches your keyboard variant
+- Verify you're using the right keyboard variant (looking at you, Lily58 Pro vs regular)
 
 ### Template Formatting Issues
-If ASCII output looks wrong:
-- Check template alignment (use consistent `{k#:^width}` formatting)
+If ASCII output looks wonky:
+- Check template alignment (consistent `{k#:^width}` formatting is your friend)
 - Ensure all key positions are defined in the template
-- Test with a simple keymap first
+- Test with a simple keymap first before your 47-layer masterpiece
+
+### It Actually Works But Looks Weird
+- This is probably user error (no offense)
+- Check that your keymap follows standard QMK conventions
+- Try the `--list` command to see what layouts are available
 
 ## License
 
