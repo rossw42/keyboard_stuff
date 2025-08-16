@@ -1,0 +1,73 @@
+{
+  "name": "MacroPad 4x2 with Encoder",
+  "vendorProductId": 305398824,
+  "macros": [
+    "{+KC_RCTL}[{-KC_RCTL}",
+    "{+KC_RCTL}]{-KC_RCTL}",
+    "{+KC_LCTL}-{-KC_LCTL}",
+    "{+KC_LCTL}={-KC_LCTL}",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "{+KC_LCTL}z{-KC_LCTL}"
+  ],
+  "layers": [
+    [
+      "TG(2)",
+      "KC_E",
+      "KC_W",
+      "KC_NO",
+      "KC_B",
+      "LT(1,KC_ESC)",
+      "KC_D",
+      "KC_S",
+      "KC_A",
+      "KC_NO"
+    ],
+    [
+      "TG(3)",
+      "KC_F",
+      "KC_RGHT",
+      "KC_LEFT",
+      "KC_ESC",
+      "TO(0)",
+      "KC_C",
+      "KC_F11",
+      "MACRO(3)",
+      "MACRO(2)"
+    ],
+    [
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_P2",
+      "TO(0)",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS"
+    ],
+    [
+      "TO(1)",
+      "KC_TAB",
+      "KC_3",
+      "KC_2",
+      "KC_1",
+      "TO(0)",
+      "KC_V",
+      "KC_C",
+      "KC_X",
+      "KC_Z"
+    ]
+  ],
+  "encoders": []
+}
