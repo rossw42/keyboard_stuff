@@ -23,7 +23,7 @@ function switchplate_extrude_1_6_outline_fn(){
 .subtract(
     new CSG.Path2D([[145.4,57.15],[159.4,57.15]]).appendPoint([159.4,71.15]).appendPoint([145.4,71.15]).appendPoint([145.4,57.15]).close().innerToCAG()
 )).union(
-    new CSG.Path2D([[24.3125,28.575],[42.3625,28.575]]).appendArc([42.8625,29.075],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([42.8625,123.325]).appendArc([42.3625,123.825],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([24.3125,123.825]).appendArc([23.8125,123.325],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([23.8125,29.075]).appendArc([24.3125,28.575],{"radius":0.5,"clockwise":false,"large":false}).close().innerToCAG()
+    new CSG.Path2D([[24.3125,28.575],[123.325,28.575]]).appendArc([123.825,29.075],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([123.825,123.325]).appendArc([123.325,123.825],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([24.3125,123.825]).appendArc([23.8125,123.325],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([23.8125,29.075]).appendArc([24.3125,28.575],{"radius":0.5,"clockwise":false,"large":false}).close().innerToCAG()
 .subtract(
     new CSG.Path2D([[26.3375,107.3],[40.3375,107.3]]).appendPoint([40.3375,121.3]).appendPoint([26.3375,121.3]).appendPoint([26.3375,107.3]).close().innerToCAG()
 .union(
@@ -34,11 +34,9 @@ function switchplate_extrude_1_6_outline_fn(){
     new CSG.Path2D([[26.3375,50.15],[40.3375,50.15]]).appendPoint([40.3375,64.15]).appendPoint([26.3375,64.15]).appendPoint([26.3375,50.15]).close().innerToCAG()
 ).union(
     new CSG.Path2D([[26.3375,31.1],[40.3375,31.1]]).appendPoint([40.3375,45.1]).appendPoint([26.3375,45.1]).appendPoint([26.3375,31.1]).close().innerToCAG()
-))).union(
-    new CSG.Path2D([[48.125,28.575],[123.325,28.575]]).appendArc([123.825,29.075],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([123.825,123.325]).appendArc([123.325,123.825],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([48.125,123.825]).appendArc([47.625,123.325],{"radius":0.5,"clockwise":false,"large":false}).appendPoint([47.625,29.075]).appendArc([48.125,28.575],{"radius":0.5,"clockwise":false,"large":false}).close().innerToCAG()
-.subtract(
+).union(
     new CSG.Path2D([[107.3,107.3],[121.3,107.3]]).appendPoint([121.3,121.3]).appendPoint([107.3,121.3]).appendPoint([107.3,107.3]).close().innerToCAG()
-.union(
+).union(
     new CSG.Path2D([[107.3,88.25],[121.3,88.25]]).appendPoint([121.3,102.25]).appendPoint([107.3,102.25]).appendPoint([107.3,88.25]).close().innerToCAG()
 ).union(
     new CSG.Path2D([[107.3,69.2],[121.3,69.2]]).appendPoint([121.3,83.2]).appendPoint([107.3,83.2]).appendPoint([107.3,69.2]).close().innerToCAG()

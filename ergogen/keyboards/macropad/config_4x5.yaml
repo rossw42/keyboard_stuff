@@ -32,16 +32,16 @@ points:
         col0:
           key:
             column_net: col0
-            #bind: [0,0,0,ky]
+            bind: [0,0,0,ky]
           rows:
             row0: # Num Lock
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row1: # 7
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row2: # 4
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row3: # 1
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row4: # 0 (2u wide)
               width: 2*capx + kx
               tags: [key, numpad_key, zero_key]
@@ -51,13 +51,13 @@ points:
             column_net: col1
           rows:
             row0: # /
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row1: # 8
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row2: # 5
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row3: # 2
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             # No row4 for col1
         # *, 9, 6, 3, .
         col2:
@@ -65,15 +65,15 @@ points:
             column_net: col2
           rows:
             row0: # *
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row1: # 9
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row2: # 6
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row3: # 3
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row4: # .
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
         # -, +, Enter
         col3:
           key:
@@ -81,7 +81,7 @@ points:
             #bind: [0,2.8ky,0,0]
           rows:
             row0: # -
-              tags: [key, numpad_key, regular_numpad_key]
+              tags: [key, numpad_key]
             row1: # + (2u tall, spans row1-row2)
               height: 2*capy + ky
               tags: [key, numpad_key, plus_key]
@@ -124,18 +124,23 @@ points:
         nav_col:
           key:
             column_net: col_left
-
+            tags: [key, nav_key]
       rows:
         row0:
           row_net: row0
+          tags: [key, nav_key]
         row1:
           row_net: row1
+          tags: [key, nav_key]
         row2:
           row_net: row2
+          tags: [key, nav_key]
         row3:
           row_net: row3
+          tags: [key, nav_key]
         row4:
           row_net: row4
+          tags: [key, nav_key]
 
     # OLED screen - positioned at the top of right section
     oled_screen:
@@ -340,9 +345,22 @@ outlines:
       size: [5, 16] # 5x16mm clips for switch retention
       bound: false
 
-  numpad2:
+  enter_key:
+    - what: outline
+      name: _enter_key_outline
+  nav:
+    - what: outline
+      name: _nav_column_outline
+
+  just_numpad:
     - what: outline
       name: _numpad_outline
+    - what: outline
+      name: _regular_numpad_cutout
+      operation: subtract
+    - what: outline
+      name: _enter_key_outline
+      operation: stack
 
   numpad:
     - what: outline
