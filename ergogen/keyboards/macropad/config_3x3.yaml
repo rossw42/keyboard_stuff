@@ -1,0 +1,271 @@
+meta:
+  engine: 4.0.4
+  name: keyboard_numpad
+  version: 0.1
+  author: cline
+
+units:
+  # Key measurements for MX switches
+  kx: 19.05 # Key spacing horizontal (center-to-center) - standard MX spacing
+  ky: 19.05 # Key spacing vertical (center-to-center) - standard MX spacing
+  capx: 18 # MX Keycap width
+  capy: 18 # MX Keycap height
+
+  # Distances
+  main_to_nav: 1.25*kx # Distance from numpad grid to nav column
+  main_to_mcu: 1.5*ky # Distance from numpad grid to MCU
+  main_to_screen: 1.5*ky # Distance from numpad grid to MCU
+
+points:
+  zones:
+    # Numpad layout
+    numpad:
+      anchor.shift: [kx*3, ky*2] # Center the numpad on the PCB
+      key:
+        width: capx
+        height: capy
+        padding: ky
+        spread: kx
+        tags: [key, numpad_key]
+      columns:
+        col0:
+        col1:
+        col2:
+      rows:
+        row0:
+        row1:
+        row2:
+
+outlines:
+  _numpad_outline:
+    - what: rectangle
+      where: [numpad_key] # Only regular 1U numpad keys
+      bound: true # Use binding system for connected outline
+      size: [U, U] # Standard key size
+
+  _zero_key_outline:
+    - what: rectangle
+      bound: true
+      size: [2*capx + kx, capy]
+      where: [zero_key]
+
+  _plus_key_outline:
+    - what: rectangle
+      bound: true
+      size: [capx, 2*capy + ky]
+      where: [plus_key]
+
+  _enter_key_outline:
+    - what: rectangle
+      bound: true
+      size: [capx, 2*capy + ky]
+      where: [enter_key]
+
+  _nav_column_outline:
+    - what: rectangle
+      bound: true
+      size: [capx, capy]
+      where: [nav_key]
+
+  _encoder_outline:
+    - what: rectangle
+      bound: true
+      where: [encoder_key]
+      size: [capx, capy]
+
+  _thumb_outline:
+    - what: rectangle
+      bound: true
+      where: [thumb_key]
+      size: [1.5*capx, capy] # Match the 1.5U width
+
+  _mcu_outline:
+    - what: rectangle
+      where: [mcu]
+      size: [18, 33]
+
+  _oled_outline:
+    - what: rectangle
+      where: [oled_screen]
+      size: [32, 16] # Match the increased size
+
+  _complete_outline:
+    - what: outline
+      name: _numpad_outline
+    - what: outline
+      name: _zero_key_outline
+      operation: stack
+    - what: outline
+      name: _plus_key_outline
+      operation: stack
+    - what: outline
+      name: _enter_key_outline
+      operation: stack
+    - what: outline
+      name: _nav_column_outline
+      operation: stack
+    - what: outline
+      name: _encoder_outline
+      operation: stack
+    - what: outline
+      name: _thumb_outline
+      operation: stack
+    - what: outline
+      name: _oled_outline
+      operation: stack
+
+  _regular_numpad_cutout:
+    - what: rectangle
+      size: [14, 14] # Standard switch cutout size for regular numpad keys
+      where: [numpad_key]
+
+  _nav_cutout:
+    - what: rectangle
+      size: [14, 14] # Standard switch cutout size for nav keys
+      where: [nav_key]
+
+  _thumb_cutout:
+    - what: rectangle
+      size: [14, 14] # Standard switch cutout size for thumb key
+      where: [thumb_key]
+
+  _zero_key_cutout:
+    - what: rectangle
+      size: [14, 14] # Standard switch cutout but centered in 2u key
+      where: [zero_key]
+
+  _plus_key_cutout:
+    - what: rectangle
+      size: [14, 14] # Standard switch cutout but centered in 2u tall key
+      where: [plus_key]
+
+  _enter_key_cutout:
+    - what: rectangle
+      size: [14, 14] # Standard switch cutout but centered in 2u tall key
+      where: [enter_key]
+
+  _encoder_cutout:
+    - what: circle
+      radius: 3.5 # Standard EC11 encoder shaft cutout
+      where: [encoder_key]
+
+  _screen_cutout:
+    - what: rectangle
+      size: [28, 15] # Slightly larger OLED screen cutout
+      where: [oled_screen]
+
+  _mount_hole_cutout:
+    - what: circle
+      radius: 2.2 # Standard mounting hole
+      where: [mount_hole]
+
+  _switch_holes:
+    - what: rectangle
+      where: -component # All key positions
+      size: 14 # 14x14mm square for MX switch cutout
+      bound: false # Don't include in binding calculations
+
+  _switch_clips:
+    - what: rectangle
+      where: -component # All key positions
+      size: [5, 16] # 5x16mm clips for switch retention
+      bound: false
+
+  enter_key:
+    - what: outline
+      name: _enter_key_outline
+  nav:
+    - what: outline
+      name: _nav_column_outline
+
+  just_numpad:
+    - what: outline
+      name: _numpad_outline
+    - what: outline
+      name: _regular_numpad_cutout
+      operation: subtract
+    - what: outline
+      name: _enter_key_outline
+      operation: stack
+
+  numpad:
+    - what: outline
+      name: _numpad_outline
+    - what: outline
+      name: _zero_key_outline
+      operation: add
+    - what: outline
+      name: _plus_key_outline
+      operation: add
+    - what: outline
+      name: _enter_key_outline
+      operation: add
+    - what: outline
+      name: _regular_numpad_cutout
+      operation: subtract
+    - what: outline
+      name: _zero_key_cutout
+      operation: subtract
+    - what: outline
+      name: _plus_key_cutout
+      operation: subtract
+    - what: outline
+      name: _enter_key_cutout
+      operation: subtract
+
+  plate:
+    - what: rectangle
+      where: true # All key positions
+      bound: true # Use binding system for connected outline
+      size: 1U # 19x19mm base size
+      corner: .5 # 0.5mm corner radius
+    - what: outline
+      name: _switch_holes # Remove switch cutouts
+      operation: subtract
+
+  switchplate:
+    - what: outline
+      name: plate
+    - what: outline
+      name: _regular_numpad_cutout
+      operation: subtract
+    - what: outline
+      name: _nav_cutout
+      operation: subtract
+    - what: outline
+      name: _thumb_cutout
+      operation: subtract
+    - what: outline
+      name: _zero_key_cutout
+      operation: subtract
+    - what: outline
+      name: _plus_key_cutout
+      operation: subtract
+    - what: outline
+      name: _enter_key_cutout
+      operation: subtract
+    - what: outline
+      name: _encoder_cutout
+      operation: subtract
+    - what: outline
+      name: _screen_cutout
+      operation: subtract
+
+  pcb_outline:
+    - what: outline
+      name: _complete_outline
+      fillet: 3
+      expand: 2 # Expansion for PCB
+    - what: outline
+      name: _mount_hole_cutout
+      operation: subtract
+
+  case_outline:
+    - what: outline
+      name: _complete_outline
+      fillet: 3
+      expand: 5 # 5mm walls around the PCB
+    - what: outline
+      name: _mount_hole_cutout
+      operation: subtract
+

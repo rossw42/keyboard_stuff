@@ -1,0 +1,523 @@
+meta:
+  engine: 4.1.0
+  name: "travis-ergogen-numpad"
+  version: &meta_version "2024.06.23"
+  date: "2024-06-23"
+  author: "Travis Hardiman"
+  url: &url github.com/dieseltravis/travis-ergogen-numpad
+  tags: [ "ergogen", "promicro", "keyboard", "cherrymx", "hotswap", "rgb", "numpad", "smd" ]
+units:
+    # Key measurements for MX switches
+  kx: 19.05 # Key spacing horizontal (center-to-center) - standard MX spacing
+  ky: 19.05 # Key spacing vertical (center-to-center) - standard MX spacing
+  capx: 18 # MX Keycap width
+  capy: 18 # MX Keycap height
+
+  # Distances
+  main_to_nav: 1.25*kx # Distance from numpad grid to nav column
+  main_to_mcu: 1.5*ky # Distance from numpad grid to MCU
+  main_to_screen: 1.5*ky # Distance from numpad grid to MCU
+  u: U
+  pp: U + 2
+  # outer perimeter of board
+  op: U + 6
+  kp: U + 1
+  smp: 1.2
+  xlp: 2
+  # plate switch width
+  pw: 14
+  # Defaults to M2 Screws
+  #screwSize: 1
+  # M2 Screw Inserts
+  screwSize: 1.5
+  standoffSize: 3.0
+  top_y: 0.5U - 0.5 + 16
+  bot_y: -0.5U + 0.5
+  left_x: -0.5U + 0.5
+  right_x: 0.5U - 0.5
+  # bottom case thickness
+  bt: 1
+  # gap below pcb and case
+  gt: 3
+  # pcb thickness
+  pt: 1.6
+  # stab Y adjust
+  staby: 0
+  # indicator led labels
+  lblsize: 2.5
+  lblshift: -2.75
+  # stabs
+  stabilizer_width: 7 
+  stabilizer_height: 16
+  stabilizer_offset: 0 # This means south stabs, use `orient` to rotate them for north facing scenarios
+  stabilizer_spacing_3u: U * ((3 - 1) / 2)
+  stabilizer_spacing_2u: 23.86 / 2 # 0.94in / 2
+
+points:
+  zones:
+    matrix:
+      anchor:
+        # move the PCB into view for KiCad
+        shift: [40, -200]
+      key:
+        padding: kp
+        spread: kp
+      columns:
+        col0:
+          key:
+            column_net: col0
+          rows:
+            row0:
+              width: 2U
+              shift: [0.5kp, 0]
+              tags:
+                - key
+                - 2u_stabilizers
+                - row_even
+              key:
+                led_next: ""
+                led_this: LED_20
+            row1:
+              shift: [-0.5kp, 0]
+              key:
+                led_next: LED_16
+                led_this: LED_15
+            row2:
+              key:
+                led_next: LED_15
+                led_this: LED_14
+            row3:
+              key:
+                led_next: LED_9
+                led_this: LED_8
+            row4:
+              key:
+                led_next: LED_8
+                led_this: LED_7
+        col1:
+          key:
+            column_net: col1
+          rows:
+            row0:
+              skip: true
+            row1:
+              key:
+                led_next: LED_17
+                led_this: LED_16
+            row2:
+              key:
+                led_next: LED_14
+                led_this: LED_13
+            row3:
+              key:
+                led_next: LED_10
+                led_this: LED_9
+            row4:
+              key:
+                led_next: LED_7
+                led_this: LED_6
+        col2:
+          key:
+            column_net: col2
+          rows:
+            row0:
+              key:
+                led_next: LED_20
+                led_this: LED_19
+            row1:
+              key:
+                led_next: LED_18
+                led_this: LED_17
+            row2:
+              key:
+                led_next: LED_13
+                led_this: LED_12
+            row3:
+              key:
+                led_next: LED_11
+                led_this: LED_10
+            row4:
+              key:
+                led_next: LED_6
+                led_this: LED_5
+        col3:
+          key:
+            column_net: col3
+          rows:
+            row0:
+              shift: [0, 0.5kp]
+              rotate: 90
+              width: 2U
+              tags:
+                - key
+                - 2u_stabilizers
+                - row_even
+              key:
+                led_next: LED_19
+                led_this: LED_18
+            row1: 
+              rotate: -90
+              shift: [1kp, -1kp]
+              skip: true
+            row2:
+              rotate: 90
+              width: 2U
+              tags:
+                - key
+                - 2u_stabilizers
+                - row_even
+              key:
+                led_next: LED_12
+                led_this: LED_11
+            row3:
+              rotate: -90
+              shift: [0.5kp, -1kp]
+              skip: true
+            row4:
+              row_net: row3
+              key:
+                led_next: LED_5
+                led_this: LED_4
+      rows:
+        row0:
+          tags: 
+            - key
+            - row_even
+          row_net: row0
+        row1:
+          tags: 
+            - key
+            - row_odd
+          row_net: row1
+        row2:
+          tags: 
+            - key
+            - row_even
+          row_net: row2
+        row3:
+          tags: 
+            - key
+            - row_odd
+          row_net: row3
+        row4:
+          tags: 
+            - key
+            - row_even
+          row_net: row4
+    indicators:
+      key:
+        padding: kp
+        spread: kp
+      anchor:
+        ref: matrix_col0_row4
+        shift: [0, 1.25U]
+      columns:
+        col0:
+          rows:
+            row5:
+              key:
+                led_next: LED_1
+                led_this: LED_0
+                led_power: RAWD
+        col1:
+          rows:
+            row5:
+              key:
+                led_next: LED_2
+                led_this: LED_1
+                led_power: RAW
+        col2:
+          rows:
+            row5:
+              key:
+                led_next: LED_3
+                led_this: LED_2
+                led_power: RAW
+        col3:
+          rows:
+            row5:
+              key:
+                led_next: LED_4
+                led_this: LED_3
+                led_power: RAW
+      rows:
+        row5:
+          tags: row_top
+          width: 3.20
+          height: 2.80
+          shift: [0, -7.5]
+
+    # Left navigation column
+    nav:
+      anchor:
+        ref: matrix_col0_row0
+        shift: [-main_to_nav-10, 0] # Position left of main grid
+      key:
+        padding: kp
+        spread: kp
+
+      columns:
+        navcol:
+          key:
+            column_net: col_left
+            tags: [key, nav_key]
+      rows:
+        row0:
+          row_net: row0
+          tags: [key, nav_key]
+        row1:
+          row_net: row1
+          tags: [key, nav_key]
+        row2:
+          row_net: row2
+          tags: [key, nav_key]
+        row3:
+          row_net: row3
+          tags: [key, nav_key]
+        row4:
+          row_net: row4
+          tags: [key, nav_key]
+   # OLED screen - positioned at the top of right section
+    oled_screen:
+      anchor:
+        ref: matrix_col3_row4
+        shift: [main_to_screen + ky/2, 0] # Position at the top of the right section
+      key:
+        width: 32 # OLED width - slightly wider
+        height: 16 # OLED height - slightly taller
+        tags: [oled_screen]
+
+    # Right side encoder - positioned below OLED
+    encoder_left:
+      anchor:
+        ref: oled_screen
+        shift: [main_to_screen/2, -ky-4] # Position below the OLED
+      key:
+        width: capx
+        height: capy # Make it slightly taller
+        tags: [key, encoder_key]
+        column_net: col_enc_left
+        row_net: row_enc_left
+
+    # Bottom right encoder
+    encoder_right:
+      anchor:
+        ref: oled_screen
+        shift: [-main_to_screen/2, -ky-4] # Position to the right of main grid
+      key:
+        width: capx
+        height: capy
+        tags: [key, encoder_key]
+        column_net: col_enc_right
+        row_net: row_enc_right
+
+    # Bottom center encoder - positioned below the other two encoders
+    encoder_bottom:
+      anchor:
+        ref: oled_screen
+        shift: [0, -3ky+7] # Position centered below the other two encoders
+      key:
+        width: capx
+        height: capy
+        tags: [key, encoder_key]
+        column_net: col_enc_bottom
+        row_net: row_enc_bottom
+
+    # Thumb key - 1.5U centered below the bottom encoder
+    thumb_bottom:
+      anchor:
+        ref: encoder_bottom
+        shift: [0, -1.3ky] # Position further below the bottom encoder
+
+      key:
+        width: 1.5*capx # 1.5U width
+        height: capy
+        tags: [key, thumb_key]
+        column_net: col_thumb
+        row_net: row_thumb
+outlines:
+  _raw:
+    - what: rectangle
+      where: key
+      #bound: true
+      size: [pp, pp]
+  2u_stabilizer: # This creates the stabilizer, you just need to use its name in a `where` clause of another outline
+    - operation: stack
+      where: 2u_stabilizers # Set this tag on the keys you want
+      what: rectangle
+      size: [stabilizer_width, stabilizer_height]
+      adjust:
+        shift: [stabilizer_spacing_2u, stabilizer_offset]
+    - operation: stack
+      where: 2u_stabilizers
+      what: rectangle
+      size: [stabilizer_width, stabilizer_height]
+      adjust:
+        shift: [-stabilizer_spacing_2u, stabilizer_offset]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: nav_navcol_row4
+          shift: [-0.5op, kp]
+        - ref: oled_screen
+          shift: [0.5op + kp, kp]
+        - ref: thumb_bottom
+          shift: [0.5op + kp, -0.5op -5]
+        - ref: nav_navcol_row0
+          shift: [-0.5op, -0.5op]
+      fillet: 5
+  smBoard:
+    - what: polygon
+      operation: stack
+      points:
+        # perimeter
+        # top left
+        - ref: nav_navcol_row4
+          shift: [-0.5pw - smp, 0.5pw + smp]
+        # top right
+        - ref: oled_screen
+          shift: [1.5pw + smp, 0.5pw + smp]
+        # bottom right
+        - ref: thumb_bottom
+          shift: [1.7pw - smp, -0.84pw - smp]
+        # bottom left
+        - ref: nav_navcol_row0
+          shift: [-0.5pw - smp, -0.5pw - smp]
+      fillet: smp
+  xlBoard:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: nav_navcol_row4
+          shift: [-0.5op - xlp, kp + 20 + xlp]
+        - ref: oled_screen
+          shift: [0.5op + xlp, kp + 20 + xlp]
+        - ref: thumb_bottom
+          shift: [0.5op + kp + xlp, -0.5op - xlp]
+        - ref: nav_navcol_row0
+          shift: [-0.5kp - 0.5op - xlp, -0.5op - xlp]
+      fillet: 5 + xlp
+  mounting:
+    - what: circle
+      radius: screwSize
+      where:
+        ref: indicators_col0_row5
+        shift: [left_x, top_y]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: indicators_col3_row5
+        shift: [right_x, top_y]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: matrix_col2_row0
+        shift: [kp + right_x, bot_y]
+    - what: circle
+      radius: screwSize
+      where:
+        ref: matrix_col0_row1
+        shift: [left_x, -kp - 0.5U + 0.5]
+  standoff:
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: indicators_col0_row5
+        shift: [left_x, top_y]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: indicators_col3_row5
+        shift: [right_x, top_y]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: matrix_col2_row0
+        shift: [kp + right_x, bot_y]
+    - what: circle
+      radius: standoffSize
+      where:
+        ref: matrix_col0_row1
+        shift: [left_x, -kp - 0.5U + 0.5]
+  mcu:
+    - what: rectangle
+      where: 
+        ref: oled_screen
+        #shift: [5.75, 12.5]
+      bound: false
+      size: [33.02, 17.78]
+  keys:
+    - what: rectangle
+      where: key
+      bound: false
+      size: [U - 0.5, U - 0.5]
+  keyholes:
+    - what: rectangle
+      where: key
+      bound: false
+      size: [pw, pw]
+  leds:
+    - what: rectangle
+      where: row_top
+      bound: false
+      size: [3.20, 2.80]
+  combo:
+    - name: board
+    - operation: subtract
+      name: mcu
+    - operation: subtract
+      name: keys
+    - operation: subtract
+      name: leds
+  plate: # subtract 2U stabs
+    - name: smBoard
+    - operation: subtract
+      name: keyholes
+    - operation: subtract
+      name: mounting
+    - operation: stack
+      name: 2u_stabilizer
+
+cases: #TODO:
+  bottom:
+    - name: board
+      extrude: bt
+  xlBottom:
+    - name: xlBoard
+      extrude: bt
+  _outerWall:
+    - name: xlBoard
+      extrude: bt + gt + pt
+  _innerWall:
+    - name: board
+      extrude: bt + gt + pt
+  wall:
+    - what: case
+      name: _outerWall
+      operation: add
+    - what: case
+      name: _innerWall
+      operation: subtract
+  _holes:
+    - name: mounting
+      extrude: bt + gt
+  _standoffs:
+    - name: standoff
+      extrude: bt + gt
+  case:
+    - what: case
+      name: _standoffs
+      operation: add
+    - what: case
+      name: _holes
+      operation: subtract
+    - what: case
+      name: xlBottom
+      operation: add   
+    - what: case
+      name: wall
+      operation: add
+  plate:
+    - name: plate
+      extrude: bt

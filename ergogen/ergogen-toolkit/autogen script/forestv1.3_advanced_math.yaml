@@ -1,0 +1,361 @@
+# Forest Keyboard v1.3 - Advanced Mathematical Column Height Equalization
+# Complete parametric system for auto-generation with mathematical precision
+# 
+# ADVANCED MATHEMATICAL APPROACH:
+# 1. Calculate natural column heights based on row configuration
+# 2. Find maximum height across all columns  
+# 3. Compute staggers to equalize all column heights to maximum
+# 4. Provide multiple alignment strategies (top, bottom, center)
+
+units:
+  X: 0.9                    # Extrusion width
+  B: 3*X                    # Binding distance (2.7mm)
+  
+  # FUNDAMENTAL SPACING UNITS
+  U: 19                     # Base unit (19mm)
+  RowSpacing: U             # Y-spacing between rows
+  ColSpacing: U + 4         # X-spacing between columns (23mm)
+  
+  # COLUMN CONFIGURATION ANALYSIS
+  # Define how many actual keys each column has (excluding skipped rows)
+  Col1_KeyCount: 3          # row_1, row_2, row_3 (row_0 skipped)
+  Col2_KeyCount: 4          # row_0, row_1, row_2, row_3  
+  Col3_KeyCount: 4          # row_0, row_1, row_2, row_3
+  Col4_KeyCount: 4          # row_0, row_1, row_2, row_3
+  Col5_KeyCount: 4          # row_0, row_1, row_2, row_3
+  Col6_KeyCount: 4          # row_0, row_1, row_2, row_3
+  
+  # NATURAL COLUMN HEIGHTS CALCULATION
+  # Height = (key_count - 1) * row_spacing (distance from first to last key)
+  Col1_NaturalHeight: (Col1_KeyCount - 1) * RowSpacing  # 2 * 19 = 38mm
+  Col2_NaturalHeight: (Col2_KeyCount - 1) * RowSpacing  # 3 * 19 = 57mm
+  Col3_NaturalHeight: (Col3_KeyCount - 1) * RowSpacing  # 3 * 19 = 57mm  
+  Col4_NaturalHeight: (Col4_KeyCount - 1) * RowSpacing  # 3 * 19 = 57mm
+  Col5_NaturalHeight: (Col5_KeyCount - 1) * RowSpacing  # 3 * 19 = 57mm
+  Col6_NaturalHeight: (Col6_KeyCount - 1) * RowSpacing  # 3 * 19 = 57mm
+  
+  # MAXIMUM HEIGHT DETECTION
+  # Find the tallest column to use as target height
+  MaxHeight: Col2_NaturalHeight  # 57mm (cols 2,3,4,5,6 are all tallest now)
+  
+  # NATURAL COLUMN POSITIONS (without stagger)
+  # Calculate center Y position of each column based on row configuration
+  Col1_NaturalCenter: RowSpacing * 2    # Centered on row_2 (rows 1,2,3)
+  Col2_NaturalCenter: RowSpacing * 1.5  # Centered between row_1&2 (rows 0,1,2,3)  
+  Col3_NaturalCenter: RowSpacing * 1.5  # Centered between row_1&2 (rows 0,1,2,3)
+  Col4_NaturalCenter: RowSpacing * 1.5  # Centered between row_1&2 (rows 0,1,2,3)
+  Col5_NaturalCenter: RowSpacing * 1.5  # Centered between row_1&2 (rows 0,1,2,3)
+  Col6_NaturalCenter: RowSpacing * 1.5  # Centered between row_1&2 (rows 0,1,2,3)
+  
+  # MATHEMATICAL STAGGER CALCULATIONS
+  # Three different alignment strategies:
+  
+  # STRATEGY A: TOP ALIGNMENT - All columns have same top Y coordinate
+  TargetTop: RowSpacing * 3             # All columns end at row_3 level
+  Col1_TopAlignStagger: TargetTop - (Col1_NaturalCenter + Col1_NaturalHeight/2)
+  Col2_TopAlignStagger: TargetTop - (Col2_NaturalCenter + Col2_NaturalHeight/2)  
+  Col3_TopAlignStagger: TargetTop - (Col3_NaturalCenter + Col3_NaturalHeight/2)
+  Col4_TopAlignStagger: TargetTop - (Col4_NaturalCenter + Col4_NaturalHeight/2)
+  Col5_TopAlignStagger: TargetTop - (Col5_NaturalCenter + Col5_NaturalHeight/2)
+  Col6_TopAlignStagger: TargetTop - (Col6_NaturalCenter + Col6_NaturalHeight/2)
+  
+  # STRATEGY B: BOTTOM ALIGNMENT - All columns have same bottom Y coordinate  
+  TargetBottom: 0                       # All columns start at Y=0
+  Col1_BottomAlignStagger: TargetBottom - (Col1_NaturalCenter - Col1_NaturalHeight/2)
+  Col2_BottomAlignStagger: TargetBottom - (Col2_NaturalCenter - Col2_NaturalHeight/2)
+  Col3_BottomAlignStagger: TargetBottom - (Col3_NaturalCenter - Col3_NaturalHeight/2)  
+  Col4_BottomAlignStagger: TargetBottom - (Col4_NaturalCenter - Col4_NaturalHeight/2)
+  Col5_BottomAlignStagger: TargetBottom - (Col5_NaturalCenter - Col5_NaturalHeight/2)
+  Col6_BottomAlignStagger: TargetBottom - (Col6_NaturalCenter - Col6_NaturalHeight/2)
+  
+  # STRATEGY C: HEIGHT EQUALIZATION - All columns span same total height
+  # Center all columns and extend shorter ones to match tallest
+  TargetCenter: RowSpacing * 1.5        # Common center line
+  Col1_HeightEqualStagger: TargetCenter - Col1_NaturalCenter
+  Col2_HeightEqualStagger: TargetCenter - Col2_NaturalCenter  
+  Col3_HeightEqualStagger: TargetCenter - Col3_NaturalCenter
+  Col4_HeightEqualStagger: TargetCenter - Col4_NaturalCenter
+  Col5_HeightEqualStagger: TargetCenter - Col5_NaturalCenter
+  Col6_HeightEqualStagger: TargetCenter - Col6_NaturalCenter
+  
+  # ERGONOMIC CURVE OVERLAY (Optional enhancement)
+  # Add subtle ergonomic curve while maintaining height matching
+  CurveAmplitude: 3         # 3mm maximum curve deviation
+  Col1_CurveOffset: CurveAmplitude * sin(0.5)     # ~1.5mm
+  Col2_CurveOffset: CurveAmplitude * sin(1.0)     # ~2.5mm  
+  Col3_CurveOffset: CurveAmplitude * sin(1.5)     # ~3.0mm (peak)
+  Col4_CurveOffset: CurveAmplitude * sin(2.0)     # ~2.7mm
+  Col5_CurveOffset: CurveAmplitude * sin(2.5)     # ~1.8mm
+  Col6_CurveOffset: CurveAmplitude * sin(3.0)     # ~0.4mm
+
+points:
+  key:
+    bind: [B, B, B, B]
+    tags.1U: true
+  zones:
+    fingers:
+      anchor:
+        shift: [100, -100]
+      columns:
+        col_one:
+          key:
+            # CHOOSE YOUR MATHEMATICAL STRATEGY:
+            # stagger: Col1_TopAlignStagger          # Strategy A: Top align
+            # stagger: Col1_BottomAlignStagger       # Strategy B: Bottom align  
+            stagger: Col1_HeightEqualStagger + Col1_CurveOffset  # Strategy C: Height equal + curve
+          rows:
+            thumb:
+              skip: true
+            row_0:
+              skip: true              # This creates the shorter column
+            row_1:
+              bind: [B, B, 4.4*B, B]
+            row_2:
+            row_3:
+              bind: [4.5*B+12, B, B, B]
+              
+        col_two:
+          key:
+            # stagger: Col2_TopAlignStagger          # Strategy A: Top align
+            # stagger: Col2_BottomAlignStagger       # Strategy B: Bottom align
+            stagger: Col2_HeightEqualStagger + Col2_CurveOffset  # Strategy C: Height equal + curve
+            spread: ColSpacing - 3
+          rows:
+            thumb:
+              skip: true
+            row_0:                    # This column has all 4 rows
+            row_1:
+            row_2:
+            row_3:
+              bind: [4.5*B+3, B, B, B]
+              
+        col_three:
+          key:
+            # stagger: Col3_TopAlignStagger          # Strategy A: Top align  
+            # stagger: Col3_BottomAlignStagger       # Strategy B: Bottom align
+            stagger: Col3_HeightEqualStagger + Col3_CurveOffset  # Strategy C: Height equal + curve
+            spread: ColSpacing
+          rows:
+            thumb:
+              skip: true
+            row_0:                    # Full height column
+            row_1:
+            row_2:
+            row_3:
+              bind: [4.4*B, B, B, B]
+              
+        col_four:
+          key:
+            # stagger: Col4_TopAlignStagger          # Strategy A: Top align
+            # stagger: Col4_BottomAlignStagger       # Strategy B: Bottom align  
+            stagger: Col4_HeightEqualStagger + Col4_CurveOffset  # Strategy C: Height equal + curve
+            spread: ColSpacing
+          rows:
+            thumb:
+              skip: true
+            row_0:                    # Full height column
+            row_1:
+            row_2:
+            row_3:
+            
+        col_five:
+          key:
+            # stagger: Col5_TopAlignStagger          # Strategy A: Top align
+            # stagger: Col5_BottomAlignStagger       # Strategy B: Bottom align
+            stagger: Col5_HeightEqualStagger + Col5_CurveOffset  # Strategy C: Height equal + curve  
+            spread: ColSpacing
+          rows:
+            thumb:
+              skip: true
+            row_0:                    # Now full height column (4 keys)
+            row_1:
+            row_2:
+            row_3:
+            
+        col_six:
+          key:
+            # stagger: Col6_TopAlignStagger          # Strategy A: Top align
+            # stagger: Col6_BottomAlignStagger       # Strategy B: Bottom align
+            stagger: Col6_HeightEqualStagger + Col6_CurveOffset  # Strategy C: Height equal + curve
+            spread: ColSpacing
+            bind: [null, B+3+21+0.5+3*X, null, null]  # MCU connection
+          rows:
+            thumb:
+              skip: true
+            row_0:                    # Now full height column (4 keys)
+            row_1:
+            row_2:
+            row_3:
+      rows:
+        thumb:
+        row_0:
+        row_1:
+        row_2:
+        row_3:
+        
+    thumbfan:
+      anchor:
+        ref: fingers_col_six_row_0
+        shift: [-1U - 2, -1.2U]
+      columns:
+        near:
+          key:
+            splay: -11.9
+            origin: [0.05*U, -0.25*U]
+            bind: [B + 5, B, B + 2, B + 80]
+          rows:
+            thumb:
+              shift: [0, 0*U]
+              spread: ColSpacing
+        home:
+          key:
+            splay: -11.9
+            origin: [0.1*U, -0.5*U]
+            bind: [B + 18, B + 10.98, B + 7, B + 20]
+          rows:
+            thumb:
+              shift: [2, 0*U]
+              spread: ColSpacing
+        far:
+          key:
+            splay: -11.9
+            bind: [B+10, B + 3, B + 7, B]
+          rows:
+            thumb:
+              shift: [4, 0*U]
+              spread: ColSpacing
+      rows:
+        thumb:
+
+outlines:
+  _switch_holes:
+    - what: rectangle
+      where: true
+      size: 14
+      bound: false
+      
+  _keys:
+    - what: rectangle
+      where: true
+      size: 18
+      bound: false
+      
+  # MATHEMATICAL ANALYSIS VISUALIZATION
+  _column_height_analysis: 
+    # Show natural column boundaries (before stagger)
+    col1_natural:
+      what: rectangle
+      adjust:
+        ref: fingers_col_one_row_2
+        shift: [0, 0]  # No adjustment - natural position
+      size: [15, Col1_NaturalHeight]
+      
+    col2_natural:
+      what: rectangle  
+      adjust:
+        ref: fingers_col_two_row_1  # Use valid row reference
+        shift: [0, RowSpacing/2]    # Shift to midpoint between row_1 and row_2
+      size: [15, Col2_NaturalHeight] 
+      
+    col3_natural:
+      what: rectangle
+      adjust:
+        ref: fingers_col_three_row_1  # Use valid row reference
+        shift: [0, RowSpacing/2]      # Shift to midpoint
+      size: [15, Col3_NaturalHeight]
+      
+    # Target height guides
+    max_height_guide:
+      what: rectangle
+      adjust:
+        ref: fingers_col_one_row_1
+        shift: [0, TargetCenter]
+      size: [150, MaxHeight]
+      
+  # ALIGNMENT GUIDES
+  _alignment_guides:
+    top_line:
+      what: rectangle
+      adjust:
+        ref: fingers_col_two_row_3
+        shift: [0, TargetTop]
+      size: [200, 1]
+      
+    bottom_line:
+      what: rectangle  
+      adjust:
+        ref: fingers_col_two_row_0  # Use col_two which has row_0
+        shift: [0, TargetBottom]
+      size: [200, 1]
+      
+    center_line:
+      what: rectangle
+      adjust:
+        ref: fingers_col_two_row_1
+        shift: [0, TargetCenter]  
+      size: [200, 1]
+      
+  plate:
+    - what: rectangle
+      where: true
+      bound: true
+      size: U
+      corner: 0.5
+      
+  # COMPREHENSIVE MATHEMATICAL PREVIEW
+  mathematical_analysis:
+    - what: outline
+      name: plate
+    - what: outline
+      name: _keys
+      operation: stack
+    - what: outline
+      name: _switch_holes
+      operation: stack  
+    - what: outline
+      name: _alignment_guides
+      operation: stack
+    - what: outline
+      name: _column_height_analysis
+      operation: stack
+
+cases:
+  mathematical_demo:
+    - name: mathematical_analysis
+      extrude: 2
+
+# ============================================================================
+# AUTO-GENERATION FORMULAS SUMMARY
+# ============================================================================
+#
+# FOR PROGRAMMATIC KEYBOARD GENERATION:
+#
+# 1. ANALYZE COLUMN CONFIGURATION:
+#    - Count actual keys per column (excluding skipped rows)
+#    - Calculate natural height: (key_count - 1) * row_spacing
+#    - Find natural center position based on row distribution
+#
+# 2. FIND MAXIMUM HEIGHT:
+#    - max_height = max(all_natural_heights)
+#    - This becomes the target height for all columns
+#
+# 3. CALCULATE ALIGNMENT STAGGERS:
+#    Top Alignment:    stagger = target_top - (natural_center + natural_height/2)
+#    Bottom Alignment: stagger = target_bottom - (natural_center - natural_height/2)  
+#    Center Alignment: stagger = target_center - natural_center
+#
+# 4. ADD ERGONOMIC ENHANCEMENT (Optional):
+#    - Apply curve function: stagger += amplitude * curve_function(column_index)
+#    - Common curves: sine, cosine, polynomial
+#
+# 5. PARAMETRIC VARIABLES FOR AUTO-GENERATION:
+#    - Define: row_spacing, column_spacing, target_alignment_strategy
+#    - Calculate: natural_heights[], natural_centers[], max_height
+#    - Generate: stagger_values[] using chosen alignment formula
+#
+# This mathematical framework enables:
+# - Consistent column height matching across any layout
+# - Easy parameter adjustment for different designs  
+# - Programmatic generation of stagger values
+# - Multiple alignment strategies for different use cases
+# - Integration of ergonomic curves while maintaining height consistency

@@ -65,15 +65,15 @@ points:
         tab_right: # Right side tab
           key:
             name: tab_right
-          shift: [95.5, 0]  # 4 key widths + margins
+            shift: [95.5, 0]  # 4 key widths + margins
         tab_front: # Front tab
           key:
             name: tab_front
-          shift: [47.75, -20]  # Center, front
+            shift: [47.75, -20]  # Center, front
         tab_back:  # Back tab
           key:
             name: tab_back
-          shift: [47.75, 20]   # Center, back
+            shift: [47.75, 20]   # Center, back
 
     # Bottom case mounting points
     bottom_mounts:
@@ -89,15 +89,15 @@ points:
         mount_right:
           key:
             name: mount_right
-          shift: [95.5, 0]
+            shift: [95.5, 0]
         mount_front:
           key:
             name: mount_front
-          shift: [47.75, -20]
+            shift: [47.75, -20]
         mount_back:
           key:
             name: mount_back
-          shift: [47.75, 20]
+            shift: [47.75, 20]
 
 outlines:
   # Basic board outline (for PCB)

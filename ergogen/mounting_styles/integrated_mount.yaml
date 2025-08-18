@@ -63,15 +63,15 @@ points:
         mount_tr:  # Top right
           key:
             name: mount_tr
-          shift: [57.15, 0]  # 3 key widths
+            shift: [57.15, 0]  # 3 key widths
         mount_bl:  # Bottom left
           key:
             name: mount_bl
-          shift: [0, -50]
+            shift: [0, -50]
         mount_br:  # Bottom right
           key:
             name: mount_br
-          shift: [57.15, -50]
+            shift: [57.15, -50]
 
 outlines:
   # Basic board outline (for PCB)
