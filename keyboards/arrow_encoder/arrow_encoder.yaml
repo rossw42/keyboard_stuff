@@ -1,0 +1,143 @@
+
+meta:
+  name: arrow_encoder
+  description: A arrow macropad with encoder and thumb key
+  author: Ergogen Design Prompt
+  version: 1.0
+
+units:
+  # Key spacing
+  kx: 19.05  # MX key spacing
+  ky: 19.05  # MX key spacing
+  X: 0.9 
+  B: 3*X
+  
+  # Mounting specifications (simplified - no separate plate)
+  mount_screw_radius: 1.1   # M2 screw clearance
+  mount_post_radius: 2.5    # For threaded inserts
+  
+  # Case specifications
+  wall_thickness: 3
+  case_height: 12           # Taller single piece
+  switch_depth: 5           # How deep switch wells are
+  board_fillet: 2
+  case_fillet: 3
+
+  right_zone_space: 1.5U
+  thumb_key_shift: -1.25U
+  encoder_shift: -0.5U
+
+points:
+  zones:
+    arrows:
+      key:
+        padding: ky
+        spread: kx
+        tags: [key]
+      columns:
+        col0:
+          key:
+            bind: [B, B, B, B]
+          rows:
+            row1.skip: true
+        col1:
+          key:
+            bind: [B, -6 * encoder_shift,-thumb_key_shift, 2U]
+        col2:
+          key:
+            bind: [B, right_zone_space, -thumb_key_shift, B]
+          rows:
+            row1.skip: true
+      rows:
+        row0:
+        row1:
+    thumb_key:
+      anchor:
+        ref: arrows_col2_row0
+        shift: [right_zone_space, thumb_key_shift]
+    encoder:
+      anchor:
+        ref: arrows_col2_row1
+        shift: [right_zone_space, encoder_shift]
+
+outlines:
+  # SWITCH CUTOUTS AND VISUALIZATION
+  _switch_holes:
+    - what: rectangle
+      where: -component          # All key positions
+      size: 14             # 14x14mm square for MX switch cutout
+      bound: false         # Don't include in binding calculations
+  
+  _switch_clips:
+    - what: rectangle
+      where: -component          # All key positions  
+      size: [5, 16]        # 5x16mm clips for switch retention
+      bound: false
+  
+  _keys:
+    - what: rectangle
+      where: -component          # All key positions
+      size: 18             # 18x18mm keycap visualization
+      bound: false
+  
+  # PLATE OUTLINES - Progressive insets for case structure
+  plate:
+    - what: rectangle
+      where: true          # All key positions
+      bound: true          # Use binding system for connected outline
+      size: 1U             # 19x19mm base size
+      corner: .5           # 0.5mm corner radius
+      fillet: case_fillet
+  _plate_inner_2:
+    - what: rectangle
+      where: true
+      bound: true          # Connected outline
+      size: 1U - 2 * 2X    # 19-3.6=15.4mm (2X inset on each side)
+      corner: .5
+      fillet: case_fillet
+  
+  _plate_inner_3:
+    - what: rectangle
+      where: true  
+      bound: true          # Connected outline
+      size: 1U - 2 *3X    # 19-5.4=13.6mm (3X inset on each side) 
+      corner: .5
+      fillet: case_fillet
+
+  case_top:
+      - what: outline
+        name: plate
+      - what: outline
+        name: _switch_holes   # Remove switch cutouts
+        operation: subtract
+  case_wall:
+    - what: outline
+      name: plate            # Full plate outline
+    - what: outline
+      name: _plate_inner_3   # Remove inner area (deepest inset)
+      operation: subtract    # Creates wall thickness
+  
+  case_lip:
+    - what: outline
+      name: plate            # Full plate outline  
+    - what: outline
+      name: _plate_inner_2   # Remove inner area (middle inset)
+      operation: subtract    # Creates lid seating lip
+
+  preview:    
+    - what: outline
+      name: plate            # Base plate outline
+    - what: outline
+      name: _keys            # Keycap visualization
+      operation: stack
+    - what: outline
+      name: _switch_holes    # Switch cutouts
+      operation: stack
+    - what: outline
+      name: _switch_clips    # Switch clips
+      operation: stack
+   
+    # Case wall visualization
+    - what: outline
+      name: _plate_inner_3   # Inner wall boundary
+      operation: stack
