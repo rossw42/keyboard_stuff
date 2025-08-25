@@ -1,0 +1,330 @@
+# Proper Ergogen Configuration using Direct KLE Coordinate Positioning
+# Based on @ijprest/kle-serial parsing methodology
+
+units:
+  kx: 19.05  # Key spacing unit
+  ky: 19.05  # Key spacing unit
+
+points:
+  # Direct positioning based on KLE coordinates (no complex matrix)
+  # Each key positioned at its calculated KLE coordinate
+  
+  # Row 0 (Top row): Esc, Q, W, E, R, T, Y, U, I, O, P, Backspace
+  esc:
+    shift: [0 * kx, 0 * ky]  # KLE calculates: x=0, y=0
+    key: 
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  q:
+    shift: [1 * kx, 0 * ky]  # KLE calculates: x=1, y=0  
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  w:
+    shift: [2 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  e:
+    shift: [3 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky  
+      tags: [key, 1u]
+  
+  r:
+    shift: [4 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  t:
+    shift: [5 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  y:
+    shift: [6 * kx, 0 * ky]
+    key:
+      width: kx  
+      height: ky
+      tags: [key, 1u]
+  
+  u:
+    shift: [7 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  i:
+    shift: [8 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  o:
+    shift: [9 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  p:
+    shift: [10 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  backspace:
+    shift: [11 * kx, 0 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+
+  # Row 1 (Home row): Tab(1.25u), A, S, D, F, G, H, J, K, L, Enter(1.75u)
+  tab:
+    shift: [0 * kx, -1 * ky]  # KLE calculates position accounting for 1.25u width
+    key:
+      width: 1.25 * kx
+      height: ky
+      tags: [key, 1.25u]
+  
+  a:
+    shift: [1.25 * kx, -1 * ky]  # Starts after 1.25u Tab
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  s:
+    shift: [2.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  d:
+    shift: [3.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  f:
+    shift: [4.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  g:
+    shift: [5.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  h:
+    shift: [6.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  j:
+    shift: [7.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  k:
+    shift: [8.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  l:
+    shift: [9.25 * kx, -1 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  enter:
+    shift: [10.25 * kx, -1 * ky]  # Positioned after L
+    key:
+      width: 1.75 * kx
+      height: ky
+      tags: [key, 1.75u]
+
+  # Row 2 (Lower row): Shift(1.75u), Z, X, C, V, B, N, M, <., Shift(1.25u), Fn
+  lshift:
+    shift: [0 * kx, -2 * ky]
+    key:
+      width: 1.75 * kx
+      height: ky
+      tags: [key, 1.75u]
+  
+  z:
+    shift: [1.75 * kx, -2 * ky]  # After 1.75u Shift
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  x:
+    shift: [2.75 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  c:
+    shift: [3.75 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  v:
+    shift: [4.75 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  b:
+    shift: [5.75 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  n:
+    shift: [6.75 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  m:
+    shift: [7.75 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  comma:
+    shift: [8.75 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  rshift:
+    shift: [9.75 * kx, -2 * ky]
+    key:
+      width: 1.25 * kx
+      height: ky
+      tags: [key, 1.25u]
+  
+  fn:
+    shift: [11 * kx, -2 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+
+  # Row 3 (Bottom row): Hyper(1.25u), Super, Meta, Space(6.25u), Meta(1.25u), Super(1.25u)
+  hyper:
+    shift: [0 * kx, -3 * ky]
+    key:
+      width: 1.25 * kx
+      height: ky
+      tags: [key, 1.25u]
+  
+  lsuper:
+    shift: [1.25 * kx, -3 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  lmeta:
+    shift: [2.25 * kx, -3 * ky]
+    key:
+      width: kx
+      height: ky
+      tags: [key, 1u]
+  
+  space:
+    shift: [3.25 * kx, -3 * ky]
+    key:
+      width: 6.25 * kx
+      height: ky
+      tags: [key, 6.25u, spacebar]
+  
+  rmeta:
+    shift: [9.5 * kx, -3 * ky]  # After 6.25u space
+    key:
+      width: 1.25 * kx
+      height: ky
+      tags: [key, 1.25u]
+  
+  rsuper:
+    shift: [10.75 * kx, -3 * ky]
+    key:
+      width: 1.25 * kx
+      height: ky
+      tags: [key, 1.25u]
+
+outlines:
+  switches:
+    - what: rectangle
+      where: true
+      asym: source
+      size: [14, 14]
+  
+  board:
+    - what: rectangle
+      where: true
+      bound: true
+      size: [5, 5]
+
+pcb:
+  outlines:
+    main:
+      outline: board
+      
+  footprints:
+    switches:
+      what: mx
+      where: true
+      params:
+        keycaps: true
+        reverse: false
+        hotswap: true
+        
+    diodes:
+      what: diode
+      where: true  
+      params:
+        from: "{{name}}"
+        to: "{{row_net}}"
+      adjust:
+        shift: [0, -5]

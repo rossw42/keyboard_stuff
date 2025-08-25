@@ -1,0 +1,167 @@
+meta:
+  engine: v4
+  name: Numpad Example
+  version: '1.0'
+  author: KLE to Ergogen
+  url: ''
+units:
+  kx: 19
+  ky: 19
+  px: 2
+  py: 2
+  keycap: 18
+  switch: 14
+points:
+  zones:
+    matrix:
+      key: {}
+      columns:
+        col0:
+          key: {}
+          rows:
+            '0':
+              shift:
+                - -0.9973753280839894
+                - -1.9947506561679789
+              width: 2
+              height: 1
+            '1':
+              shift:
+                - -0.9973753280839894
+                - -0.9973753280839894
+            '4':
+              shift:
+                - -0.9973753280839894
+                - 0
+            '7':
+              shift:
+                - -0.9973753280839894
+                - 0.9973753280839894
+            Num:
+              shift:
+                - -0.9973753280839894
+                - 1.9947506561679789
+        col1:
+          key: {}
+          rows:
+            '2':
+              shift:
+                - 0
+                - -0.9973753280839894
+            '5':
+              shift:
+                - 0
+                - 0
+            '8':
+              shift:
+                - 0
+                - 0.9973753280839894
+            /:
+              shift:
+                - 0
+                - 1.9947506561679789
+        col2:
+          key: {}
+          rows:
+            '3':
+              shift:
+                - 0.9973753280839894
+                - -0.9973753280839894
+            '6':
+              shift:
+                - 0.9973753280839894
+                - 0
+            '9':
+              shift:
+                - 0.9973753280839894
+                - 0.9973753280839894
+            '*':
+              shift:
+                - 0.9973753280839894
+                - 1.9947506561679789
+            .:
+              shift:
+                - 0.9973753280839894
+                - -1.9947506561679789
+        col3:
+          key: {}
+          rows:
+            '-':
+              shift:
+                - 1.9947506561679789
+                - 1.9947506561679789
+            +:
+              shift:
+                - 1.9947506561679789
+                - 0.9973753280839894
+              width: 1
+              height: 2
+            Enter:
+              shift:
+                - 1.9947506561679789
+                - -0.9973753280839894
+              width: 1
+              height: 2
+  key:
+    padding: ky
+    spread: kx
+outlines:
+  _switch_cutout:
+    what: rectangle
+    where: true
+    size:
+      - 14
+      - 14
+    operation: stack
+  _keycap:
+    what: rectangle
+    where: true
+    size:
+      - 18
+      - 18
+    operation: stack
+  plate:
+    what: outline
+    name: _switch_cutout
+    fillet: 0.5
+  pcb:
+    what: outline
+    name: _keycap
+    fillet: 2
+    expand: 5
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: pcb
+    footprints:
+      switches:
+        what: mx
+        where: true
+        params:
+          hotswap: true
+          reverse: false
+          keycaps: true
+          from: '{{column_net}}'
+          to: '{{row_net}}'
+      diodes:
+        what: diode
+        where: true
+        params:
+          from: '{{row_net}}'
+          to: '{{column_net}}'
+          through_hole: false
+        adjust:
+          shift:
+            - 0
+            - -5
+      mcu:
+        what: promicro
+        where:
+          ref: matrix
+          shift:
+            - 0
+            - -30
+        params:
+          orientation: down
+cases: {}

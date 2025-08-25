@@ -437,7 +437,9 @@ class ErgogenYAMLGenerator:
         
         # Add KLE information if available
         if point.kle_label:
-            comments_parts.append(f"Key: {point.kle_label}")
+            # Sanitize label for YAML comments (replace newlines and other problematic chars)
+            sanitized_label = point.kle_label.replace('\n', '\\n').replace('\r', '\\r').replace('\t', '\\t')
+            comments_parts.append(f"Key: {sanitized_label}")
         
         # Add matrix position
         if point.kle_row is not None and point.kle_col is not None:

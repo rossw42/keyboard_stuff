@@ -1,0 +1,172 @@
+meta:
+    engine: v4
+    name: 40% Keyboard Layout Final
+    version: '1.0'
+    author: KLE to Ergogen Converter
+units:
+    kx: 19.05
+    ky: 19.05
+    px: 2
+    py: 2
+    keycap: 18
+    switch: 14
+points:
+    zones:
+        matrix:
+            key: {}
+            columns:
+                col0:
+                    key: {}
+                    rows:
+                        bottom:
+                            width: 23.8125
+                        lower:
+                            width: 33.3375
+                        home:
+                            width: 23.8125
+                        top:
+                            width: 19.05
+                col1:
+                    key: {}
+                    rows:
+                        bottom:
+                            width: 19.05
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col2:
+                    key: {}
+                    rows:
+                        bottom:
+                            width: 19.05
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col3:
+                    key: {}
+                    rows:
+                        bottom:
+                            width: 119.0625
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col4:
+                    key: {}
+                    rows:
+                        bottom:
+                            skip: true
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col5:
+                    key: {}
+                    rows:
+                        bottom:
+                            skip: true
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col6:
+                    key: {}
+                    rows:
+                        bottom:
+                            skip: true
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col7:
+                    key: {}
+                    rows:
+                        bottom:
+                            skip: true
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col8:
+                    key: {}
+                    rows:
+                        bottom:
+                            skip: true
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col9:
+                    key: {}
+                    rows:
+                        bottom:
+                            width: 23.8125
+                        lower:
+                            width: 23.8125
+                        home:
+                            width: 19.05
+                        top:
+                            width: 19.05
+                col10:
+                    key: {}
+                    rows:
+                        bottom:
+                            width: 23.8125
+                        lower:
+                            width: 19.05
+                        home:
+                            width: 33.3375
+                        top:
+                            width: 19.05
+                col11:
+                    key: {}
+                    rows:
+                        bottom:
+                            skip: true
+                        lower:
+                            skip: true
+                        home:
+                            skip: true
+                        top:
+                            width: 19.05
+    key:
+        padding: ky
+        spread: kx
+outlines:
+    plate:
+        -
+            what: rectangle
+            where: true
+            size:
+                - switch
+                - switch
+            fillet: 0.5
+    pcb:
+        -
+            what: rectangle
+            where: true
+            size:
+                - keycap
+                - keycap
+            fillet: 2
+            expand: 5
+pcbs: {}
+cases: {}

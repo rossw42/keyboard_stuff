@@ -1,0 +1,177 @@
+meta:
+  engine: v4
+  name: 40% Keyboard Layout Corrected
+  version: '1.0'
+  author: KLE to Ergogen Converter
+
+units:
+  kx: 19.05
+  ky: 19.05
+  px: 2
+  py: 2
+  keycap: 18
+  switch: 14
+
+points:
+  zones:
+    matrix:
+      key: {}
+      columns:
+        # 12 columns to match full keyboard width
+        col0:   # Leftmost keys
+          key: {}
+          rows:
+            bottom: # Hyper (1.25u)
+              key.width: 1.25 * kx
+            lower:  # Shift (1.75u)  
+              key.width: 1.75 * kx
+            home:   # Tab (1.25u)
+              key.width: 1.25 * kx  
+            top:    # Esc
+              key.width: kx
+        col1:   # Column 1 - adjusted for 1.25u offset
+          key:
+            stagger: 0.25 * kx  # Offset for 1.25u width
+          rows:
+            bottom: # Super
+              key.width: kx
+            lower:  # Z (after 1.75u Shift)
+              key.width: kx
+            home:   # A (after 1.25u Tab)
+              key.width: kx
+            top:    # Q
+              key.width: kx
+        col2:   # Column 2
+          key:
+            stagger: 0.25 * kx  # Cumulative offset
+          rows:
+            bottom: # Meta
+              key.width: kx
+            lower:  # X
+              key.width: kx  
+            home:   # S
+              key.width: kx
+            top:    # W
+              key.width: kx
+        col3:   # Column 3 - Spacebar starts here
+          key:
+            stagger: 0.25 * kx  # Position for spacebar
+          rows:
+            bottom: # Space (6.25u)
+              key.width: 6.25 * kx
+            lower:  # C
+              key.width: kx
+            home:   # D
+              key.width: kx
+            top:    # E
+              key.width: kx
+        col4:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # V
+              key.width: kx
+            home:   # F
+              key.width: kx
+            top:    # R
+              key.width: kx
+        col5:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # B
+              key.width: kx
+            home:   # G
+              key.width: kx
+            top:    # T
+              key.width: kx
+        col6:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # N
+              key.width: kx
+            home:   # H
+              key.width: kx
+            top:    # Y
+              key.width: kx
+        col7:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # M
+              key.width: kx
+            home:   # J
+              key.width: kx
+            top:    # U
+              key.width: kx
+        col8:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # <.
+              key.width: kx
+            home:   # K
+              key.width: kx
+            top:    # I
+              key.width: kx
+        col9:   # After spacebar
+          key:
+            stagger: 3 * kx  # Large offset after 6.25u space
+          rows:
+            bottom: # Meta (1.25u)
+              key.width: 1.25 * kx
+            lower:  # Right Shift (1.25u)
+              key.width: 1.25 * kx
+            home:   # L
+              key.width: kx
+            top:    # O
+              key.width: kx
+        col10:  # Right side
+          key: {}
+          rows:
+            bottom: # Super (1.25u)
+              key.width: 1.25 * kx
+            lower:  # Fn
+              key.width: kx
+            home:   # Enter (1.75u)
+              key.width: 1.75 * kx
+            top:    # P
+              key.width: kx
+        col11:  # Far right
+          key: {}
+          rows:
+            bottom: # No key
+              skip: true
+            lower:  # No key  
+              skip: true
+            home:   # No key
+              skip: true
+            top:    # Backspace
+              key.width: kx
+              
+  key:
+    padding: ky
+    spread: kx
+
+outlines:
+  plate:
+    - what: rectangle
+      where: true
+      size: [switch, switch]
+      fillet: 0.5
+  pcb:
+    - what: rectangle
+      where: true
+      size: [keycap, keycap]
+      fillet: 2
+      expand: 5
+
+pcbs: {}
+
+cases: {}

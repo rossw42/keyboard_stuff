@@ -1,0 +1,29 @@
+meta:
+  engine: v4
+  name: Test
+  version: '1.0'
+
+units:
+  kx: 19
+  ky: 19
+
+points:
+  zones:
+    matrix:
+      columns:
+        col1:
+          rows:
+            key1: {}
+
+outlines:
+  board:
+    what: keys
+    where: true
+    size: [18, 18]
+    bound: hull
+
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: board

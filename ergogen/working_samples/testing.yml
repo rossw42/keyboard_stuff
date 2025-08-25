@@ -1,0 +1,60 @@
+meta:
+  engine: v4
+  name: 40% Keyboard Layout Working
+  version: "1.0"
+  author: KLE to Ergogen Converter
+
+units:
+  kx: U
+  ky: U
+  tab_key: 1.5U
+
+points:
+  zones:
+    keyboard:
+      columns:
+        col0: # Leftmost column
+
+          rows:
+            row2.width: tab_key
+
+            row1.width: 1.75ky
+            row0.width: 1.25ky
+        col1: # Second column
+          key.shift: [0.5,0]
+
+        col2: # Third column
+        col3: # Fourth column
+        col4: # Fifth column
+        col5: # Sixth column
+        col6: # Seventh column
+        col7: # Eighth column
+        col8: # Ninth column
+        col9: # Tenth column
+        col10: # Eleventh column
+        col11: # Twelfth column
+      rows:
+        row0: # Bottom row keys
+
+        row1: # Lower row 
+          shift: [4,0]
+        row2: # Home row
+          shift: [-2,0]
+        row3: # Top row
+          shift: [-5,0]
+
+outlines:
+  plate:
+    - what: rectangle
+      where: true
+      size: [14, 14]
+      fillet: 0.5
+  pcb:
+    - what: rectangle
+      where: true
+      size: [18, 18]
+      fillet: 2
+      expand: 5
+
+pcbs: {}
+cases: {}

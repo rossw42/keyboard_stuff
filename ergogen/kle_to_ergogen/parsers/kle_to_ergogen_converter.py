@@ -10,24 +10,8 @@ import os
 from typing import Dict, List, Optional, Any, Union
 from pathlib import Path
 
-# Add the parent directory to Python path to import from qmk_format_converter
-parent_dir = str(Path(__file__).parent.parent.parent)
-qmk_converter_dir = str(Path(__file__).parent.parent.parent / "qmk_format_converter")
-
-sys.path.insert(0, parent_dir)
-sys.path.insert(0, qmk_converter_dir)
-
-try:
-    from qmk_format_converter.parsers.kle_parser import KLEParser, KLEParseError
-    from qmk_format_converter.data_models.universal_layout import UniversalLayout, KeyDefinition
-except ImportError as e:
-    # Try direct import from qmk_format_converter directory
-    try:
-        sys.path.insert(0, str(Path(__file__).parent.parent.parent / "qmk_format_converter"))
-        from parsers.kle_parser import KLEParser, KLEParseError
-        from data_models.universal_layout import UniversalLayout, KeyDefinition
-    except ImportError as e2:
-        raise ImportError(f"Cannot import qmk_format_converter modules. Original error: {e}, Fallback error: {e2}")
+# Use the simple KLE parser for standalone operation
+from .simple_kle_parser import SimpleKLEParser as KLEParser, KLEParseError, UniversalLayout, KeyDefinition
 
 from kle_to_ergogen.data_models.ergogen_point import (
     ErgogenPoint, 

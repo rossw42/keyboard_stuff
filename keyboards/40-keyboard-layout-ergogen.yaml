@@ -1,0 +1,142 @@
+# Proper Ergogen Configuration from KLE Layout
+# KLE rows converted to Ergogen matrix (bottom to top)
+
+units:
+  kx: 19.05  # Key spacing X
+  ky: 19.05  # Key spacing Y
+
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [100, -100]  # Starting point
+      columns:
+        # Column definitions for the matrix
+        c0:
+          key:
+            width: kx
+            height: ky
+        c1: 
+          key.stagger: 0
+        c2:
+          key.stagger: 0
+        c3:
+          key.stagger: 0
+        c4:
+          key.stagger: 0
+        c5:
+          key.stagger: 0
+        c6:
+          key.stagger: 0
+        c7:
+          key.stagger: 0
+        c8:
+          key.stagger: 0
+        c9:
+          key.stagger: 0
+        c10:
+          key.stagger: 0
+        c11:
+          key.stagger: 0
+      
+      rows:
+        # Row 0 (bottom) = KLE Row 3 (bottom modifier row)
+        bottom:
+          c0.key.width: 1.25 * kx    # Hyper (1.25u)
+          c1.key.width: kx           # Super  
+          c2.key.width: kx           # Meta
+          c3.key.width: 6.25 * kx    # Space (6.25u)
+          c4.skip: true             # Space continues
+          c5.skip: true             # Space continues  
+          c6.skip: true             # Space continues
+          c7.skip: true             # Space continues
+          c8.skip: true             # Space continues
+          c9.key.width: 1.25 * kx    # Meta (1.25u)
+          c10.key.width: 1.25 * kx   # Super (1.25u)
+          c11.skip: true            # No key here
+        
+        # Row 1 = KLE Row 2 (letter row with Z,X,C...)
+        lower:
+          c0.key.width: 1.75 * kx    # Shift (1.75u)
+          c1.key.width: kx           # Z
+          c2.key.width: kx           # X  
+          c3.key.width: kx           # C
+          c4.key.width: kx           # V
+          c5.key.width: kx           # B
+          c6.key.width: kx           # N
+          c7.key.width: kx           # M
+          c8.key.width: kx           # <.
+          c9.key.width: 1.25 * kx    # Shift (1.25u)
+          c10.key.width: kx          # Fn
+          c11.skip: true            # No key here
+        
+        # Row 2 = KLE Row 1 (home row with A,S,D...)  
+        home:
+          c0.key.width: 1.25 * kx    # Tab (1.25u)
+          c1.key.width: kx           # A
+          c2.key.width: kx           # S
+          c3.key.width: kx           # D
+          c4.key.width: kx           # F
+          c5.key.width: kx           # G
+          c6.key.width: kx           # H
+          c7.key.width: kx           # J
+          c8.key.width: kx           # K
+          c9.key.width: kx           # L
+          c10.key.width: 1.75 * kx   # Enter (1.75u)
+          c11.skip: true            # No key here
+        
+        # Row 3 (top) = KLE Row 0 (number row)
+        top:
+          c0.key.width: kx           # Esc
+          c1.key.width: kx           # Q
+          c2.key.width: kx           # W
+          c3.key.width: kx           # E
+          c4.key.width: kx           # R
+          c5.key.width: kx           # T
+          c6.key.width: kx           # Y
+          c7.key.width: kx           # U
+          c8.key.width: kx           # I
+          c9.key.width: kx           # O
+          c10.key.width: kx          # P
+          c11.key.width: kx          # Backspace
+
+      key:
+        width: kx
+        height: ky
+        tags: [key]
+
+outlines:
+  switches:
+    - what: rectangle
+      where: true
+      asym: source
+      size: [14, 14]
+  
+  board:
+    - what: rectangle
+      where: true
+      bound: true
+      size: [5, 5]
+
+pcb:
+  outlines:
+    main:
+      outline: board
+      
+  footprints:
+    switches:
+      what: mx
+      where: true
+      params:
+        keycaps: true
+        reverse: false
+        hotswap: true
+        
+    diodes:
+      what: diode
+      where: true
+      params:
+        from: "{{name}}"
+        to: "{{row_net}}"
+      adjust:
+        shift: [0, -5]

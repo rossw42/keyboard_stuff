@@ -1,0 +1,208 @@
+meta:
+  engine: v4
+  name: 40% Keyboard Layout Working
+  version: '1.0'
+  author: KLE to Ergogen Converter
+
+units:
+  kx: 19.05
+  ky: 19.05
+
+points:
+  zones:
+    # Use individual zones positioned at exact CLI coordinates
+    row0:  # Top row keys
+      anchor:
+        shift: [-104.775, 28.575]
+      columns:
+        c0: 
+          rows:
+            only: { width: kx }  # Esc
+        c1:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # Q
+        c2:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # W
+        c3:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # E
+        c4:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # R
+        c5:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # T
+        c6:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # Y
+        c7:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # U
+        c8:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # I
+        c9:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # O
+        c10:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # P
+        c11:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # Backspace
+
+    row1:  # Home row
+      anchor:
+        shift: [-104.775, 9.525]
+      columns:
+        c0:
+          rows:
+            only: { width: 1.25 * kx }  # Tab
+        c1:
+          key.spread: 23.8125  # After 1.25u key
+          rows:
+            only: { width: kx }  # A
+        c2:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # S
+        c3:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # D
+        c4:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # F
+        c5:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # G
+        c6:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # H
+        c7:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # J
+        c8:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # K
+        c9:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # L
+        c10:
+          key.spread: 19.05
+          rows:
+            only: { width: 1.75 * kx }  # Enter
+
+    row2:  # Lower row
+      anchor:
+        shift: [-104.775, -9.525]
+      columns:
+        c0:
+          rows:
+            only: { width: 1.75 * kx }  # Shift
+        c1:
+          key.spread: 33.3375  # After 1.75u key
+          rows:
+            only: { width: kx }  # Z
+        c2:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # X
+        c3:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # C
+        c4:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # V
+        c5:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # B
+        c6:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # N
+        c7:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # M
+        c8:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # <.
+        c9:
+          key.spread: 19.05
+          rows:
+            only: { width: 1.25 * kx }  # RShift
+        c10:
+          key.spread: 23.8125  # After 1.25u key
+          rows:
+            only: { width: kx }  # Fn
+
+    row3:  # Bottom row
+      anchor:
+        shift: [-104.775, -28.575]
+      columns:
+        c0:
+          rows:
+            only: { width: 1.25 * kx }  # Hyper
+        c1:
+          key.spread: 23.8125  # After 1.25u key
+          rows:
+            only: { width: kx }  # Super
+        c2:
+          key.spread: 19.05
+          rows:
+            only: { width: kx }  # Meta
+        c3:
+          key.spread: 19.05
+          rows:
+            only: { width: 6.25 * kx }  # Space
+        c4:
+          key.spread: 119.0625  # After 6.25u spacebar
+          rows:
+            only: { width: 1.25 * kx }  # RMeta
+        c5:
+          key.spread: 23.8125  # After 1.25u key
+          rows:
+            only: { width: 1.25 * kx }  # RSuper
+
+  key:
+    padding: ky
+    spread: kx
+
+outlines:
+  plate:
+    - what: rectangle
+      where: true
+      size: [14, 14]
+      fillet: 0.5
+  pcb:
+    - what: rectangle
+      where: true
+      size: [18, 18]
+      fillet: 2
+      expand: 5
+
+pcbs: {}
+cases: {}

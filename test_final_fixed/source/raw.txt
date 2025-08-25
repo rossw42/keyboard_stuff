@@ -1,0 +1,172 @@
+meta:
+  engine: v4
+  name: 40% Keyboard Layout Final
+  version: '1.0'
+  author: KLE to Ergogen Converter
+
+units:
+  kx: 19.05
+  ky: 19.05
+  px: 2
+  py: 2
+  keycap: 18
+  switch: 14
+
+points:
+  zones:
+    matrix:
+      key: {}
+      columns:
+        col0:   # Leftmost column - modifiers
+          key: {}
+          rows:
+            bottom: # Hyper (1.25u)
+              width: 23.8125  # 1.25 * 19.05
+            lower:  # Shift (1.75u)
+              width: 33.3375  # 1.75 * 19.05
+            home:   # Tab (1.25u)
+              width: 23.8125  # 1.25 * 19.05
+            top:    # Esc
+              width: 19.05    # 1u
+        col1:   # Second column
+          key: {}
+          rows:
+            bottom: # Super
+              width: 19.05    # 1u
+            lower:  # Z
+              width: 19.05    # 1u
+            home:   # A
+              width: 19.05    # 1u
+            top:    # Q
+              width: 19.05    # 1u
+        col2:   # Third column
+          key: {}
+          rows:
+            bottom: # Meta (last key before space)
+              width: 19.05    # 1u
+            lower:  # X
+              width: 19.05    # 1u
+            home:   # S
+              width: 19.05    # 1u
+            top:    # W
+              width: 19.05    # 1u
+        col3:   # Spacebar column
+          key: {}
+          rows:
+            bottom: # Space (6.25u) - this should span to col8
+              width: 119.0625 # 6.25 * 19.05
+            lower:  # C
+              width: 19.05    # 1u
+            home:   # D
+              width: 19.05    # 1u
+            top:    # E
+              width: 19.05    # 1u
+        col4:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # V
+              width: 19.05    # 1u
+            home:   # F
+              width: 19.05    # 1u
+            top:    # R
+              width: 19.05    # 1u
+        col5:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # B
+              width: 19.05    # 1u
+            home:   # G
+              width: 19.05    # 1u
+            top:    # T
+              width: 19.05    # 1u
+        col6:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # N
+              width: 19.05    # 1u
+            home:   # H
+              width: 19.05    # 1u
+            top:    # Y
+              width: 19.05    # 1u
+        col7:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # M
+              width: 19.05    # 1u
+            home:   # J
+              width: 19.05    # 1u
+            top:    # U
+              width: 19.05    # 1u
+        col8:
+          key: {}
+          rows:
+            bottom: # Space continues
+              skip: true
+            lower:  # <.
+              width: 19.05    # 1u
+            home:   # K
+              width: 19.05    # 1u
+            top:    # I
+              width: 19.05    # 1u
+        col9:   # Right modifiers start
+          key: {}
+          rows:
+            bottom: # Meta (1.25u)
+              width: 23.8125  # 1.25 * 19.05
+            lower:  # Right Shift (1.25u)
+              width: 23.8125  # 1.25 * 19.05
+            home:   # L
+              width: 19.05    # 1u
+            top:    # O
+              width: 19.05    # 1u
+        col10:  # Right side
+          key: {}
+          rows:
+            bottom: # Super (1.25u)
+              width: 23.8125  # 1.25 * 19.05
+            lower:  # Fn
+              width: 19.05    # 1u
+            home:   # Enter (1.75u)
+              width: 33.3375  # 1.75 * 19.05
+            top:    # P
+              width: 19.05    # 1u
+        col11:  # Far right
+          key: {}
+          rows:
+            bottom: # No key
+              skip: true
+            lower:  # No key
+              skip: true
+            home:   # No key
+              skip: true
+            top:    # Backspace
+              width: 19.05    # 1u
+              
+  key:
+    padding: ky
+    spread: kx
+
+outlines:
+  plate:
+    - what: rectangle
+      where: true
+      size: [switch, switch]
+      fillet: 0.5
+  pcb:
+    - what: rectangle
+      where: true
+      size: [keycap, keycap]
+      fillet: 2
+      expand: 5
+
+pcbs: {}
+
+cases: {}

@@ -1,0 +1,172 @@
+meta:
+  engine: v4
+  name: 40% Keyboard Layout
+  version: '1.0'
+  author: KLE to Ergogen Converter
+
+units:
+  kx: 19.05
+  ky: 19.05
+  px: 2
+  py: 2
+  keycap: 18
+  switch: 14
+
+points:
+  zones:
+    matrix:
+      key: {}
+      columns:
+        col0:
+          key: {}
+          rows:
+            bottom:  # KLE Row 3: Hyper (1.25u)
+              key.width: 1.25 * kx
+            lower:   # KLE Row 2: Shift (1.75u)  
+              key.width: 1.75 * kx
+            home:    # KLE Row 1: Tab (1.25u)
+              key.width: 1.25 * kx  
+            top:     # KLE Row 0: Esc
+              key.width: kx
+        col1:
+          key: {}
+          rows:
+            bottom:  # Super
+              key.width: kx
+            lower:   # Z
+              key.width: kx
+            home:    # A  
+              key.width: kx
+            top:     # Q
+              key.width: kx
+        col2:
+          key: {}
+          rows:
+            bottom:  # Meta
+              key.width: kx
+            lower:   # X
+              key.width: kx  
+            home:    # S
+              key.width: kx
+            top:     # W
+              key.width: kx
+        col3:
+          key: {}
+          rows:
+            bottom:  # Space (6.25u)
+              key.width: 6.25 * kx
+            lower:   # C
+              key.width: kx
+            home:    # D
+              key.width: kx
+            top:     # E
+              key.width: kx
+        col4:
+          key: {}
+          rows:
+            bottom:  # Space continues
+              skip: true
+            lower:   # V
+              key.width: kx
+            home:    # F
+              key.width: kx
+            top:     # R
+              key.width: kx
+        col5:
+          key: {}
+          rows:
+            bottom:  # Space continues
+              skip: true
+            lower:   # B
+              key.width: kx
+            home:    # G
+              key.width: kx
+            top:     # T
+              key.width: kx
+        col6:
+          key: {}
+          rows:
+            bottom:  # Space continues
+              skip: true
+            lower:   # N
+              key.width: kx
+            home:    # H
+              key.width: kx
+            top:     # Y
+              key.width: kx
+        col7:
+          key: {}
+          rows:
+            bottom:  # Space continues
+              skip: true
+            lower:   # M
+              key.width: kx
+            home:    # J
+              key.width: kx
+            top:     # U
+              key.width: kx
+        col8:
+          key: {}
+          rows:
+            bottom:  # Space continues
+              skip: true
+            lower:   # <.
+              key.width: kx
+            home:    # K
+              key.width: kx
+            top:     # I
+              key.width: kx
+        col9:
+          key: {}
+          rows:
+            bottom:  # Meta (1.25u)
+              key.width: 1.25 * kx
+            lower:   # Right Shift (1.25u)
+              key.width: 1.25 * kx
+            home:    # L
+              key.width: kx
+            top:     # O
+              key.width: kx
+        col10:
+          key: {}
+          rows:
+            bottom:  # Super (1.25u)
+              key.width: 1.25 * kx
+            lower:   # Fn
+              key.width: kx
+            home:    # Enter (1.75u)
+              key.width: 1.75 * kx
+            top:     # P
+              key.width: kx
+        col11:
+          key: {}
+          rows:
+            bottom:  # No key
+              skip: true
+            lower:   # No key  
+              skip: true
+            home:    # No key
+              skip: true
+            top:     # Backspace
+              key.width: kx
+              
+  key:
+    padding: ky
+    spread: kx
+
+outlines:
+  plate:
+    - what: rectangle
+      where: true
+      size: [switch, switch]
+      fillet: 0.5
+  pcb:
+    - what: rectangle
+      where: true
+      size: [keycap, keycap]
+      fillet: 2
+      expand: 5
+
+pcbs: {}
+
+cases: {}

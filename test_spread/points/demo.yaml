@@ -1,0 +1,1490 @@
+models:
+    export:
+        models:
+            matrix_col0_bottom:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - -11.90625
+                            - 9
+                        end:
+                            - 11.90625
+                            - 9
+                    right:
+                        type: line
+                        origin:
+                            - 11.90625
+                            - 9
+                        end:
+                            - 11.90625
+                            - -9
+                    bottom:
+                        type: line
+                        origin:
+                            - 11.90625
+                            - -9
+                        end:
+                            - -11.90625
+                            - -9
+                    left:
+                        type: line
+                        origin:
+                            - -11.90625
+                            - -9
+                        end:
+                            - -11.90625
+                            - 9
+                origin:
+                    - 0
+                    - 0
+            matrix_col0_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - -16.66875
+                            - 28.05
+                        end:
+                            - 16.66875
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 16.66875
+                            - 28.05
+                        end:
+                            - 16.66875
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 16.66875
+                            - 10.05
+                        end:
+                            - -16.66875
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - -16.66875
+                            - 10.05
+                        end:
+                            - -16.66875
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col0_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - -11.90625
+                            - 47.1
+                        end:
+                            - 11.90625
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 11.90625
+                            - 47.1
+                        end:
+                            - 11.90625
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 11.90625
+                            - 29.1
+                        end:
+                            - -11.90625
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - -11.90625
+                            - 29.1
+                        end:
+                            - -11.90625
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col0_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - -9.525
+                            - 66.15
+                        end:
+                            - 9.525
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 66.15
+                        end:
+                            - 9.525
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 48.150000000000006
+                        end:
+                            - -9.525
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - -9.525
+                            - 48.150000000000006
+                        end:
+                            - -9.525
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col1_bottom:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 9
+                        end:
+                            - 28.575000000000003
+                            - 9
+                    right:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 9
+                        end:
+                            - 28.575000000000003
+                            - -9
+                    bottom:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - -9
+                        end:
+                            - 9.525
+                            - -9
+                    left:
+                        type: line
+                        origin:
+                            - 9.525
+                            - -9
+                        end:
+                            - 9.525
+                            - 9
+                origin:
+                    - 0
+                    - 0
+            matrix_col1_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 28.05
+                        end:
+                            - 28.575000000000003
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 28.05
+                        end:
+                            - 28.575000000000003
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 10.05
+                        end:
+                            - 9.525
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 10.05
+                        end:
+                            - 9.525
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col1_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 47.1
+                        end:
+                            - 28.575000000000003
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 47.1
+                        end:
+                            - 28.575000000000003
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 29.1
+                        end:
+                            - 9.525
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 29.1
+                        end:
+                            - 9.525
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col1_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 66.15
+                        end:
+                            - 28.575000000000003
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 66.15
+                        end:
+                            - 28.575000000000003
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 48.150000000000006
+                        end:
+                            - 9.525
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 9.525
+                            - 48.150000000000006
+                        end:
+                            - 9.525
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col2_bottom:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 9
+                        end:
+                            - 47.625
+                            - 9
+                    right:
+                        type: line
+                        origin:
+                            - 47.625
+                            - 9
+                        end:
+                            - 47.625
+                            - -9
+                    bottom:
+                        type: line
+                        origin:
+                            - 47.625
+                            - -9
+                        end:
+                            - 28.575000000000003
+                            - -9
+                    left:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - -9
+                        end:
+                            - 28.575000000000003
+                            - 9
+                origin:
+                    - 0
+                    - 0
+            matrix_col2_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 28.05
+                        end:
+                            - 47.625
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 47.625
+                            - 28.05
+                        end:
+                            - 47.625
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 47.625
+                            - 10.05
+                        end:
+                            - 28.575000000000003
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 10.05
+                        end:
+                            - 28.575000000000003
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col2_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 47.1
+                        end:
+                            - 47.625
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 47.625
+                            - 47.1
+                        end:
+                            - 47.625
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 47.625
+                            - 29.1
+                        end:
+                            - 28.575000000000003
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 29.1
+                        end:
+                            - 28.575000000000003
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col2_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 66.15
+                        end:
+                            - 47.625
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 47.625
+                            - 66.15
+                        end:
+                            - 47.625
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 47.625
+                            - 48.150000000000006
+                        end:
+                            - 28.575000000000003
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 28.575000000000003
+                            - 48.150000000000006
+                        end:
+                            - 28.575000000000003
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col3_bottom:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 97.63125
+                            - 9
+                        end:
+                            - 216.69375
+                            - 9
+                    right:
+                        type: line
+                        origin:
+                            - 216.69375
+                            - 9
+                        end:
+                            - 216.69375
+                            - -9
+                    bottom:
+                        type: line
+                        origin:
+                            - 216.69375
+                            - -9
+                        end:
+                            - 97.63125
+                            - -9
+                    left:
+                        type: line
+                        origin:
+                            - 97.63125
+                            - -9
+                        end:
+                            - 97.63125
+                            - 9
+                origin:
+                    - 0
+                    - 0
+            matrix_col3_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 147.6375
+                            - 28.05
+                        end:
+                            - 166.6875
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 28.05
+                        end:
+                            - 166.6875
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 10.05
+                        end:
+                            - 147.6375
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 147.6375
+                            - 10.05
+                        end:
+                            - 147.6375
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col3_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 147.6375
+                            - 47.1
+                        end:
+                            - 166.6875
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 47.1
+                        end:
+                            - 166.6875
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 29.1
+                        end:
+                            - 147.6375
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 147.6375
+                            - 29.1
+                        end:
+                            - 147.6375
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col3_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 147.6375
+                            - 66.15
+                        end:
+                            - 166.6875
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 66.15
+                        end:
+                            - 166.6875
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 48.150000000000006
+                        end:
+                            - 147.6375
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 147.6375
+                            - 48.150000000000006
+                        end:
+                            - 147.6375
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col4_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 28.05
+                        end:
+                            - 185.7375
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 185.7375
+                            - 28.05
+                        end:
+                            - 185.7375
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 185.7375
+                            - 10.05
+                        end:
+                            - 166.6875
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 10.05
+                        end:
+                            - 166.6875
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col4_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 47.1
+                        end:
+                            - 185.7375
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 185.7375
+                            - 47.1
+                        end:
+                            - 185.7375
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 185.7375
+                            - 29.1
+                        end:
+                            - 166.6875
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 29.1
+                        end:
+                            - 166.6875
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col4_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 66.15
+                        end:
+                            - 185.7375
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 185.7375
+                            - 66.15
+                        end:
+                            - 185.7375
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 185.7375
+                            - 48.150000000000006
+                        end:
+                            - 166.6875
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 166.6875
+                            - 48.150000000000006
+                        end:
+                            - 166.6875
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col5_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 185.73749999999998
+                            - 28.05
+                        end:
+                            - 204.7875
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 28.05
+                        end:
+                            - 204.7875
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 10.05
+                        end:
+                            - 185.73749999999998
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 185.73749999999998
+                            - 10.05
+                        end:
+                            - 185.73749999999998
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col5_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 185.73749999999998
+                            - 47.1
+                        end:
+                            - 204.7875
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 47.1
+                        end:
+                            - 204.7875
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 29.1
+                        end:
+                            - 185.73749999999998
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 185.73749999999998
+                            - 29.1
+                        end:
+                            - 185.73749999999998
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col5_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 185.73749999999998
+                            - 66.15
+                        end:
+                            - 204.7875
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 66.15
+                        end:
+                            - 204.7875
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 48.150000000000006
+                        end:
+                            - 185.73749999999998
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 185.73749999999998
+                            - 48.150000000000006
+                        end:
+                            - 185.73749999999998
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col6_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 28.05
+                        end:
+                            - 223.8375
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 28.05
+                        end:
+                            - 223.8375
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 10.05
+                        end:
+                            - 204.7875
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 10.05
+                        end:
+                            - 204.7875
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col6_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 47.1
+                        end:
+                            - 223.8375
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 47.1
+                        end:
+                            - 223.8375
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 29.1
+                        end:
+                            - 204.7875
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 29.1
+                        end:
+                            - 204.7875
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col6_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 66.15
+                        end:
+                            - 223.8375
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 66.15
+                        end:
+                            - 223.8375
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 48.150000000000006
+                        end:
+                            - 204.7875
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 204.7875
+                            - 48.150000000000006
+                        end:
+                            - 204.7875
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col7_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 28.05
+                        end:
+                            - 242.88750000000002
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 242.88750000000002
+                            - 28.05
+                        end:
+                            - 242.88750000000002
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 242.88750000000002
+                            - 10.05
+                        end:
+                            - 223.8375
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 10.05
+                        end:
+                            - 223.8375
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col7_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 47.1
+                        end:
+                            - 242.88750000000002
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 242.88750000000002
+                            - 47.1
+                        end:
+                            - 242.88750000000002
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 242.88750000000002
+                            - 29.1
+                        end:
+                            - 223.8375
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 29.1
+                        end:
+                            - 223.8375
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col7_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 66.15
+                        end:
+                            - 242.88750000000002
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 242.88750000000002
+                            - 66.15
+                        end:
+                            - 242.88750000000002
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 242.88750000000002
+                            - 48.150000000000006
+                        end:
+                            - 223.8375
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 223.8375
+                            - 48.150000000000006
+                        end:
+                            - 223.8375
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col8_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 242.8875
+                            - 28.05
+                        end:
+                            - 261.9375
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 28.05
+                        end:
+                            - 261.9375
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 10.05
+                        end:
+                            - 242.8875
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 242.8875
+                            - 10.05
+                        end:
+                            - 242.8875
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col8_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 242.8875
+                            - 47.1
+                        end:
+                            - 261.9375
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 47.1
+                        end:
+                            - 261.9375
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 29.1
+                        end:
+                            - 242.8875
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 242.8875
+                            - 29.1
+                        end:
+                            - 242.8875
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col8_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 242.8875
+                            - 66.15
+                        end:
+                            - 261.9375
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 66.15
+                        end:
+                            - 261.9375
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 48.150000000000006
+                        end:
+                            - 242.8875
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 242.8875
+                            - 48.150000000000006
+                        end:
+                            - 242.8875
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col9_bottom:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 259.55625
+                            - 9
+                        end:
+                            - 283.36875
+                            - 9
+                    right:
+                        type: line
+                        origin:
+                            - 283.36875
+                            - 9
+                        end:
+                            - 283.36875
+                            - -9
+                    bottom:
+                        type: line
+                        origin:
+                            - 283.36875
+                            - -9
+                        end:
+                            - 259.55625
+                            - -9
+                    left:
+                        type: line
+                        origin:
+                            - 259.55625
+                            - -9
+                        end:
+                            - 259.55625
+                            - 9
+                origin:
+                    - 0
+                    - 0
+            matrix_col9_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 259.55625
+                            - 28.05
+                        end:
+                            - 283.36875
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 283.36875
+                            - 28.05
+                        end:
+                            - 283.36875
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 283.36875
+                            - 10.05
+                        end:
+                            - 259.55625
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 259.55625
+                            - 10.05
+                        end:
+                            - 259.55625
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col9_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 47.1
+                        end:
+                            - 280.9875
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 47.1
+                        end:
+                            - 280.9875
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 29.1
+                        end:
+                            - 261.9375
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 29.1
+                        end:
+                            - 261.9375
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col9_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 66.15
+                        end:
+                            - 280.9875
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 66.15
+                        end:
+                            - 280.9875
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 48.150000000000006
+                        end:
+                            - 261.9375
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 261.9375
+                            - 48.150000000000006
+                        end:
+                            - 261.9375
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col10_bottom:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 278.60625
+                            - 9
+                        end:
+                            - 302.41875
+                            - 9
+                    right:
+                        type: line
+                        origin:
+                            - 302.41875
+                            - 9
+                        end:
+                            - 302.41875
+                            - -9
+                    bottom:
+                        type: line
+                        origin:
+                            - 302.41875
+                            - -9
+                        end:
+                            - 278.60625
+                            - -9
+                    left:
+                        type: line
+                        origin:
+                            - 278.60625
+                            - -9
+                        end:
+                            - 278.60625
+                            - 9
+                origin:
+                    - 0
+                    - 0
+            matrix_col10_lower:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 28.05
+                        end:
+                            - 300.0375
+                            - 28.05
+                    right:
+                        type: line
+                        origin:
+                            - 300.0375
+                            - 28.05
+                        end:
+                            - 300.0375
+                            - 10.05
+                    bottom:
+                        type: line
+                        origin:
+                            - 300.0375
+                            - 10.05
+                        end:
+                            - 280.9875
+                            - 10.05
+                    left:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 10.05
+                        end:
+                            - 280.9875
+                            - 28.05
+                origin:
+                    - 0
+                    - 0
+            matrix_col10_home:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 273.84375
+                            - 47.1
+                        end:
+                            - 307.18125
+                            - 47.1
+                    right:
+                        type: line
+                        origin:
+                            - 307.18125
+                            - 47.1
+                        end:
+                            - 307.18125
+                            - 29.1
+                    bottom:
+                        type: line
+                        origin:
+                            - 307.18125
+                            - 29.1
+                        end:
+                            - 273.84375
+                            - 29.1
+                    left:
+                        type: line
+                        origin:
+                            - 273.84375
+                            - 29.1
+                        end:
+                            - 273.84375
+                            - 47.1
+                origin:
+                    - 0
+                    - 0
+            matrix_col10_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 66.15
+                        end:
+                            - 300.0375
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 300.0375
+                            - 66.15
+                        end:
+                            - 300.0375
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 300.0375
+                            - 48.150000000000006
+                        end:
+                            - 280.9875
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 280.9875
+                            - 48.150000000000006
+                        end:
+                            - 280.9875
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+            matrix_col11_top:
+                paths:
+                    top:
+                        type: line
+                        origin:
+                            - 300.0375
+                            - 66.15
+                        end:
+                            - 319.08750000000003
+                            - 66.15
+                    right:
+                        type: line
+                        origin:
+                            - 319.08750000000003
+                            - 66.15
+                        end:
+                            - 319.08750000000003
+                            - 48.150000000000006
+                    bottom:
+                        type: line
+                        origin:
+                            - 319.08750000000003
+                            - 48.150000000000006
+                        end:
+                            - 300.0375
+                            - 48.150000000000006
+                    left:
+                        type: line
+                        origin:
+                            - 300.0375
+                            - 48.150000000000006
+                        end:
+                            - 300.0375
+                            - 66.15
+                origin:
+                    - 0
+                    - 0
+        origin:
+            - 0
+            - 0
+units: mm
+origin:
+    - 0
+    - 0

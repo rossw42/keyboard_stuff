@@ -1,0 +1,309 @@
+# Proper Ergogen Configuration with Variable Key Widths
+# Using 48-column quarter-unit system to handle 1.25u, 1.75u, 6.25u keys
+
+units:
+  kx: 19.05        # Standard key unit
+  ky: 19.05        # Standard key unit
+  quarter: kx / 4  # Quarter-unit spacing (4.7625mm)
+
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [100, -100]
+      columns:
+        # 48 columns for quarter-unit precision (12u × 4 = 48 positions)
+        c0: {}
+        c1: {}
+        c2: {}
+        c3: {}
+        c4: {}
+        c5: {}
+        c6: {}
+        c7: {}
+        c8: {}
+        c9: {}
+        c10: {}
+        c11: {}
+        c12: {}
+        c13: {}
+        c14: {}
+        c15: {}
+        c16: {}
+        c17: {}
+        c18: {}
+        c19: {}
+        c20: {}
+        c21: {}
+        c22: {}
+        c23: {}
+        c24: {}
+        c25: {}
+        c26: {}
+        c27: {}
+        c28: {}
+        c29: {}
+        c30: {}
+        c31: {}
+        c32: {}
+        c33: {}
+        c34: {}
+        c35: {}
+        c36: {}
+        c37: {}
+        c38: {}
+        c39: {}
+        c40: {}
+        c41: {}
+        c42: {}
+        c43: {}
+        c44: {}
+        c45: {}
+        c46: {}
+        c47: {}
+      
+      rows:
+        # Bottom row (KLE Row 3): Hyper, Super, Meta, Space, Meta, Super
+        bottom:
+          c0.key.width: 1.25 * kx     # Hyper (1.25u = 5 quarter-units)
+          c1.skip: true               # Hyper continues
+          c2.skip: true
+          c3.skip: true
+          c4.skip: true
+          c5.key.width: kx            # Super (1u = 4 quarter-units)
+          c6.skip: true
+          c7.skip: true
+          c8.skip: true
+          c9.key.width: kx            # Meta (1u = 4 quarter-units)
+          c10.skip: true
+          c11.skip: true
+          c12.skip: true
+          c13.key.width: 6.25 * kx    # Space (6.25u = 25 quarter-units)
+          c14.skip: true              # Space continues...
+          c15.skip: true
+          c16.skip: true
+          c17.skip: true
+          c18.skip: true
+          c19.skip: true
+          c20.skip: true
+          c21.skip: true
+          c22.skip: true
+          c23.skip: true
+          c24.skip: true
+          c25.skip: true
+          c26.skip: true
+          c27.skip: true
+          c28.skip: true
+          c29.skip: true
+          c30.skip: true
+          c31.skip: true
+          c32.skip: true
+          c33.skip: true
+          c34.skip: true
+          c35.skip: true
+          c36.skip: true
+          c37.skip: true
+          c38.key.width: 1.25 * kx    # Meta (1.25u = 5 quarter-units)
+          c39.skip: true
+          c40.skip: true
+          c41.skip: true
+          c42.skip: true
+          c43.key.width: 1.25 * kx    # Super (1.25u = 5 quarter-units)
+          c44.skip: true
+          c45.skip: true
+          c46.skip: true
+          c47.skip: true
+        
+        # Lower row (KLE Row 2): Shift, Z, X, C, V, B, N, M, <., Shift, Fn
+        lower:
+          c0.key.width: 1.75 * kx     # Shift (1.75u = 7 quarter-units)
+          c1.skip: true
+          c2.skip: true
+          c3.skip: true
+          c4.skip: true
+          c5.skip: true
+          c6.skip: true
+          c7.key.width: kx            # Z
+          c8.skip: true
+          c9.skip: true
+          c10.skip: true
+          c11.key.width: kx           # X
+          c12.skip: true
+          c13.skip: true
+          c14.skip: true
+          c15.key.width: kx           # C
+          c16.skip: true
+          c17.skip: true
+          c18.skip: true
+          c19.key.width: kx           # V
+          c20.skip: true
+          c21.skip: true
+          c22.skip: true
+          c23.key.width: kx           # B
+          c24.skip: true
+          c25.skip: true
+          c26.skip: true
+          c27.key.width: kx           # N
+          c28.skip: true
+          c29.skip: true
+          c30.skip: true
+          c31.key.width: kx           # M
+          c32.skip: true
+          c33.skip: true
+          c34.skip: true
+          c35.key.width: kx           # <.
+          c36.skip: true
+          c37.skip: true
+          c38.skip: true
+          c39.key.width: 1.25 * kx    # Shift (1.25u = 5 quarter-units)
+          c40.skip: true
+          c41.skip: true
+          c42.skip: true
+          c43.skip: true
+          c44.key.width: kx           # Fn
+          c45.skip: true
+          c46.skip: true
+          c47.skip: true
+        
+        # Home row (KLE Row 1): Tab, A, S, D, F, G, H, J, K, L, Enter
+        home:
+          c0.key.width: 1.25 * kx     # Tab (1.25u = 5 quarter-units)
+          c1.skip: true
+          c2.skip: true
+          c3.skip: true
+          c4.skip: true
+          c5.key.width: kx            # A
+          c6.skip: true
+          c7.skip: true
+          c8.skip: true
+          c9.key.width: kx            # S
+          c10.skip: true
+          c11.skip: true
+          c12.skip: true
+          c13.key.width: kx           # D
+          c14.skip: true
+          c15.skip: true
+          c16.skip: true
+          c17.key.width: kx           # F
+          c18.skip: true
+          c19.skip: true
+          c20.skip: true
+          c21.key.width: kx           # G
+          c22.skip: true
+          c23.skip: true
+          c24.skip: true
+          c25.key.width: kx           # H
+          c26.skip: true
+          c27.skip: true
+          c28.skip: true
+          c29.key.width: kx           # J
+          c30.skip: true
+          c31.skip: true
+          c32.skip: true
+          c33.key.width: kx           # K
+          c34.skip: true
+          c35.skip: true
+          c36.skip: true
+          c37.key.width: kx           # L
+          c38.skip: true
+          c39.skip: true
+          c40.skip: true
+          c41.key.width: 1.75 * kx    # Enter (1.75u = 7 quarter-units)
+          c42.skip: true
+          c43.skip: true
+          c44.skip: true
+          c45.skip: true
+          c46.skip: true
+          c47.skip: true
+        
+        # Top row (KLE Row 0): Esc, Q, W, E, R, T, Y, U, I, O, P, Backspace
+        top:
+          c0.key.width: kx            # Esc
+          c1.skip: true
+          c2.skip: true
+          c3.skip: true
+          c4.key.width: kx            # Q
+          c5.skip: true
+          c6.skip: true
+          c7.skip: true
+          c8.key.width: kx            # W
+          c9.skip: true
+          c10.skip: true
+          c11.skip: true
+          c12.key.width: kx           # E
+          c13.skip: true
+          c14.skip: true
+          c15.skip: true
+          c16.key.width: kx           # R
+          c17.skip: true
+          c18.skip: true
+          c19.skip: true
+          c20.key.width: kx           # T
+          c21.skip: true
+          c22.skip: true
+          c23.skip: true
+          c24.key.width: kx           # Y
+          c25.skip: true
+          c26.skip: true
+          c27.skip: true
+          c28.key.width: kx           # U
+          c29.skip: true
+          c30.skip: true
+          c31.skip: true
+          c32.key.width: kx           # I
+          c33.skip: true
+          c34.skip: true
+          c35.skip: true
+          c36.key.width: kx           # O
+          c37.skip: true
+          c38.skip: true
+          c39.skip: true
+          c40.key.width: kx           # P
+          c41.skip: true
+          c42.skip: true
+          c43.skip: true
+          c44.key.width: kx           # Backspace
+          c45.skip: true
+          c46.skip: true
+          c47.skip: true
+
+      key:
+        width: quarter
+        height: ky
+        tags: [key]
+
+outlines:
+  switches:
+    - what: rectangle
+      where: true
+      asym: source
+      size: [14, 14]
+  
+  board:
+    - what: rectangle
+      where: true
+      bound: true
+      size: [5, 5]
+
+pcb:
+  outlines:
+    main:
+      outline: board
+      
+  footprints:
+    switches:
+      what: mx
+      where: true
+      params:
+        keycaps: true
+        reverse: false
+        hotswap: true
+        
+    diodes:
+      what: diode
+      where: true
+      params:
+        from: "{{name}}"
+        to: "{{row_net}}"
+      adjust:
+        shift: [0, -5]
