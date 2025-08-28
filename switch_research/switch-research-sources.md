@@ -86,15 +86,13 @@ This document catalogs the most reliable and comprehensive sources for researchi
 - **Coverage**: NK switches, popular enthusiast switches
 - **Strengths**: Detailed product descriptions, community-focused
 - **Best For**: NK-branded switches, enthusiast switch information
-- **Research Status**: ✅ Completed (Aug 2025) - Comprehensive coverage of NK Cream series, Silk series, tactile switches, and TYPEPLUS collaborations
-- **Notable**: Found several missing switches including NK Silk Awaken, NK Silk TFUE, and corrected NK Classic Blue categorization
 
 ### KBDfans
 - **URL**: https://www.kbdfans.com/
 - **Reliability**: ⭐⭐⭐⭐ (Good)
 - **Coverage**: Wide variety of switches, including boutique brands
 - **Strengths**: International availability, newer manufacturers
-- **Best For**: Boutique switches, newer manufacturers like HMX
+- **Best For**: Boutique switches, newer manufacturers like HMX, Sillyworks
 
 ### ThocStock
 - **URL**: https://thocstock.com/switches
@@ -204,10 +202,8 @@ This document catalogs the most reliable and comprehensive sources for researchi
 1. **HMX**: Growing manufacturer with unique designs
 2. **Tecsee**: Popular for colorful linear switches
 3. **Gazzew**: Famous for Boba switches
-   - **Research Status**: ✅ Completed (Aug 2025) - Comprehensive cleanup and reorganization of Boba U4 series, U4T series, Silent variants, RGB variants
-   - **Notable**: Fixed major categorization errors (U4 switches are silent tactiles, not linears), removed duplicates, consolidated two separate sections
 4. **KTT**: Fruit-themed switch lineup
-
+5. **Sillyworks**: Newer premium manufacturer
 
 ### Information Gaps to Fill
 - Historical release dates for older switches
