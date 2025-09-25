@@ -1,0 +1,40 @@
+# Minivan keyboard layout converted from VIA/Vial configuration
+layout:
+  qmk_keyboard: thevankeyboards/minivan
+  layout_name: LAYOUT
+layers:
+  BASE:
+  - [ESC, Q, W, E, R, T, Y, U, I, O, P, BSPC]
+  - [{t: TAB, h: RSFT}, {t: A, h: 'C+A'}, S, D, F, G, H, J, K, L, ';', ENT]
+  - [LSFT, {t: Z, h: 'C+Z'}, {t: X, h: 'C+X'}, {t: C, h: 'C+C'}, {t: V, h: 'C+V'}, B, N, M, {t: ',', h: '['}, {t: '.', h: ']', s: '/'}, UP, '''']
+  - [LCTL, LALT, {t: LGUI, h: CTRL}, {t: SPC, h: NUM_SYM}, {t: SPC, h: FN}, LEFT, DOWN, RIGHT]
+  
+  NUM_SYM:
+  - ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', BSPC]
+  - ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '|']
+  - ['', '', '', '', '', '', '-', '=', '[', ']', '?', '']
+  - ['', '', '', '', '', '', '', '']
+  
+  FN:
+  - ['~', F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11]
+  - ['', '', '', '', '', '', LEFT, DOWN, UP, RIGHT, '', F12]
+  - ['', '', '', '', '', '', '', '', '', '', PGUP, '']
+  - ['', '', '', '', '', HOME, PGDN, END]
+  
+  CTRL:
+  - ['', '', 'C+W', '', 'C+R', 'C+T', '', '', '', '', '', MUTE]
+  - ['', 'C+A', 'C+S', '', 'C+F', '', '', '', '', '', 'C+←', 'C+→']
+  - ['', '', '', '', '', '', '', '', '', BTN1, UP, BTN2]
+  - ['', '', 'Vol-', 'Vol+', '', MUTE, HOME, DOWN, END]
+
+# Tap dance configuration from original VIA/Vial file:
+# - A: tap A, hold Ctrl+A (select all)
+# - Z: tap Z, hold Ctrl+Z (undo)  
+# - X: tap X, hold Ctrl+X (cut)
+# - C: tap C, hold Ctrl+C (copy)
+# - V: tap V, hold Ctrl+V (paste)
+# - Comma: tap comma, hold [
+# - Dot: tap dot, hold ], shifted /
+#
+# Original combos were empty (all KC_NO) so no combos to add
+combos: []

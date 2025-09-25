@@ -1,0 +1,77 @@
+# Configuration file for keymap-drawer for Minivan keyboard layout
+# Physical layout is specified in the main YAML file using qmk_keyboard: thevankeyboards/minivan
+
+draw_config:
+  # Key dimensions optimized for compact 44-key layout
+  key_w: 56
+  key_h: 52
+  
+  # Spacing and padding
+  inner_pad_w: 3
+  inner_pad_h: 3
+  outer_pad_w: 20
+  outer_pad_h: 40
+  
+  # Key styling
+  key_rx: 6
+  key_ry: 6
+  
+  # Layer layout - single column for clear view
+  n_columns: 1
+  
+  # Text and legend settings
+  line_spacing: 1.1
+  small_pad: 2
+  legend_rel_x: 0
+  legend_rel_y: 0
+  
+  # Shrink wide legends to fit compact keys
+  shrink_wide_legends: 6
+  
+  # Layer styling
+  append_colon_to_layer_header: true
+  style_layer_activators: true
+  
+  # Dark mode support
+  dark_mode: false
+  
+  # Footer text
+  footer_text: "Generated with keymap-drawer"
+  
+  # Extra styling for minivan-specific elements
+  svg_extra_style: |
+    /* Custom styling for minivan layout */
+    .held { fill: #ffeaa7; }
+    .held.alternate { fill: #fdcb6e; }
+    .trans { fill: #ddd; opacity: 0.7; }
+    .layer-activator { text-decoration: underline; }
+
+parse_config:
+  # Modifier display settings
+  modifier_fn_map:
+    left_ctrl: "C"
+    right_ctrl: "C" 
+    left_shift: "S"
+    right_shift: "S"
+    left_alt: "A"
+    right_alt: "AG"
+    left_gui: "G"
+    right_gui: "G"
+    keycode_combiner: "{mods}+{key}"
+    mod_combiner: "{mod_1}+{mod_2}"
+  
+  # Legend settings
+  trans_legend:
+    t: "▽"
+    type: "trans"
+  
+  # Layer name mappings for cleaner display
+  layer_legend_map:
+    NUM_SYM: "123"
+    FN: "Fn"
+    CTRL: "Ctl"
+  
+  # Labels for special keys
+  sticky_label: "⚿"
+  toggle_label: "⇳"
+  tap_toggle_label: "⇳"
