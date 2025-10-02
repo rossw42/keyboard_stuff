@@ -1,0 +1,33 @@
+# Minivan keyboard layout converted from VIA/Vial configuration
+layout:
+  qmk_keyboard: thevankeyboards/minivan
+  layout_name: LAYOUT_arrow
+layers:
+  BASE:
+  - [ESC, Q, W, E, R, T, Y, U, I, O, P,  $$mdi:backspace-outline$$]
+  - [{h: Shift , t: TAB}, {t: A, h: 'Ctrl+A'}, S, D, F, G, H, J, K, L, ';', $$mdi:keyboard-return$$]
+  - [Shift, {t: Z, h: 'Ctrl+Z'}, {t: X, h: 'Ctrl+X'}, {t: C, h: 'Ctrl+C'}, {t: V, h: 'Ctrl+V'}, B, N, M,
+    {t: ',', h: '['}, {t: '.', h: ']', s: '?'}, $$mdi:arrow-up$$, '''']
+  - [CTL, ALT, {t: GUI, h: Web}, {t: Space, h: Numbers}, {t: Space, h: Functions},{t: Shift, h: Web}, 
+    $$mdi:arrow-left$$,
+    $$mdi:arrow-down$$, 
+    $$mdi:arrow-right$$]
+
+  Numbers:
+  - ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', $$mdi:backspace-outline$$]
+  - ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '|']
+  - ['', '', '', '', '', '', '-', '=', '[', ']', '?', '']
+  - ['', '', '', '', '', '', '', '', '']
+  
+  Functions:
+  - ['~', F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11]
+  - ['', '', '', '', '', '', LEFT, DOWN, UP, RIGHT, '', F12]
+  - ['', '', '', '', '', '', '', '', '', '', PGUP, '']
+  - ['', '', '', '', '', '', HOME, PGDN, END]
+  
+  Web:
+  - ['', '', 'Ctrl+W', '', 'Ctrl+R', 'Ctrl+T', '', '', '', '', '', MUTE]
+  - ['', 'Ctrl+A', 'Ctrl+S', '', 'Ctrl+F', '', '', '', '', '', 'Ctrl+←', 'Ctrl+→']
+  - ['', '', '', '', '', '', '', '', '', BTN1, UP, BTN2]
+  - ['', '','', 'Vol-', 'Vol+', MUTE, HOME, DOWN, END]
+combos: []
