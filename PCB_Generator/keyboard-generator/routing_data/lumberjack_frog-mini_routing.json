@@ -1,0 +1,42 @@
+{
+  "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/frog-mini.kicad_pcb",
+  "project": "lumberjack",
+  "pcb_name": "frog-mini",
+  "nets": [
+    {
+      "number": 0,
+      "name": ""
+    }
+  ],
+  "traces": [],
+  "vias": [],
+  "zones": [
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "F.Cu",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "76b96339-3466-40c2-b454-0a4507df3d45"
+    },
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "B.Cu",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "ff52fea4-ec19-4ded-8783-ecb853bdf393"
+    }
+  ],
+  "stats": {
+    "net_count": 1,
+    "trace_count": 0,
+    "via_count": 0,
+    "zone_count": 2,
+    "traces_by_layer": {}
+  }
+}

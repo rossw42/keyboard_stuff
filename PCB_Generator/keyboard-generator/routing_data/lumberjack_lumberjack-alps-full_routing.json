@@ -1,0 +1,73 @@
+{
+  "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/lumberjack-alps-full.kicad_pcb",
+  "project": "lumberjack",
+  "pcb_name": "lumberjack-alps-full",
+  "nets": [
+    {
+      "number": 0,
+      "name": ""
+    }
+  ],
+  "traces": [],
+  "vias": [
+    {
+      "position": [
+        179.84087,
+        58.860582
+      ],
+      "size": 0.6,
+      "drill": 0.4,
+      "layers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "net": 0,
+      "net_name": "",
+      "tstamp": "18b7e157-ae67-48ad-bd7c-9fef6fe45b22"
+    },
+    {
+      "position": [
+        84.478261,
+        58.860582
+      ],
+      "size": 0.6,
+      "drill": 0.4,
+      "layers": [
+        "F.Cu",
+        "B.Cu"
+      ],
+      "net": 0,
+      "net_name": "",
+      "tstamp": "982fa09f-eeba-44d9-8ab2-78b2219a92ba"
+    }
+  ],
+  "zones": [
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "F.Cu",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "e4a9659f-1822-401c-b497-9d589623b41d"
+    },
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "B.Cu",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "76b96339-3466-40c2-b454-0a4507df3d45"
+    }
+  ],
+  "stats": {
+    "net_count": 1,
+    "trace_count": 0,
+    "via_count": 2,
+    "zone_count": 2,
+    "traces_by_layer": {}
+  }
+}

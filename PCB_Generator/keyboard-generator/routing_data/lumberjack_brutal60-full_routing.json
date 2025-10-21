@@ -1,0 +1,42 @@
+{
+  "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/brutal60-full.kicad_pcb",
+  "project": "lumberjack",
+  "pcb_name": "brutal60-full",
+  "nets": [
+    {
+      "number": 0,
+      "name": ""
+    }
+  ],
+  "traces": [],
+  "vias": [],
+  "zones": [
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "0"
+    },
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": ""
+    }
+  ],
+  "stats": {
+    "net_count": 1,
+    "trace_count": 0,
+    "via_count": 0,
+    "zone_count": 2,
+    "traces_by_layer": {}
+  }
+}

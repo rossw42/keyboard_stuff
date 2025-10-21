@@ -1,0 +1,40 @@
+{
+  "name": "lumberjack_reset",
+  "type": "reset",
+  "source_project": "lumberjack",
+  "version": "1.0",
+  "description": "RESET circuit from lumberjack",
+  "notes": "",
+  "components": [
+    {
+      "reference": "SW1",
+      "value": "RESET",
+      "footprint": "Button_Switch_THT:SW_PUSH_6mm",
+      "library": "Switch",
+      "symbol": "Switch:SW_Push",
+      "position": [
+        100.33,
+        172.72
+      ],
+      "rotation": 0.0,
+      "properties": {}
+    },
+    {
+      "reference": "R4",
+      "value": "10k",
+      "footprint": "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal",
+      "library": "Device",
+      "symbol": "Device:R_Small",
+      "position": [
+        90.17,
+        167.64
+      ],
+      "rotation": 0.0,
+      "properties": {}
+    }
+  ],
+  "connections": [],
+  "input_pins": {},
+  "output_pins": {},
+  "power_nets": {}
+}

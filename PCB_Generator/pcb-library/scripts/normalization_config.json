@@ -1,0 +1,44 @@
+{
+  "resistor_patterns": [
+    "(?i)^r\\d+$",
+    "(?i)^res",
+    "(?i)resistor"
+  ],
+  "capacitor_patterns": [
+    "(?i)^c\\d+$",
+    "(?i)^cap",
+    "(?i)capacitor"
+  ],
+  "diode_patterns": [
+    "(?i)^d\\d+$",
+    "(?i)^diode",
+    "(?i)1n4148"
+  ],
+  "mcu_patterns": [
+    "(?i)atmega",
+    "(?i)^u\\d+$",
+    "(?i)microcontroller",
+    "(?i)pro\\s*micro"
+  ],
+  "crystal_patterns": [
+    "(?i)^y\\d+$",
+    "(?i)crystal",
+    "(?i)xtal"
+  ],
+  "led_patterns": [
+    "(?i)^led",
+    "(?i)^d\\d+.*led"
+  ],
+  "connector_patterns": [
+    "(?i)^j\\d+$",
+    "(?i)usb",
+    "(?i)connector",
+    "(?i)header"
+  ],
+  "switch_patterns": [
+    "(?i)^sw\\d+$",
+    "(?i)switch",
+    "(?i)button",
+    "(?i)tactile"
+  ]
+}

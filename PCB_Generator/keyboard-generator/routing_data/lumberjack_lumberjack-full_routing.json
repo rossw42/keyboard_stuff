@@ -1,0 +1,52 @@
+{
+  "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/lumberjack-full.kicad_pcb",
+  "project": "lumberjack",
+  "pcb_name": "lumberjack-full",
+  "nets": [
+    {
+      "number": 0,
+      "name": ""
+    }
+  ],
+  "traces": [],
+  "vias": [],
+  "zones": [
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "F.Cu",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "76b96339-3466-40c2-b454-0a4507df3d45"
+    },
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "F.Cu",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "e4a9659f-1822-401c-b497-9d589623b41d"
+    },
+    {
+      "net": 0,
+      "net_name": "",
+      "layer": "F.Cu",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": "fb39365d-86ca-4459-af0f-17cf3249f508"
+    }
+  ],
+  "stats": {
+    "net_count": 1,
+    "trace_count": 0,
+    "via_count": 0,
+    "zone_count": 3,
+    "traces_by_layer": {}
+  }
+}

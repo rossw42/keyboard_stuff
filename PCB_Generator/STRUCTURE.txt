@@ -1,0 +1,136 @@
+Through-Hole Keyboard Project - Directory Structure
+====================================================
+
+Root Level
+----------
+/
+├── 00_START_HERE.txt           ← Read this first!
+├── README.md                   ← Project overview
+├── PROJECT_INDEX.md            ← Complete navigation
+├── REORGANIZATION_COMPLETE.md  ← What changed
+├── STRUCTURE.txt               ← This file
+├── .gitignore                  ← Git configuration
+│
+├── keyboard-generator/         ← THKG Automated Design Tool
+│   ├── thkg/                  │  Main Python package
+│   │   ├── input/             │  YAML, KLE parsers
+│   │   ├── layout/            │  Matrix, pins, presets
+│   │   ├── plate/             │  Plate generation
+│   │   ├── pcb/               │  PCB generation (Phase 2)
+│   │   ├── case/              │  Case generation (Phase 3)
+│   │   ├── firmware/          │  Firmware generation (Phase 4)
+│   │   ├── validation/        │  Validation (Phase 5)
+│   │   └── output/            │  Output packaging (Phase 5)
+│   │
+│   ├── examples/              │  Example configurations
+│   ├── tests/                 │  Test suite
+│   ├── output/                │  Generated files
+│   │
+│   ├── START_HERE.md          │  Quick start
+│   ├── QUICKSTART.md          │  5-minute guide
+│   ├── README.md              │  Full documentation
+│   ├── FINAL_REPORT.md        │  Implementation report
+│   ├── INDEX.md               │  Navigation
+│   └── ... (9 docs total)     │
+│
+├── case-generator/            ← CNC Case Design Tool
+│   ├── src/                   │  Source code
+│   │   ├── geometry/          │  Geometry generation
+│   │   ├── toolpaths/         │  CNC toolpaths
+│   │   ├── export/            │  File export
+│   │   ├── constants.py       │  Standard profile
+│   │   └── constants_lp.py    │  Low-profile
+│   │
+│   ├── examples/              │  Generation scripts
+│   ├── tests/                 │  Test suite
+│   ├── output/                │  Generated files
+│   │   ├── 60_percent_standard/
+│   │   └── 60_percent_low_profile/
+│   │
+│   ├── docs/                  │  Documentation
+│   │   ├── implementation/    │  Implementation docs
+│   │   ├── manufacturing/     │  Manufacturing guides
+│   │   ├── gh60_pcb_specifications.md
+│   │   └── compatible_pcbs.md
+│   │
+│   ├── scripts/               │  Utility scripts
+│   └── README.md              │  Main documentation
+│
+├── pcb-library/               ← PCB Design Library
+│   ├── design-files/          │  KiCad source files
+│   │   ├── discipline/
+│   │   ├── mysterium/
+│   │   ├── lumberjack/
+│   │   └── ... (11 designs)
+│   │
+│   ├── gerbers/               │  Manufacturing files
+│   │   ├── discipline/
+│   │   └── ...
+│   │
+│   ├── boms/                  │  Bills of materials
+│   │   ├── master-bom.csv
+│   │   └── individual/
+│   │
+│   ├── firmware/              │  QMK firmware configs
+│   │   ├── discipline/
+│   │   └── ...
+│   │
+│   ├── docs/                  │  Documentation
+│   │   ├── build-guides/
+│   │   ├── compatible_pcbs.md
+│   │   └── gh60_pcb_specifications.md
+│   │
+│   ├── 3d-models/             │  3D models (STEP, STL)
+│   ├── templates/             │  Circuit templates
+│   ├── scripts/               │  Utility scripts
+│   │
+│   ├── README.md              │  Library overview
+│   ├── PROJECT_CATALOG.md     │  All designs
+│   ├── FILE_INDEX.md          │  File locations
+│   └── CONTRIBUTING.md        │  Contribution guide
+│
+├── .kiro/                     ← Kiro IDE Configuration
+│   ├── specs/                 │  Project specifications
+│   │   └── keyboard-design-automation/
+│   │       ├── requirements.md
+│   │       ├── design.md
+│   │       ├── tasks.md
+│   │       └── PHASE_1_COMPLETE.md
+│   │
+│   ├── steering/              │  Steering rules
+│   │   ├── Expert - Designer.md
+│   │   └── GH60 PCB Specifications.md
+│   │
+│   └── hooks/                 │  Agent hooks
+│
+└── archive/                   ← Historical Documents
+    └── CNC Wood Keyboard Case Design Expert Prompt.md
+
+
+File Counts
+-----------
+keyboard-generator/    48 files
+case-generator/        50+ files
+pcb-library/          200+ files
+.kiro/                10+ files
+Total:                ~310 files
+
+
+Quick Access
+------------
+Generate plate:     cd keyboard-generator && cat START_HERE.md
+Generate case:      cd case-generator && cat README.md
+Browse PCBs:        cd pcb-library && cat PROJECT_CATALOG.md
+View specs:         cd .kiro/specs/keyboard-design-automation/
+
+
+Status
+------
+✓ keyboard-generator - Phase 1 COMPLETE
+✓ case-generator     - Operational
+✓ pcb-library        - Complete (11 designs)
+✓ Documentation      - Up to date
+✓ Structure          - Clean and organized
+
+
+Last Updated: October 20, 2025

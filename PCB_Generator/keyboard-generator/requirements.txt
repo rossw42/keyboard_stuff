@@ -1,0 +1,17 @@
+pyyaml>=6.0
+click>=8.0
+ezdxf>=1.0
+kle-serial>=0.1.0
+
+# Phase 2: PCB Generation dependencies
+sexpdata>=0.0.3      # S-expression parser for KiCad files
+networkx>=3.0        # Graph algorithms for routing
+shapely>=2.0         # Geometric operations
+numpy>=1.24          # Matrix operations
+matplotlib>=3.5      # PCB visualization
+
+# Development dependencies
+pytest>=7.0
+pytest-cov>=4.0
+black>=22.0
+flake8>=5.0

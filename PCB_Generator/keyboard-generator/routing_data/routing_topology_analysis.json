@@ -1,0 +1,996 @@
+[
+  {
+    "project": "discipline",
+    "pcb_name": "discipline-pcb",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/discipline/kicad/discipline-pcb.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 2
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "dumbpad",
+    "pcb_name": "dumbpad",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/dumbpad/kicad/dumbpad.kicad_pcb",
+    "stats": {
+      "net_count": 232,
+      "trace_count": 337,
+      "via_count": 37,
+      "zone_count": 4,
+      "traces_by_layer": {
+        "F.Cu": 74,
+        "B.Cu": 263
+      }
+    },
+    "matrix": {
+      "row_count": 25,
+      "col_count": 27,
+      "row_nets": [
+        "/ROW0",
+        "/ROW1",
+        "/ROW2",
+        "/ROW3",
+        "/ROW3",
+        "/ROW2",
+        "/ROW1",
+        "/ROW0",
+        "/ROW2",
+        "/ROW1",
+        "/ROW1",
+        "/ROW0",
+        "/ROW2",
+        "/ROW2",
+        "/ROW3",
+        "/ROW3",
+        "/ROW1",
+        "/ROW1",
+        "/ROW3",
+        "/ROW3",
+        "/ROW0",
+        "/ROW3",
+        "/ROW0",
+        "/ROW2",
+        "/ROW0"
+      ],
+      "col_nets": [
+        "/COL4",
+        "/COL3",
+        "/COL2",
+        "/COL1",
+        "/COL0",
+        "/COL0",
+        "/COL1",
+        "/COL2",
+        "/COL3",
+        "/COL4",
+        "/COL0",
+        "/COL1",
+        "/COL3",
+        "/COL4",
+        "/COL2",
+        "/COL4",
+        "/COL1",
+        "/COL2",
+        "/COL3",
+        "/COL3",
+        "/COL2",
+        "/COL4",
+        "/COL3",
+        "/COL1",
+        "/COL1",
+        "/COL4",
+        "/COL2"
+      ],
+      "row_trace_count": 42,
+      "col_trace_count": 91,
+      "row_directions": {
+        "vertical": 22,
+        "horizontal": 20
+      },
+      "col_directions": {
+        "vertical": 73,
+        "horizontal": 18
+      }
+    },
+    "power": {
+      "GND": {
+        "net_number": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 4,
+        "avg_trace_width": 0,
+        "max_trace_width": 0,
+        "uses_zones": true
+      },
+      "VCC": {
+        "net_number": 6,
+        "trace_count": 73,
+        "via_count": 2,
+        "zone_count": 0,
+        "avg_trace_width": 0.5,
+        "max_trace_width": 0.5,
+        "uses_zones": false
+      }
+    },
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {
+        "F.Cu": 74,
+        "B.Cu": 263
+      },
+      "zones_by_layer": {
+        "F.Cu": 2,
+        "B.Cu": 2
+      },
+      "via_count": 37,
+      "uses_both_layers": true
+    }
+  },
+  {
+    "project": "gh60",
+    "pcb_name": "keyboard",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/gh60/kicad/keyboard.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 7,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 7
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "kbic65",
+    "pcb_name": "kbic65",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/kbic65/kicad/kbic65.kicad_pcb",
+    "stats": {
+      "net_count": 228,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 4,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 4
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "litl",
+    "pcb_name": "litl_base",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/litl/kicad/litl_base.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 0,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {},
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "litl",
+    "pcb_name": "litl",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/litl/kicad/litl.kicad_pcb",
+    "stats": {
+      "net_count": 306,
+      "trace_count": 732,
+      "via_count": 9,
+      "zone_count": 2,
+      "traces_by_layer": {
+        "B.Cu": 253,
+        "F.Cu": 479
+      }
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {
+      "VCC": {
+        "net_number": 55,
+        "trace_count": 5,
+        "via_count": 0,
+        "zone_count": 0,
+        "avg_trace_width": 0.381,
+        "max_trace_width": 0.381,
+        "uses_zones": false
+      },
+      "GND": {
+        "net_number": 69,
+        "trace_count": 7,
+        "via_count": 0,
+        "zone_count": 2,
+        "avg_trace_width": 0.381,
+        "max_trace_width": 0.381,
+        "uses_zones": true
+      }
+    },
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {
+        "B.Cu": 253,
+        "F.Cu": 479
+      },
+      "zones_by_layer": {
+        "F.Cu": 1,
+        "B.Cu": 1
+      },
+      "via_count": 9,
+      "uses_both_layers": true
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "brutal60-full",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/brutal60-full.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 2
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "brutal60-split",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/brutal60-split.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 2
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "frog-mini",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/frog-mini.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "F.Cu": 1,
+        "B.Cu": 1
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "lumberjack-alps-full",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/lumberjack-alps-full.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 2,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "F.Cu": 1,
+        "B.Cu": 1
+      },
+      "via_count": 2,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "lumberjack-alps",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/lumberjack-alps.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 1,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "F.Cu": 1,
+        "B.Cu": 1
+      },
+      "via_count": 1,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "lumberjack-full",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/lumberjack-full.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 3,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "F.Cu": 3
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "lumberjack-split",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/lumberjack-split.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 1,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "F.Cu": 2
+      },
+      "via_count": 1,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "lumberjack",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/lumberjack.kicad_pcb",
+    "stats": {
+      "net_count": 450,
+      "trace_count": 1005,
+      "via_count": 16,
+      "zone_count": 481,
+      "traces_by_layer": {
+        "F.Cu": 691,
+        "B.Cu": 314
+      }
+    },
+    "matrix": {
+      "row_count": 75,
+      "col_count": 85,
+      "row_nets": [
+        "/ROW0",
+        "/ROW1",
+        "/ROW2",
+        "/ROW3",
+        "/ROW4",
+        "/ROW5",
+        "/ROW5",
+        "/ROW4",
+        "/ROW3",
+        "/ROW2",
+        "/ROW1",
+        "/ROW0",
+        "/ROW1",
+        "/ROW3",
+        "/ROW4",
+        "/ROW5",
+        "/ROW5",
+        "/ROW5",
+        "/ROW0",
+        "/ROW5",
+        "/ROW4",
+        "/ROW4",
+        "/ROW3",
+        "/ROW3",
+        "/ROW3",
+        "/ROW3",
+        "/ROW2",
+        "/ROW2",
+        "/ROW2",
+        "/ROW1",
+        "/ROW1",
+        "/ROW1",
+        "/ROW0",
+        "/ROW0",
+        "/ROW0",
+        "/ROW0",
+        "/ROW5",
+        "/ROW5",
+        "/ROW3",
+        "/ROW5",
+        "/ROW1",
+        "/ROW0",
+        "/ROW0",
+        "/ROW1",
+        "/ROW2",
+        "/ROW1",
+        "/ROW2",
+        "/ROW2",
+        "/ROW2",
+        "/ROW2",
+        "/ROW1",
+        "/ROW3",
+        "/ROW3",
+        "/ROW3",
+        "/ROW1",
+        "/ROW0",
+        "/ROW4",
+        "/ROW4",
+        "/ROW4",
+        "/ROW3",
+        "/ROW4",
+        "/ROW4",
+        "/ROW5",
+        "/ROW3",
+        "/ROW1",
+        "/ROW2",
+        "/ROW5",
+        "/ROW4",
+        "/ROW2",
+        "/ROW2",
+        "/ROW1",
+        "/ROW4",
+        "/ROW0",
+        "/ROW0",
+        "/ROW5"
+      ],
+      "col_nets": [
+        "/COL3",
+        "/COL0",
+        "/COL1",
+        "/COL2",
+        "/COL4",
+        "/COL5",
+        "/COL6",
+        "/COL7",
+        "/COL8",
+        "/COL9",
+        "/COL6",
+        "/COL5",
+        "/COL4",
+        "/COL3",
+        "/COL2",
+        "/COL1",
+        "/COL0",
+        "/COL7",
+        "/COL8",
+        "/COL9",
+        "/COL3",
+        "/COL3",
+        "/COL9",
+        "/COL4",
+        "/COL0",
+        "/COL0",
+        "/COL0",
+        "/COL0",
+        "/COL0",
+        "/COL1",
+        "/COL1",
+        "/COL1",
+        "/COL1",
+        "/COL1",
+        "/COL1",
+        "/COL1",
+        "/COL2",
+        "/COL2",
+        "/COL2",
+        "/COL2",
+        "/COL3",
+        "/COL3",
+        "/COL3",
+        "/COL3",
+        "/COL3",
+        "/COL3",
+        "/COL4",
+        "/COL4",
+        "/COL4",
+        "/COL4",
+        "/COL4",
+        "/COL4",
+        "/COL5",
+        "/COL5",
+        "/COL5",
+        "/COL5",
+        "/COL5",
+        "/COL5",
+        "/COL6",
+        "/COL6",
+        "/COL6",
+        "/COL6",
+        "/COL6",
+        "/COL6",
+        "/COL7",
+        "/COL7",
+        "/COL7",
+        "/COL7",
+        "/COL7",
+        "/COL7",
+        "/COL8",
+        "/COL8",
+        "/COL8",
+        "/COL8",
+        "/COL8",
+        "/COL8",
+        "/COL9",
+        "/COL9",
+        "/COL9",
+        "/COL9",
+        "/COL9",
+        "/COL9",
+        "/COL2",
+        "/COL2",
+        "/COL0"
+      ],
+      "row_trace_count": 193,
+      "col_trace_count": 238,
+      "row_directions": {
+        "vertical": 99,
+        "horizontal": 94
+      },
+      "col_directions": {
+        "vertical": 113,
+        "horizontal": 125
+      }
+    },
+    "power": {
+      "+5V": {
+        "net_number": 1,
+        "trace_count": 20,
+        "via_count": 0,
+        "zone_count": 13,
+        "avg_trace_width": 0.8,
+        "max_trace_width": 0.8,
+        "uses_zones": true
+      },
+      "GND": {
+        "net_number": 2,
+        "trace_count": 15,
+        "via_count": 2,
+        "zone_count": 13,
+        "avg_trace_width": 0.8,
+        "max_trace_width": 0.8,
+        "uses_zones": true
+      }
+    },
+    "usb": {
+      "found": true,
+      "dp_net": "/USB_D+",
+      "dm_net": "/USB_D-",
+      "dp_trace_count": 15,
+      "dm_trace_count": 14,
+      "dp_avg_width": 0.25,
+      "dm_avg_width": 0.25
+    },
+    "layers": {
+      "traces_by_layer": {
+        "F.Cu": 691,
+        "B.Cu": 314
+      },
+      "zones_by_layer": {
+        "F.Cu": 317,
+        "B.Cu": 164
+      },
+      "via_count": 16,
+      "uses_both_layers": true
+    }
+  },
+  {
+    "project": "lumberjack",
+    "pcb_name": "polaris",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/lumberjack/kicad/polaris.kicad_pcb",
+    "stats": {
+      "net_count": 1,
+      "trace_count": 0,
+      "via_count": 1,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "F.Cu": 1,
+        "B.Cu": 1
+      },
+      "via_count": 1,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "mysterium",
+    "pcb_name": "mysterium-pcb",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/mysterium/kicad/mysterium-pcb.kicad_pcb",
+    "stats": {
+      "net_count": 304,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 2
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "plaid",
+    "pcb_name": "plaid",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/plaid/kicad/plaid.kicad_pcb",
+    "stats": {
+      "net_count": 178,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 410,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 410
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "rosaline",
+    "pcb_name": "rosaline-ortho",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/rosaline/kicad/rosaline-ortho.kicad_pcb",
+    "stats": {
+      "net_count": 227,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 2
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "rosaline",
+    "pcb_name": "rosaline",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/rosaline/kicad/rosaline.kicad_pcb",
+    "stats": {
+      "net_count": 211,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 2
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  },
+  {
+    "project": "tartan",
+    "pcb_name": "tartan",
+    "source_file": "/Users/ross/Projects/case/pcb-library/design-files/tartan/kicad/tartan.kicad_pcb",
+    "stats": {
+      "net_count": 218,
+      "trace_count": 0,
+      "via_count": 0,
+      "zone_count": 2,
+      "traces_by_layer": {}
+    },
+    "matrix": {
+      "row_count": 0,
+      "col_count": 0,
+      "row_nets": [],
+      "col_nets": [],
+      "row_trace_count": 0,
+      "col_trace_count": 0,
+      "row_directions": {},
+      "col_directions": {}
+    },
+    "power": {},
+    "usb": {
+      "found": false
+    },
+    "layers": {
+      "traces_by_layer": {},
+      "zones_by_layer": {
+        "": 2
+      },
+      "via_count": 0,
+      "uses_both_layers": false
+    }
+  }
+]

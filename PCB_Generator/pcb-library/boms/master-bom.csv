@@ -1,0 +1,62 @@
+Component,Value,Footprint,Package,Vendor_Part_No,Category,Min_Qty,Max_Qty,Projects_Using,Notes
+# Microcontrollers
+ATmega328P-PU,ATmega328P,DIP-28,DIP-28,,MCU,1,1,"lumberjack,plaid,plaid-pad",Through-hole microcontroller
+ATmega32A,ATmega32A,DIP-40,DIP-40,,MCU,1,1,"discipline,mysterium",Through-hole microcontroller
+Pro Micro,Pro Micro,Pro Micro Footprint,Module,,MCU,1,1,"litl,kbic65,dumbpad",Arduino-compatible module
+
+# Diodes - Switching
+1N4148,1N4148,DO-35,DO-35,,Diode,45,87,"lumberjack,plaid,plaid-pad,discipline,mysterium,litl,dumbpad",General purpose switching diode (1 per key)
+
+# Diodes - Zener
+3.6V Zener,3.6V,DO-35,DO-35,,Diode,2,2,"lumberjack,plaid,plaid-pad",Zener diode for USB protection
+
+# Capacitors - Ceramic
+22pF,22pF,2.5mm pitch,Ceramic,,Capacitor,2,2,"lumberjack,plaid,plaid-pad",Ceramic capacitor for crystal
+100nF,100nF,5.0mm pitch,Ceramic,,Capacitor,2,2,"lumberjack,plaid,plaid-pad",Decoupling capacitor
+
+# Capacitors - Electrolytic
+4.7uF,4.7uF,1.5mm pitch,Electrolytic,,Capacitor,1,1,"lumberjack,plaid,plaid-pad",Electrolytic capacitor (polarized)
+
+# Resistors
+1.5kΩ,1.5k,1/6W,Axial,,Resistor,3,3,"lumberjack,plaid,plaid-pad",USB resistor
+75Ω,75R,1/6W,Axial,,Resistor,2,2,"lumberjack,plaid,plaid-pad",USB resistor
+10kΩ,10k,1/6W,Axial,,Resistor,1,1,"lumberjack,plaid,plaid-pad",Pull-up resistor
+5.1kΩ,5.1k,1/6W,Axial,,Resistor,2,2,"lumberjack,plaid-pad",USB-C CC resistor
+
+# Fuses
+Polyfuse,100mA,5mm pitch,Radial,,Fuse,1,1,"lumberjack,plaid,plaid-pad",Resettable fuse
+
+# Crystals
+Crystal,16MHz,HC49-4H,HC49,,Crystal,1,1,"lumberjack,plaid,plaid-pad",16MHz crystal oscillator
+
+# Connectors - USB
+USB-C,TYPE-C-31-M-12,Through-hole,USB-C,,Connector,1,1,lumberjack,USB-C connector (12-pin through-hole)
+USB Mini-B,USB Mini-B,Through-hole,USB Mini,,Connector,1,1,plaid,USB Mini-B connector
+JST,SM04B-SRSS-TB,JST SH,JST,,Connector,1,1,lumberjack,JST connector for daughterboard (optional)
+Molex Pico-EZmate,781710004,Molex,Molex,,Connector,1,1,lumberjack,Molex Pico-EZmate connector (optional)
+
+# Connectors - Programming
+ISP Header,2x3 pin,2.54mm pitch,Pin Header,,Connector,1,1,"lumberjack,plaid",AVR ISP programming header (optional)
+
+# Sockets
+IC Socket,28-pin,DIP-28,DIP Socket,,Socket,1,1,"lumberjack,plaid,plaid-pad",28-pin narrow DIP socket
+
+# Switches - Tactile
+Tactile Switch,6x6mm,Through-hole,Tactile,,Switch,2,2,"lumberjack,plaid,plaid-pad",Reset and Boot switches
+
+# Switches - Keyboard
+MX Switch,Cherry MX,PCB Mount,MX,,Switch,45,87,"lumberjack,plaid,discipline,mysterium,litl,dumbpad",Cherry MX compatible switches (5-pin PCB mount)
+
+# LEDs
+LED,3mm,3mm,LED,,LED,2,2,"lumberjack,plaid,plaid-pad",Status LEDs (red/green)
+
+# Hardware
+M2 Screw,M2 4-8mm,,,M2,Screw,8,14,"lumberjack,plaid",M2 screws for standoffs
+M2 Standoff,M2 10mm,,,M2,Standoff,4,4,"lumberjack,plaid",M2 standoffs for component cover
+M2 Nut,M2,,,M2,Nut,0,26,plaid,M2 nuts
+Rubber Feet,Rubber Feet,,,Rubber,Feet,4,4,plaid,Rubber feet for case
+
+# Optional Components
+Rotary Encoder,EC11,Through-hole,Encoder,,Encoder,1,4,"litl,plaid-pad,dumbpad",Rotary encoder (optional)
+OLED Display,0.91-0.96",I2C,OLED,,Display,1,1,"litl,plaid-pad,dumbpad",OLED display (optional)
+Acrylic Cover,95x57x2mm,,,Acrylic,Cover,1,1,lumberjack,Acrylic component cover (optional)

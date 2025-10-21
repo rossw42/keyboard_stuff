@@ -1,0 +1,66 @@
+{
+  "name": "lumberjack_power",
+  "type": "power",
+  "source_project": "lumberjack",
+  "version": "1.0",
+  "description": "POWER circuit from lumberjack",
+  "notes": "",
+  "components": [
+    {
+      "reference": "F1",
+      "value": "100mA",
+      "footprint": "Fuse:Fuse_Bourns_MF-RHT100",
+      "library": "Device",
+      "symbol": "Device:Polyfuse_Small",
+      "position": [
+        72.39,
+        30.48
+      ],
+      "rotation": 180.0,
+      "properties": {}
+    },
+    {
+      "reference": "C4",
+      "value": "100n",
+      "footprint": "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm",
+      "library": "Device",
+      "symbol": "Device:C_Small",
+      "position": [
+        128.27,
+        185.42
+      ],
+      "rotation": 0.0,
+      "properties": {}
+    },
+    {
+      "reference": "C5",
+      "value": "100n",
+      "footprint": "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm",
+      "library": "Device",
+      "symbol": "Device:C_Small",
+      "position": [
+        138.43,
+        185.42
+      ],
+      "rotation": 0.0,
+      "properties": {}
+    },
+    {
+      "reference": "C3",
+      "value": "4.7u",
+      "footprint": "Capacitor_THT:CP_Radial_D4.0mm_P1.50mm",
+      "library": "lumberjack-rescue",
+      "symbol": "lumberjack-rescue:CP1_Small-Device",
+      "position": [
+        118.11,
+        185.42
+      ],
+      "rotation": 0.0,
+      "properties": {}
+    }
+  ],
+  "connections": [],
+  "input_pins": {},
+  "output_pins": {},
+  "power_nets": {}
+}

@@ -1,0 +1,237 @@
+{
+  "total_pcbs": 20,
+  "total_traces": 2074,
+  "total_vias": 67,
+  "total_zones": 935,
+  "pcbs": [
+    {
+      "project": "discipline",
+      "pcb_name": "discipline-pcb",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "dumbpad",
+      "pcb_name": "dumbpad",
+      "stats": {
+        "net_count": 232,
+        "trace_count": 337,
+        "via_count": 37,
+        "zone_count": 4,
+        "traces_by_layer": {
+          "F.Cu": 74,
+          "B.Cu": 263
+        }
+      }
+    },
+    {
+      "project": "gh60",
+      "pcb_name": "keyboard",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 7,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "kbic65",
+      "pcb_name": "kbic65",
+      "stats": {
+        "net_count": 228,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 4,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "litl",
+      "pcb_name": "litl",
+      "stats": {
+        "net_count": 306,
+        "trace_count": 732,
+        "via_count": 9,
+        "zone_count": 2,
+        "traces_by_layer": {
+          "B.Cu": 253,
+          "F.Cu": 479
+        }
+      }
+    },
+    {
+      "project": "litl",
+      "pcb_name": "litl_base",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 0,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "brutal60-full",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "brutal60-split",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "frog-mini",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "lumberjack-alps-full",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 2,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "lumberjack-alps",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 1,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "lumberjack-full",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 3,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "lumberjack-split",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 1,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "lumberjack",
+      "stats": {
+        "net_count": 450,
+        "trace_count": 1005,
+        "via_count": 16,
+        "zone_count": 481,
+        "traces_by_layer": {
+          "F.Cu": 691,
+          "B.Cu": 314
+        }
+      }
+    },
+    {
+      "project": "lumberjack",
+      "pcb_name": "polaris",
+      "stats": {
+        "net_count": 1,
+        "trace_count": 0,
+        "via_count": 1,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "mysterium",
+      "pcb_name": "mysterium-pcb",
+      "stats": {
+        "net_count": 304,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "plaid",
+      "pcb_name": "plaid",
+      "stats": {
+        "net_count": 178,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 410,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "rosaline",
+      "pcb_name": "rosaline-ortho",
+      "stats": {
+        "net_count": 227,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "rosaline",
+      "pcb_name": "rosaline",
+      "stats": {
+        "net_count": 211,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    },
+    {
+      "project": "tartan",
+      "pcb_name": "tartan",
+      "stats": {
+        "net_count": 218,
+        "trace_count": 0,
+        "via_count": 0,
+        "zone_count": 2,
+        "traces_by_layer": {}
+      }
+    }
+  ]
+}

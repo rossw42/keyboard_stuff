@@ -1,0 +1,910 @@
+{
+  "source_file": "/Users/ross/Projects/case/pcb-library/design-files/tartan/kicad/tartan.kicad_pcb",
+  "project": "tartan",
+  "pcb_name": "tartan",
+  "nets": [
+    {
+      "number": 0,
+      "name": ""
+    },
+    {
+      "number": 3,
+      "name": "Net-(C4-Pad1)"
+    },
+    {
+      "number": 4,
+      "name": "Net-(C5-Pad1)"
+    },
+    {
+      "number": 6,
+      "name": "Net-(D1-Pad2)"
+    },
+    {
+      "number": 7,
+      "name": "Net-(D2-Pad2)"
+    },
+    {
+      "number": 8,
+      "name": "Net-(D3-Pad2)"
+    },
+    {
+      "number": 9,
+      "name": "Net-(D4-Pad2)"
+    },
+    {
+      "number": 10,
+      "name": "Net-(D5-Pad2)"
+    },
+    {
+      "number": 11,
+      "name": "Net-(D6-Pad2)"
+    },
+    {
+      "number": 12,
+      "name": "Net-(D7-Pad2)"
+    },
+    {
+      "number": 13,
+      "name": "Net-(D8-Pad2)"
+    },
+    {
+      "number": 14,
+      "name": "Net-(D9-Pad2)"
+    },
+    {
+      "number": 15,
+      "name": "Net-(D10-Pad2)"
+    },
+    {
+      "number": 16,
+      "name": "Net-(D11-Pad2)"
+    },
+    {
+      "number": 17,
+      "name": "Net-(D12-Pad2)"
+    },
+    {
+      "number": 18,
+      "name": "Net-(D13-Pad2)"
+    },
+    {
+      "number": 20,
+      "name": "Net-(D16-Pad2)"
+    },
+    {
+      "number": 22,
+      "name": "Net-(D17-Pad2)"
+    },
+    {
+      "number": 23,
+      "name": "Net-(D18-Pad2)"
+    },
+    {
+      "number": 24,
+      "name": "Net-(D19-Pad2)"
+    },
+    {
+      "number": 25,
+      "name": "Net-(D20-Pad2)"
+    },
+    {
+      "number": 26,
+      "name": "Net-(D21-Pad2)"
+    },
+    {
+      "number": 27,
+      "name": "Net-(D22-Pad2)"
+    },
+    {
+      "number": 28,
+      "name": "Net-(D23-Pad2)"
+    },
+    {
+      "number": 29,
+      "name": "Net-(D24-Pad2)"
+    },
+    {
+      "number": 30,
+      "name": "Net-(D25-Pad2)"
+    },
+    {
+      "number": 31,
+      "name": "Net-(D26-Pad2)"
+    },
+    {
+      "number": 32,
+      "name": "Net-(D27-Pad2)"
+    },
+    {
+      "number": 34,
+      "name": "Net-(D28-Pad2)"
+    },
+    {
+      "number": 35,
+      "name": "Net-(D29-Pad2)"
+    },
+    {
+      "number": 36,
+      "name": "Net-(D30-Pad2)"
+    },
+    {
+      "number": 37,
+      "name": "Net-(D31-Pad2)"
+    },
+    {
+      "number": 38,
+      "name": "Net-(D32-Pad2)"
+    },
+    {
+      "number": 39,
+      "name": "Net-(D33-Pad2)"
+    },
+    {
+      "number": 40,
+      "name": "Net-(D34-Pad2)"
+    },
+    {
+      "number": 41,
+      "name": "Net-(D35-Pad2)"
+    },
+    {
+      "number": 42,
+      "name": "Net-(D36-Pad2)"
+    },
+    {
+      "number": 43,
+      "name": "Net-(D37-Pad2)"
+    },
+    {
+      "number": 44,
+      "name": "Net-(D38-Pad2)"
+    },
+    {
+      "number": 45,
+      "name": "Net-(D39-Pad2)"
+    },
+    {
+      "number": 46,
+      "name": "Net-(D40-Pad2)"
+    },
+    {
+      "number": 47,
+      "name": "Net-(D41-Pad2)"
+    },
+    {
+      "number": 48,
+      "name": "Net-(D42-Pad2)"
+    },
+    {
+      "number": 49,
+      "name": "Net-(D43-Pad2)"
+    },
+    {
+      "number": 50,
+      "name": "Net-(D44-Pad2)"
+    },
+    {
+      "number": 51,
+      "name": "Net-(D45-Pad2)"
+    },
+    {
+      "number": 52,
+      "name": "Net-(D46-Pad2)"
+    },
+    {
+      "number": 53,
+      "name": "Net-(D47-Pad2)"
+    },
+    {
+      "number": 54,
+      "name": "Net-(F1-Pad1)"
+    },
+    {
+      "number": 70,
+      "name": "Net-(D14-Pad2)"
+    },
+    {
+      "number": 71,
+      "name": "Net-(D15-Pad2)"
+    },
+    {
+      "number": 72,
+      "name": "Net-(D48-Pad2)"
+    },
+    {
+      "number": 73,
+      "name": "Net-(D49-Pad2)"
+    },
+    {
+      "number": 74,
+      "name": "Net-(D50-Pad2)"
+    },
+    {
+      "number": 77,
+      "name": "Net-(D51-Pad2)"
+    },
+    {
+      "number": 78,
+      "name": "Net-(D52-Pad2)"
+    },
+    {
+      "number": 79,
+      "name": "Net-(D53-Pad2)"
+    },
+    {
+      "number": 80,
+      "name": "Net-(D54-Pad2)"
+    },
+    {
+      "number": 81,
+      "name": "Net-(D55-Pad2)"
+    },
+    {
+      "number": 82,
+      "name": "Net-(D56-Pad2)"
+    },
+    {
+      "number": 83,
+      "name": "Net-(D57-Pad2)"
+    },
+    {
+      "number": 84,
+      "name": "Net-(D58-Pad2)"
+    },
+    {
+      "number": 85,
+      "name": "Net-(D59-Pad2)"
+    },
+    {
+      "number": 86,
+      "name": "Net-(D60-Pad2)"
+    },
+    {
+      "number": 87,
+      "name": "Net-(D61-Pad2)"
+    },
+    {
+      "number": 88,
+      "name": "Net-(D62-Pad2)"
+    },
+    {
+      "number": 89,
+      "name": "Net-(D63-Pad2)"
+    },
+    {
+      "number": 90,
+      "name": "Net-(D64-Pad2)"
+    },
+    {
+      "number": 91,
+      "name": "Net-(D65-Pad1)"
+    },
+    {
+      "number": 92,
+      "name": "Net-(D66-Pad1)"
+    },
+    {
+      "number": 48,
+      "name": "Net-(D42-Pad2)"
+    },
+    {
+      "number": 70,
+      "name": "Net-(D14-Pad2)"
+    },
+    {
+      "number": 70,
+      "name": "Net-(D14-Pad2)"
+    },
+    {
+      "number": 81,
+      "name": "Net-(D55-Pad2)"
+    },
+    {
+      "number": 49,
+      "name": "Net-(D43-Pad2)"
+    },
+    {
+      "number": 81,
+      "name": "Net-(D55-Pad2)"
+    },
+    {
+      "number": 82,
+      "name": "Net-(D56-Pad2)"
+    },
+    {
+      "number": 90,
+      "name": "Net-(D64-Pad2)"
+    },
+    {
+      "number": 89,
+      "name": "Net-(D63-Pad2)"
+    },
+    {
+      "number": 88,
+      "name": "Net-(D62-Pad2)"
+    },
+    {
+      "number": 87,
+      "name": "Net-(D61-Pad2)"
+    },
+    {
+      "number": 85,
+      "name": "Net-(D59-Pad2)"
+    },
+    {
+      "number": 84,
+      "name": "Net-(D58-Pad2)"
+    },
+    {
+      "number": 83,
+      "name": "Net-(D57-Pad2)"
+    },
+    {
+      "number": 35,
+      "name": "Net-(D29-Pad2)"
+    },
+    {
+      "number": 35,
+      "name": "Net-(D29-Pad2)"
+    },
+    {
+      "number": 17,
+      "name": "Net-(D12-Pad2)"
+    },
+    {
+      "number": 3,
+      "name": "Net-(C4-Pad1)"
+    },
+    {
+      "number": 4,
+      "name": "Net-(C5-Pad1)"
+    },
+    {
+      "number": 44,
+      "name": "Net-(D38-Pad2)"
+    },
+    {
+      "number": 36,
+      "name": "Net-(D30-Pad2)"
+    },
+    {
+      "number": 20,
+      "name": "Net-(D16-Pad2)"
+    },
+    {
+      "number": 91,
+      "name": "Net-(D65-Pad1)"
+    },
+    {
+      "number": 54,
+      "name": "Net-(F1-Pad1)"
+    },
+    {
+      "number": 92,
+      "name": "Net-(D66-Pad1)"
+    },
+    {
+      "number": 15,
+      "name": "Net-(D10-Pad2)"
+    },
+    {
+      "number": 53,
+      "name": "Net-(D47-Pad2)"
+    },
+    {
+      "number": 9,
+      "name": "Net-(D4-Pad2)"
+    },
+    {
+      "number": 86,
+      "name": "Net-(D60-Pad2)"
+    },
+    {
+      "number": 80,
+      "name": "Net-(D54-Pad2)"
+    },
+    {
+      "number": 48,
+      "name": "Net-(D42-Pad2)"
+    },
+    {
+      "number": 49,
+      "name": "Net-(D43-Pad2)"
+    },
+    {
+      "number": 6,
+      "name": "Net-(D1-Pad2)"
+    },
+    {
+      "number": 47,
+      "name": "Net-(D41-Pad2)"
+    },
+    {
+      "number": 32,
+      "name": "Net-(D27-Pad2)"
+    },
+    {
+      "number": 11,
+      "name": "Net-(D6-Pad2)"
+    },
+    {
+      "number": 7,
+      "name": "Net-(D2-Pad2)"
+    },
+    {
+      "number": 8,
+      "name": "Net-(D3-Pad2)"
+    },
+    {
+      "number": 10,
+      "name": "Net-(D5-Pad2)"
+    },
+    {
+      "number": 12,
+      "name": "Net-(D7-Pad2)"
+    },
+    {
+      "number": 13,
+      "name": "Net-(D8-Pad2)"
+    },
+    {
+      "number": 14,
+      "name": "Net-(D9-Pad2)"
+    },
+    {
+      "number": 16,
+      "name": "Net-(D11-Pad2)"
+    },
+    {
+      "number": 18,
+      "name": "Net-(D13-Pad2)"
+    },
+    {
+      "number": 71,
+      "name": "Net-(D15-Pad2)"
+    },
+    {
+      "number": 22,
+      "name": "Net-(D17-Pad2)"
+    },
+    {
+      "number": 23,
+      "name": "Net-(D18-Pad2)"
+    },
+    {
+      "number": 24,
+      "name": "Net-(D19-Pad2)"
+    },
+    {
+      "number": 25,
+      "name": "Net-(D20-Pad2)"
+    },
+    {
+      "number": 26,
+      "name": "Net-(D21-Pad2)"
+    },
+    {
+      "number": 27,
+      "name": "Net-(D22-Pad2)"
+    },
+    {
+      "number": 28,
+      "name": "Net-(D23-Pad2)"
+    },
+    {
+      "number": 29,
+      "name": "Net-(D24-Pad2)"
+    },
+    {
+      "number": 34,
+      "name": "Net-(D28-Pad2)"
+    },
+    {
+      "number": 37,
+      "name": "Net-(D31-Pad2)"
+    },
+    {
+      "number": 38,
+      "name": "Net-(D32-Pad2)"
+    },
+    {
+      "number": 39,
+      "name": "Net-(D33-Pad2)"
+    },
+    {
+      "number": 40,
+      "name": "Net-(D34-Pad2)"
+    },
+    {
+      "number": 41,
+      "name": "Net-(D35-Pad2)"
+    },
+    {
+      "number": 42,
+      "name": "Net-(D36-Pad2)"
+    },
+    {
+      "number": 30,
+      "name": "Net-(D25-Pad2)"
+    },
+    {
+      "number": 31,
+      "name": "Net-(D26-Pad2)"
+    },
+    {
+      "number": 43,
+      "name": "Net-(D37-Pad2)"
+    },
+    {
+      "number": 44,
+      "name": "Net-(D38-Pad2)"
+    },
+    {
+      "number": 45,
+      "name": "Net-(D39-Pad2)"
+    },
+    {
+      "number": 46,
+      "name": "Net-(D40-Pad2)"
+    },
+    {
+      "number": 50,
+      "name": "Net-(D44-Pad2)"
+    },
+    {
+      "number": 51,
+      "name": "Net-(D45-Pad2)"
+    },
+    {
+      "number": 52,
+      "name": "Net-(D46-Pad2)"
+    },
+    {
+      "number": 72,
+      "name": "Net-(D48-Pad2)"
+    },
+    {
+      "number": 73,
+      "name": "Net-(D49-Pad2)"
+    },
+    {
+      "number": 74,
+      "name": "Net-(D50-Pad2)"
+    },
+    {
+      "number": 77,
+      "name": "Net-(D51-Pad2)"
+    },
+    {
+      "number": 78,
+      "name": "Net-(D52-Pad2)"
+    },
+    {
+      "number": 79,
+      "name": "Net-(D53-Pad2)"
+    },
+    {
+      "number": 82,
+      "name": "Net-(D56-Pad2)"
+    },
+    {
+      "number": 90,
+      "name": "Net-(D64-Pad2)"
+    },
+    {
+      "number": 3,
+      "name": "Net-(C4-Pad1)"
+    },
+    {
+      "number": 4,
+      "name": "Net-(C5-Pad1)"
+    },
+    {
+      "number": 6,
+      "name": "Net-(D1-Pad2)"
+    },
+    {
+      "number": 7,
+      "name": "Net-(D2-Pad2)"
+    },
+    {
+      "number": 8,
+      "name": "Net-(D3-Pad2)"
+    },
+    {
+      "number": 9,
+      "name": "Net-(D4-Pad2)"
+    },
+    {
+      "number": 10,
+      "name": "Net-(D5-Pad2)"
+    },
+    {
+      "number": 11,
+      "name": "Net-(D6-Pad2)"
+    },
+    {
+      "number": 12,
+      "name": "Net-(D7-Pad2)"
+    },
+    {
+      "number": 13,
+      "name": "Net-(D8-Pad2)"
+    },
+    {
+      "number": 14,
+      "name": "Net-(D9-Pad2)"
+    },
+    {
+      "number": 15,
+      "name": "Net-(D10-Pad2)"
+    },
+    {
+      "number": 16,
+      "name": "Net-(D11-Pad2)"
+    },
+    {
+      "number": 17,
+      "name": "Net-(D12-Pad2)"
+    },
+    {
+      "number": 18,
+      "name": "Net-(D13-Pad2)"
+    },
+    {
+      "number": 85,
+      "name": "Net-(D59-Pad2)"
+    },
+    {
+      "number": 86,
+      "name": "Net-(D60-Pad2)"
+    },
+    {
+      "number": 70,
+      "name": "Net-(D14-Pad2)"
+    },
+    {
+      "number": 71,
+      "name": "Net-(D15-Pad2)"
+    },
+    {
+      "number": 89,
+      "name": "Net-(D63-Pad2)"
+    },
+    {
+      "number": 88,
+      "name": "Net-(D62-Pad2)"
+    },
+    {
+      "number": 20,
+      "name": "Net-(D16-Pad2)"
+    },
+    {
+      "number": 22,
+      "name": "Net-(D17-Pad2)"
+    },
+    {
+      "number": 23,
+      "name": "Net-(D18-Pad2)"
+    },
+    {
+      "number": 24,
+      "name": "Net-(D19-Pad2)"
+    },
+    {
+      "number": 25,
+      "name": "Net-(D20-Pad2)"
+    },
+    {
+      "number": 26,
+      "name": "Net-(D21-Pad2)"
+    },
+    {
+      "number": 27,
+      "name": "Net-(D22-Pad2)"
+    },
+    {
+      "number": 28,
+      "name": "Net-(D23-Pad2)"
+    },
+    {
+      "number": 29,
+      "name": "Net-(D24-Pad2)"
+    },
+    {
+      "number": 30,
+      "name": "Net-(D25-Pad2)"
+    },
+    {
+      "number": 31,
+      "name": "Net-(D26-Pad2)"
+    },
+    {
+      "number": 32,
+      "name": "Net-(D27-Pad2)"
+    },
+    {
+      "number": 34,
+      "name": "Net-(D28-Pad2)"
+    },
+    {
+      "number": 35,
+      "name": "Net-(D29-Pad2)"
+    },
+    {
+      "number": 36,
+      "name": "Net-(D30-Pad2)"
+    },
+    {
+      "number": 37,
+      "name": "Net-(D31-Pad2)"
+    },
+    {
+      "number": 38,
+      "name": "Net-(D32-Pad2)"
+    },
+    {
+      "number": 39,
+      "name": "Net-(D33-Pad2)"
+    },
+    {
+      "number": 40,
+      "name": "Net-(D34-Pad2)"
+    },
+    {
+      "number": 41,
+      "name": "Net-(D35-Pad2)"
+    },
+    {
+      "number": 42,
+      "name": "Net-(D36-Pad2)"
+    },
+    {
+      "number": 43,
+      "name": "Net-(D37-Pad2)"
+    },
+    {
+      "number": 45,
+      "name": "Net-(D39-Pad2)"
+    },
+    {
+      "number": 46,
+      "name": "Net-(D40-Pad2)"
+    },
+    {
+      "number": 47,
+      "name": "Net-(D41-Pad2)"
+    },
+    {
+      "number": 48,
+      "name": "Net-(D42-Pad2)"
+    },
+    {
+      "number": 83,
+      "name": "Net-(D57-Pad2)"
+    },
+    {
+      "number": 84,
+      "name": "Net-(D58-Pad2)"
+    },
+    {
+      "number": 54,
+      "name": "Net-(F1-Pad1)"
+    },
+    {
+      "number": 92,
+      "name": "Net-(D66-Pad1)"
+    },
+    {
+      "number": 91,
+      "name": "Net-(D65-Pad1)"
+    },
+    {
+      "number": 92,
+      "name": "Net-(D66-Pad1)"
+    },
+    {
+      "number": 3,
+      "name": "Net-(C4-Pad1)"
+    },
+    {
+      "number": 4,
+      "name": "Net-(C5-Pad1)"
+    },
+    {
+      "number": 87,
+      "name": "Net-(D61-Pad2)"
+    },
+    {
+      "number": 49,
+      "name": "Net-(D43-Pad2)"
+    },
+    {
+      "number": 50,
+      "name": "Net-(D44-Pad2)"
+    },
+    {
+      "number": 51,
+      "name": "Net-(D45-Pad2)"
+    },
+    {
+      "number": 52,
+      "name": "Net-(D46-Pad2)"
+    },
+    {
+      "number": 53,
+      "name": "Net-(D47-Pad2)"
+    },
+    {
+      "number": 72,
+      "name": "Net-(D48-Pad2)"
+    },
+    {
+      "number": 73,
+      "name": "Net-(D49-Pad2)"
+    },
+    {
+      "number": 74,
+      "name": "Net-(D50-Pad2)"
+    },
+    {
+      "number": 77,
+      "name": "Net-(D51-Pad2)"
+    },
+    {
+      "number": 78,
+      "name": "Net-(D52-Pad2)"
+    },
+    {
+      "number": 79,
+      "name": "Net-(D53-Pad2)"
+    },
+    {
+      "number": 80,
+      "name": "Net-(D54-Pad2)"
+    },
+    {
+      "number": 81,
+      "name": "Net-(D55-Pad2)"
+    },
+    {
+      "number": 92,
+      "name": "Net-(D66-Pad1)"
+    },
+    {
+      "number": 91,
+      "name": "Net-(D65-Pad1)"
+    }
+  ],
+  "traces": [],
+  "vias": [],
+  "zones": [
+    {
+      "net": 1,
+      "net_name": "",
+      "layer": "",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": ""
+    },
+    {
+      "net": 1,
+      "net_name": "",
+      "layer": "",
+      "priority": 0,
+      "filled_polygons": [
+        []
+      ],
+      "tstamp": ""
+    }
+  ],
+  "stats": {
+    "net_count": 218,
+    "trace_count": 0,
+    "via_count": 0,
+    "zone_count": 2,
+    "traces_by_layer": {}
+  }
+}

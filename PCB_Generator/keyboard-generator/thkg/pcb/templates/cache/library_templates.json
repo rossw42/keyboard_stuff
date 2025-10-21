@@ -1,0 +1,265 @@
+{
+  "lumberjack": [
+    {
+      "name": "ATMEGA328-PU_Support",
+      "type": "mcu",
+      "components": [
+        {
+          "lib_id": "lumberjack-rescue:ATmega328P-PU-MCU_Microchip_ATmega",
+          "reference": "U1",
+          "value": "ATMEGA328-PU",
+          "position": [
+            50.8,
+            142.24
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "U1",
+            "Value": "ATMEGA328-PU",
+            "Footprint": "Package_DIP:DIP-28_W7.62mm",
+            "Datasheet": "http://www.atmel.com/images/atmel-8271-8-bit-avr-microcontroller-atmega48a-48pa-88a-88pa-168a-168pa-328-328p_datasheet.pdf"
+          }
+        },
+        {
+          "lib_id": "Device:C_Small",
+          "reference": "C1",
+          "value": "22p",
+          "position": [
+            82.55,
+            137.16
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "C1",
+            "Value": "22p",
+            "Footprint": "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm",
+            "Datasheet": "~"
+          }
+        },
+        {
+          "lib_id": "Device:C_Small",
+          "reference": "C2",
+          "value": "22p",
+          "position": [
+            90.17,
+            137.16
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "C2",
+            "Value": "22p",
+            "Footprint": "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm",
+            "Datasheet": "~"
+          }
+        }
+      ],
+      "connections": [],
+      "input_pins": [],
+      "output_pins": [],
+      "power_pins": {
+        "VCC": [],
+        "GND": []
+      }
+    },
+    {
+      "name": "USB_USB",
+      "type": "usb",
+      "components": [
+        {
+          "lib_id": "Connector:USB_C_Receptacle_USB2.0",
+          "reference": "J1",
+          "value": "USB",
+          "position": [
+            29.21,
+            50.8
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "J1",
+            "Value": "USB",
+            "Footprint": "lumberjack:TYPE-C-31-M-12",
+            "Datasheet": "https://www.usb.org/sites/default/files/documents/usb_type-c.zip"
+          }
+        },
+        {
+          "lib_id": "Device:Polyfuse_Small",
+          "reference": "F1",
+          "value": "100mA",
+          "position": [
+            72.39,
+            30.48
+          ],
+          "rotation": 180.0,
+          "properties": {
+            "Reference": "F1",
+            "Value": "100mA",
+            "Footprint": "Fuse:Fuse_Bourns_MF-RHT100",
+            "Datasheet": "~"
+          }
+        },
+        {
+          "lib_id": "Device:R_Small",
+          "reference": "R5",
+          "value": "5.1k",
+          "position": [
+            48.26,
+            40.64
+          ],
+          "rotation": 270.0,
+          "properties": {
+            "Reference": "R5",
+            "Value": "5.1k",
+            "Footprint": "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal",
+            "Datasheet": "~"
+          }
+        },
+        {
+          "lib_id": "Device:R_Small",
+          "reference": "R6",
+          "value": "5.1k",
+          "position": [
+            48.26,
+            43.18
+          ],
+          "rotation": 270.0,
+          "properties": {
+            "Reference": "R6",
+            "Value": "5.1k",
+            "Footprint": "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal",
+            "Datasheet": "~"
+          }
+        }
+      ],
+      "connections": [],
+      "input_pins": [],
+      "output_pins": [],
+      "power_pins": {
+        "VCC": [],
+        "GND": []
+      }
+    },
+    {
+      "name": "Crystal_16MHz",
+      "type": "crystal",
+      "components": [
+        {
+          "lib_id": "Device:Crystal_Small",
+          "reference": "Y1",
+          "value": "16MHz",
+          "position": [
+            82.55,
+            129.54
+          ],
+          "rotation": 270.0,
+          "properties": {
+            "Reference": "Y1",
+            "Value": "16MHz",
+            "Footprint": "Crystal:Crystal_HC49-4H_Vertical",
+            "Datasheet": "~"
+          }
+        },
+        {
+          "lib_id": "Device:C_Small",
+          "reference": "C1",
+          "value": "22p",
+          "position": [
+            82.55,
+            137.16
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "C1",
+            "Value": "22p",
+            "Footprint": "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm",
+            "Datasheet": "~"
+          }
+        },
+        {
+          "lib_id": "Device:C_Small",
+          "reference": "C2",
+          "value": "22p",
+          "position": [
+            90.17,
+            137.16
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "C2",
+            "Value": "22p",
+            "Footprint": "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm",
+            "Datasheet": "~"
+          }
+        }
+      ],
+      "connections": [],
+      "input_pins": [],
+      "output_pins": [],
+      "power_pins": {
+        "VCC": [],
+        "GND": []
+      }
+    }
+  ],
+  "dumbpad": [
+    {
+      "name": "SPARKFUN_PRO_MICRO_Support",
+      "type": "mcu",
+      "components": [
+        {
+          "lib_id": "dumbpad-eagle-import:SPARKFUN_PRO_MICRO",
+          "reference": "B1",
+          "value": "SPARKFUN_PRO_MICRO",
+          "position": [
+            314.96,
+            214.63
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "B1",
+            "Value": "SPARKFUN_PRO_MICRO",
+            "Footprint": "dumbpad:SPARKFUN_PRO_MICRO",
+            "Datasheet": ""
+          }
+        }
+      ],
+      "connections": [],
+      "input_pins": [],
+      "output_pins": [],
+      "power_pins": {
+        "VCC": [],
+        "GND": []
+      }
+    }
+  ],
+  "litl": [
+    {
+      "name": "ProMicro_Support",
+      "type": "mcu",
+      "components": [
+        {
+          "lib_id": "keebio:ProMicro",
+          "reference": "U1",
+          "value": "ProMicro",
+          "position": [
+            62.23,
+            166.243
+          ],
+          "rotation": 0.0,
+          "properties": {
+            "Reference": "U1",
+            "Value": "ProMicro",
+            "Footprint": "Keebio-Parts:ArduinoProMicro-ZigZag",
+            "Datasheet": ""
+          }
+        }
+      ],
+      "connections": [],
+      "input_pins": [],
+      "output_pins": [],
+      "power_pins": {
+        "VCC": [],
+        "GND": []
+      }
+    }
+  ]
+}

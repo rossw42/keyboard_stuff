@@ -1,0 +1,53 @@
+{
+  "name": "lumberjack_crystal",
+  "type": "crystal",
+  "source_project": "lumberjack",
+  "version": "1.0",
+  "description": "CRYSTAL circuit from lumberjack",
+  "notes": "",
+  "components": [
+    {
+      "reference": "Y1",
+      "value": "16MHz",
+      "footprint": "Crystal:Crystal_HC49-4H_Vertical",
+      "library": "Device",
+      "symbol": "Device:Crystal_Small",
+      "position": [
+        82.55,
+        129.54
+      ],
+      "rotation": 270.0,
+      "properties": {}
+    },
+    {
+      "reference": "C1",
+      "value": "22p",
+      "footprint": "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm",
+      "library": "Device",
+      "symbol": "Device:C_Small",
+      "position": [
+        82.55,
+        137.16
+      ],
+      "rotation": 0.0,
+      "properties": {}
+    },
+    {
+      "reference": "C2",
+      "value": "22p",
+      "footprint": "Capacitor_THT:C_Disc_D3.0mm_W1.6mm_P2.50mm",
+      "library": "Device",
+      "symbol": "Device:C_Small",
+      "position": [
+        90.17,
+        137.16
+      ],
+      "rotation": 0.0,
+      "properties": {}
+    }
+  ],
+  "connections": [],
+  "input_pins": {},
+  "output_pins": {},
+  "power_nets": {}
+}
