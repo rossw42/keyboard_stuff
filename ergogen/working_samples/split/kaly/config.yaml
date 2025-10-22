@@ -1,0 +1,90 @@
+# Kaly Keyboard Ergogen Definition
+# V 1.01
+# Made by: Kael S.A.
+
+points:
+  zones:
+    matrix:
+      columns:
+        outer.key:
+        pinky.key:
+          stagger: 0
+          spread: cx
+        ring.key:
+          stagger: 12.57
+          spread: cx
+        middle.key:
+          stagger: 4.76
+          spread: cx
+        index.key:
+          stagger: -4.76
+          spread: cx
+        inner.key:
+          stagger: -2.86
+          spread: cx
+      rows:
+        bottom.padding: cy
+        home.padding: cy
+        top.padding: cy
+    thumb:
+      anchor:
+        ref: matrix_index_bottom
+        shift: [0.425cx, -1.2cy]
+        rotate: -15
+      columns:
+        inny:
+          key.name: thumb_inny
+        middy:
+          key.spread: cx
+          key.splay: -17
+          key.origin: [-0.5cx, -0.57cy] 
+          key.name: thumb_middy
+        reachy:
+          key.spread: cx
+          key.splay: -102
+          key.origin: [0.001cx, -0.072cy]
+          key.name: thumb_reachy
+
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [cx, cy]
+  keys_outline:
+    - what: rectangle
+      where: true
+      size: [cx, cy]
+      corner: 0
+  pillsquare:
+    - what: rectangle
+      adjust:
+        ref: matrix_inner_home
+        shift: [ 20.83, -10 ]
+      size: [31.5, 71]
+      corner: 1.5
+  trrs:
+    - what: rectangle
+      adjust:
+        ref: matrix_inner_home
+        shift: [ 31.58, -43.5 ]
+      size: [10, 20]
+      corner: 0
+  pcb_outline:
+    - pillsquare 
+    - trrs
+    - keys_outline
+
+pcbs:
+  kalypcb:
+    outlines:
+      main:
+        outline: pcb_outline
+    footprints:
+      keys:
+        what: choc
+        where: true
+        params:
+          from: GND
+          to: "{{name}}"
+          reverse: true
+          keycaps: true

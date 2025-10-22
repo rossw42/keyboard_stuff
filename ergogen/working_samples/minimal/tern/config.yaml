@@ -1,0 +1,186 @@
+meta:
+  engine: 4.0.0
+  name: tern
+
+units:
+  capx: 16.5
+  capy: 16.5
+  kx: capx + 0.5
+  ky: capy + 0.5
+  angle: 22
+  pinky_stagger: 5/4ky
+  pinky_splay: 5
+  pinky_adj: -3
+  ring_splay: 3
+  ring_adj: -8
+  xiao_x: 17.5
+  xiao_y: 20
+  sf: 21.5
+
+points:
+  zones.matrix:
+    anchor.shift: [150, -125]
+    rotate: -angle + pinky_splay + ring_splay
+    mirror:
+      ref: matrix_inner_top
+      shift: [0.5sf, 0.5sf]
+      distance: 13
+    key:
+      width: capx
+      height: capy
+      spread: kx
+      padding: ky
+      autobind: false
+    rows:
+      bottom:
+      home:
+      top:
+    columns:
+      pinky:
+        rows:
+          bottom.skip: true
+          home:
+            bind: [0.5ky, 0, 0, 0]
+            row_net: P2
+            column_net: P6
+          top:
+            bind: [0, 0.5kx, 0.5ky, 0]
+            row_net: P0
+            column_net: P6
+      ring:
+        key:
+          stagger: pinky_stagger
+          splay: -pinky_splay
+          origin: [0, pinky_adj]
+          spread: 1.1kx
+        rows:
+          bottom:
+            bind: [0.5ky, 3kx, 0.5, 0.5kx]
+            row_net: P4
+            column_net: P6
+          home:
+            bind: [0, 0.5kx, 0, 0]
+            row_net: P3
+            column_net: P6
+          top:
+            bind: [0, 0.5kx, 0.5ky, 0]
+            row_net: P1
+            column_net: P6
+      middle:
+        key:
+          stagger: 0.25ky
+          splay: -ring_splay
+          origin: [0, ring_adj]
+        rows:
+          bottom:
+            bind: [0.5ky, 0.5kx, 0, 0.5kx]
+            row_net: P5
+            column_net: P6
+          home:
+            bind: [0, 0.5kx, 0, 0]
+            row_net: P2
+            column_net: P7
+          top:
+            bind: [0, 0, 0.5ky, 0]
+            row_net: P0
+            column_net: P7
+      index:
+        key.stagger: -0.25ky
+        rows:
+          bottom:
+            bind: [0.5ky, 0, 0, 0]
+            row_net: P4
+            column_net: P7
+          home:
+            row_net: P3
+            column_net: P7
+          top:
+            bind: [0, 0, 0.5ky, 0.5kx]
+            row_net: P1
+            column_net: P7
+      inner:
+        key.stagger: -0.5ky
+        rows:
+          bottom.skip: true
+          home:
+            bind: [0.5ky, 0, 0.5ky, 0.5kx]
+            row_net: P2
+            column_net: P8
+          top:
+            bind: [0, 0, 0.5ky, 0.5kx]
+            row_net: P0
+            column_net: P8
+  zones.thumb:
+    anchor:
+      ref: matrix_inner_bottom
+      shift: [0, -14]
+    mirror:
+      ref: matrix_inner_top
+      shift: [0.5sf, 0.5sf]
+      distance: 13
+    key:
+      width: capx
+      height: capy
+      spread: kx
+      padding: ky
+    columns:
+      tucky:
+        key:
+          name: thumb_tucky
+          bind: [0.5ky, 0.5kx, 0, 0]
+          row_net: P5
+          column_net: P7
+      reachy:
+        key:
+          stagger: 0
+          splay: -5
+          origin: [-kx/2, -kx/2]
+          name: thumb_reachy
+          bind: [1.5ky, 0, 0, 0]
+          row_net: P4
+          column_net: P8
+
+outlines:
+  panel:
+    - what: polygon
+      points:
+      - ref: matrix_inner_top
+        shift: [0, -0.7ky]
+      - ref: mirror_matrix_inner_top
+        shift: [0, -0.7ky]
+      - ref: mirror_thumb_reachy
+        shift: [0, 0.2ky]
+      - ref: thumb_reachy
+        shift: [0, 0.2ky]
+
+pcbs:
+  tern:
+    outlines:
+      main:
+        outline: panel
+    footprints:
+      switches:
+        what: choc
+        where:
+          - /matrix_.*/
+          - /thumb_.*/
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+          keycaps: false
+          hotswap: true
+      diodes:
+        what: better_diode
+        where:
+          - /matrix_.*/
+          - /thumb_.*/
+        adjust:
+          shift: [0, -4.7]
+          rotate: 180
+        params:
+          from: "{{colrow}}"
+          to: "{{column_net}}"
+      xiao:
+        what: xiao
+        where:
+          ref: mcu
