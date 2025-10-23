@@ -1,0 +1,446 @@
+meta:
+  engine: 4.1.0
+  name: "3x8-keyboard"
+  version: "1.0"
+  author: "Ergogen User"
+  description: "3 row x 8 column keyboard applying lessons learned"
+
+units:
+  # Key spacing (foundation for all calculations)
+  kx: 19.05  # MX key spacing horizontal
+  ky: 19.05  # MX key spacing vertical
+  px: 2      # padding
+  
+  # Pro Micro dimensions
+  mcu_width: 18
+  mcu_height: 33
+  
+  # Board dimensions - calculated for 3x8 layout (keep tight!)
+  board_width: 8*kx + 10   # 8 columns + minimal padding
+  board_height: 3*ky + 20  # 3 rows + minimal MCU space
+  
+  # Case dimensions (configurable parameters)
+  case_wall_thickness: 2.0      # Wall thickness (mm) - minimum 2mm for structural integrity
+  case_height: 8.0              # Total case height (mm)
+  bottom_plate_thickness: 1.6   # Bottom plate thickness (mm)
+  top_plate_thickness: 1.6      # Top plate thickness (mm)
+  
+  # Tolerances and clearances
+  pcb_fit_tolerance: 0.2        # PCB fit tolerance (mm)
+  case_lip_thickness: 0.4       # Case top lip thickness (mm)
+  
+  # Hardware specifications (M2 screws and standoffs)
+  mounting_hole_radius: 1.1     # M2 screws for PCB mounting
+  standoff_radius: 2.2          # M2 standoffs for case assembly
+  
+  # USB cutout dimensions
+  usb_cutout_width: 12          # USB connector width (mm)
+  usb_cutout_height: 8          # USB connector height (mm)
+  usb_cutout_corner_radius: 2   # Corner radius for smooth edges
+  
+  # Manufacturing parameters
+  fillet_radius: 3              # Corner radius for case edges
+  draft_angle: 1                # Draft angle for 3D printing (degrees)
+  
+points:
+  zones:
+    matrix:
+      anchor:
+        shift: [50, -150]  # Standard KiCad positioning
+      key:
+        padding: ky
+        spread: kx
+        tags: [key]
+      columns:
+        col0:
+          key.column_net: GP0
+        col1:
+          key.column_net: GP1
+        col2:
+          key.column_net: GP2
+        col3:
+          key.column_net: GP3
+        col4:
+          key.column_net: GP4
+        col5:
+          key.column_net: GP5
+        col6:
+          key.column_net: GP6
+        col7:
+          key.column_net: GP7
+      rows:
+        row0:
+          row_net: GP8
+        row1:
+          row_net: GP9
+        row2:
+          row_net: GP10
+
+outlines:
+  # Base board outline using calculated dimensions and strategic reference positioning
+  board:
+    - what: rectangle
+      where:
+        ref: matrix_col3_row1  # Center reference (middle of 3x8 grid) - strategic positioning
+        shift: [kx/2, 0]       # Offset to center the board properly
+      size: [board_width, board_height]  # Calculated dimensions for tight fit
+      corner: fillet_radius   # Manufacturing-friendly rounded corners
+
+  # Switch cutouts
+  switches:
+    - what: rectangle
+      where: [key]
+      size: [14, 14]
+
+  # PCB mounting holes positioned between switches using lessons learned
+  mounting_holes:
+    # Top row holes - strategic positioning between switches
+    - what: circle
+      where:
+        ref: matrix_col1_row0
+        shift: [kx/2, ky/2]  # Between col1/col2, row0/row1 - lessons learned positioning
+      radius: mounting_hole_radius  # Configurable M2 screw size (1.1mm)
+    - what: circle
+      where:
+        ref: matrix_col5_row0
+        shift: [kx/2, ky/2]  # Between col5/col6, row0/row1 - lessons learned positioning
+      radius: mounting_hole_radius
+    # Bottom row holes - optimal structural support
+    - what: circle
+      where:
+        ref: matrix_col1_row1
+        shift: [kx/2, ky/2]  # Between col1/col2, row1/row2 - lessons learned positioning
+      radius: mounting_hole_radius
+    - what: circle
+      where:
+        ref: matrix_col5_row1
+        shift: [kx/2, ky/2]  # Between col5/col6, row1/row2 - lessons learned positioning
+      radius: mounting_hole_radius
+
+  # PCB outline
+  pcb:
+    - board
+    - -mounting_holes
+
+  # Switch plate outline  
+  plate:
+    - board
+    - -switches
+    - -mounting_holes
+
+  # Case outlines with proper tolerances and consistent geometry
+  case_outer:
+    - what: outline
+      name: board
+      expand: case_wall_thickness    # Configurable wall thickness expansion
+      fillet: fillet_radius          # Consistent fillet radius for smooth geometry
+
+  case_inner:
+    - what: outline
+      name: board
+      expand: pcb_fit_tolerance      # Configurable PCB fit tolerance (0.2mm)
+      fillet: fillet_radius          # Matching fillet radius for consistent geometry
+
+  # Derived outline for visualization (walls = outer - inner)
+  case_walls:
+    - case_outer
+    - -case_inner
+
+  # USB cutout positioned to cut through case wall for side access
+  usb_cutout:
+    - what: rectangle
+      where:
+        ref: matrix_col3_row1         # Same reference as MCU and board center
+        shift: [kx/2, board_height/2 + case_wall_thickness/2]  # Position in the case wall area
+      size: [usb_cutout_width, usb_cutout_height]  # Configurable dimensions (12mm × 8mm)
+      corner: usb_cutout_corner_radius              # Smooth corners for manufacturing
+
+  # Strategic standoff hole positioning (lessons learned: between switches for optimal placement)
+  standoff_holes:
+    # Top row standoffs - positioned between switches to avoid interference
+    - what: circle
+      where:
+        ref: matrix_col1_row0
+        shift: [kx/2, ky/2]  # Between col1/col2, row0/row1 - strategic positioning
+      radius: standoff_radius  # Configurable M2 standoff size (2.2mm)
+    - what: circle
+      where:
+        ref: matrix_col5_row0
+        shift: [kx/2, ky/2]  # Between col5/col6, row0/row1 - strategic positioning
+      radius: standoff_radius
+    # Bottom row standoffs - positioned for optimal structural support
+    - what: circle
+      where:
+        ref: matrix_col1_row1
+        shift: [kx/2, ky/2]  # Between col1/col2, row1/row2 - strategic positioning
+      radius: standoff_radius
+    - what: circle
+      where:
+        ref: matrix_col5_row1
+        shift: [kx/2, ky/2]  # Between col5/col6, row1/row2 - strategic positioning
+      radius: standoff_radius
+
+  # Validation outlines - shows all critical dimensions and clearances (2D)
+  validation_outline:
+    # Case outer boundary
+    - name: case_outer
+    # PCB fit area
+    - name: case_inner
+      operation: stack
+    # USB access area
+    - name: usb_cutout
+      operation: stack
+    # Mounting points
+    - name: standoff_holes
+      operation: stack
+    # Switch positions for clearance check
+    - name: switches
+      operation: stack
+
+  # Dimensional validation - check critical measurements (2D)
+  dimension_check_outline:
+    # Board dimensions validation
+    - what: rectangle
+      where:
+        ref: matrix_col3_row1
+        shift: [kx/2, 0]
+      size: [board_width, board_height]
+      operation: stack
+    # Case wall thickness validation
+    - what: outline
+      name: board
+      expand: case_wall_thickness
+      operation: stack
+    # USB cutout clearance validation
+    - what: rectangle
+      where:
+        ref: matrix_col3_row1
+        shift: [kx/2, board_height/2 - 5]
+      size: [usb_cutout_width + 2, usb_cutout_height + 2]  # +2mm clearance check
+      operation: stack
+
+  # Manufacturing feasibility check (2D)
+  manufacturing_check_outline:
+    # Minimum wall thickness areas
+    - name: case_walls
+    # Overhang areas (should be minimal)
+    - what: rectangle
+      where:
+        ref: matrix_col3_row1
+        shift: [kx/2, board_height/2 - 5]
+      size: [usb_cutout_width, 2]  # USB overhang check
+      operation: stack
+
+pcbs:
+  keyboard_3x8:
+    template: kicad8
+    outlines:
+      edge:
+        outline: pcb
+        layer: Edge.Cuts
+    footprints:
+      # MX switches with hotswap sockets
+      switches:
+        what: mx
+        where: [key]
+        params:
+          hotswap: true
+          keycaps: true
+          from: "{{colrow}}"
+          to: "{{column_net}}"
+      
+      # Diodes - horizontal orientation for space efficiency
+      diodes:
+        what: diode
+        where: [key]
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -6]  # Below switch
+          rotate: 0       # Horizontal orientation (lesson learned)
+      
+      # MCU - calculated position at top edge
+      mcu:
+        what: promicro
+        where:
+          ref: matrix_col3_row1  # Same reference as board
+          shift: [kx/2, board_height/2 - mcu_height/2 - 3]  # Calculated top edge position
+          rotate: 270  # USB pointing toward keys
+        params:
+          orientation: down
+          # Pin assignments for 3x8 matrix
+          P0: GP0   # col0
+          P1: GP1   # col1  
+          P2: GP2   # col2
+          P3: GP3   # col3
+          P4: GP4   # col4
+          P5: GP5   # col5
+          P6: GP6   # col6
+          P7: GP7   # col7
+          P8: GP8   # row0
+          P9: GP9   # row1
+          P10: GP10 # row2
+      
+
+      
+      # Mounting holes as footprints - using lessons learned positioning
+      mount_tl:
+        what: ceoloide/mounting_hole_npth
+        where:
+          ref: matrix_col1_row0
+          shift: [kx/2, ky/2]
+      mount_tr:
+        what: ceoloide/mounting_hole_npth
+        where:
+          ref: matrix_col5_row0
+          shift: [kx/2, ky/2]
+      mount_bl:
+        what: ceoloide/mounting_hole_npth
+        where:
+          ref: matrix_col1_row1
+          shift: [kx/2, ky/2]
+      mount_br:
+        what: ceoloide/mounting_hole_npth
+        where:
+          ref: matrix_col5_row1
+          shift: [kx/2, ky/2]
+
+cases:
+  # Bottom plate - structural foundation with integrated standoff holes
+  bottom_plate:
+    - name: board                        # Base board outline
+      extrude: bottom_plate_thickness    # Configurable thickness (1.6mm)
+    - operation: subtract                # Boolean subtraction for mounting holes
+      name: standoff_holes               # Strategic standoff hole positions
+      extrude: bottom_plate_thickness    # Through full plate thickness for mounting access
+  
+  # Switch plate
+  switch_plate:
+    - name: plate
+      extrude: top_plate_thickness
+
+  # Case walls - proven boolean operations for hollow case structure
+  case_bottom:
+    # Primary case structure - solid walls
+    - name: case_outer                   # External case boundary
+      extrude: case_height               # Configurable case height (8.0mm)
+    # Create internal cavity for PCB and components
+    - operation: subtract                # Boolean subtraction for hollow interior
+      name: case_inner                   # Internal cavity outline
+      extrude: case_height - bottom_plate_thickness  # Cavity height (leaves floor)
+      shift: [0, 0, bottom_plate_thickness]          # Start cavity above bottom plate
+    # Connector access cutouts - USB cutout in side wall only (not through bottom)
+    - operation: subtract                # Boolean subtraction for USB access
+      name: usb_cutout                   # USB connector cutout
+      extrude: case_height - bottom_plate_thickness  # Wall height only (not through bottom)
+      shift: [0, 0, bottom_plate_thickness]          # Start cutout above bottom plate
+    # Mounting hardware access
+    - operation: subtract                # Boolean subtraction for standoff access
+      name: standoff_holes               # Standoff mounting holes
+      extrude: case_height               # Through full case height for hardware
+
+  # Optional case top (lid) with precision fit lip
+  case_top:
+    # Solid top plate matching case outer dimensions
+    - name: case_outer                   # External case boundary for consistent fit
+      extrude: top_plate_thickness       # Configurable top plate thickness (1.6mm)
+    # Create recessed area for secure fit on case bottom
+    - operation: subtract                # Boolean subtraction for fit recess
+      name: case_inner                   # Internal recess matching case inner dimensions
+      extrude: top_plate_thickness - case_lip_thickness  # Recess depth (leaves lip)
+      shift: [0, 0, case_lip_thickness]  # Position recess to create fit lip
+
+  # 3D printing optimized case variants
+  
+  # Low-profile case for minimal material usage
+  case_bottom_low_profile:
+    - name: case_outer
+      extrude: case_height * 0.6         # Reduced height (60% of standard)
+    - operation: subtract
+      name: case_inner
+      extrude: (case_height * 0.6) - bottom_plate_thickness
+      shift: [0, 0, bottom_plate_thickness]
+    - operation: subtract
+      name: usb_cutout
+      extrude: (case_height * 0.6) - bottom_plate_thickness  # Proportional USB cutout in wall only
+      shift: [0, 0, bottom_plate_thickness]                  # Start cutout above bottom plate
+    - operation: subtract
+      name: standoff_holes
+      extrude: case_height * 0.6
+
+  # Tray-style case (inspired by Corney Island pattern)
+  case_tray_style:
+    # Main tray walls
+    - name: case_outer
+      extrude: bottom_plate_thickness + case_height  # Combined height for tray design
+    # Internal cavity for components
+    - operation: subtract
+      name: case_inner
+      extrude: case_height               # Component cavity depth
+      shift: [0, 0, bottom_plate_thickness]  # Start above bottom plate
+    # Access cutouts
+    - operation: subtract
+      name: usb_cutout
+      extrude: case_height * 0.8         # Partial height for tray access
+      shift: [0, 0, bottom_plate_thickness]
+    # Mounting holes
+    - operation: subtract
+      name: standoff_holes
+      extrude: bottom_plate_thickness + case_height  # Through entire tray
+
+  # Split case for easier printing (bottom only, no overhangs)
+  case_bottom_print_optimized:
+    - name: case_outer
+      extrude: case_height
+    - operation: subtract
+      name: case_inner
+      extrude: case_height - bottom_plate_thickness
+      shift: [0, 0, bottom_plate_thickness]
+    # USB cutout positioned for side printing (no supports needed) - in wall only
+    - operation: subtract
+      name: usb_cutout
+      extrude: case_height - bottom_plate_thickness  # Wall height only (not through bottom)
+      shift: [0, 0, bottom_plate_thickness]          # Start cutout above bottom plate
+    - operation: subtract
+      name: standoff_holes
+      extrude: case_height
+
+  # Complete case assembly for validation and visualization
+  complete_case_assembly:
+    # Bottom plate foundation
+    - name: board
+      extrude: bottom_plate_thickness
+    # Case walls with all features
+    - name: case_outer
+      extrude: case_height
+      shift: [0, 0, bottom_plate_thickness]  # Stack on top of bottom plate
+    - operation: subtract
+      name: case_inner
+      extrude: case_height
+      shift: [0, 0, bottom_plate_thickness]
+    - operation: subtract
+      name: usb_cutout
+      extrude: case_height - bottom_plate_thickness  # Wall height only (not through bottom)
+      shift: [0, 0, bottom_plate_thickness]          # Start cutout above bottom plate
+    - operation: subtract
+      name: standoff_holes
+      extrude: bottom_plate_thickness + case_height  # Through entire assembly
+
+  # Validation case - shows all critical dimensions and clearances (for 3D visualization)
+  case_validation:
+    # Case outer boundary as base
+    - name: case_outer
+      extrude: 1  # Thin layer for visualization
+    # PCB fit area
+    - name: case_inner
+      extrude: 1
+      operation: add
+    # USB access area
+    - name: usb_cutout
+      extrude: 1
+      operation: add
+    # Mounting points
+    - name: standoff_holes
+      extrude: 1
+      operation: add
