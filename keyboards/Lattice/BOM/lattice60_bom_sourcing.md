@@ -11,27 +11,26 @@
 | Component | Qty | MPN | Manufacturer | Mouser SKU | Unit Price | Total | Purchased | Est. Arrival |
 |-----------|-----|-----|--------------|------------|-----------|-------|-----------|--------------|
 | ATmega328p-pu | 1 | ATMEGA328P-PU | Microchip | 556-ATMEGA328P-PU | $2.89 | $2.89 | ☐ | |
-| Mini USB Type B socket | 1 | 1734753-1 | TE Connectivity | TBD | $0.99 | $0.99 | ☐ | |
+| Mini USB Type B socket | 1 | 1734753-1 | TE Connectivity | Avnet 1734753-1 | $0.99 | $0.99 | ☐ | |
 | RED LED 3mm | 1 | LTL-4222 | Lite-On | 859-LTL-4222 | $0.19 | $0.19 | ☐ | |
-| GREEN LED 3mm | 1 | WP7113GT | Kingbright | TBD | TBD | TBD | ☐ | |
-| 1.5K ohm Resistor 1/4W | 1 | CFR-25JR-52-1K5 | Yageo | TBD | TBD | TBD | ☐ | |
-| 10K ohm Resistor 1/4W | 1 | CFR-25JR-52-10K | Yageo | TBD | TBD | TBD | ☐ | |
-| 1K ohm Resistor 1/4W | 2 | CFR-25JR-52-1K | Yageo | TBD | TBD | TBD | ☐ | |
-| 68 ohm Resistor 1/4W | 2 | CFR-25JR-52-68R | Yageo | TBD | TBD | TBD | ☐ | |
-| 100mA Resettable fuse | 1 | RXEF010S | Littelfuse | TBD | $0.36 | $0.36 | ☐ | |
-| 28pin DIP socket (narrow) | 1 | 1-2199299-3 | TE Connectivity | TBD | TBD | TBD | ☐ | |
-| 12MHz crystal HC-49S | 1 | J49SMH-A-G-G-K-12M0 | Jauch | TBD | $0.21 | $0.21 | ☐ | |
+| GREEN LED 3mm | 1 | WP7113GT | Kingbright | 604-WP7113GT | $0.30 | $0.30 | ☐ | |
+| 1.5K ohm Resistor 1/4W | 1 | CFR-25JR-52-1K5 | Yageo | 49AK5068 | $0.01 | $0.01 | ☐ | |
+| 10K ohm Resistor 1/4W | 1 | CFR-25JR-52-10K | Yageo | 603-CFR-25JR-5210K | $0.10 | $0.10 | ☐ | |
+| 1K ohm Resistor 1/4W | 2 | CFR-25JR-52-1K | Yageo | 603-CFR-25JR-521K | $0.10 | $0.20 | ☐ | |
+| 68 ohm Resistor 1/4W | 2 | CFR-25JR-52-68R | Yageo | 603-CFR-25JR-52-68R | $0.10 | $0.20 | ☐ | |
+| 100mA Resettable fuse | 1 | RXEF010S | Littelfuse | 650-RXEF010S | $0.34 | $0.34 | ☐ | |
+| 28pin DIP socket (narrow) | 1 | 1-2199299-2 | TE Connectivity | 571-1-2199299-2 | $0.58 | $0.58 | ☐ | |
+| 12MHz crystal HC-49S | 1 | J49SMH-A-G-G-K-12M0 | Jauch | 1908-J49SMH-A-G-G-K-12M0CT-ND | $0.21 | $0.21 | ☐ | |
 | 3.6V Zener Diode | 2 | TZX3V6A-TR | Vishay | 78-TZX3V6A | $0.10 | $0.20 | ☐ | |
 | 0.1uF Capacitor | 1 | RDER71H104K0M1H03A | Murata | 81-RDER71H104K0M1H3A | $0.46 | $0.46 | ☐ | |
 | 22pF Capacitor | 2 | RCE5C2A220J0A2H03B | Murata | 81-RCE5C2A220J0A2H3B | $0.45 | $0.90 | ☐ | |
 | 6x6x5mm Push Button Switch | 2 | MJTP1230A | APEM | 642-MJTP1230A | $0.33 | $0.66 | ☐ | |
-| 4.7uF Capacitor 4*7mm | 1 | UMT1H4R7MDD | Nichicon | TBD | TBD | TBD | ☐ | |
-| 1N4148 switching diodes | 63 | 1N4148TR | onsemi | 512-1N4148TR | $0.041 | $2.58 | ☐ | |
-| 2.54mm Header 2x3PIN (ISP) | 1 | 68602-406HLF | Amphenol | TBD | TBD | TBD | ☐ | |
+| 4.7uF Capacitor 16V | 1 | ESK475M016AC3AA | Kemet | 80-ESK475M016AC3AA | $0.19 | $0.19 | ☐ | |
+| 1N4148 switching diodes | 66 | 1N4148TR | onsemi | 512-1N4148TR | $0.041 | $2.71 | ☐ | |
+| 2.54mm Header 2x3PIN (ISP) | 1 | 68602-406HLF | Amphenol | 649-68602-406HLF | $0.23 | $0.23 | ☐ | |
 
-**Subtotal (Known Prices):** ~$6.75  
-**Components with MPNs:** 13 of 18 components  
-**Components still needing pricing:** 7 items (resistors, USB socket, green LED, 4.7uF cap, header, DIP socket)
+**Electronic Components Total:** $9.58  
+**All components priced:** 18 of 18 components ✅
 
 ---
 
@@ -67,12 +66,19 @@
 
 | Component | Qty | Purchased | URL/Description | Est. Arrival |
 |-----------|-----|-----------|-----------------|--------------|
-| Cherry MX or Alps compatible switches | 58-63 | ☐ | PCB-mount preferred | |
-| 7u Stabilizer (spacebar) | 1 | ☐ | OR 2x 2u for split spacebar | |
-| 2u Stabilizer (Enter) | 1 | ☐ | | |
-| 2u Stabilizer (Left Shift) | 1 | ☐ | | |
+| Cherry MX or Alps compatible switches | 61 | ☐ | PCB-mount preferred (split spacebar layout) | |
+| Durock V2 2u Stabilizers | 5 | Durock V2 | Durock | KBDfans | $2.50 | $12.50 | ☐ | |
 | 2u Stabilizer (Backspace) | 1 | ☐ | Optional - for non-split backspace | |
 | 2u Stabilizer (Right Shift) | 1 | ☐ | Optional - ANSI Right Shift | |
+
+**Stabilizer Options & Pricing:**
+
+| Stabilizer Type | Qty Needed | Supplier | Price Each | Total | Notes |
+|-----------------|------------|----------|------------|-------|-------|
+| **Cherry Screw-in 2u** | 5 | KBDfans | $2.00 | $10.00 | Gold-plated, PCB mount |
+| **Durock V2 Screw-in 2u** | 5 | KBDfans | $2.50 | $12.50 | Smoother, less rattle |
+| **Gateron Screw-in 2u** | 5 | AliExpress | $1.50 | $7.50 | Budget option |
+| **GMK Screw-in 2u** | 5 | NovelKeys | $3.00 | $15.00 | Premium option |
 
 ## Hardware & Mounting
 
@@ -104,7 +110,10 @@
 - [1N4148 Diodes (512-1N4148TR)](https://www.mouser.com/ProductDetail/512-1N4148TR) - $0.041 ea (need 63)
 - [3mm Red LED (859-LTL-4222)](https://www.mouser.com/ProductDetail/859-LTL-4222) - $0.19
 
-**Known Pricing Total:** ~$9.64 (includes estimated $0.99 for USB socket, $0.36 for fuse, $0.21 for crystal)
+**Complete Build Cost Breakdown:**
+- Electronic Components: $9.58
+- Durock V2 Stabilizers (5x 2u): $12.50
+- **Total Cost:** $22.08
 
 **Components with MPNs (Need to upload CSV to Octopart for pricing):**
 - Mini USB Type B: 1734753-1 (TE Connectivity)
@@ -114,7 +123,7 @@
 - 1K Resistor: CFR-25JR-52-1K (Yageo, 2x)
 - 68Ω Resistor: CFR-25JR-52-68R (Yageo, 2x)
 - 28-pin DIP socket: 1-2199299-3 (TE Connectivity)
-- 4.7uF Capacitor: UMT1H4R7MDD (Nichicon)
+- 4.7uF Capacitor: ESK475M016AC3AA (Kemet)
 - 2x3 Header: 68602-406HLF (Amphenol)
 
 **Next Steps:**
@@ -131,7 +140,7 @@ Upload `lattice60_octopart_corrected.csv` to Octopart to get pricing for the rem
 
 ## Layout Options to Consider
 
-- [ ] Split Spacebar (requires 2x 2u stabilizers + 3 extra diodes)
+- [x] Split Spacebar (requires 2x 2u stabilizers + 3 extra diodes) - SELECTED
 - [ ] Split Backspace (no 2u stabilizer needed)
 - [ ] Split Right Shift (no 2u stabilizer needed)
 - [ ] Acrylic Top Cover (requires 10mm standoffs + 6mm screws)
