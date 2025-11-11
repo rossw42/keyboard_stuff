@@ -1,0 +1,65 @@
+layout:
+  qmk_info_json: keymap-layout-helper.json
+  layout_name: corne_left_only
+layers:
+  Movement (0):
+    - ["O\nAuto Connect", "C\nClone", "M\nMove Selected", null, "W\nForward", null]
+    - ["Tab\nNext Tool", "Enter\nConfirm", "Del\nDelete", "A\nLeft", "S\nBack", "D\nRight"]
+    - ["Ctrl\nStraight", "Shift\nSnap Toggle", "Space\nPause", "Alt\nCurved", "U\nFocus", null]
+    - [{t: "L1", h: "Zoom/Movement Layer", type: "held"}, "B\nBulldozer", "Esc\nBack"]
+
+  Zoom/Movement (1):
+    - [null, null, null, null, "R\nZoom In", null]
+    - [null, null, null, "Q\nCam Left", "F\nZoom Out", "E\nCam Right"]
+    - ["Y\nAlign Y", "X\nAlign X", "L\nAlign Z", "PgUp\n↑ Elevation", "PgDn\n↓ Elevation", null]
+    - [null, {t: "L2", h: "Roads & Tools Layer", type: "held"}, null]
+
+  Roads & Tools (2):
+    - ["H\nHide/Show", "N\nNode Tool", "T\nToggle Grid", "G\nGuides", "J\nJunction Tool", "K\nKerb Tool"]
+    - ["F2\nMove It", "F3\nAnarchy", "F4\nPrecision", "I\nIntersection", "V\nVehicle Tool", "P\nPath Tool"]
+    - ["Ins\nInsert Node", "Home\nStart Point", "End\nEnd Point", "Backspace\nUndo Last", "=\nIncrease", "-\nDecrease"]
+    - [null, null, {t: "L3", h: "Building Layer", type: "held"}]
+
+  Building (3):
+    - ["1\nResidential", "2\nCommercial", "3\nIndustrial", "4\nOffice", "5\nMixed Use", "6\nRoads"]
+    - ["7\nPublic Transport", "8\nUtilities", "9\nParks & Recreation", "0\nServices", "[\nDecrease Brush", "]\nIncrease Brush"]
+    - ["F5\nQuick Save", "F9\nQuick Load", "F10\nScreenshot", "F11\nFullscreen", "F12\nConsole", "`\nHide UI"]
+    - [null, null, null]
+    
+draw_config:
+  key_w: 90
+  key_h: 130
+  key_rx: 18
+  key_ry: 18
+  inner_pad_w: 4
+  inner_pad_h: 4
+  outer_pad_w: 10
+  outer_pad_h: 80
+  svg_extra_style: |
+    /* Bigger fonts for larger keys */
+    .tap {
+      font-size: 25px !important;
+      font-weight: bold !important;
+    }
+    .hold {
+      font-size: 24px !important;
+      font-weight: normal !important;
+    }
+    .layer-title {
+      font-size: 60px !important;
+      font-weight: bold !important;
+    }
+    /* Try different selectors for layer headers */
+    .layer-header {
+      font-size: 60px !important;
+      font-weight: bold !important;
+    }
+    text.layer-title {
+      font-size: 60px !important;
+      font-weight: bold !important;
+    }
+    /* Target all text elements that might be layer titles */
+    text:first-child {
+      font-size: 60px !important;
+      font-weight: bold !important;
+    }

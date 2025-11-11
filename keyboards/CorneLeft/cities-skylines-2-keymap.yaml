@@ -1,0 +1,156 @@
+layout:
+  qmk_keyboard: crkbd/rev1
+  layout_name: LAYOUT_split_3x6_3
+
+layers:
+  Camera:
+    - [
+        {t: "T", h: "Cam ↑"},
+        {t: "W", h: "Forward"},
+        {t: "R", h: "Zoom In"},
+        {t: "U", h: "Focus"},
+        {t: "I", h: "Info View"},
+        {t: "P", h: "Progress"}
+      ]
+    - [
+        {t: "Q", h: "Cam ←"},
+        {t: "A", h: "Left"},
+        {t: "S", h: "Back"},
+        {t: "D", h: "Right"},
+        {t: "E", h: "Cam →"},
+        {t: "F", h: "Zoom Out"}
+      ]
+    - [
+        {t: "G", h: "Cam ↓"},
+        {t: "Z", h: "Economy"},
+        {t: "X", h: "Transport"},
+        {t: "C", h: "City Info"},
+        {t: "V", h: "Statistics"},
+        {t: "B", h: "Bulldozer"}
+      ]
+    - [
+        {t: "L1", h: "Speed Layer", type: "held"},
+        {t: "Space", h: "Pause"},
+        {t: "Esc", h: "Back"}
+      ]
+
+  Speed:
+    - [
+        {t: "`", h: "Hide UI"},
+        {t: "1", h: "Normal"},
+        {t: "2", h: "Fast"},
+        {t: "3", h: "Super"},
+        {t: "F5", h: "Save"},
+        {t: "F9", h: "Load"}
+      ]
+    - [
+        {t: "M", h: "Map Tiles"},
+        {t: "PgUp", h: "↑ Elevation"},
+        {t: "PgDn", h: "↓ Elevation"},
+        {t: ".", h: "Photo Mode"},
+        {t: "Enter", h: "Take Photo"},
+        {t: "", type: "trans"}
+      ]
+    - [
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"}
+      ]
+    - [
+        {t: "", type: "trans"},
+        {t: "L2", h: "Editor Layer", type: "held"},
+        {t: "", type: "trans"}
+      ]
+
+  Editor:
+    - [
+        {t: "C", h: "Clone"},
+        {t: "O", h: "Auto Connect"},
+        {t: "P", h: "Auto Align"},
+        {t: "M", h: "Move Selected"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"}
+      ]
+    - [
+        {t: "X", h: "Align X"},
+        {t: "Y", h: "Align Y"},
+        {t: "Z", h: "Align Z"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"}
+      ]
+    - [
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"}
+      ]
+    - [
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "L3", h: "Macro Layer", type: "held"}
+      ]
+
+  Macros:
+    - [
+        {t: "M1", h: "Quick Road"},
+        {t: "M2", h: "Zone + Utils"},
+        {t: "M3", h: "Cam Reset"},
+        {t: "M4", h: "Save + Pause"},
+        {t: "M5", h: "Econ Tour"},
+        {t: "M6", h: "Photo Setup"}
+      ]
+    - [
+        {t: "M7", h: "Custom 7"},
+        {t: "M8", h: "Custom 8"},
+        {t: "M9", h: "Custom 9"},
+        {t: "M10", h: "Custom 10"},
+        {t: "M11", h: "Custom 11"},
+        {t: "M12", h: "Custom 12"}
+      ]
+    - [
+        {t: "M13", h: "Custom 13"},
+        {t: "M14", h: "Custom 14"},
+        {t: "M15", h: "Custom 15"},
+        {t: "M16", h: "Custom 16"},
+        {t: "M17", h: "Custom 17"},
+        {t: "M18", h: "Custom 18"}
+      ]
+    - [
+        {t: "", type: "trans"},
+        {t: "", type: "trans"},
+        {t: "", type: "trans"}
+      ]
+
+draw_config:
+  key_w: 60
+  key_h: 56
+  split_gap: 30
+  combo_w: 28
+  combo_h: 26
+  key_rx: 6
+  key_ry: 6
+  n_columns: 6
+  n_rows: 4
+  col_net: 19
+  row_net: 20
+  svg_style: |
+    /* Custom styling for Cities Skylines 2 theme */
+    .held { fill: #ff6b6b; }
+    .trans { fill: #f8f9fa; opacity: 0.6; }
+    .combo { fill: #4ecdc4; }
+    .tap { font-size: 11px; font-weight: bold; }
+    .hold { font-size: 8px; fill: #666; }
+    .background { fill: #2c3e50; }
+    .outline { stroke: #34495e; stroke-width: 1; }
+    
+    /* Layer-specific colors */
+    .layer-Camera .key { fill: #3498db; }
+    .layer-Speed .key { fill: #2ecc71; }
+    .layer-Editor .key { fill: #f39c12; }
+    .layer-Macros .key { fill: #e74c3c; }

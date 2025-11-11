@@ -1,0 +1,28 @@
+layout:
+  qmk_info_json: keymap-layout-helper.json
+  layout_name: corne_left_only
+layers:
+  Camera:
+    - ["T\nCam ↑", "W\nForward", "R\nZoom In", "U\nFocus", "I\nInfo View", "P\nProgress"]
+    - ["Q\nCam ←", "A\nLeft", "S\nBack", "D\nRight", "E\nCam →", "F\nZoom Out"]
+    - ["G\nCam ↓", "Z\nEconomy", "X\nTransport", "C\nCity Info", "V\nStatistics", "B\nBulldozer"]
+    - [{t: "L1", h: "Speed Layer", type: "held"}, "Space\nPause", "Esc\nBack"]
+
+  Speed:
+    - ["`\nHide UI", "1\nNormal", "2\nFast", "3\nSuper", "F5\nSave", "F9\nLoad"]
+    - ["M\nMap Tiles", "PgUp\n↑ Elevation", "PgDn\n↓ Elevation", ".\nPhoto Mode", "Enter\nTake Photo", null]
+    - [null, null, null, null, null, null]
+    - [null, {t: "L2", h: "Editor Layer", type: "held"}, null]
+
+  Editor:
+    - ["C\nClone", "O\nAuto Connect", "P\nAuto Align", "M\nMove Selected", null, null]
+    - ["X\nAlign X", "Y\nAlign Y", "Z\nAlign Z", null, null, null]
+    - [null, null, null, null, null, null]
+    - [null, null, {t: "L3", h: "Macro Layer", type: "held"}]
+
+  Macros:
+    - ["M1\nQuick Road", "M2\nZone + Utils", "M3\nCam Reset", "M4\nSave + Pause", "M5\nEcon Tour", "M6\nPhoto Setup"]
+    - ["M7\nTraffic View", "M8\nBuild Seq", "M9\nDisaster", "M10\nServices", "M11\nUtilities", "M12\nTransport"]
+    - ["M13\nIndustrial", "M14\nCommercial", "M15\nParks", "M16\nEducation", "M17\nHealthcare", "M18\nPolice/Fire"]
+    - [null, null, null]
+

@@ -1,0 +1,72 @@
+https://defkey.com/cities-skylines-2-shortcuts
+
+
+ ====================================
+Cities Skylines 2 keyboard shortcuts
+====================================
+
+First published at 10/27/2023 on
+https://defkey.com/cities-skylines-2-shortcuts
+
+Cities: Skylines II is a 2023 city-building game developed by Colossal
+Order and published by Paradox Interactive. The game was released on 24
+October 2023.
+
+Cities Skylines 2 has 38 shortcuts and we have listed all of them below.
+
+
+
+Camera
+------
+
+W/A/S/D                 Move camera
+T                       Rotate camera up
+G                       Rotate camera down
+Q                       Rotate camera left
+E                       Rotate camera right
+F                       Zoom out
+R                       Zoom in
+
+
+General
+-------
+
+Esc                     Back/Cancel/Pause menu
+Space                   Pause simulation
+B                       Bulldozer
+Page Down               Decrease elevation
+Page Up                 Increase elevation
+1                       Normal speed
+2                       Fast speed
+3                       Super fast speed
+F5                      Quick save
+F9                      Quick load
+U                       Focus selection
+`                       Hide UI
+M                       Map tiles
+I                       Info view
+P                       Progression
+Z                       City economy
+C                       City information
+V                       City statistics
+X                       Transporation overview
+.                       Photo mode
+Enter                   Take photo
+
+
+Editor
+------
+
+C                       Clone
+O                       Auto connect
+Z                       Align Z axis
+Y                       Align Y axis
+X                       Align X axis
+P                       Auto align
+M                       Move selected
+Left click              Info panel
+Left click              Apply tool
+Right click             Secondary apply tool
+
+Last modified on (UTC): Friday, October 27, 2023
+Defkey © All rights reserved.
