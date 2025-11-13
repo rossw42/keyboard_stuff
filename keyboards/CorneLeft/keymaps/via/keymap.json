@@ -1,0 +1,176 @@
+{
+  "name": "Cities Skylines 2 - Corne Left Macropad",
+  "vendorId": "0x4653",
+  "productId": "0x0001",
+  "matrix": {
+    "rows": 4,
+    "cols": 6
+  },
+  "layouts": {
+    "labels": [
+      "Layer 0: Movement & Building Tools",
+      "Layer 1: Zoom & Camera Controls", 
+      "Layer 2: Roads & Advanced Tools",
+      "Layer 3: Building & Zoning"
+    ],
+    "keymap": [
+      [
+        {
+          "c": "#4a90e2",
+          "t": "#ffffff",
+          "a": 4
+        },
+        "O\n\n\n\nAuto\nConnect",
+        "C\n\n\n\nClone",
+        "M\n\n\n\nMove\nSelected",
+        {
+          "c": "#cccccc",
+          "t": "#666666"
+        },
+        "",
+        {
+          "c": "#4a90e2",
+          "t": "#ffffff"
+        },
+        "W\n\n\n\nForward",
+        {
+          "c": "#cccccc",
+          "t": "#666666"
+        },
+        ""
+      ],
+      [
+        {
+          "c": "#4a90e2",
+          "t": "#ffffff"
+        },
+        "Tab\n\n\n\nNext\nTool",
+        "Enter\n\n\n\nConfirm",
+        "Del\n\n\n\nDelete",
+        "A\n\n\n\nLeft",
+        "S\n\n\n\nBack",
+        "D\n\n\n\nRight"
+      ],
+      [
+        "Ctrl\n\n\n\nStraight",
+        "Shift\n\n\n\nSnap\nToggle",
+        "Space\n\n\n\nPause",
+        "Alt\n\n\n\nCurved",
+        "U\n\n\n\nFocus",
+        {
+          "c": "#cccccc",
+          "t": "#666666"
+        },
+        ""
+      ],
+      [
+        {
+          "x": 3,
+          "c": "#7ed321",
+          "t": "#ffffff",
+          "w": 1
+        },
+        "MO(1)\n\n\n\nZoom\nLayer",
+        {
+          "c": "#4a90e2"
+        },
+        "B\n\n\n\nBulldozer",
+        "Esc\n\n\n\nBack"
+      ]
+    ]
+  },
+  "layers": [
+    [
+      "KC_O",
+      "KC_C",
+      "KC_M",
+      "KC_TRNS",
+      "KC_W",
+      "KC_TRNS",
+      "KC_TAB",
+      "KC_ENT",
+      "KC_DEL",
+      "KC_A",
+      "KC_S",
+      "KC_D",
+      "KC_LCTL",
+      "KC_LSFT",
+      "KC_SPC",
+      "KC_LALT",
+      "KC_U",
+      "KC_TRNS",
+      "MO(1)",
+      "KC_B",
+      "KC_ESC"
+    ],
+    [
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_R",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_Q",
+      "KC_F",
+      "KC_E",
+      "KC_Y",
+      "KC_X",
+      "KC_L",
+      "KC_PGUP",
+      "KC_PGDN",
+      "KC_TRNS",
+      "KC_TRNS",
+      "MO(2)",
+      "KC_TRNS"
+    ],
+    [
+      "KC_H",
+      "KC_N",
+      "KC_T",
+      "KC_G",
+      "KC_J",
+      "KC_K",
+      "KC_F2",
+      "KC_F3",
+      "KC_F4",
+      "KC_I",
+      "KC_V",
+      "KC_P",
+      "KC_INS",
+      "KC_HOME",
+      "KC_END",
+      "KC_BSPC",
+      "KC_EQL",
+      "KC_MINS",
+      "KC_TRNS",
+      "KC_TRNS",
+      "MO(3)"
+    ],
+    [
+      "KC_1",
+      "KC_2",
+      "KC_3",
+      "KC_4",
+      "KC_5",
+      "KC_6",
+      "KC_7",
+      "KC_8",
+      "KC_9",
+      "KC_0",
+      "KC_LBRC",
+      "KC_RBRC",
+      "KC_F5",
+      "KC_F9",
+      "KC_F10",
+      "KC_F11",
+      "KC_F12",
+      "KC_GRV",
+      "KC_TRNS",
+      "KC_TRNS",
+      "KC_TRNS"
+    ]
+  ]
+}
