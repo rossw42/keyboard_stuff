@@ -1,168 +1,178 @@
-# Keyboard CAD Scripts
+# Keyboard Case Generator
 
-Python scripts for working with keyboard PCB STEP files exported from KiCad.
+Generate 3D-printable keyboard cases from KiCad PCB designs. Works with any keyboard PCB - single or split.
 
-## Prerequisites
+## Installation
 
 ```bash
-pip install cadquery trimesh shapely
+pip install cadquery shapely
 ```
 
-## Scripts
+## Quick Start
 
-### split_keyboard.py
+**You only need one command:**
 
-Split a keyboard PCB STEP file into left and right halves.
-
-**Usage:**
 ```bash
-python split_keyboard.py <input.step> [output_dir]
+cd scripts
+
+# Single keyboard (like a 60%, TKL, etc.)
+python keyboard_case_workflow.py single path/to/keyboard.step --kicad-pcb path/to/keyboard.kicad_pcb
+
+# Split keyboard (like Corne, Sweep, etc.)
+python keyboard_case_workflow.py split path/to/keyboard.step --kicad-pcb path/to/keyboard.kicad_pcb
 ```
 
-**Example:**
+That's it! The script will generate everything you need.
+
+## What You Get
+
+### Single Keyboard
+- `keyboard_bottom_tray.step` / `.stl` - Bottom case with mounting posts
+- `keyboard_switch_plate.step` / `.stl` - Top plate with switch cutouts
+
+### Split Keyboard
+- `keyboard_pcb_left.step` / `.stl` - Left PCB half
+- `keyboard_pcb_right.step` / `.stl` - Right PCB half
+- `keyboard_bottom_tray_left.step` / `.stl` - Left bottom case
+- `keyboard_bottom_tray_right.step` / `.stl` - Right bottom case
+- `keyboard_switch_plate_left.step` / `.stl` - Left switch plate
+- `keyboard_switch_plate_right.step` / `.stl` - Right switch plate
+
+## Step-by-Step Workflow
+
+1. **Design your PCB in KiCad** (or use an existing design)
+
+2. **Export STEP file from KiCad:**
+   - File → Export → STEP
+   - Save as `keyboard.step`
+
+3. **Run the generator:**
+   ```bash
+   cd scripts
+   python keyboard_case_workflow.py single ../path/to/keyboard.step \
+     --kicad-pcb ../path/to/keyboard.kicad_pcb \
+     --output ../path/to/output
+   ```
+
+4. **3D print the STL files** - Load them into your slicer and print!
+
+## Common Options
+
 ```bash
-python split_keyboard.py keyboards/myboard/myboard.step
-python split_keyboard.py keyboards/myboard/myboard.step ./output
+# Specify output directory
+--output path/to/output
+
+# Disable chamfered edges (if they fail on complex geometry)
+--no-chamfers
+
+# Use fillets instead of chamfers
+--enable-fillets
+
+# Disable rubber feet recesses
+--no-rubber-feet
+
+# Also generate PCB STL for visualization
+--generate-pcb-stl
 ```
 
-**Output:**
-- `{name}_pcb_left.step` / `.stl`
-- `{name}_pcb_right.step` / `.stl`
+## Examples
 
----
-
-### generate_case.py
-
-Generate minimal tray-style case bottoms for split keyboard halves.
-Design based on analysis of Sweep and Corne keyboards.
-
-**Usage:**
+### Example 1: Basic 60% Keyboard
 ```bash
-python generate_case.py <pcb_left.step> <pcb_right.step> [output_dir]
+python keyboard_case_workflow.py single ../keyboards/my60/my60.step \
+  --kicad-pcb ../keyboards/my60/my60.kicad_pcb \
+  --output ../keyboards/my60/output
 ```
 
-**Example:**
+### Example 2: Split Keyboard (Corne, Sweep, etc.)
 ```bash
-python generate_case.py keyboards/myboard/myboard_pcb_left.step keyboards/myboard/myboard_pcb_right.step
+python keyboard_case_workflow.py split ../keyboards/corne/corne.step \
+  --kicad-pcb ../keyboards/corne/corne.kicad_pcb \
+  --output ../keyboards/corne/output
 ```
 
-**Output:**
-- `{name}_case_bottom_left.step` / `.stl`
-- `{name}_case_bottom_right.step` / `.stl`
-
-**Parameters (edit in script):**
-- `WALL_THICKNESS` - Case wall thickness (default: 2.0mm)
-- `BOTTOM_THICKNESS` - Bottom plate thickness (default: 1.5mm)
-- `PCB_CLEARANCE_BOTTOM` - Space below PCB (default: 2.5mm)
-- `OFFSET` - Distance case extends beyond PCB (default: 2.5mm)
-- `FILLET_RADIUS` - Edge rounding (default: 1.5mm)
-
----
-
-### generate_plate.py
-
-Generate switch plates for split keyboard halves (without switch cutouts).
-Standard 1.5mm thickness for Cherry MX switches.
-
-**Usage:**
+### Example 3: Just Convert PCB to STL (for visualization)
 ```bash
-python generate_plate.py <pcb_left.step> <pcb_right.step> [output_dir]
+python keyboard_case_workflow.py pcb-stl ../keyboards/my60/my60.step
 ```
 
-**Example:**
+## Features
+
+- **Automatic switch detection** - Reads switch positions from your `.kicad_pcb` file
+- **Organic outline following** - Case follows your actual PCB shape
+- **Professional features** - Chamfered edges, mounting posts, plate lips, rubber feet
+- **Split keyboard support** - Automatically splits and generates both halves
+- **Multiple outputs** - STEP files (for CAD editing) and STL files (for 3D printing)
+
+## Troubleshooting
+
+### "Failed to import STEP file"
+- Re-export from KiCad: File → Export → STEP
+- Make sure the file isn't corrupted
+
+### "No switches found in KiCad PCB file"
+- Check that your switches use standard footprints (MX, Choc, PG1350)
+- The generator will create a solid plate if no switches are detected
+- You can manually add cutouts in CAD software later
+
+### "Failed to apply chamfers"
+- Try: `--enable-fillets` or `--no-chamfers`
+- Complex geometry can cause chamfer operations to fail
+
+### "Command not found" or "Module not found"
+- Make sure you're running from the `scripts/` directory
+- Check that dependencies are installed: `pip install cadquery shapely`
+
+## Advanced Usage
+
+If you need more control, you can use the individual scripts:
+
+### Split a PCB manually
 ```bash
-python generate_plate.py keyboards/myboard/myboard_pcb_left.step keyboards/myboard/myboard_pcb_right.step
+python split_keyboard.py keyboard.step output_dir/
 ```
 
-**Output:**
-- `{name}_plate_left.step` / `.stl`
-- `{name}_plate_right.step` / `.stl`
-
-**Note:** Generates solid plates. You'll need to manually add 14x14mm switch cutouts in CAD software.
-
----
-
-### generate_plate_with_cutouts.py
-
-**NEW!** Generate switch plates with automatic switch cutouts extracted from KiCad PCB file.
-
-**Usage:**
+### Convert STEP to STL
 ```bash
-python generate_plate_with_cutouts.py <kicad_pcb_file> <pcb_left.step> <pcb_right.step> [output_dir]
+python convert_step_to_stl.py input.step output.stl
 ```
 
-**Example:**
+### Use the generator directly (with custom parameters)
 ```bash
-python generate_plate_with_cutouts.py keyboards/myboard/myboard.kicad_pcb keyboards/myboard/myboard_pcb_left.step keyboards/myboard/myboard_pcb_right.step
+python generate_case_unified.py keyboard.step \
+  --kicad-pcb keyboard.kicad_pcb \
+  --wall-thickness 2.5 \
+  --case-height 10.0 \
+  --case-offset 3.0
 ```
-
-**Output:**
-- `{name}_plate_left.step` / `.stl` - with switch cutouts!
-- `{name}_plate_right.step` / `.stl` - with switch cutouts!
-
-**Features:**
-- Automatically detects switch positions from KiCad PCB file
-- Supports Cherry MX, Choc (PG1350), and other switch types
-- Creates 14x14mm cutouts at each switch location
-- Follows organic PCB outline
-- Ready to print - no manual CAD work needed!
-
-**Parameters (edit in script):**
-- `PLATE_THICKNESS` - Plate thickness (default: 1.5mm)
-- `PLATE_OFFSET` - Distance plate extends beyond PCB (default: 1.0mm)
-- `SWITCH_CUTOUT_SIZE` - Switch cutout size (default: 14.0mm)
-
----
-
-## Workflow
-
-### Basic Workflow (manual switch cutouts)
-1. Export your PCB from KiCad as STEP file (e.g., `myboard_pcb.step`)
-2. Split it into halves: `python split_keyboard.py myboard_pcb.step`
-3. Generate case bottoms: `python generate_case.py myboard_pcb_left.step myboard_pcb_right.step`
-4. Generate switch plates: `python generate_plate.py myboard_pcb_left.step myboard_pcb_right.step`
-5. Manually add switch cutouts in CAD software
-6. Load STL files into your slicer and print!
-
-### Advanced Workflow (automatic switch cutouts)
-1. Export your PCB from KiCad as STEP file (e.g., `myboard_pcb.step`)
-2. Split it into halves: `python split_keyboard.py myboard_pcb.step`
-3. Generate case bottoms: `python generate_case.py myboard_pcb_left.step myboard_pcb_right.step`
-4. Generate plates with cutouts: `python generate_plate_with_cutouts.py myboard.kicad_pcb myboard_pcb_left.step myboard_pcb_right.step`
-5. Load STL files into your slicer and print!
 
 ## Design Philosophy
 
-These scripts are based on analysis of popular open-source keyboards (Sweep, Corne):
+This is a **PCB-first** approach - you start with an existing PCB design and generate a case to fit it. Perfect for:
+- Custom keyboard designs
+- Purchased PCBs that need cases
+- Open-source PCB designs you found online
+- Quick iteration on case designs
 
-**Case Design:**
-- Low profile (~7-8mm total height)
-- Minimal wall thickness (2.0mm)
-- Thin bottom (1.5mm)
-- Compact offset from PCB edge (2.5mm)
-- Smooth filleted edges (1.5mm radius)
-- M3 mounting holes in corners
+## Project Structure
 
-**Plate Design:**
-- Standard 1.5mm thickness for Cherry MX and Choc switches
-- Minimal offset from PCB (1.0mm)
-- M2.5 mounting holes
-- Automatic switch cutout detection from KiCad PCB file (14x14mm per switch)
-- Supports Cherry MX, Kailh Choc (PG1350), and hotswap sockets
+```
+scripts/
+├── keyboard_case_workflow.py    ← Main script (USE THIS!)
+├── generate_case_unified.py     ← Core generator
+├── split_keyboard.py            ← PCB splitter
+├── convert_step_to_stl.py       ← STEP→STL converter
+└── case_generator/              ← Generator modules
+    ├── pcb_analyzer.py          ← PCB import/analysis
+    ├── switch_detector.py       ← KiCad PCB parsing
+    ├── bottom_tray.py           ← Case bottom generation
+    ├── switch_plate.py          ← Switch plate generation
+    └── ...
+```
 
-## File Naming Convention
+## Need Help?
 
-- `{name}_pcb.step` - Full PCB export from KiCad
-- `{name}_pcb_left.step/stl` - Left half of PCB
-- `{name}_pcb_right.step/stl` - Right half of PCB
-- `{name}_case_bottom_left.step/stl` - Left case bottom
-- `{name}_case_bottom_right.step/stl` - Right case bottom
-- `{name}_plate_left.step/stl` - Left switch plate (future)
-- `{name}_plate_right.step/stl` - Right switch plate (future)
-
-## Notes
-
-- Scripts work with any split keyboard PCB exported from KiCad
-- STEP files preserve CAD geometry for further editing
-- STL files are ready for 3D printing
-- Cases include M3 screw holes in corners
+Check the other documentation files:
+- `WORKFLOW_GUIDE.md` - Detailed workflow examples
+- `case_generator/README.md` - Technical details about the generator
+- `kicad-pcb-format.md` - KiCad file format notes
