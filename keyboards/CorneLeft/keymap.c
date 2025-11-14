@@ -13,7 +13,7 @@ enum layers {
     _MOVEMENT = 0,  // Movement & Building Tools (Default)
     _ZOOM,          // Zoom/Camera Controls
     _ROADS,         // Roads & Advanced Tools  
-    _BUILDING       // Building & Zoning
+    _BUILDING       // RGB Backlight Control
 };
 
 // No custom keycodes needed for this layout
@@ -96,28 +96,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     /*
-     * Layer 3: BUILDING - Zoning & System Functions
+     * Layer 3: RGB CONTROL - RGB Backlight Controls
      * ┌─────┬─────┬─────┬─────┬─────┬─────┐
-     * │  1  │  2  │  3  │  4  │  5  │  6  │
-     * │Resi │Comm │Indu │Offi │Mix  │Road │
-     * │dent │ercl │strl │ce   │Use  │s    │
+     * │TOG  │MOD  │RMOD │ HUI │ SAI │ VAI │
+     * │RGB  │Next │Prev │Hue+ │Sat+ │Brt+ │
+     * │Togg │Mode │Mode │     │     │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │  7  │  8  │  9  │  0  │  [  │  ]  │
-     * │Pub  │Util │Park │Serv │Dec  │Inc  │
-     * │Tran │ity  │Rec  │ice  │Brsh │Brsh │
+     * │Plain│Brth │Rnbw │Swirl│Snake│Knght│
+     * │     │     │     │     │     │     │
+     * │     │     │     │     │     │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ F5  │ F9  │F10  │F11  │F12  │  `  │
-     * │Save │Load │Shot │Full │Cons │Hide │
-     * │     │     │     │scrn │ole  │UI   │
+     * │Xmas │Grad │Test │ HUD │ SAD │ VAD │
+     * │     │     │     │Hue- │Sat- │Brt- │
+     * │     │     │     │     │     │     │
      * └─────┴─────┴─────┼─────┼─────┼─────┤
      *                   │     │     │     │
      *                   │     │     │     │
      *                   └─────┴─────┴─────┘
      */
     [_BUILDING] = LAYOUT_split_3x6_3(
-        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,
-        KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,
-        KC_F5,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_GRV,
+        RGB_TOG, RGB_MOD, RGB_RMOD, RGB_HUI, RGB_SAI, RGB_VAI,
+        RGB_M_P, RGB_M_B, RGB_M_R,  RGB_M_SW, RGB_M_SN, RGB_M_K,
+        RGB_M_X, RGB_M_G, RGB_M_T,  RGB_HUD, RGB_SAD, RGB_VAD,
                           KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
