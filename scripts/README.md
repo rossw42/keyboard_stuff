@@ -20,6 +20,9 @@ python keyboard_case_workflow.py single path/to/keyboard.step --kicad-pcb path/t
 
 # Split keyboard (like Corne, Sweep, etc.)
 python keyboard_case_workflow.py split path/to/keyboard.step --kicad-pcb path/to/keyboard.kicad_pcb
+
+# Unify a single half into a complete keyboard (NEW!)
+python keyboard_case_workflow.py unify path/to/keyboard_left.step --gap 15 --splay 5
 ```
 
 That's it! The script will generate everything you need.
@@ -91,7 +94,17 @@ python keyboard_case_workflow.py split ../keyboards/corne/corne.step \
   --output ../keyboards/corne/output
 ```
 
-### Example 3: Just Convert PCB to STL (for visualization)
+### Example 3: Unify a Single Half into Complete Keyboard
+```bash
+# Take just the left half and create a unified keyboard
+python keyboard_case_workflow.py unify ../keyboards/corne/corne_left.step \
+  --gap 15 \
+  --splay 5 \
+  --kicad-pcb ../keyboards/corne/corne.kicad_pcb \
+  --output ../keyboards/corne/unified_output
+```
+
+### Example 4: Just Convert PCB to STL (for visualization)
 ```bash
 python keyboard_case_workflow.py pcb-stl ../keyboards/my60/my60.step
 ```
@@ -102,6 +115,7 @@ python keyboard_case_workflow.py pcb-stl ../keyboards/my60/my60.step
 - **Organic outline following** - Case follows your actual PCB shape
 - **Professional features** - Chamfered edges, mounting posts, plate lips, rubber feet
 - **Split keyboard support** - Automatically splits and generates both halves
+- **Unify workflow** - Take a single half and create a unified keyboard with configurable gap/splay
 - **Multiple outputs** - STEP files (for CAD editing) and STL files (for 3D printing)
 
 ## Troubleshooting
@@ -130,6 +144,14 @@ If you need more control, you can use the individual scripts:
 ### Split a PCB manually
 ```bash
 python split_keyboard.py keyboard.step output_dir/
+```
+
+### Combine a single half into unified keyboard
+```bash
+python combine_split_halves.py keyboard_left.step \
+  --gap 15 \
+  --splay 5 \
+  -o output/keyboard_unified.step
 ```
 
 ### Convert STEP to STL
@@ -173,6 +195,7 @@ scripts/
 ## Need Help?
 
 Check the other documentation files:
+- `UNIFY_WORKFLOW.md` - Detailed guide for combining split halves into unified keyboards
 - `WORKFLOW_GUIDE.md` - Detailed workflow examples
 - `case_generator/README.md` - Technical details about the generator
 - `kicad-pcb-format.md` - KiCad file format notes

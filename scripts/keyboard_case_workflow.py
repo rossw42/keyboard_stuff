@@ -200,6 +200,86 @@ def workflow_split(args):
     return True
 
 
+def workflow_unify(args):
+    """Workflow for unifying a single half into a complete keyboard."""
+    logger.info("\n🔗 UNIFY SPLIT KEYBOARD WORKFLOW")
+    logger.info("="*60)
+    
+    half_step = Path(args.half_step)
+    output_dir = Path(args.output) if args.output else half_step.parent / "output"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Step 1: Combine the half into a unified keyboard PCB
+    logger.info("\n📦 Step 1: Combine half into unified keyboard PCB")
+    base_name = half_step.stem.replace('_pcb', '').replace('_left', '').replace('_right', '')
+    unified_step = output_dir / f"{base_name}_unified.step"
+    
+    cmd = [
+        "python", get_script_path("combine_split_halves.py"),
+        str(half_step),
+        "-o", str(unified_step),
+        "--gap", str(args.gap),
+        "--splay", str(args.splay),
+        "--vertical-offset", str(args.vertical_offset),
+        "--which-half", args.which_half
+    ]
+    
+    if not run_command(cmd, "Combine halves into unified keyboard"):
+        return False
+    
+    # Step 2: Extract one half from KiCad PCB if provided
+    kicad_pcb_to_use = None
+    if args.kicad_pcb:
+        logger.info("\n📝 Step 2: Extract one half from KiCad PCB for switch detection")
+        kicad_half = output_dir / f"{base_name}_kicad_{args.which_half}.kicad_pcb"
+        cmd = [
+            "python", get_script_path("extract_pcb_half.py"),
+            str(args.kicad_pcb),
+            "-o", str(kicad_half),
+            "--which-half", args.which_half
+        ]
+        if not run_command(cmd, "Extract KiCad PCB half"):
+            logger.warning("Failed to extract KiCad half, continuing without switch detection")
+        else:
+            kicad_pcb_to_use = kicad_half
+    
+    # Step 3: Generate case using single workflow (which works perfectly)
+    logger.info("\n🏗️  Step 3: Generate case for unified keyboard")
+    cmd = ["python", get_script_path("generate_case_unified.py"), str(unified_step)]
+    
+    if kicad_pcb_to_use:
+        cmd.extend(["--kicad-pcb", str(kicad_pcb_to_use)])
+    
+    cmd.extend(["--output", str(output_dir)])
+    
+    # Add unified flag to mirror switches
+    cmd.append("--unified")
+    
+    # Add optional flags
+    if args.no_chamfers:
+        cmd.append("--no-chamfers")
+    if args.enable_fillets:
+        cmd.append("--enable-fillets")
+    if args.no_rubber_feet:
+        cmd.append("--no-rubber-feet")
+    if args.no_plate_lip:
+        cmd.append("--no-plate-lip")
+    
+    if not run_command(cmd, "Generate unified case"):
+        return False
+    
+    logger.info("\n" + "="*60)
+    logger.info("✅ WORKFLOW COMPLETE!")
+    logger.info("="*60)
+    logger.info(f"\nOutput files in: {output_dir}")
+    logger.info("\nGenerated files:")
+    logger.info("  - Unified PCB (STEP + STL)")
+    logger.info("  - Bottom tray (STEP + STL)")
+    logger.info("  - Switch plate (STEP + STL)")
+    
+    return True
+
+
 def workflow_pcb_stl(args):
     """Just convert PCB STEP to STL."""
     logger.info("\n📦 PCB STEP → STL CONVERSION")
@@ -231,6 +311,9 @@ Examples:
   # Split keyboard (auto-split + generate cases)
   python keyboard_case_workflow.py split keyboard.step --kicad-pcb keyboard.kicad_pcb
   
+  # Unify a single half into a complete keyboard
+  python keyboard_case_workflow.py unify corne_left.step --gap 15 --splay 5
+  
   # Just convert PCB to STL for visualization
   python keyboard_case_workflow.py pcb-stl keyboard.step
         """
@@ -260,6 +343,24 @@ Examples:
     split_parser.add_argument('--no-rubber-feet', action='store_true', help='Disable rubber feet')
     split_parser.add_argument('--no-plate-lip', action='store_true', help='Disable plate lip')
     
+    # Unify workflow (combine single half into unified keyboard)
+    unify_parser = subparsers.add_parser('unify', help='Combine single half into unified keyboard')
+    unify_parser.add_argument('half_step', help='Single half PCB STEP file')
+    unify_parser.add_argument('--kicad-pcb', help='KiCad PCB file for switch detection')
+    unify_parser.add_argument('-o', '--output', help='Output directory')
+    unify_parser.add_argument('--gap', type=float, default=15.0,
+                             help='Gap between halves in mm (default: 15.0)')
+    unify_parser.add_argument('--splay', type=float, default=0.0,
+                             help='Splay angle in degrees, positive = outward (default: 0.0)')
+    unify_parser.add_argument('--vertical-offset', type=float, default=0.0,
+                             help='Vertical offset between halves in mm (default: 0.0)')
+    unify_parser.add_argument('--which-half', choices=['left', 'right'], default='left',
+                             help='Which half is the input (default: left)')
+    unify_parser.add_argument('--no-chamfers', action='store_true', help='Disable chamfers')
+    unify_parser.add_argument('--enable-fillets', action='store_true', help='Enable fillets')
+    unify_parser.add_argument('--no-rubber-feet', action='store_true', help='Disable rubber feet')
+    unify_parser.add_argument('--no-plate-lip', action='store_true', help='Disable plate lip')
+    
     # PCB STL conversion only
     pcb_parser = subparsers.add_parser('pcb-stl', help='Convert PCB STEP to STL only')
     pcb_parser.add_argument('pcb_step', help='PCB STEP file')
@@ -276,6 +377,8 @@ Examples:
         success = workflow_single(args)
     elif args.workflow == 'split':
         success = workflow_split(args)
+    elif args.workflow == 'unify':
+        success = workflow_unify(args)
     elif args.workflow == 'pcb-stl':
         success = workflow_pcb_stl(args)
     else:

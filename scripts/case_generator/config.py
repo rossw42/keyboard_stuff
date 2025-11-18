@@ -18,17 +18,17 @@ class CaseConfig:
     side: str = "both"  # 'left', 'right', or 'both'
     
     # Case dimensions
-    wall_thickness: float = 2.0  # mm
-    bottom_thickness: float = 1.5  # mm
-    case_height: float = 8.0  # mm
+    wall_thickness: float = 2.0  # mm (recommended: 2-3mm)
+    bottom_thickness: float = 1.6  # mm (recommended: 1.6-2mm, 1.6mm matches tutorial)
+    case_height: float = 8.0  # mm (MX hotswap: 8mm, MX soldered: 6.5mm, Choc hotswap: 4.5mm, Choc soldered: 3mm)
     pcb_clearance: float = 2.5  # mm
-    case_offset: float = 2.5  # mm
+    case_offset: float = 1.0  # mm (PCB tolerance - inner wall offset from PCB edge)
     corner_radius: float = 1.5  # mm
     
     # Plate dimensions
-    plate_thickness: float = 1.5  # mm
-    plate_offset: float = 1.0  # mm
-    switch_cutout_size: float = 14.0  # mm
+    plate_thickness: float = 1.6  # mm (recommended: 1.6mm, max 2mm)
+    plate_offset: float = 0.0  # mm (plate follows PCB outline exactly, switches should be within PCB bounds)
+    switch_cutout_size: float = 14.0  # mm (MX: 14mm, Choc: 13.95mm)
     
     # Features
     enable_chamfers: bool = True
@@ -55,6 +55,13 @@ class CaseConfig:
     
     # Export options
     stl_tolerance: float = 0.01  # mm
+    
+    # Unified keyboard flag
+    is_unified: bool = False  # True if this is a unified keyboard (mirror switches)
+    
+    # Outline cleanup for aesthetics
+    clean_outline: bool = False  # Fill small notches and smooth outline (experimental - may change dimensions)
+    notch_fill_depth: float = 1.5  # mm - maximum depth of notches to fill (smaller = less aggressive)
     
     def validate(self) -> List[str]:
         """Validate configuration and return list of errors."""
@@ -83,8 +90,8 @@ class CaseConfig:
         # Validate dimensions
         if self.wall_thickness < 1.5 or self.wall_thickness > 5.0:
             errors.append(f"wall_thickness must be between 1.5 and 5.0mm, got {self.wall_thickness}")
-        if self.case_height < 5.0 or self.case_height > 20.0:
-            errors.append(f"case_height must be between 5.0 and 20.0mm, got {self.case_height}")
+        if self.case_height < 3.0 or self.case_height > 20.0:
+            errors.append(f"case_height must be between 3.0 and 20.0mm, got {self.case_height}")
         if self.plate_thickness < 1.0 or self.plate_thickness > 2.0:
             errors.append(f"plate_thickness must be between 1.0 and 2.0mm, got {self.plate_thickness}")
         if self.corner_radius < 0.5 or self.corner_radius > 5.0:

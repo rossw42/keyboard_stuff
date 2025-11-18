@@ -122,7 +122,8 @@ def filter_switches_by_side(
 def detect_switch_layout(
     kicad_pcb: Optional[Path],
     pcb_info: PCBInfo,
-    side: str = "both"
+    side: str = "both",
+    is_unified: bool = False
 ) -> Optional[SwitchLayout]:
     """
     Complete switch detection pipeline.
@@ -131,6 +132,7 @@ def detect_switch_layout(
         kicad_pcb: Path to .kicad_pcb file (optional)
         pcb_info: PCB information for determining sides
         side: Which side to detect ('left', 'right', or 'both')
+        is_unified: If True, mirror switches for unified keyboard
         
     Returns:
         SwitchLayout or None if no .kicad_pcb file provided
@@ -175,6 +177,7 @@ def detect_switch_layout(
             y_offset = step_y_center - kicad_y_center
             logger.info(f"Offsetting Y coordinates by {y_offset:.2f}")
     
+    # Normal filtering for split keyboards (or first half of unified)
     for switch in all_switches:
         sx, sy = switch.position
         
@@ -196,6 +199,30 @@ def detect_switch_layout(
             filtered_switches.append(transformed_switch)
     
     logger.info(f"Filtered to {len(filtered_switches)} switches within PCB X bounds")
+    
+    # For unified keyboards, mirror the switches to create both halves
+    if is_unified and filtered_switches:
+        logger.info(f"Unified keyboard: mirroring {len(filtered_switches)} switches")
+        
+        # Find the center of the unified PCB
+        pcb_center_x = (xmin + xmax) / 2
+        logger.info(f"  PCB center X: {pcb_center_x:.2f}")
+        
+        # Mirror switches across the center
+        mirrored_switches = []
+        for switch in filtered_switches:
+            sx, sy = switch.position
+            # Mirror X coordinate across center
+            mirrored_x = 2 * pcb_center_x - sx
+            mirrored_switches.append(SwitchInfo(
+                position=(mirrored_x, sy),
+                rotation=switch.rotation,
+                footprint_type=switch.footprint_type
+            ))
+        
+        # Combine original and mirrored
+        filtered_switches = filtered_switches + mirrored_switches
+        logger.info(f"  Total switches after mirroring: {len(filtered_switches)}")
     
     return SwitchLayout(
         switches=filtered_switches,
