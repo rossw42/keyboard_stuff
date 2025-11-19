@@ -1,0 +1,17 @@
+# Build Options
+BOOTMAGIC_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+CONSOLE_ENABLE = no
+COMMAND_ENABLE = no
+NKRO_ENABLE = yes
+BACKLIGHT_ENABLE = no
+RGBLIGHT_ENABLE = no
+AUDIO_ENABLE = no
+
+# Split keyboard
+SPLIT_KEYBOARD = yes
+
+# Vial support
+VIA_ENABLE = yes
+VIAL_ENABLE = yes
