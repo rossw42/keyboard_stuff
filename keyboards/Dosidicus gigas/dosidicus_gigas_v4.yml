@@ -1,0 +1,436 @@
+points:
+  zones:
+    matrix:
+      columns:
+        pinky:
+          key:
+            spread: 18
+            splay: 15
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [5, 60, 0, 0]
+              column_net: P1
+              mirror.column_net: P21
+            home:
+              bind: [0, 12, 0, 0]
+              column_net: P3
+              mirror.column_net: P20
+            top:
+              bind: [0, 8, 5, 0]
+              column_net: P4
+              mirror.column_net: P19
+        ring:
+          key:
+            spread: 18
+            stagger: 17
+            splay: -10
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [0, 0, 5, 10]
+              column_net: P5
+              mirror.column_net: P18
+            home:
+              bind: [5, 0, 5, 0]
+              column_net: P6
+              mirror.column_net: P15
+            top:
+              bind: [0, 5, 0, 0]
+              column_net: P7
+              mirror.column_net: P14
+        middle:
+          key:
+            spread: 18
+            stagger: 17/3
+            splay: -5
+            origin: [0, -17]
+            shift: [0.2, 0]
+          rows:
+            bottom:
+              bind: [0, 10, 5, 5]
+              column_net: P8
+              mirror.column_net: P9
+            home:
+              bind: 5
+              column_net: P9
+              mirror.column_net: P8
+            top:
+              bind: [0, 0, 0, 0]
+              column_net: P16
+              mirror.column_net: P7
+        index:
+          key:
+            spread: 18
+            stagger: -17/3
+            splay: -5
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [0, 5, 5, 0]
+              column_net: P14
+              mirror.column_net: P6
+            home:
+              bind: [5, 0, 5, 0]
+              column_net: P15
+              mirror.column_net: P5
+            top:
+              bind: [0, 0, 0, 8]
+              column_net: P18
+              mirror.column_net: P4
+        inner:
+          key:
+            spread: 18
+            stagger: -17/6
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [0, 27, 10, 0]
+              column_net: P19
+              mirror.column_net: P3
+            home:
+              bind: [0, 27, 5, 5]
+              column_net: P20
+              mirror.column_net: P0
+            top:
+              bind: [0, 0, 5, 5]
+              column_net: P21
+              mirror.column_net: P1
+      rows:
+        bottom:
+          padding: 17
+        home:
+          padding: 17
+        top:
+          padding: 17
+    thumb:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [16, -24]
+      columns:
+        first:
+          key:
+            splay: -15
+          rows:
+            only:
+              column_net: P10
+              bind: [10, 0, 0, 70]
+      rows:
+        only:
+          padding: 17
+  mirror:
+    ref: thumb_first_only
+    distance: 66
+
+outlines:
+  keys:
+    - what: rectangle
+      where: true
+      size: [18, 17]
+      bound: true
+  glue:
+    - what: polygon
+      points:
+        - ref: matrix_inner_top
+          shift: [9, 8.5]
+        - ref: mirror_matrix_inner_top
+          shift: [9, 8.5]
+        - ref: mirror_matrix_inner_bottom
+          shift: [9, -8.5]
+        - ref: matrix_inner_bottom
+          shift: [9, -8.5]
+  triangle_left:
+    - what: polygon
+      points:
+        - ref: matrix_pinky_bottom
+          shift: [-8.5, -8.38]
+        - ref: matrix_middle_home
+          shift: [0, 0]
+        - ref: thumb_first_only
+          shift: [8.5, -8.38]
+  triangle_right:
+    - what: polygon
+      points:
+        - ref: mirror_matrix_pinky_bottom
+          shift: [-8.5, -8.38]
+        - ref: mirror_matrix_middle_home
+          shift: [0, 0]
+        - ref: mirror_thumb_first_only
+          shift: [8.5, -8.38]
+  cutout_left:
+    - what: polygon
+      points:
+        - ref: matrix_inner_home
+          shift: [13, 9.5]
+        - ref: matrix_inner_bottom
+          shift: [13, -6.9]
+        - ref: matrix_inner_bottom
+          shift: [25, -6.9]
+        - ref: matrix_inner_home
+          shift: [25, 9.5]
+  cutout_right:
+    - what: polygon
+      points:
+        - ref: mirror_matrix_inner_home
+          shift: [13, 9.5]
+        - ref: mirror_matrix_inner_bottom
+          shift: [13, -6.9]
+        - ref: mirror_matrix_inner_bottom
+          shift: [25, -6.9]
+        - ref: mirror_matrix_inner_home
+          shift: [25, 9.5]
+  raw:
+    - what: outline
+      name: keys
+    - what: outline
+      name: glue
+      operation: add
+    - what: outline
+      name: triangle_left
+      operation: add
+    - what: outline
+      name: triangle_right
+      operation: add
+    - what: outline
+      name: cutout_left
+      operation: subtract
+    - what: outline
+      name: cutout_right
+      operation: subtract
+  board:
+    - what: outline
+      name: raw
+      fillet: 1
+  half_keys:
+    - what: rectangle
+      where: /^matrix_|^thumb_/
+      size: [18, 17]
+      bound: true
+  half:
+    - what: outline
+      name: half_keys
+    - what: outline
+      name: triangle_left
+      operation: add
+    - what: outline
+      name: cutout_left
+      operation: subtract
+  half_board:
+    - what: outline
+      name: half
+      fillet: 1
+  # Full half without the MCU cutout (for case floor)
+  _half_full:
+    - what: outline
+      name: half_keys
+    - what: outline
+      name: triangle_left
+      operation: add
+  _half_full_board:
+    - what: outline
+      name: _half_full
+      fillet: 1
+
+  # Switch cutouts for top plate (choc switches)
+  _switch_cutouts:
+    - what: rectangle
+      where: /^matrix_|^thumb_/
+      size: [13.8, 13.8]
+      bound: false
+
+  # Pro Micro cutout
+  _mcu_cutout:
+    - what: rectangle
+      where:
+        ref: matrix_inner_home
+        shift: [19, -8.5]
+      size: [18, 33]
+
+  # TRRS cutout
+  _trrs_cutout:
+    - what: rectangle
+      where:
+        ref: matrix_inner_home
+        shift: [35, 8.5]
+      size: [6, 12]
+
+  # Hotswap socket clearance
+  _socket_cutout:
+    - what: rectangle
+      where: /^matrix_|^thumb_/
+      size: [15, 6]
+      adjust.shift: [0, -5.5]
+
+  # Top plate with switch holes
+  top_plate:
+    - half_board
+    - -_switch_cutouts
+
+  # Expanded outline for case walls (2mm larger all around)
+  _case_outer:
+    - what: outline
+      name: half_board
+      expand: 2
+
+  # Screw holes
+  _screw_holes:
+    - what: circle
+      radius: 1.1
+      where:
+        ref: matrix_pinky_top
+        shift: [-5, 5]
+    - what: circle
+      radius: 1.1
+      where:
+        ref: matrix_pinky_bottom
+        shift: [-5, -5]
+    - what: circle
+      radius: 1.1
+      where:
+        ref: matrix_inner_top
+        shift: [5, 5]
+    - what: circle
+      radius: 1.1
+      where:
+        ref: thumb_first_only
+        shift: [5, -5]
+
+  # Standoffs (larger circles for PCB support)
+  _standoffs:
+    - what: circle
+      radius: 2.5
+      where:
+        ref: matrix_pinky_top
+        shift: [-5, 5]
+    - what: circle
+      radius: 2.5
+      where:
+        ref: matrix_pinky_bottom
+        shift: [-5, -5]
+    - what: circle
+      radius: 2.5
+      where:
+        ref: matrix_inner_top
+        shift: [5, 5]
+    - what: circle
+      radius: 2.5
+      where:
+        ref: thumb_first_only
+        shift: [5, -5]
+
+  # Expanded full outline for case walls (no MCU cutout)
+  _case_outer_full:
+    - what: outline
+      name: _half_full_board
+      expand: 2
+
+cases:
+  # Hillside-style low tray case
+  # Base floor (1.2mm)
+  _tray_floor:
+    - what: outline
+      name: _case_outer_full
+      extrude: 1.2
+
+  # Low walls (3mm tall, 2mm thick)
+  _tray_walls_outer:
+    - what: outline
+      name: _case_outer_full
+      extrude: 3
+  _tray_walls_inner:
+    - what: outline
+      name: _half_full_board
+      extrude: 3
+
+  # Standoff posts to raise PCB (2mm tall)
+  _tray_standoffs:
+    - what: outline
+      name: _standoffs
+      extrude: 2
+  _tray_standoff_holes:
+    - what: outline
+      name: _screw_holes
+      extrude: 2
+
+  # Complete low-profile tray
+  tray:
+    - what: case
+      name: _tray_floor
+    - what: case
+      name: _tray_walls_outer
+      shift: [0, 0, 1.2]
+    - what: case
+      name: _tray_walls_inner
+      shift: [0, 0, 1.2]
+      operation: subtract
+    - what: case
+      name: _tray_standoffs
+      shift: [0, 0, 1.2]
+    - what: case
+      name: _tray_standoff_holes
+      shift: [0, 0, 1.2]
+      operation: subtract
+    - what: outline
+      name: _screw_holes
+      extrude: 4.2
+      operation: subtract
+
+  # Simple switch plate (1.5mm for choc)
+  plate:
+    - what: outline
+      name: top_plate
+      extrude: 1.5
+    - what: outline
+      name: _screw_holes
+      extrude: 1.5
+      operation: subtract
+
+pcbs:
+  dosidicus_gigas:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      choc:
+        what: choc
+        where: true
+        params:
+          from: "{{column_net}}"
+          to: GND
+          keycaps: true
+      promicro:
+        what: promicro
+        where:
+          ref: matrix_inner_home
+          shift: [19, -8.5]
+          rotate: -90
+        params:
+          orientation: down
+      trrs:
+        what: trrs
+        where:
+          ref: matrix_inner_home
+          shift: [35, 8.5]
+        params:
+          A: GND
+          B: GND
+          C: P2
+          D: VCC
+      promicro_mirror:
+        what: promicro
+        where:
+          ref: mirror_matrix_inner_home
+          shift: [19, -8.5]
+          rotate: -90
+        params:
+          orientation: down
+      trrs_mirror:
+        what: trrs
+        where:
+          ref: mirror_matrix_inner_home
+          shift: [30.5, 8.5]
+        params:
+          A: GND
+          B: GND
+          C: P2
+          D: VCC
