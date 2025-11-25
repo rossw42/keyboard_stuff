@@ -1,0 +1,185 @@
+points:
+  key:
+    padding: cy
+  zones:
+    matrix:
+      columns:
+        pinky:
+          rotate: 5
+          spread: 1U
+          rows:
+            bottom:
+              bind: [1U, 0U, 0U, 0U]
+              column_net: P7
+            home:
+              bind: [1U, 1U, 1U, 0U]
+              column_net: P6
+            top:
+              bind: [0U, 1U, 1U, 0U]
+              column_net: P5
+        ring:
+          stagger: 17
+          origin: [-12, -19]
+          rotate: -5
+          spread: 1.2U
+          rows:
+            bottom:
+              column_net: P4
+            home:
+              column_net: P3
+            top:
+              column_net: P0
+        middle:
+          stagger: 7
+          spread: 1.2U
+          rows:
+            bottom:
+              column_net: P1
+            home:
+              column_net: P19
+            top:
+              column_net: P18
+        index:
+          stagger: -8
+          spread: 1U
+          rows:
+            bottom:
+              column_net: P15
+            home:
+              column_net: P14
+            top:
+              column_net: P16
+        inner:
+          stagger: -3
+          spread: 1cx
+          rows:
+            bottom:
+              bind: [1U, 1U, 2U, 1U]
+              column_net: P10
+            home:
+              bind: [1U, 1U, 1U, 1U]
+              column_net: P20
+            top:
+              bind: [0U, 1U, 1U, 1U]
+              column_net: P21
+      rows:
+        bottom:
+        home:
+        top:
+      key:
+        footprints:
+          choc:
+            type: choc
+            nets:
+              from: GND
+              to: =column_net
+            params:
+                keycaps: true
+                reverse: true
+                hotswap: false
+    thumb:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-1.3U, -1.4U]
+        rotate: -20.000
+      columns:
+        home:
+          spread: cx
+          rows.only:
+            column_net: P8
+        far:
+          rotate: -10.000
+          spread: cx
+          rows.only:
+            shift: [0.1U, -0.07U]
+            column_net: P9
+      rows:
+        only:
+      key:
+        footprints:
+          choc:
+            type: choc
+            nets:
+              from: GND
+              to: =column_net
+            params:
+                keycaps: true
+                reverse: true
+                hotswap: false
+outlines:
+  exports:
+    raw:
+      - type: keys
+        side: left
+        size: [20,20]
+        corner: 1
+pcbs:
+  om:
+    outlines:
+      main:
+        outline: raw
+    footprints:
+      promicro:
+        type: promicro_pretty
+        anchor:
+          ref: matrix_inner_top
+          shift: [21, -7]
+          rotate: -90
+        params:
+          orientation: down
+      trrs:
+        type: trrs
+        nets:
+          A: GND
+          B: GND
+          C: P2
+          D: VCC
+        anchor:
+          ref: matrix_inner_top
+          shift: [38, 10]
+          rotate: 0
+        params:
+          reverse: true
+          symmetric: true
+      reset:
+        type: jumper
+        anchor:
+          ref: matrix_index_top
+          shift: [0, .52U]
+        nets:
+          from: GND
+          to: RST
+      jst:
+        type: jstphRev
+        anchor:
+          ref: matrix_inner_home
+          shift: [.6U, -.7U]
+          rotate: 90
+        nets:
+          pos: POSITIVE
+          neg: GND
+        params:
+          reversible: true
+      puck:
+        type: tentingpuck
+        anchor:
+          ref: matrix_middle_home
+          shift: [0, -8]
+          rotate: 60
+        params:
+          reverseSilks: false
+          centerHole: false
+          northHole: true
+          westHole: true
+          southHole: false
+          eastHole: true
+      on-off-switch:
+        type: slider
+        nets:
+          from: POSITIVE
+          to: RAW
+        anchor:
+          ref: matrix_inner_home
+          shift: [28, -.7U]
+          rotate: -90
+

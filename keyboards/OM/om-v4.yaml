@@ -1,0 +1,276 @@
+units:
+  kx: 18
+  ky: 17
+  px: kx + 4
+  py: ky + 4
+
+points:
+  zones:
+    matrix: 
+      columns:
+        pinky:
+          key:
+            spread: kx
+            splay: 5
+          rows:
+            bottom:
+              # bind: [top, right, bottom, left]
+              bind: [5, 5, 5, 5]
+              column_net: P7
+            home:
+              bind: [5, 5, 5, 5]
+              column_net: P6
+            top:
+              bind: [5, 5, 5, 5]
+              column_net: P5
+        ring:
+          key:
+            spread: 1.2kx
+            stagger: 17
+            splay: -5
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [5, 5, 5, 15]
+              column_net: P4
+            home:
+              bind: [5, 5, 5, 5]
+              column_net: P3
+            top:
+              bind: [5, 5, 5, 5]
+              column_net: P0
+        middle:
+          key:
+            spread: 1.2kx
+            stagger: 7
+            splay: -5
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [5, 5, 5, 5]
+              column_net: P1
+            home:
+              bind: [5, 5, 5, 5]
+              column_net: P19
+            top:
+              bind: [5, 5, 5, 5]
+              column_net: P18
+        index:
+          key:
+            spread: kx
+            stagger: -8
+            splay: -5
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [5, 5, 5, 5]
+              column_net: P15
+            home:
+              bind: [5, 5, 5, 5]
+              column_net: P14
+            top:
+              bind: [5, 5, 5, 5]
+              column_net: P16
+        inner:
+          key:
+            spread: kx
+            stagger: -3
+            origin: [0, -17]
+          rows:
+            bottom:
+              bind: [5, 30, 5, 5]
+              column_net: P10
+            home:
+              bind: [5, 30, 5, 5]
+              column_net: P20
+            top:
+              bind: [5, 5, 5, 5]
+              column_net: P21
+      rows:
+        bottom:
+          padding: ky
+        home:
+          padding: ky
+        top:
+          padding: ky
+
+    thumb:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [-1.3kx, -1.4ky]
+        rotate: -20
+      columns:
+        home:
+          key:
+            splay: 0
+          rows:
+            only:
+              column_net: P8
+              bind: [40, 5, 5, 5]
+        far:
+          key:
+            splay: -10
+            spread: kx
+            shift: [0, -2]
+          rows:
+            only:
+              column_net: P9
+              bind: [40, 5, 5, 5]
+      rows:
+        only:
+          padding: ky
+
+outlines:
+  # Actual PCB outline traced from DXF
+  # Coordinates are relative to matrix_pinky_bottom as origin
+  board:
+    - what: polygon
+      points:
+        # Starting from top-left, going clockwise
+        - ref: matrix_pinky_bottom
+          shift: [-9, 52]  # Top left corner area
+        - ref: matrix_pinky_bottom
+          shift: [14, 64]  # Pinky top curve
+        - ref: matrix_pinky_bottom
+          shift: [40, 68]  # Ring top
+        - ref: matrix_pinky_bottom
+          shift: [66, 66]  # Middle top
+        - ref: matrix_pinky_bottom
+          shift: [87, 58]  # Index top
+        - ref: matrix_pinky_bottom
+          shift: [107, 45]  # Inner top curve start
+        - ref: matrix_pinky_bottom
+          shift: [128, 15]  # Inner top right corner
+        - ref: matrix_pinky_bottom
+          shift: [128, -28]  # Right side top
+        - ref: matrix_pinky_bottom
+          shift: [128, -52]  # Right side middle
+        - ref: matrix_pinky_bottom
+          shift: [110, -82]  # Thumb curve start
+        - ref: matrix_pinky_bottom
+          shift: [95, -92]  # Thumb bottom curve
+        - ref: matrix_pinky_bottom
+          shift: [77, -95]  # Thumb bottom
+        - ref: matrix_pinky_bottom
+          shift: [50, -88]  # Thumb left curve
+        - ref: matrix_pinky_bottom
+          shift: [4, -54]  # Bottom left curve
+        - ref: matrix_pinky_bottom
+          shift: [-9, -7]  # Left side bottom
+        - ref: matrix_pinky_bottom
+          shift: [-9, 19]  # Left side middle
+      fillet: 2
+
+  # Switch cutouts for top plate (choc)
+  _switch_cutouts:
+    - what: rectangle
+      where: true
+      size: [13.8, 13.8]
+      bound: false
+
+  # Screw holes - M2 screws (2.2mm clearance hole)
+  # Positioned to match actual PCB from DXF
+  _screw_holes:
+    # Pinky top area
+    - what: circle
+      radius: 1.1
+      where:
+        ref: matrix_pinky_top
+        shift: [-6, 5]
+    # Pinky bottom area  
+    - what: circle
+      radius: 1.1
+      where:
+        ref: matrix_pinky_bottom
+        shift: [-6, -5]
+    # Ring/middle area
+    - what: circle
+      radius: 1.1
+      where:
+        ref: matrix_ring_home
+        shift: [0, -10]
+    # Index/inner top
+    - what: circle
+      radius: 1.1
+      where:
+        ref: matrix_inner_top
+        shift: [6, 5]
+    # Thumb area
+    - what: circle
+      radius: 1.1
+      where:
+        ref: thumb_far_only
+        shift: [5, -3]
+
+  # Standoffs - sized for M2 heat-set inserts (4mm OD)
+  _standoffs:
+    - what: circle
+      radius: 2.5
+      where:
+        ref: matrix_pinky_top
+        shift: [-6, 5]
+    - what: circle
+      radius: 2.5
+      where:
+        ref: matrix_pinky_bottom
+        shift: [-6, -5]
+    - what: circle
+      radius: 2.5
+      where:
+        ref: matrix_ring_home
+        shift: [0, -10]
+    - what: circle
+      radius: 2.5
+      where:
+        ref: matrix_inner_top
+        shift: [6, 5]
+    - what: circle
+      radius: 2.5
+      where:
+        ref: thumb_far_only
+        shift: [5, -3]
+
+  # Expanded outline for case walls
+  _case_outer:
+    - what: outline
+      name: board
+      expand: 2.5
+
+  # Top plate with switch holes
+  top_plate:
+    - board
+    - -_switch_cutouts
+
+cases:
+  # Simple tray case - floor + walls
+  tray:
+    - what: outline
+      name: _case_outer
+      extrude: 1.5
+    - what: outline
+      name: _case_outer
+      extrude: 5
+      shift: [0, 0, 1.5]
+    - what: outline
+      name: board
+      extrude: 5
+      shift: [0, 0, 1.5]
+      operation: subtract
+    - what: outline
+      name: _standoffs
+      extrude: 3
+      shift: [0, 0, 1.5]
+    - what: outline
+      name: _screw_holes
+      extrude: 6.5
+      operation: subtract
+
+  # Switch plate (1.5mm for choc switches)
+  plate:
+    - what: outline
+      name: top_plate
+      extrude: 1.5
+    - what: outline
+      name: _screw_holes
+      extrude: 1.5
+      operation: subtract
