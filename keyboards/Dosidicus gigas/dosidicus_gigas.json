@@ -1,0 +1,79 @@
+{
+  "layout": {
+    "ortho_layout": {
+      "split": true,
+      "rows": 3,
+      "columns": 5,
+      "thumbs": 1
+    }
+  },
+  "layers": {
+    "Base": [
+      ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+      ["A", "S", "D", "F", "G", "H", "J", "K", "L", ";"],
+      ["Z", "X", "C", "V", "B", "N", "M", ",", ".", "/"],
+      [{"t": "Enter", "h": "Layer1"}, {"t": "Space", "h": "Layer2"}]
+    ],
+    "Layer1": [
+      ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+      [{"t": "!", "type": "shifted"}, {"t": "@", "type": "shifted"}, {"t": "#", "type": "shifted"}, {"t": "$", "type": "shifted"}, {"t": "%", "type": "shifted"}, {"t": "^", "type": "shifted"}, {"t": "&", "type": "shifted"}, {"t": "*", "type": "shifted"}, {"t": "(", "type": "shifted"}, {"t": ")", "type": "shifted"}],
+      ["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10"],
+      [{"t": "Enter", "h": "Layer1", "type": "held"}, {"t": "No", "h": "Layer2"}]
+    ],
+    "Layer2": [
+      [{"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "BTN3", "type": "held"}, "[", "]", {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}],
+      [{"t": "Trans", "type": "trans"}, {"t": "BTN1", "type": "held"}, {"t": "WH↑", "type": "held"}, {"t": "BTN2", "type": "held"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}],
+      [{"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "WH↓", "type": "held"}, "9", "0", {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}],
+      [{"t": "Enter", "h": "Layer1"}, {"t": "Space", "h": "Layer2", "type": "held"}]
+    ],
+    "Layer3": [
+      ["Q", "W", "E", "R", "T", {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}],
+      [{"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}],
+      ["Z", "X", "C", "V", "B", {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}, {"t": "Trans", "type": "trans"}],
+      [{"t": "Enter", "h": "Layer1"}, {"t": "Space", "h": "Layer2"}]
+    ]
+  },
+  "draw_config": {
+    "key_w": 64,
+    "key_h": 60,
+    "split_gap": 40,
+    "combo_w": 36,
+    "combo_h": 34,
+    "key_rx": 8,
+    "key_ry": 8,
+    "dark_mode": "auto",
+    "n_columns": 1,
+    "separate_combo_diagrams": false,
+    "inner_pad_w": 3,
+    "inner_pad_h": 3,
+    "outer_pad_w": 40,
+    "outer_pad_h": 60,
+    "line_spacing": 1.3,
+    "arc_radius": 8,
+    "append_colon_to_layer_header": true,
+    "small_pad": 3,
+    "legend_rel_x": 0.0,
+    "legend_rel_y": 0.0,
+    "draw_key_sides": false,
+    "svg_extra_style": "",
+    "footer_text": "Created with <a href=\"https://github.com/caksoylar/keymap-drawer\">keymap-drawer</a>",
+    "shrink_wide_legends": 8,
+    "style_layer_activators": true,
+    "mark_alternate_layer_activators": true,
+    "glyph_tap_size": 16,
+    "glyph_hold_size": 13,
+    "glyph_shifted_size": 11
+  },
+  "combos": [
+    {"tk": ["O", "P"], "k": {"t": "TG3", "type": "held"}, "l": ["Base"], "a": "top", "o": 0.5, "arc_scale": 0.8, "d": true},
+    {"tk": ["Z", "X"], "k": {"t": "Undo", "type": "held"}, "l": ["Base"], "a": "bottom", "o": 0.5, "arc_scale": 0.9, "d": true},
+    {"tk": ["X", "C"], "k": {"t": "Cut", "type": "held"}, "l": ["Base"], "a": "bottom", "o": 0.3, "arc_scale": 0.85, "d": true},
+    {"tk": ["C", "V"], "k": {"t": "Copy", "type": "held"}, "l": ["Base"], "a": "bottom", "o": 0.1, "arc_scale": 0.8, "d": true},
+    {"tk": ["V", "B"], "k": {"t": "Paste", "type": "held"}, "l": ["Base"], "a": "bottom", "o": -0.1, "arc_scale": 0.8, "d": true},
+    {"tk": ["A", "X"], "k": {"t": "Sel All", "type": "held"}, "l": ["Base"], "a": "left", "o": 0.5, "arc_scale": 0.9, "d": true},
+    {"tk": ["D", "F"], "k": {"t": "Find", "type": "held"}, "l": ["Base"], "a": "mid", "d": true},
+    {"tk": ["A", "S"], "k": {"t": "Tab", "type": "held"}, "l": ["Base"], "a": "left", "o": -0.5, "arc_scale": 0.85, "d": true},
+    {"tk": ["P", "L"], "k": {"t": "Bksp", "type": "held"}, "l": ["Base"], "a": "top", "o": -0.5, "arc_scale": 0.9, "d": true},
+    {"tk": ["Q", "S"], "k": {"t": "Esc", "type": "held"}, "l": ["Base"], "a": "left", "o": -1.0, "arc_scale": 0.8, "d": true}
+  ]
+}
