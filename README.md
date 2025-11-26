@@ -1,45 +1,71 @@
-# Keyboard Development Ecosystem
+# 🎹 Live QMK Keymap Visualizer
 
-A collection of tools and resources for mechanical keyboard development - from hardware design through firmware implementation.
+A simple tool to visualize and monitor your QMK keymap.c files in real-time.
 
-> **Disclaimer**: I'm not really a programmer, I dont even play one on GitHub. This entire repo is a perpetual work-in-progress that will probably never be "finished" - much like my quest for the perfect keyboard layout. Expect things to be broken, half-implemented, or completely abandoned as I chase the next shiny keyboard idea. 🤷‍♂️
+## 🚀 Quick Start
 
-## 🛠 What's Actually Here - that probably isn't all working.
+1. **Run the watcher:**
+   ```bash
+   python watch_keymap.py
+   ```
 
-### **ergogen/** - Ergogen-focused utilities for keyboard hardware design
-- **ergogen-toolkit/** - Simple VS Code extension for running Ergogen and viewing DXF files - mostly working
-- **ergogen_to_qmk_converter/** - Convert Ergogen YAML to QMK firmware configs (in development)
-- **kle_to_ergogen/** - Transform KLE layouts to Ergogen point definitions  
-- **mounting_styles/** - Reference implementations and examples for different mounting approaches
-- **working_samples/** - Example Ergogen configurations and test cases
+2. **Select your keymap** from the list (e.g., 3x4, lily58, macropad)
 
-### **keyboards/** - Layout Configurations & Designs
-Keyboard layouts and configurations that Im working on or have saved from somewhere else.
-- VIA/QMK layout files for various keyboards (Lily58, Corne, DZ60, etc.)
-- Custom macropad and encoder configurations
-- JSON layout definitions for popular keyboards
-- 3D files (STL, 3MF) for some designs
+3. **Open browser** to: `http://localhost:8000`
 
-### **qmk_utilities/** - QMK Firmware Development Tools
-QMK workflow utilities:
-- **qmk_format_converter/** - Convert between KLE, VIA, keymap.c, and QMK Configurator formats (almost works!)
-- **ascii_keymap_gen/** - Generate ASCII art representations of keyboard layouts in your QMK keymap files.
+4. **Edit your keymap.c file** and save - watch it update live!
 
-### **switch_research/** - Component Research & Documentation
-Mechanical keyboard switch research:
-- Comprehensive MX switch characteristics database
-- Switch selection guides and comparison data
+## ✨ Features
 
+- **🔍 Auto-discovery** - Finds all keymap.c files in your project
+- **🎯 Focused viewing** - Watch one specific keymap at a time
+- **🎨 Visual layout** - See your keys in a grid with color coding
+- **📱 Layer switching** - Click tabs to view different layers
+- **🔗 Combo display** - Shows key combinations
+- **⚡ Live updates** - Automatically refreshes when you save changes
+- **📝 Raw view** - See the actual C code alongside the visualization
 
-## 🤝 Contributing
+## 🎨 Color Coding
 
-Each project welcomes contributions! Common areas needing help:
-- Bug fixes in format converters
-- Additional keyboard layout examples  
-- Switch database expansion
-- Documentation improvements
+- **🟠 Orange**: Modifiers (Backspace, Enter, Shift, etc.)
+- **🔵 Blue**: Function keys (F1-F12)
+- **🟣 Purple**: Media keys (Volume, Play, Stop, etc.)
+- **🔴 Pink**: RGB lighting controls
+- **⚪ Gray**: Regular keys (letters, numbers)
 
-Check individual README files for specific guidelines.
+## 🎮 Keyboard Shortcuts
 
+- **Ctrl+R**: Refresh content
+- **Ctrl+Space**: Pause/Resume auto-updates
 
-_"It's not a bug, it's a feature I haven't implemented yet."_
+## 📁 Supported Layouts
+
+Works with any QMK keymap.c file! Automatically detects:
+- Grid layouts (3x4, 4x2, etc.)
+- Split keyboards (Lily58, etc.)
+- Macropads
+- Custom layouts
+
+## 🛠️ Requirements
+
+- **Python 3.x**
+- **Modern web browser**
+
+## 💡 Usage Tips
+
+1. **Keep the Python script running** while you edit
+2. **Save your keymap.c file** to see changes
+3. **Use layer tabs** to switch between different layers
+4. **Check combos section** to see key combinations
+5. **Copy content** button to grab the raw keymap code
+
+## 🎯 Perfect For
+
+- **Keymap development** - See changes as you code
+- **Layout planning** - Visual feedback while designing
+- **Learning QMK** - Understand layer structures
+- **Debugging** - Quickly spot issues in your layout
+
+---
+
+**Happy keymap coding!** 🎹✨

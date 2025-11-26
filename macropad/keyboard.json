@@ -1,0 +1,88 @@
+{
+    "keyboard_name": "Macropad ProtonC",
+    "manufacturer": "rossw42",
+    "url": "https://learn.adafruit.com/adafruit-macropad-rp2040",
+    "maintainer": "rossw",
+    "usb": {
+        "vid": "0x239A",
+        "pid": "0x0108",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "audio": false,
+        "encoder": true,
+        "rgb_matrix": false
+    },
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "rows": ["B0", "B1", "B2", "B3"],
+        "cols": ["B9", "B15", "B14"]
+    },
+    "diode_direction": "COL2ROW",
+    "bootmagic": {
+        "matrix": [1, 2]
+    },
+    /* [row,col] */
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0],
+                    "x": 0,
+                    "y": 0
+                },
+                {"matrix": [0, 1],
+                    "x": 1,
+                    "y": 0
+                },
+                {"matrix": [0, 2],
+                    "x": 2,
+                    "y": 0
+                },
+
+                {"matrix": [1, 0],
+                    "x": 0,
+                    "y": 1
+                },
+                {"matrix": [1, 1],
+                    "x": 1,
+                    "y": 1
+                },
+                {"matrix": [1, 2],
+                    "x": 2,
+                    "y": 1
+                },
+
+                {"matrix": [2, 0],
+                    "x": 0,
+                    "y": 2
+                },
+                {"matrix": [2, 1],
+                    "x": 1,
+                    "y": 2
+                },
+                {"matrix": [2, 2],
+                    "x": 2,
+                    "y": 2
+                },
+
+                {"matrix": [3, 0],
+                    "x": 0,
+                    "y": 3
+                },
+                {"matrix": [3, 1],
+                    "x": 1,
+                    "y": 3
+                },
+                {"matrix": [3, 2],
+                    "x": 2,
+                    "y": 3
+                }
+
+            ]
+        }
+    }
+}

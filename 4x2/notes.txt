@@ -1,0 +1,13 @@
+col 0 - brown  - GP15 - 14
+col 1 - orange - GP27 - 15
+col 2 - green - GP26   - GP26
+col 3 - w/o - GP28 - GP27
+col 4 - blue - GP14 - GP28
+    
+    
+    "matrix_pins": {
+        "cols": ["GP14", "GP15", "GP26", "GP27", "GP28"],
+        "rows": ["GP7", "GP8"]
+    },
+
+    "cols": ["GP28", "GP27", "GP26", "GP15", "GP14"],
