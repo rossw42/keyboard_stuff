@@ -1,0 +1,13 @@
+Sales Order #:,Web Order #:,PO Number:,Line No.,Order Date:,Order Status:,Mouser #:,Mfr. #:,Desc.:,Customer #,Order Qty.,Ext. (USD),Price (USD),Status,Date,Invoice #,Estimated Tariff Price (USD),Estimated Tariff Ext. (USD)
+278964245,38419461,38419461,1,01-Mar-26,Pick Started,556-ATMEGA32A-PU,ATMEGA32A-PU,8-bit Microcontrollers - MCU 8-bit Microcontrollers - MCU 32KB In-system Flash 2.7V - 5.5V,,1,$4.89,$4.89,1 Pending,Pending,,,
+278964245,38419461,38419461,2,01-Mar-26,Pick Started,556-ATMEGA328P-PU,ATMEGA328P-PU,8-bit Microcontrollers - MCU 8-bit Microcontrollers - MCU 32KB In-system Flash 20MHz 1.8V-5.5V,,5,$2.89,$2.89,5 Pending,Pending,,,
+278964245,38419461,38419461,3,01-Mar-26,Pick Started,571-1-2199298-9,1-2199298-9,IC & Component Sockets IC & Component Sockets 28P DIP SKT 300 CL LADDER,,5,$0.65,$0.65,5 Pending,Pending,,$0.267,$1.34
+278964245,38419461,38419461,4,01-Mar-26,Pick Started,512-1N4148TR,1N4148TR,Small Signal Switching Diodes Small Signal Switching Diodes Hi Conductance Fast,,1,$0.10,$0.10,1 Pending,Pending,,$0.017,$0.02
+278964245,38419461,38419461,5,01-Mar-26,Pick Started,603-CFR-12JR-52-75R,CFR-12JR-52-75R,Carbon Film Resistors - Through Hole Carbon Film Resistors - Through Hole 75ohm 5% 1/6W Carbon Film,,10,$0.037,$0.037,10 Pending,Pending,,$0.004,$0.04
+278964245,38419461,38419461,6,01-Mar-26,Pick Started,603-MFR-12FTF52-1K5,MFR-12FTF52-1K5,Metal Film Resistors - Through Hole Metal Film Resistors - Through Hole 1.5K OHM 1/6W 1%,,10,$0.034,$0.034,10 Pending,Pending,,$0.015,$0.15
+278964245,38419461,38419461,7,01-Mar-26,Pick Started,603-MFR-12FTF52-5K1,MFR-12FTF52-5K1,Metal Film Resistors - Through Hole Metal Film Resistors - Through Hole 5.1K OHM 1/6W 1%,,10,$0.034,$0.034,10 Pending,Pending,,$0.015,$0.15
+278964245,38419461,38419461,8,01-Mar-26,Pick Started,603-MFR-12FTF52-10K,MFR-12FTF52-10K,Metal Film Resistors - Through Hole Metal Film Resistors - Through Hole 10K OHM 1/6W 1%,,10,$0.034,$0.034,10 Pending,Pending,,$0.015,$0.15
+278964245,38419461,38419461,9,01-Mar-26,Pick Started,81-RCE5C2A220J0A2H3B,RCE5C2A220J0A2H03B,Multilayer Ceramic Capacitors MLCC - Leaded Multilayer Ceramic Capacitors MLCC - Leaded 22PF    100V    5%      3.5MM,,10,$0.238,$0.238,10 Pending,Pending,,,
+278964245,38419461,38419461,10,01-Mar-26,Pick Started,815-ABL-16-B4Y,ABL-16.000MHz-B4Y,Crystals Crystals ,,5,$0.36,$0.36,5 Pending,Pending,,$0.13,$0.65
+278964245,38419461,38419461,11,01-Mar-26,Pick Started,642-MJTP1230A,MJTP1230A,Tactile Switches Tactile Switches 6mm square tact,,10,$0.297,$0.297,10 Pending,Pending,,,
+278964245,38419461,38419461,12,01-Mar-26,Pick Started,859-LTL-4222,LTL-4222,Single Color LEDs Single Color LEDs Red Transparent,,5,$0.19,$0.19,5 Pending,Pending,,,
