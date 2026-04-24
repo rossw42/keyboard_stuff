@@ -11,8 +11,8 @@ from shapely.geometry import Polygon, LinearRing
 from shapely.ops import unary_union, polygonize
 
 THICKNESS = 1.5
-DXF_FILE  = "dxf/camber_hull_plate_mx.dxf"
-STL_FILE  = "stl/camber_hull_plate_mx.stl"
+DXF_FILE  = "dxf/biaxial_hull_plate_mx.dxf"
+STL_FILE  = "stl/biaxial_hull_plate_mx.stl"
 
 
 def arc_pts(cx, cy, r, start_deg, end_deg, n=24):

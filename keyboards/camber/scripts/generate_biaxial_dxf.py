@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate a DXF file for the Camber plate with Hull-compatible outline.
+Generate a DXF file for the BiAxial plate with Hull-compatible outline.
 
 Layout strategy:
 - Ortholinear columns: each column is a straight vertical stack of 4 keys
@@ -75,7 +75,7 @@ TAB_SHOULDER_TOP    =   61.325
 TAB_SHOULDER_BOTTOM =   -4.175
 
 # === Layout parameters ===
-LEFT_COLS  = 6
+LEFT_COLS  = 5  # V2: removed leftmost column (6 → 5)
 RIGHT_COLS = 5
 NUM_ROWS   = 4
 CENTER_GAP = 1.25 * UNIT   # 23.8125 mm
@@ -350,11 +350,11 @@ def add_hull_outline(dxf):
 
 
 def main():
-    print("=== Camber Plate Generator (ortholinear columns + splay) ===\n")
+    print("=== BiAxial V2 Plate Generator (5 left + 5 right columns, leftmost removed) ===\n")
     print(f"Switch:       {SWITCH['name']} (cutout: {CUTOUT}mm, spacing: {UNIT}mm)")
     print(f"Plate body:   {BODY_WIDTH:.4f} x {BODY_HEIGHT:.4f} mm")
     print(f"Splay angle:  ±{ANGLE_DEG}°")
-    print(f"Columns:      {LEFT_COLS} left + {RIGHT_COLS} right = {LEFT_COLS+RIGHT_COLS} total")
+    print(f"Columns:      {LEFT_COLS} left + {RIGHT_COLS} right = {LEFT_COLS+RIGHT_COLS} total (V2: leftmost removed)")
     print(f"Rows:         {NUM_ROWS} (ortholinear, no stagger)")
     print(f"Center gap:   {CENTER_GAP:.4f} mm ({CENTER_GAP/UNIT:.2f}u)")
 
@@ -405,7 +405,7 @@ def main():
     for hx, hy in mounting_holes:
         dxf.add_circle(BODY_LEFT + hx, BODY_TOP - hy, 1.0)
 
-    output = f"dxf/camber_hull_plate_{_profile_name}.dxf"
+    output = f"dxf/biaxial_v2_hull_plate_{_profile_name}.dxf"
     dxf.write(output)
     print(f"✅ Written to {output}")
 

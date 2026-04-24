@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate KLE JSON for the Camber ortholinear splay layout.
+"""Generate KLE JSON for the BiAxial ortholinear splay layout.
 Canonical layout — hand-tuned to match the DXF plate.
 Each key is its own row (separate []) — required for KLE rotation to work correctly."""
 import json
@@ -56,6 +56,7 @@ kle = [
 ]
 
 output = json.dumps(kle, separators=(',', ':'))
-with open('kle/camber.kle.json', 'w') as f:
+with open('kle/biaxial.kle.json', 'w') as f:
     f.write(output)
-print("KLE written to camber.kle.json")
+print("KLE written to biaxial.kle.json")
+

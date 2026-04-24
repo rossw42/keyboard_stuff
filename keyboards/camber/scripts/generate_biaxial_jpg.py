@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from matplotlib.patches import Arc as MplArc
 
-DXF_FILE = "dxf/camber_hull_plate_mx.dxf"
-OUT_FILE = "dxf/camber_hull_plate_mx.jpg"
+DXF_FILE = "dxf/biaxial_hull_plate_mx.dxf"
+OUT_FILE = "dxf/biaxial_hull_plate_mx.jpg"
 
 doc = ezdxf.readfile(DXF_FILE)
 msp = doc.modelspace()
@@ -57,7 +57,7 @@ for e in msp:
 ax.autoscale()
 ax.set_xticks([])
 ax.set_yticks([])
-ax.set_title('Camber Hull Plate (MX)', color='white', fontsize=14, pad=10)
+ax.set_title('BiAxial Hull Plate (MX)', color='white', fontsize=14, pad=10)
 
 plt.tight_layout()
 plt.savefig(OUT_FILE, dpi=200, bbox_inches='tight', facecolor=fig.get_facecolor())
