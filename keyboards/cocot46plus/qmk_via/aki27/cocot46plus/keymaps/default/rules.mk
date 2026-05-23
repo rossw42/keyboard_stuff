@@ -1,0 +1,10 @@
+VIA_ENABLE = yes
+
+# Disable features that don't fit in ATmega32u4 flash (28KB)
+QMK_SETTINGS = no
+TAP_DANCE_ENABLE = no
+REPEAT_KEY_ENABLE = no
+COMBO_ENABLE = no
+KEY_OVERRIDE_ENABLE = no
+EXTRAKEY_ENABLE = no
+GRAVE_ESC_ENABLE = no
