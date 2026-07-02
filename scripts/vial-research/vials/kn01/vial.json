@@ -1,0 +1,24 @@
+{
+  "name": "KN01",
+  "vendorId": "0x4249",
+  "productId": "0x4040",
+  "lighting": "qmk_rgblight",
+  "matrix": {
+    "rows": 1,
+    "cols": 1
+  },
+  "layouts": {
+    "keymap": [
+      [
+        {
+          "w": 2
+        },
+        {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "0,0"
+      ]
+    ]
+  }
+}

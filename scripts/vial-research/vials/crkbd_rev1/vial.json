@@ -1,0 +1,13 @@
+{
+  "name": "Corne Rev1 (rossw42)",
+  "vendorId": "0x0000",
+  "productId": "0x0001",
+  "lighting": "qmk_rgblight",
+  "matrix": {
+    "rows": 4,
+    "cols": 6
+  },
+  "layouts": {
+    "keymap": []
+  }
+}

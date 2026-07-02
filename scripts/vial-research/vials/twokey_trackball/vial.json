@@ -1,0 +1,31 @@
+{
+  "name": "twokey_trackball",
+  "vendorId": "0xfeed",
+  "productId": "0x0001",
+  "lighting": "qmk_rgblight",
+  "layouts": {
+    "keymap": [
+      [
+        {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "0,0"
+      ],
+      [
+        {
+          "x": 1.0,
+          "y": 0.0
+        },
+        "0,1"
+      ],
+      [
+        {
+          "x": 2.0,
+          "y": 0.0
+        },
+        "0,2"
+      ]
+    ]
+  }
+}

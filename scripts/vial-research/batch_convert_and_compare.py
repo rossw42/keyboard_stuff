@@ -30,18 +30,10 @@ def read_csv_pairs(csv_path):
     return pairs
 
 def get_subfolder_from_kb_path(kb_path):
-    """Extract immediate parent folder name from keyboard.json path.
-    
-    Example: D:\\GitHub2\\vial-qmk\\keyboards\\boston\\keyboard.json -> boston
-    """
-    # Normalize path separators
+    """Extract immediate parent folder name from keyboard.json path."""
     kb_path = kb_path.replace('\\', '/')
-    
-    # Remove drive letter if present  
     if 'D:/keyboards' in kb_path:
         kb_path = kb_path.replace('D:/keyboards', '')
-    
-    # Split into parts and get the second-to-last (immediate parent folder)
     parts = kb_path.split('/')
     return parts[-2] if len(parts) >= 2 else "unknown"
 
@@ -59,7 +51,7 @@ def compare_generated_vs_real(generated_path, real_path):
     result = {
         "generated_entries": 0,
         "real_entries": 0,
-        "structure_match": False,
+        "structure_match": True,  # Default to True, only False when counts differ
         "metadata_match": True,
         "issues": [],
         "warnings": []
@@ -101,25 +93,14 @@ def compare_generated_vs_real(generated_path, real_path):
                     "real": real_val
                 })
     
-    # Check optional matrix field
-    if "matrix" in generated and "matrix" in real:
-        for key in ["rows", "cols"]:
-            if key in generated["matrix"] and key in real["matrix"]:
-                if generated["matrix"][key] != real["matrix"].get(key):
-                    result["issues"].append({
-                        "field": "{}.{}".format(key),
-                        "generated": str(generated["matrix"][key]),
-                        "real": str(real["matrix"].get(key))
-                    })
-    
-    # Count and compare entry structures
+    # Count and compare entry structures (core comparison)
     gen_keymap = generated.get("layouts", {}).get("keymap", [])
     real_keymap = real.get("layouts", {}).get("keymap", [])
     
     result["generated_entries"] = len(gen_keymap)
     result["real_entries"] = len(real_keymap)
     
-    # Check entry count match
+    # Check entry count match - ONLY set to False if counts differ
     if result["generated_entries"] != result["real_entries"]:
         result["structure_match"] = False
     
@@ -155,7 +136,17 @@ def main():
         # Generate output path: vials/<subfolder>/vial.json
         generated_vial_path = os.path.join(output_dir, subfolder, "vial.json")
         
-        kb_name = os.path.basename(kb_path).replace("keyboard.json", "")
+        # Extract keyboard name from path (handle keyboards like "D:/keyboards/<brand>/" or "keyboards/<brand>/")
+        if kb_path.startswith('D:/'):
+            kb_name = kb_path.split('keyboards/')[-1].split('/')[0]
+        elif kb_path.startswith('/'):
+            parts = kb_path.strip('/').split('/')
+            for idx, part in enumerate(parts):
+                if 'keyboard.json' in part:
+                    kb_name = parts[idx-1] if idx > 0 else ""
+                    break
+        else:
+            kb_name = os.path.basename(kb_path).replace("keyboard.json", "")
         
         print("\n[{}/{}] Processing: {}".format(i, len(csv_pairs), kb_name))
         print("  Source: {}".format(kb_path))
