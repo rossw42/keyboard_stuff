@@ -1,0 +1,103 @@
+meta:
+  engine: v4
+  name: KLE Import
+  version: '1.0'
+  author: KLE to Ergogen Converter
+  url: ''
+units:
+  kx: 19
+  ky: 19
+  px: 2
+  py: 2
+  keycap: 18
+  switch: 14
+points:
+  zones:
+    matrix:
+      key: {}
+      columns:
+        col0:
+          key: {}
+          rows:
+            Q:
+              shift:
+                - -0.9973753280839894
+                - 0.9973753280839894
+            A:
+              shift:
+                - -0.9973753280839894
+                - -0.9973753280839894
+        col1:
+          key: {}
+          rows:
+            W:
+              shift:
+                - 0.9973753280839894
+                - 0.9973753280839894
+            S:
+              shift:
+                - 0.9973753280839894
+                - -0.9973753280839894
+  key:
+    padding: ky
+    spread: kx
+outlines:
+  _switch_cutout:
+    what: rectangle
+    where: true
+    size:
+      - 14
+      - 14
+    operation: stack
+  _keycap:
+    what: rectangle
+    where: true
+    size:
+      - 18
+      - 18
+    operation: stack
+  plate:
+    what: outline
+    name: _switch_cutout
+    fillet: 0.5
+  pcb:
+    what: outline
+    name: _keycap
+    fillet: 2
+    expand: 5
+pcbs:
+  main:
+    outlines:
+      main:
+        outline: pcb
+    footprints:
+      switches:
+        what: mx
+        where: true
+        params:
+          hotswap: true
+          reverse: false
+          keycaps: true
+          from: '{{column_net}}'
+          to: '{{row_net}}'
+      diodes:
+        what: diode
+        where: true
+        params:
+          from: '{{row_net}}'
+          to: '{{column_net}}'
+          through_hole: false
+        adjust:
+          shift:
+            - 0
+            - -5
+      mcu:
+        what: promicro
+        where:
+          ref: matrix
+          shift:
+            - 0
+            - -30
+        params:
+          orientation: down
+cases: {}

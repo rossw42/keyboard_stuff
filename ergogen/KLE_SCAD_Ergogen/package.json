@@ -1,0 +1,34 @@
+{
+  "name": "kle-scad-ergogen",
+  "version": "1.0.0",
+  "description": "Convert Keyboard Layout Editor (KLE) JSON files to Ergogen YAML format",
+  "main": "index.js",
+  "bin": {
+    "kle-to-ergogen": "./index.js"
+  },
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node index.js examples/macropad_2x2.json -v",
+    "test:numpad": "node index.js examples/numpad.json -v",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "keyboard",
+    "kle",
+    "ergogen",
+    "pcb",
+    "mechanical-keyboard",
+    "converter"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ijprest/kle-serial": "^0.15.1",
+    "commander": "^14.0.0",
+    "js-yaml": "^4.1.0"
+  }
+}
