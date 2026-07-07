@@ -1,100 +1,36 @@
-# Ergogen Keyboard Mounting Style Examples
+# Keyboard Mounting Styles (Research — Deferred Stretch Goal)
 
-This directory contains complete Ergogen YAML configurations demonstrating the six major keyboard mounting styles. Each configuration shows the structural differences and mounting requirements for that particular style.
+Research toward generating Ergogen cases for different keyboard mounting styles. **Status: deferred** — per [`../TOOLKIT_PLAN.md`](../TOOLKIT_PLAN.md), this is a stretch goal blocked on Milestones 1–4. It is unclear whether Ergogen's case system can express all of these styles; treat everything here as exploratory.
 
-## Created Files
+## What actually exists in this folder
 
-### 1. Tray Mount (`tray_mount.yaml`)
-- **Description**: PCB sits in a case tray with perimeter mounting holes
-- **Key Features**:
-  - Mounting holes around PCB perimeter (6 holes total)
-  - Large mounting pads with M3 drill holes  
-  - PCB edge clearance for tray mounting
-  - Reinforced mounting points for stability
+```
+mounting_styles/
+├── mounting_styles_README.md   # this file
+├── reference_images/           # 7 reference images + cheat sheet (see its README)
+├── sandwich_mount/             # EMPTY — placeholder, no config yet
+└── top_mount/                  # EMPTY — placeholder, no config yet
+```
 
-### 2. Top Mount (`top_mount.yaml`)
-- **Description**: Plate attached to case from above with standoffs
-- **Key Features**:
-  - Countersunk holes for top-mounted screws (6 mounting points)
-  - Separate switch plate from PCB
-  - Larger diameter holes for screw head clearance
-  - Accessible mounting from keyboard top
+> An earlier version of this README described six complete YAML configurations (tray, top, bottom, sandwich, gasket, integrated). **Those files do not exist** — the descriptions below are retained as design research/context only.
 
-### 3. Bottom Mount (`bottom_mount.yaml`)
-- **Description**: Plate attached to case from bottom
-- **Key Features**:
-  - Standard mounting holes without countersinking
-  - Screws inserted from bottom of case
-  - Separate switch plate and PCB layers
-  - Bottom case with recessed screw head areas
+The companion design-methodology document formerly in this folder now lives at [`../docs/ergogen_design_prompt.md`](../docs/ergogen_design_prompt.md).
 
-### 4. Sandwich Mount (`sandwich_mount.yaml`)
-- **Description**: Plate sandwiched between case layers with through-holes
-- **Key Features**:
-  - Through-holes that penetrate all layers (6 mounting points)
-  - Multiple case layers (top, plate, PCB, bottom)
-  - Long bolts connecting all components
-  - Reinforced mounting pads on all layers
+## The six mounting styles (researched, not yet implemented)
 
-### 5. Integrated Mount (`integrated_mount.yaml`)
-- **Description**: Plate and PCB are one unit (plateless design)
-- **Key Features**:
-  - Switch cutouts directly in PCB (no separate plate)
-  - Minimal mounting points (4 corners only)
-  - Single integrated PCB/plate component
-  - Simplified case structure
+| Style | Concept | Key structural requirements |
+|---|---|---|
+| **Tray mount** | PCB sits in a case tray | Perimeter mounting holes in PCB, M3 standoffs in case bottom |
+| **Top mount** | Plate attaches to case from above | Plate tabs, countersunk screws from top, separate plate from PCB |
+| **Bottom mount** | Plate attaches to case from below | Plate tabs, screws from case bottom |
+| **Sandwich mount** | Plate clamped between top and bottom case halves | Through-bolts around perimeter through plate |
+| **Gasket mount** | Plate suspended on gaskets between halves | Gasket tabs on plate, gasket channels in both case halves |
+| **Integrated plate** | Plate is part of the top case | Single top-case-with-plate piece |
 
-### 6. Gasket Mount (`gasket_mount.yaml`)
-- **Description**: Flexible gasket material between plate and case
-- **Key Features**:
-  - Gasket grooves cut into case perimeter
-  - Gasket tabs extending from plate edges
-  - No direct screw mounting of plate
-  - Multiple case components with gasket channels
+See `reference_images/` for photos of each style and a comparison cheat sheet.
 
-## Common Design Elements
+## Next steps (when unblocked)
 
-All configurations include:
-- **4x3 key matrix** layout for demonstration
-- **Choc hotswap switches** with diodes
-- **M3 mounting holes** where applicable
-- **Reinforcement pads** around mounting points
-- **Layer identification text** for assembly guidance
-
-## Usage Notes
-
-1. **Footprint Dependencies**: These configurations assume standard Ergogen footprints are available
-2. **Switch Type**: All examples use Choc low-profile switches - can be modified for MX switches
-3. **Mounting Hardware**: M3 screws assumed - adjust hole sizes for different hardware
-4. **Case Manufacturing**: Some mounting styles require precise tolerances for proper fit
-
-## File Structure
-
-Each YAML file contains:
-- **Meta information**: Name, version, description
-- **Units**: Spacing and padding definitions  
-- **Points**: Key matrix and switch definitions
-- **Outlines**: Board shapes and mounting features
-- **PCBs**: Layer definitions and footprint placements
-
-## Reference Images
-
-See the `reference_images/` directory for visual examples of each mounting style from [keyboard.university](https://www.keyboard.university/200-courses/keyboard-mounting-styles-4lpp7).
-
-## Customization
-
-To adapt these examples:
-1. Modify the `matrix` zone for different key layouts
-2. Adjust mounting hole positions and quantities
-3. Change switch types in the footprint definitions
-4. Scale board dimensions by modifying the outline points
-
-## Manufacturing Considerations
-
-- **Tray Mount**: Requires precise case machining for PCB tray
-- **Top/Bottom Mount**: Need proper standoff heights for assembly
-- **Sandwich Mount**: Requires long through-bolts and spacers
-- **Integrated Mount**: PCB must be thick enough for switch retention
-- **Gasket Mount**: Needs flexible gasket material and precise groove dimensions
-
-Created: August 11, 2025
+1. Attempt **top mount** first end-to-end (folder already exists)
+2. Use the patterns in [`../working_samples/`](../working_samples/) and the methodology in [`../docs/ergogen_design_prompt.md`](../docs/ergogen_design_prompt.md)
+3. Validate one style fully before generalizing to the others
