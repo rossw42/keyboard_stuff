@@ -1,9 +1,0 @@
-{
-  "name": "",
-  "vendorId": "0x0000",
-  "productId": "0x0000",
-  "lighting": "qmk_rgblight",
-  "layouts": {
-    "keymap": []
-  }
-}

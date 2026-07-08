@@ -1,9 +1,0 @@
-{
-  "name": "ErgoDox EZ",
-  "vendorId": "0x0000",
-  "productId": "0x4974",
-  "lighting": "qmk_rgblight",
-  "layouts": {
-    "keymap": []
-  }
-}
