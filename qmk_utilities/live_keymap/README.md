@@ -15,6 +15,9 @@ Then just pick your board from the **Keyboard** dropdown. Your choice is
 remembered (in browser localStorage), so next time the page opens straight
 to your board.
 
+You can also bookmark a specific board directly:
+`http://localhost:8000/?file=lily58/keymaps/default/keymap.c`
+
 ## Usage
 
 ```

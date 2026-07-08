@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                   └─────┴─────┴─────┘
      */
     [_MOVEMENT] = LAYOUT_split_3x6_3(
-        KC_O,    KC_C,    KC_M,    KC_TRNS, KC_W,    KC_TRNS,
+        KC_0,    KC_C,    KC_M,    KC_TRNS, KC_W,    KC_TRNS,
         KC_TAB,  KC_ENT,  KC_DEL,  KC_A,    KC_S,    KC_D,
         KC_LCTL, KC_LSFT, KC_SPC,  KC_LALT, KC_U,    KC_TRNS,
                           MO(_ZOOM), KC_B, KC_ESC
