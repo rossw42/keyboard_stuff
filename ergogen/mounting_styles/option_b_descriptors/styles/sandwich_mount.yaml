@@ -1,0 +1,56 @@
+# Mounting-style descriptor — SANDWICH MOUNT
+# STATUS: DESIGN PROPOSAL (no generator yet). Schema: ../mounting_style.schema.yaml
+# Ergogen-fragment equivalent: ../../option_a_templates/sandwich_mount.yaml
+
+style: sandwich_mount
+description: Plate clamped between stacked layers by perimeter through-bolts
+difficulty: 1
+
+requires:
+  outlines: [_panel, _switch_cutouts]
+  tags: [mount]
+  min_points:
+    mount: 4
+
+parameters:
+  wall:    {default: 2.5, min: 1.5, unit: mm, description: case wall thickness}
+  floor:   {default: 3,   min: 2,   unit: mm, description: bottom layer thickness}
+  plate_t: {default: 1.5, min: 1.2, max: 5, unit: mm, description: plate thickness}
+  fit:     {default: 0.25, min: 0, max: 0.6, unit: mm, description: mating clearance}
+  cavity:  {default: 8,   min: 5,  unit: mm, description: spacer height (floor top to plate bottom)}
+  screw_d: {default: 3.2, min: 2,  unit: mm, description: through-bolt shank clearance}
+
+outline_recipes:
+  case_outer:  "panel expand($fit + $wall)"
+  case_inner:  "panel expand($fit)"
+  wall_ring:   "case_outer - case_inner"
+  plate:       "panel - switch_cutouts"
+  bolt_holes:  "circle($screw_d) @mount"
+
+pieces:
+  - id: bottom_layer
+    layers:
+      - {outline: case_outer, extrude: $floor, z: 0, op: add}
+      - {outline: bolt_holes, extrude: "*",    z: 0, op: subtract}
+  - id: spacer_layer
+    description: print/cut N of these (or one tall one) to reach cavity height
+    layers:
+      - {outline: wall_ring,  extrude: $cavity, z: 0, op: add}
+      - {outline: bolt_holes, extrude: "*",     z: 0, op: subtract}
+  - id: plate_layer
+    layers:
+      - {outline: plate,      extrude: $plate_t, z: 0, op: add}
+      - {outline: bolt_holes, extrude: "*",      z: 0, op: subtract}
+
+interface:
+  type: through_bolts
+  at: "points.tag == mount"
+
+fasteners:
+  - between: [bottom_layer, plate_layer]
+    direction: through
+    type: m3_bolt_nut
+
+notes:
+  - "Simplest style — recommended first validation target for the pipeline."
+  - "Stack height = floor + N*cavity + plate_t; pick bolt length accordingly."

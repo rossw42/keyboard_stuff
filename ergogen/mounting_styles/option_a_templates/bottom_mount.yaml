@@ -1,0 +1,84 @@
+# =============================================================================
+# BOTTOM MOUNT template (Option A)  — difficulty: ★★★
+# STATUS: DESIGN SKETCH — UNTESTED. See README.md in this folder.
+#
+# Concept: mirror of top mount — plate tabs rest ON a ledge in the BOTTOM
+# case and are screwed from below (up through the ledge into the tabs, using
+# heat-set inserts in the tab undersides or nuts above).
+# Requires: _shared.yaml + user contract (_panel, _switch_cutouts, mount tags)
+# Assembly: set plate onto bottom-case ledge, screw from underneath, then
+#           attach top case / bezel.
+# =============================================================================
+
+outlines:
+  # plate with outward tabs at each mount point (same as top mount)
+  _plate_tabs:
+    - name: _plate
+    - what: rectangle
+      where: mount
+      size: [tab_w, tab_l * 2]
+
+  # ledge shelves inside the bottom case that support the tabs
+  _tab_ledges:
+    - what: rectangle
+      where: mount
+      size: [tab_w + 2 fit, tab_l * 2 + 2 fit]
+
+cases:
+  plate:
+    - what: outline
+      name: _plate_tabs
+      extrude: plate_t
+    # insert bores in tab undersides (screws come from below)
+    - what: outline
+      name: _insert_bores
+      extrude: plate_t
+      operation: subtract
+
+  bottom_case:
+    # shell: floor + walls up to plate underside
+    - what: outline
+      name: _case_outer
+      extrude: floor + cavity
+    - what: outline
+      name: _case_inner
+      extrude: cavity
+      shift: [0, 0, floor]
+      operation: subtract
+    # ledge shelves at the top of the cavity for the tabs to rest on
+    - what: outline
+      name: _tab_ledges
+      extrude: wall
+      shift: [0, 0, floor + cavity - wall]
+    # screw shank bores up through floor... NOTE: for tall cases, prefer
+    # boring only through the ledge and adding access counterbores from below.
+    - what: outline
+      name: _screw_holes
+      extrude: floor + cavity
+      operation: subtract
+    # screw head recesses in the underside of the floor
+    - what: outline
+      name: _head_recesses
+      extrude: head_h
+      operation: subtract
+
+  top_case:
+    # simple bezel ring above the plate; screws to bottom case walls
+    - what: outline
+      name: _wall_ring
+      extrude: plate_t + bezel + fit
+    - what: outline
+      name: _screw_holes
+      extrude: plate_t + bezel + fit
+      operation: subtract
+
+  # optional preview of the full stack
+  assembly_preview:
+    - what: case
+      name: bottom_case
+    - what: case
+      name: plate
+      shift: [0, 0, floor + cavity]
+    - what: case
+      name: top_case
+      shift: [0, 0, floor + cavity]

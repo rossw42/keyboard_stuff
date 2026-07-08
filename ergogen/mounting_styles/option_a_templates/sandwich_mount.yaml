@@ -1,0 +1,58 @@
+# =============================================================================
+# SANDWICH MOUNT template (Option A)  — difficulty: ★ (easiest, validate first)
+# STATUS: DESIGN SKETCH — UNTESTED. See README.md in this folder.
+#
+# Concept: plate clamped between stacked layers by through-bolts at every
+# `mount` point. Classic laser-cut / layered-print construction.
+# Requires: _shared.yaml + user contract (_panel, _switch_cutouts, mount tags)
+# Assembly: bolt from bottom_layer up through spacer_layer(s) and plate_layer
+#           into nuts (or the reverse). Print/cut as many spacer layers as
+#           needed to reach `cavity` height, or extrude a single tall spacer.
+# =============================================================================
+
+outlines:
+  # through-bolt holes shared by every layer
+  _bolt_holes:
+    - what: circle
+      where: mount
+      radius: screw_d / 2
+
+cases:
+  bottom_layer:
+    - what: outline
+      name: _case_outer
+      extrude: floor
+    - what: outline
+      name: _bolt_holes
+      extrude: floor
+      operation: subtract
+
+  spacer_layer:
+    - what: outline
+      name: _wall_ring
+      extrude: cavity
+    - what: outline
+      name: _bolt_holes
+      extrude: cavity
+      operation: subtract
+
+  plate_layer:
+    - what: outline
+      name: _plate
+      extrude: plate_t
+    - what: outline
+      name: _bolt_holes
+      extrude: plate_t
+      operation: subtract
+
+  # optional preview of the full stack (private helper pieces could be used
+  # instead; kept simple here)
+  assembly_preview:
+    - what: case
+      name: bottom_layer
+    - what: case
+      name: spacer_layer
+      shift: [0, 0, floor]
+    - what: case
+      name: plate_layer
+      shift: [0, 0, floor + cavity]

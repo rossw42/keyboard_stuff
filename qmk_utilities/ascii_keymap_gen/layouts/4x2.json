@@ -1,12 +1,12 @@
 {
   "name": "4x2",
-  "description": "Small 4x2 macropad",
+  "description": "Generic 5x2 macropad (10 keys)",
   "key_count": 10,
   "layout_functions": [
     "LAYOUT"
   ],
   "template_file": "4x2.txt",
-  "author": "rossw42",
+  "author": "Generated",
   "tags": [
     "macropad"
   ]

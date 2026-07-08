@@ -1,15 +1,14 @@
 {
   "name": "lets_split",
-  "description": "Let's Split - Simple 40% split ortholinear keyboard",
+  "description": "Let's Split - 4x12 split ortholinear",
   "key_count": 48,
   "layout_functions": [
-    "LAYOUT"
+    "LAYOUT_ortho_4x12"
   ],
   "template_file": "lets_split.txt",
-  "author": "Generated from QMK default",
+  "author": "Generated from QMK keyboard.json",
   "tags": [
     "split",
-    "ortholinear",
-    "40%"
+    "ortholinear"
   ]
 }

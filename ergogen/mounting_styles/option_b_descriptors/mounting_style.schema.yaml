@@ -1,0 +1,83 @@
+# =============================================================================
+# MOUNTING STYLE DESCRIPTOR — SCHEMA (annotated, informal)
+# STATUS: DESIGN PROPOSAL — no generator implements this yet.
+# See README.md in this folder and ../MOUNTING_STYLES_ANALYSIS.md §4.2.
+#
+# One descriptor file per mounting style. A future toolkit generator consumes
+# a descriptor + the user's base Ergogen config + parameter overrides, and
+# emits the `units:` / `outlines:` / `cases:` sections of a complete config.
+# =============================================================================
+
+# --- identity ---------------------------------------------------------------
+style: string            # unique id, e.g. top_mount, gasket_mount
+description: string      # one-line human description
+difficulty: 1-4          # informational, matches the analysis doc ratings
+
+# --- the user-config contract (checked before generation, fail fast) --------
+requires:
+  outlines: [string]     # outline names the user config must define
+                         #   canonical: [_panel, _switch_cutouts]
+  tags: [string]         # point tags the user config must provide
+                         #   canonical: [mount] (+ [standoff] for tray)
+  min_points:            # optional: minimum count per tag
+    mount: 4
+
+# --- parameters (defaults + validation; all become Ergogen `units:`) --------
+parameters:
+  <param_name>:
+    default: number      # required
+    min: number          # optional validation bound
+    max: number          # optional validation bound
+    unit: mm             # informational (everything is mm for now)
+    description: string  # shown in generator help / errors
+# Shared parameter names (keep consistent across all descriptors):
+#   wall, floor, plate_t, fit, cavity, bezel, plate_pcb_gap,
+#   screw_d, insert_d, insert_h, head_d, head_h,
+#   tab_w, tab_l, gasket_t, gasket_squish, channel_d
+
+# --- outline synthesis -------------------------------------------------------
+# How the generator builds the style's outlines from the user's geometry.
+# Values use a tiny DSL that maps 1:1 to Ergogen outline parts:
+#   panel                     -> the user's _panel outline
+#   switch_cutouts            -> the user's _switch_cutouts outline
+#   a + b / a - b             -> boolean add / subtract
+#   expand(x)                 -> outline expansion (postfix, applies to left)
+#   rect(w, h) @tag           -> rectangles at all points with tag
+#   circle(d) @tag            -> circles (diameter d) at all points with tag
+outline_recipes:
+  <outline_name>: string
+# Example:
+#   wall_ring: "panel expand($fit + $wall) - panel expand($fit)"
+#   plate_with_tabs: "panel - switch_cutouts + rect($tab_w, 2*$tab_l) @mount"
+#   tab_screw_holes: "circle($screw_d) @mount"
+
+# --- pieces (each piece = one exported Ergogen case) -------------------------
+pieces:
+  - id: string           # becomes the Ergogen case name
+    description: string  # optional
+    layers:              # ordered (outline, extrude, z, op) recipe
+      - outline: string  # name from outline_recipes (or a shared recipe)
+        extrude: expr    # number/expression with $params, or "*" = full piece
+                         # height (computed as max(z + extrude) of add layers)
+        z: expr          # bottom Z of this layer; number/expression,
+                         # or "top - X" measured down from the piece top
+        op: add | subtract | intersect   # default add
+
+# --- interface (what the style does at the plate<->case boundary) ------------
+# Machine-checkable summary; also drives documentation and PCB-side outputs.
+interface:
+  type: tabs | gasket_tabs | standoffs | through_bolts | integrated
+  at: string             # tag expression, e.g. "points.tag == mount"
+
+# --- fasteners (assembly metadata; drives BOM + future PCB hole emission) ----
+fasteners:
+  - between: [piece_id, piece_id]
+    direction: up | down | through
+    type: string         # e.g. m3_countersunk, m3_insert, m3_bolt_nut
+    at: string           # tag expression; defaults to interface.at
+
+# --- notes (freeform warnings surfaced by the generator) ---------------------
+notes:
+  - string
+# e.g. gasket: "channel space (2*channel_d + plate_t) must equal gasket stack
+#       (plate_t + 2*(gasket_t - gasket_squish)) — generator should warn."

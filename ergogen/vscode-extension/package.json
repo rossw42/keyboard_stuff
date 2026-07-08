@@ -2,7 +2,7 @@
   "name": "ergogen-toolkit",
   "displayName": "Ergogen Toolkit",
   "description": "Simple VS Code extension to run Ergogen on YAML files and view DXF output files",
-  "version": "4.0.0",
+  "version": "4.2.0",
   "publisher": "ergogen-tools",
   "engines": {
     "vscode": "^1.102.0"
@@ -36,6 +36,12 @@
         "title": "Run Ergogen",
         "category": "Ergogen",
         "icon": "$(play)"
+      },
+      {
+        "command": "ergogen-toolkit.openLivePreview",
+        "title": "Open Live Preview",
+        "category": "Ergogen",
+        "icon": "$(open-preview)"
       }
     ],
     "keybindings": [
@@ -49,20 +55,36 @@
         "command": "ergogen-toolkit.openViewer",
         "key": "ctrl+shift+d",
         "mac": "cmd+shift+d"
+      },
+      {
+        "command": "ergogen-toolkit.openLivePreview",
+        "key": "ctrl+shift+v",
+        "mac": "cmd+shift+v",
+        "when": "resourceExtname == .yaml || resourceExtname == .yml"
       }
     ],
     "menus": {
       "editor/title": [
         {
           "when": "resourceExtname == .yaml || resourceExtname == .yml",
+          "command": "ergogen-toolkit.openLivePreview",
+          "group": "navigation@1"
+        },
+        {
+          "when": "resourceExtname == .yaml || resourceExtname == .yml",
           "command": "ergogen-toolkit.runErgogen",
-          "group": "navigation"
+          "group": "navigation@2"
         }
       ],
       "editor/context": [
         {
           "when": "resourceExtname == .yaml || resourceExtname == .yml",
           "command": "ergogen-toolkit.runErgogen",
+          "group": "1_ergogen"
+        },
+        {
+          "when": "resourceExtname == .yaml || resourceExtname == .yml",
+          "command": "ergogen-toolkit.openLivePreview",
           "group": "1_ergogen"
         },
         {
@@ -84,6 +106,29 @@
           "type": "string",
           "default": "output",
           "description": "Default output directory name for Ergogen"
+        },
+        "ergogen-toolkit.runOnSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically re-run Ergogen when the active Ergogen YAML file is saved (only after it has been run once manually)"
+        },
+        "ergogen-toolkit.previewDebounce": {
+          "type": "number",
+          "default": 400,
+          "description": "Delay in milliseconds after typing stops before the live preview re-renders"
+        },
+        "ergogen-toolkit.ergogenModulePath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional path to the ergogen node module folder for the live preview (auto-detected from the global npm install by default)"
+        },
+        "ergogen-toolkit.footprintLibraries": {
+          "type": "object",
+          "default": {},
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Custom footprint libraries as namespace -> folder path, e.g. { \"ceoloide\": \"D:\\\\GitHub2\\\\ergogen-footprints\" }. Footprints are injected into the live preview and staged for Run Ergogen, referenced as namespace/filename (e.g. ceoloide/switch_mx). A `footprints` folder next to the YAML file is always picked up automatically as well."
         }
       }
     }

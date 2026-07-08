@@ -6,10 +6,12 @@ Research toward generating Ergogen cases for different keyboard mounting styles.
 
 ```
 mounting_styles/
-├── mounting_styles_README.md   # this file
-├── reference_images/           # 7 reference images + cheat sheet (see its README)
-├── sandwich_mount/             # EMPTY — placeholder, no config yet
-└── top_mount/                  # EMPTY — placeholder, no config yet
+├── mounting_styles_README.md     # this file
+├── MOUNTING_STYLES_ANALYSIS.md   # feasibility analysis + proposed representations
+├── option_a_templates/           # per-style Ergogen config fragments (UNTESTED sketches)
+├── option_b_descriptors/         # proposed toolkit descriptor format (schema + examples)
+├── reference_images/             # 7 reference images + cheat sheet (see its README)
+
 ```
 
 > An earlier version of this README described six complete YAML configurations (tray, top, bottom, sandwich, gasket, integrated). **Those files do not exist** — the descriptions below are retained as design research/context only.
@@ -28,6 +30,15 @@ The companion design-methodology document formerly in this folder now lives at [
 | **Integrated plate** | Plate is part of the top case | Single top-case-with-plate piece |
 
 See `reference_images/` for photos of each style and a comparison cheat sheet.
+
+## Feasibility analysis & proposed templates
+
+See [`MOUNTING_STYLES_ANALYSIS.md`](MOUNTING_STYLES_ANALYSIS.md) — verdict: all six styles are expressible as Ergogen Z-stacked extrusions + booleans. It proposes a shared parameter block, per-style "layer recipe" template fragments, and a higher-level descriptor format for the consolidated toolkit.
+
+Both options are written out for later consideration (design sketches, **untested**):
+
+- [`option_a_templates/`](option_a_templates/README.md) — `_shared.yaml` + all six style fragments in pure Ergogen `units:`/`outlines:`/`cases:` form
+- [`option_b_descriptors/`](option_b_descriptors/README.md) — descriptor schema + sandwich/top-mount example descriptors for a future toolkit generator
 
 ## Next steps (when unblocked)
 

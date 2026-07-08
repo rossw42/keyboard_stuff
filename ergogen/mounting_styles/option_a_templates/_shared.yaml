@@ -1,0 +1,79 @@
+# =============================================================================
+# SHARED BASE for all mounting-style templates (Option A)
+# STATUS: DESIGN SKETCH — UNTESTED. See README.md in this folder.
+#
+# Merge order: user base config -> this file -> one style file.
+# User config contract:
+#   - outline `_panel`          : closed board perimeter, no switch cutouts
+#   - outline `_switch_cutouts` : 14x14 rectangles at every key
+#   - points tagged `mount`     : perimeter mounting / tab locations
+#   - points tagged `standoff`  : interior PCB standoffs (tray mount only)
+# =============================================================================
+
+units:
+  # --- material / printing ---
+  wall: 2.5           # case wall thickness
+  floor: 3            # case bottom thickness
+  plate_t: 1.5        # plate thickness (1.5 = MX snap-in)
+  fit: 0.25           # clearance between mating parts (tune per printer)
+
+  # --- vertical stackup ---
+  cavity: 8           # inner height: floor top -> plate bottom
+  bezel: 2            # how far the case rises above the plate
+  plate_pcb_gap: 3.4  # MX switch: plate underside to PCB top
+
+  # --- fasteners (M3 defaults) ---
+  screw_d: 3.2        # M3 free fit
+  insert_d: 4.6       # M3 heat-set insert bore
+  insert_h: 5.7       # M3 heat-set insert length
+  head_d: 6           # screw head / counterbore diameter
+  head_h: 1.8         # screw head height (for stepped-bore recess)
+
+  # --- style-specific (only used by some templates) ---
+  tab_w: 8            # top/bottom-mount tab width
+  tab_l: 4            # tab protrusion beyond plate edge
+  gasket_t: 2         # uncompressed gasket thickness
+  gasket_squish: 0.4  # designed gasket compression
+  channel_d: 1.6      # gasket channel depth per case half
+
+outlines:
+  # cavity boundary (interior of the walls)
+  _case_inner:
+    - name: _panel
+      expand: fit
+
+  # outer footprint of the case
+  _case_outer:
+    - name: _panel
+      expand: fit + wall
+      fillet: 2
+
+  # walls = outer minus inner
+  _wall_ring:
+    - name: _case_outer
+    - operation: subtract
+      name: _case_inner
+
+  # generic switch plate (used by 5 of 6 styles)
+  _plate:
+    - name: _panel
+    - operation: subtract
+      name: _switch_cutouts
+
+  # generic screw shank holes at every mount point
+  _screw_holes:
+    - what: circle
+      where: mount
+      radius: screw_d / 2
+
+  # heat-set insert bores at every mount point
+  _insert_bores:
+    - what: circle
+      where: mount
+      radius: insert_d / 2
+
+  # screw head recess circles at every mount point
+  _head_recesses:
+    - what: circle
+      where: mount
+      radius: head_d / 2

@@ -12,10 +12,10 @@ Preview outputs (DXF)  →  Cases (JSCAD→STL) + PCBs (KiCad + ergogen-footprin
 
 | Folder | What it is |
 |---|---|
-| [`kle-to-ergogen/`](kle-to-ergogen/) | **Python CLI** — converts KLE JSON to Ergogen YAML (points section or full config) |
-| [`kle-to-scad/`](kle-to-scad/) | **Node CLI** — converts KLE JSON to OpenSCAD layouts for hotswap_pcb_generator (with stabilizer support) |
+| [`kbforge/`](kbforge/) | **⭐ Unified Python CLI** — one KLE JSON in → Ergogen YAML (points+outlines+plate+PCB+cases), standalone OpenSCAD plate/case, hotswap_pcb_generator layout, Markdown build docs, and canonical layout JSON. Supersedes the two folders below. |
+| [`kle-to-ergogen/`](kle-to-ergogen/) | *(superseded by kbforge)* Python CLI — converts KLE JSON to Ergogen YAML points |
+| [`kle-to-scad/`](kle-to-scad/) | *(superseded by kbforge)* Node CLI — converts KLE JSON to OpenSCAD layouts for hotswap_pcb_generator |
 | [`vscode-extension/`](vscode-extension/) | **VS Code extension** — Run Ergogen on the active YAML + built-in DXF viewer |
-| [`scripts/`](scripts/) | Canonical command-line runner: `run-ergogen.bat` → runs Ergogen + converts JSCAD cases to STL |
 | [`working_samples/`](working_samples/) | Community Ergogen configs (Absolem, Samoklava, Kaly, …) used as reference patterns |
 | [`docs/`](docs/) | Toolkit documentation — start with [`docs/ERGOGEN_REFERENCE.md`](docs/ERGOGEN_REFERENCE.md) |
 | [`mounting_styles/`](mounting_styles/) | Deferred research on keyboard mounting styles (stretch goal) |
@@ -32,17 +32,19 @@ Requires [Node.js](https://nodejs.org):
 npm i -g ergogen
 ```
 
-### 2. Convert a KLE layout to Ergogen YAML
-Requires Python 3 + PyYAML (`pip install -r kle-to-ergogen/requirements.txt`). Run from the repo root:
+### 2. Convert a KLE layout to everything (Ergogen YAML, SCAD, docs, ...)
+Requires only Python 3 (no packages). Run from the repo root:
 ```
-python kle-to-ergogen/cli.py kle-to-ergogen/examples/macropad-with-3-encoders.json -o my-keyboard.yaml
+python -m kbforge kbforge/examples/kle/numpad.json -o my-keyboard/
 ```
+(run from inside `kbforge/`, or add it to `PYTHONPATH`)
 
 ### 3. Run Ergogen (and get STL cases)
+kbforge does this in the same run — add `--build`:
 ```
-scripts\run-ergogen.bat my-keyboard.yaml
+python -m kbforge kbforge/examples/kle/numpad.json -o my-keyboard/ --build
 ```
-Outputs land in a folder named after the YAML file: `outlines/` (DXF), `cases/` (JSCAD + STL), `pcbs/` (KiCad).
+This runs Ergogen on the generated config and converts the case JSCAD models to STL. Outputs land in `my-keyboard/ergogen/`: `outlines/` (DXF), `cases/` (JSCAD + STL), `pcbs/` (KiCad).
 
 ### 4. Or use the VS Code extension
 Install the extension from [`vscode-extension/`](vscode-extension/) for one-click **Run Ergogen** and an in-editor **DXF viewer**.

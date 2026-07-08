@@ -1,0 +1,492 @@
+"""
+Ergogen v4 config generator.
+
+Generates a complete, self-contained Ergogen YAML config from a Layout:
+
+  points   — one zone per key, positioned with kx/ky unit math (Ergogen
+             requires points to live under points.zones; a zone with just an
+             anchor yields one point named after the zone). Rotation and
+             per-key column/row nets are included.
+  outlines — `board` (filleted union of key footprints), `plate`
+             (board minus 14x14mm switch cutouts), `pcb_outline`.
+  pcbs     — KiCad PCB with hotswap switch + diode footprints wired
+             column-to-{{colrow}} / {{colrow}}-to-row. By default uses the
+             ceoloide/ergogen-footprints library (KiCad 8); pass
+             options={"footprint_lib": "builtin"} for Ergogen's built-in
+             `mx`/`diode` footprints instead.
+  cases    — simple sandwich: bottom slab, wall ring, and plate, each an
+             extruded outline (Ergogen emits .jscad for these; kbforge's
+             build step converts them to STL with @jscad/cli).
+
+Everything positional and dimensional is expressed in terms of the kx/ky
+units declared in the config's `units:` section (e.g. `shift: [-1.5kx, 2ky]`,
+`width: 2kx`). Ergogen treats any string that parses as a math formula as a
+number, so changing kx/ky (e.g. to 18/17 for choc spacing) rescales the
+whole board.
+
+Run the output through a local Ergogen install — easiest by passing the
+generated .ergogen.yaml back to the kbforge CLI (the build step), which
+stages the config (plus the ceoloide footprints when needed), runs Ergogen,
+and renders the case .jscad models to STL with @jscad/cli (see
+generators/ergogen_build.py). Manually, with the default
+ceoloide footprints, Ergogen requires a folder layout:
+
+    my_board/
+      config.yaml            <- the generated YAML, renamed
+      footprints/
+        ceoloide/            <- clone of ceoloide/ergogen-footprints
+    npx ergogen my_board -o output/
+
+(with footprint_lib="builtin" a bare `npx ergogen config.yaml -o output/`
+works). Output: output/points/, output/outlines/*.dxf|svg,
+output/cases/*.jscad and output/pcbs/*.kicad_pcb. Ergogen emits cases as
+.jscad only; convert to STL with `npx @jscad/cli@1 case.jscad -o case.stl`.
+
+Coordinate conversion (consolidated from kle-to-ergogen + kle-to-scad):
+  * KLE y-down  -> Ergogen y-up      (y_mm is negated)
+  * KLE clockwise rotation -> Ergogen counter-clockwise (angle negated)
+  * positions are physical key centers (rotation-cluster aware)
+  * layout is centered on the origin
+"""
+
+from __future__ import annotations
+
+import re
+from typing import Any, Dict, List, Tuple
+
+from ..layout import Key, Layout
+from .. import yaml_emit
+
+# Plate cutout for MX/Alps-style switches (mm)
+SWITCH_CUTOUT = 14.0
+# Plate cutout for Kailh Choc (PG1350) switches (mm) — pass
+# options={"switch_cutout": CHOC_CUTOUT} to use it.
+CHOC_CUTOUT = 13.8
+# Plate cutout for the PG1350->PG1425 switch-converter adapter: the
+# 15.00mm adapter body + 0.2mm clearance. The adapter provides its own
+# switch retention (built-in 1.2mm "plate" bezel), so the plate only
+# needs a drop-through opening for the body.
+CONVERTER_CUTOUT = 15.2
+CONVERTER_CUTOUT_CORNER = 0.5   # matches the adapter's body corner radius
+
+DEFAULTS = {
+    "fillet": 2.0,        # corner fillet on board outline, mm
+    "plate_expand": 0.0,  # extra margin on plate beyond key footprints, mm
+    "pcb_expand": 0.0,    # extra margin on pcb outline, mm
+    "switch_cutout": SWITCH_CUTOUT,        # plate cutout for normal keys, mm
+    "converter_cutout": CONVERTER_CUTOUT,  # plate cutout at converter keys, mm
+    "converter_cutout_corner": CONVERTER_CUTOUT_CORNER,
+    "wall": 3.0,          # case wall thickness, mm
+    "bottom_height": 3.0, # case bottom slab, mm
+    "wall_height": 13.0,  # case wall height, mm
+    "plate_height": 1.6,  # plate thickness, mm
+    # PCB footprint library: "ceoloide" (ceoloide/ergogen-footprints,
+    # KiCad 8, needs a footprints/ceoloide folder) or "builtin"
+    # (Ergogen's bundled mx/diode footprints, no setup required).
+    "footprint_lib": "ceoloide",
+    # Center the board on the KiCad sheet. Ergogen maps points 1:1 to
+    # KiCad coordinates (kicad y = -ergogen y) with no offset, so an
+    # origin-centered layout lands at the sheet's top-left corner.
+    # Ergogen's kicad templates use A3 paper (420x297mm), so we shift all
+    # points by (210, -148.5) via mid_x/mid_y units. Disable with
+    # kicad_center=False to keep the layout centered on the origin.
+    "kicad_center": True,
+    "sheet_center_x": 210.0,   # A3 sheet center, mm
+    "sheet_center_y": 148.5,
+}
+
+
+def generate_ergogen_yaml(layout: Layout, options: Dict[str, Any] | None = None) -> str:
+    """Generate a complete Ergogen v4 YAML config string for the layout."""
+    opts = dict(DEFAULTS)
+    if options:
+        opts.update(options)
+    config = build_ergogen_config(layout, opts)
+    header = (
+        f"# {layout.name} — Ergogen v4 config generated by kbforge\n"
+        f"# Source: KLE layout ({len(layout.switches)} switches)\n"
+    )
+    if opts["footprint_lib"] == "ceoloide":
+        header += (
+            "#\n"
+            "# Review/edit this config, then build it (runs Ergogen + renders\n"
+            "# case STLs):\n"
+            "#   python -m kbforge <this file> -o <out>\n"
+            "#\n"
+            "# Manual build — PCB footprints: ceoloide/ergogen-footprints (KiCad 8).\n"
+            "# Ergogen loads custom footprints from a `footprints` folder next to\n"
+            "# a `config.yaml`, so:\n"
+            "#   1. rename this file to config.yaml\n"
+            "#   2. clone https://github.com/ceoloide/ergogen-footprints into\n"
+            "#      footprints/ceoloide (alongside config.yaml)\n"
+            "#   3. npx ergogen <that folder> -o output/\n"
+            "#   4. npx @jscad/cli@1 output/cases/<case>.jscad -o <case>.stl\n"
+        )
+    else:
+        header += (
+            "# Review/edit this config, then build it (runs Ergogen + renders\n"
+            "# case STLs):\n"
+            "#   python -m kbforge <this file> -o <out>\n"
+            "# Manual: npx ergogen <this file> -o output/\n"
+            "#         npx @jscad/cli@1 output/cases/<case>.jscad -o <case>.stl\n"
+        )
+    header += "# Output: outlines/*.dxf, pcbs/*.kicad_pcb, cases/*.jscad (+ .stl via the build step)\n"
+    return header + yaml_emit.dump(config)
+
+
+def build_ergogen_config(layout: Layout, options: Dict[str, Any] | None = None) -> Dict[str, Any]:
+    """Build the Ergogen config as a plain dict (points/outlines/pcbs/cases)."""
+    opts = dict(DEFAULTS)
+    if options:
+        opts.update(options)
+
+    layout.assign_matrix()
+    name = _sanitize(layout.name) or "keyboard"
+
+    center = bool(opts.get("kicad_center", True))
+    zones, size_groups = _build_zones(layout, centered=center)
+
+    n_converters = len(layout.converters)
+    n_normal = len(layout.switches) - n_converters
+
+    units: Dict[str, Any] = {
+        "kx": layout.unit,       # 1u horizontal pitch
+        "ky": layout.unit,       # 1u vertical pitch
+        "sw_cutout": round(float(opts["switch_cutout"]), 3),
+    }
+    if n_converters:
+        units["conv_cutout"] = round(float(opts["converter_cutout"]), 3)
+    if center:
+        # KiCad sheet center (ergogen y-up, so y is negated).
+        units["mid_x"] = round(float(opts["sheet_center_x"]), 3)
+        units["mid_y"] = round(-float(opts["sheet_center_y"]), 3)
+
+    config: Dict[str, Any] = {
+        "meta": {
+            "engine": "4.1.0",
+            "name": layout.name,
+            "author": layout.author or "kbforge",
+        },
+        "units": units,
+        "points": {"zones": zones},
+        "outlines": _build_outlines(size_groups, opts,
+                                    n_normal=n_normal,
+                                    n_converters=n_converters),
+        "pcbs": _build_pcbs(name, layout, opts),
+        "cases": _build_cases(opts),
+    }
+    return config
+
+
+# ---------------------------------------------------------------------- #
+# Points
+# ---------------------------------------------------------------------- #
+
+def _zone_name(key: Key) -> str:
+    return f"key_r{key.matrix_row}c{key.matrix_col}"
+
+
+def _size_tag(width_u: float, height_u: float) -> str:
+    def fmt(v: float) -> str:
+        return str(v).replace(".", "_")
+    return f"size_{fmt(width_u)}x{fmt(height_u)}"
+
+
+def _u_expr(value_u: float, unit: str) -> Any:
+    """
+    Format a key-unit multiple as an Ergogen math expression using the
+    named unit: 1.0 -> 'kx', 2.0 -> '2kx', -1.5 -> '-1.5ky', 0 -> 0.
+    Ergogen evaluates these against the `units:` section, so the whole
+    config rescales when kx/ky change.
+    """
+    v = round(value_u, 4)
+    if v == 0:
+        return 0
+    sign = "-" if v < 0 else ""
+    magnitude = f"{abs(v):.4f}".rstrip("0").rstrip(".")
+    if magnitude == "1":
+        return f"{sign}{unit}"
+    return f"{sign}{magnitude}{unit}"
+
+
+def _shift_expr(value_u: float, unit: str, offset_unit: str | None) -> Any:
+    """
+    Anchor-shift expression: the kx/ky multiple, optionally offset by a
+    named unit (mid_x/mid_y for KiCad sheet centering).
+    e.g. (-1.5, 'kx', 'mid_x') -> 'mid_x - 1.5kx'; (0, 'ky', 'mid_y') -> 'mid_y'.
+    """
+    expr = _u_expr(value_u, unit)
+    if offset_unit is None:
+        return expr
+    if expr == 0:
+        return offset_unit
+    text = str(expr)
+    if text.startswith("-"):
+        return f"{offset_unit} - {text[1:]}"
+    return f"{offset_unit} + {text}"
+
+
+def _build_zones(layout: Layout,
+                 centered: bool = True) -> Tuple[Dict[str, Any], Dict[str, Tuple[float, float]]]:
+    """
+    One Ergogen zone per switch key. Returns (zones, size_groups) where
+    size_groups maps size-tag -> (width_u, height_u) in key units for
+    outline generation (emitted as kx/ky expressions). When `centered`,
+    anchor shifts include the mid_x/mid_y KiCad-sheet-center offset.
+    """
+    off_x = "mid_x" if centered else None
+    off_y = "mid_y" if centered else None
+    # Center layout on origin for tidy coordinates.
+    centers = [k.center_mm(layout.unit) for k in layout.switches]
+    cx = (min(c[0] for c in centers) + max(c[0] for c in centers)) / 2
+    cy = (min(c[1] for c in centers) + max(c[1] for c in centers)) / 2
+
+    zones: Dict[str, Any] = {}
+    size_groups: Dict[str, Tuple[float, float]] = {}
+
+    for key in layout.switches:
+        kx_mm, ky_mm = key.center_mm(layout.unit)
+        # Positions as key-unit multiples of kx/ky (centers are exact unit
+        # multiples of KLE u-coordinates, so this stays exact and the whole
+        # layout rescales if kx/ky are edited).
+        x_u = round((kx_mm - cx) / layout.unit, 4)
+        y_u = round(-(ky_mm - cy) / layout.unit, 4)  # KLE y-down -> Ergogen y-up
+        rotation = -key.rotation_angle               # KLE cw -> Ergogen ccw
+
+        tag = _size_tag(key.width, key.height)
+        size_groups[tag] = (key.width, key.height)
+
+        anchor: Dict[str, Any] = {
+            "shift": [_shift_expr(x_u, "kx", off_x), _shift_expr(y_u, "ky", off_y)],
+        }
+        if abs(rotation) > 0.001:
+            anchor["rotate"] = round(rotation, 2)
+
+        tags = ["key", tag]
+        if key.converter:
+            tags.append("converter")
+        stab = key.stabilizer
+        if stab:
+            tags.extend(["stabilized", stab["type"]])
+
+        zone: Dict[str, Any] = {
+            "anchor": anchor,
+            "key": {
+                "name": _zone_name(key),
+                "tags": tags,
+                "width": _u_expr(key.width, "kx"),
+                "height": _u_expr(key.height, "ky"),
+                "column_net": f"col{key.matrix_col}",
+                "row_net": f"row{key.matrix_row}",
+                "label": key.primary_label or "",
+            },
+        }
+        zones[_zone_name(key)] = zone
+
+    return zones, size_groups
+
+
+# ---------------------------------------------------------------------- #
+# Outlines
+# ---------------------------------------------------------------------- #
+
+def _build_outlines(size_groups: Dict[str, Tuple[float, float]],
+                    opts: Dict[str, Any],
+                    n_normal: int = 1,
+                    n_converters: int = 0) -> Dict[str, Any]:
+    outlines: Dict[str, Any] = {}
+
+    # Union of full key footprints, one rectangle spec per unique key size.
+    # Sizes are kx/ky expressions so they track the units section.
+    keys_parts: List[Dict[str, Any]] = []
+    for index, (tag, (w_u, h_u)) in enumerate(sorted(size_groups.items())):
+        part: Dict[str, Any] = {
+            "what": "rectangle",
+            "where": [tag],
+            "size": [_u_expr(w_u, "kx"), _u_expr(h_u, "ky")],
+        }
+        if index > 0:
+            part["operation"] = "add"
+        keys_parts.append(part)
+    outlines["_keys"] = keys_parts
+
+    # Switch cutouts at every key point; rotation is inherited. Converter
+    # positions (PG1350->PG1425 adapter) get a larger rounded opening that
+    # the 15x15mm adapter body drops through — the adapter's own bezel
+    # provides switch retention, so no plate lip is needed there.
+    cutout_parts: List[Dict[str, Any]] = []
+    if n_converters == 0:
+        cutout_parts.append(
+            {"what": "rectangle", "where": ["key"],
+             "size": ["sw_cutout", "sw_cutout"]})
+    else:
+        if n_normal:
+            cutout_parts.append(
+                {"what": "rectangle", "where": [["key", "-converter"]],
+                 "size": ["sw_cutout", "sw_cutout"]})
+        part: Dict[str, Any] = {
+            "what": "rectangle", "where": [["key", "converter"]],
+            "size": ["conv_cutout", "conv_cutout"],
+            "corner": opts["converter_cutout_corner"],
+        }
+        if cutout_parts:
+            part["operation"] = "add"
+        cutout_parts.append(part)
+    outlines["_switch_cutouts"] = cutout_parts
+
+    # Board outline: filleted union of key footprints.
+    outlines["board"] = [
+        {"what": "outline", "name": "_keys",
+         "fillet": opts["fillet"], "expand": opts["plate_expand"]},
+    ]
+
+    # Plate: board minus switch cutouts.
+    outlines["plate"] = [
+        {"what": "outline", "name": "board"},
+        {"what": "outline", "name": "_switch_cutouts", "operation": "subtract"},
+    ]
+
+    # PCB edge cuts.
+    outlines["pcb_outline"] = [
+        {"what": "outline", "name": "_keys",
+         "fillet": opts["fillet"], "expand": opts["pcb_expand"]},
+    ]
+
+    # Case footprint (board grown by wall thickness) and wall ring.
+    outlines["_case_outer"] = [
+        {"what": "outline", "name": "board", "expand": opts["wall"]},
+    ]
+    outlines["_wall_ring"] = [
+        {"what": "outline", "name": "_case_outer"},
+        {"what": "outline", "name": "board", "operation": "subtract"},
+    ]
+    return outlines
+
+
+# ---------------------------------------------------------------------- #
+# PCBs
+# ---------------------------------------------------------------------- #
+
+def _build_pcbs(name: str, layout: Layout, opts: Dict[str, Any]) -> Dict[str, Any]:
+    lib = opts.get("footprint_lib", "ceoloide")
+
+    has_converters = bool(layout.converters)
+    has_normal = len(layout.switches) > len(layout.converters)
+    # Converter positions get the PG1425 (Choc X) footprint instead of the
+    # normal switch footprint; everything else (diodes, nets) is unchanged.
+    switch_where: Any = [["key", "-converter"]] if has_converters else ["key"]
+
+    # kbforge's own custom footprint (kbforge/footprints/switch_pg1425.js),
+    # staged next to config.yaml by the build step — see ergogen_build.py.
+    converter_fp: Dict[str, Any] = {
+        "what": "switch_pg1425",
+        "where": [["key", "converter"]],
+        "params": {
+            "from": "{{column_net}}",
+            "to": "{{colrow}}",
+        },
+    }
+
+    if lib == "ceoloide":
+        # ceoloide/ergogen-footprints (KiCad 8) — requires the footprints to
+        # live in footprints/ceoloide next to config.yaml, and template: kicad8.
+        switches: Dict[str, Any] = {
+            "what": "ceoloide/switch_mx",
+            "where": switch_where,
+            "params": {
+                "hotswap": True,
+                "reversible": False,
+                "include_keycap": True,
+                "from": "{{column_net}}",
+                "to": "{{colrow}}",
+            },
+        }
+        diodes: Dict[str, Any] = {
+            "what": "ceoloide/diode_tht_sod123",
+            "where": ["key"],
+            "params": {
+                "from": "{{colrow}}",
+                "to": "{{row_net}}",
+            },
+            "adjust": {"shift": [0, -5]},
+        }
+        # NOTE: add a controller manually, e.g.:
+        #   controller: { what: ceoloide/mcu_nice_nano, where: <anchor>,
+        #                 params: { P1: col0, ... } }
+        # Other useful footprints in the library: ceoloide/trrs_pj320a,
+        # ceoloide/reset_switch_smd_side, ceoloide/mounting_hole_npth.
+        footprints: Dict[str, Any] = {}
+        if has_normal:
+            footprints["switches"] = switches
+        if has_converters:
+            footprints["converters"] = converter_fp
+        footprints["diodes"] = diodes
+        pcb: Dict[str, Any] = {
+            "template": "kicad8",  # required by ceoloide KiCad 8 footprints
+            "outlines": {
+                "edge": {"outline": "pcb_outline"},
+            },
+            "footprints": footprints,
+        }
+    else:
+        # Ergogen's built-in footprints (KiCad 5, no external files needed).
+        footprints = {}
+        if has_normal:
+            footprints["switches"] = {
+                "what": "mx",
+                "where": switch_where,
+                "params": {
+                    "keycaps": True,
+                    "reverse": False,
+                    "hotswap": True,
+                    "from": "{{column_net}}",
+                    "to": "{{colrow}}",
+                },
+            }
+        if has_converters:
+            footprints["converters"] = converter_fp
+        footprints["diodes"] = {
+            "what": "diode",
+            "where": ["key"],
+            "params": {
+                "from": "{{colrow}}",
+                "to": "{{row_net}}",
+            },
+            "adjust": {"shift": [0, -5]},
+        }
+        # NOTE: add a controller manually, e.g.:
+        #   controller: { what: promicro, where: <anchor>, params: { P0: col0, ... } }
+        pcb = {
+            "outlines": {
+                "edge": {"outline": "pcb_outline"},
+            },
+            "footprints": footprints,
+        }
+
+    return {name: pcb}
+
+
+# ---------------------------------------------------------------------- #
+# Cases
+# ---------------------------------------------------------------------- #
+
+def _build_cases(opts: Dict[str, Any]) -> Dict[str, Any]:
+    return {
+        "case_bottom": [
+            {"what": "outline", "name": "_case_outer",
+             "extrude": opts["bottom_height"]},
+        ],
+        "case_walls": [
+            {"what": "outline", "name": "_wall_ring",
+             "extrude": opts["wall_height"]},
+        ],
+        "case_plate": [
+            {"what": "outline", "name": "plate",
+             "extrude": opts["plate_height"]},
+        ],
+    }
+
+
+def _sanitize(text: str) -> str:
+    cleaned = re.sub(r"[^A-Za-z0-9_]+", "_", (text or "").strip()).strip("_").lower()
+    return cleaned

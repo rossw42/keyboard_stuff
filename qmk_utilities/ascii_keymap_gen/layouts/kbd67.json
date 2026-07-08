@@ -1,13 +1,13 @@
 {
   "name": "kbd67",
-  "description": "Kbd67 - Popular 65% keyboard with arrow keys",
+  "description": "KBD67 - 65% keyboard (LAYOUT_65_ansi_blocker, 67 keys)",
   "key_count": 67,
   "layout_functions": [
-    "LAYOUT"
+    "LAYOUT_65_ansi_blocker"
   ],
   "template_file": "kbd67.txt",
-  "author": "Generated from QMK default",
+  "author": "Generated from QMK keyboard.json",
   "tags": [
-    "standard"
+    "65%"
   ]
 }

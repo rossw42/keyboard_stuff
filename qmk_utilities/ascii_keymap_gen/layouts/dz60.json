@@ -1,9 +1,14 @@
 {
   "name": "dz60",
-  "description": "DZ60 - 60% PCB with multiple layout options",
-  "key_count": 61,
-  "layout_functions": ["LAYOUT"],
+  "description": "DZ60 - 60% keyboard (generic LAYOUT, 67 keys)",
+  "key_count": 67,
+  "layout_functions": [
+    "LAYOUT"
+  ],
   "template_file": "dz60.txt",
-  "author": "Generated from QMK default",
-  "tags": ["60%", "staggered", "multiple_layouts"]
+  "author": "Generated from QMK keyboard.json",
+  "tags": [
+    "60%",
+    "compact"
+  ]
 }

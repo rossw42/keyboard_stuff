@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Keymap Viewer</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+            margin: 20px;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 26px;
+            color: #4CAF50;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #B0BEC5;
+            font-size: 13px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+        }
+
+        .toolbar label {
+            color: #81C784;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        select {
+            background: #1e1e1e;
+            color: #e0e0e0;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 8px 10px;
+            font-size: 13px;
+            font-family: 'Courier New', monospace;
+            min-width: 320px;
+            flex: 1;
+        }
+
+        .btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn:hover { background: #45a049; }
+        .btn.secondary { background: #2196F3; }
+        .btn.secondary:hover { background: #1976D2; }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #FFB74D;
+            margin-bottom: 15px;
+            padding: 0 4px;
+        }
+
+        .live-indicator {
+            background: #4CAF50;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 11px;
+        }
+
+        .live-indicator.paused { background: #757575; }
+
+        .live-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .content-area {
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .content-area h3 {
+            color: #4CAF50;
+            margin-top: 0;
+        }
+
+        .placeholder {
+            text-align: center;
+            color: #777;
+            padding: 40px 20px;
+            font-size: 14px;
+        }
+
+        .error {
+            background: #f44336;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        /* Layer tabs */
+        .layer-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .layer-tab {
+            background: #444;
+            color: #ccc;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .layer-tab.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .layer-content { display: none; }
+        .layer-content.active { display: block; }
+
+        /* Key grid */
+        .key-row {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+
+        .key {
+            background: #555;
+            border: 2px solid #777;
+            border-radius: 6px;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            width: 62px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            transition: all 0.15s;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+        }
+
+        .key:hover {
+            background: #666;
+            border-color: #4CAF50;
+        }
+
+        .key.modifier { background: #FF9800; color: #000; }
+        .key.function { background: #2196F3; }
+        .key.layer    { background: #9C27B0; }
+        .key.media    { background: #009688; }
+        .key.rgb      { background: #E91E63; }
+        .key.trans    { background: #333; color: #666; border-style: dashed; }
+
+        .raw-content {
+            background: #1e1e1e;
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        details summary {
+            cursor: pointer;
+            color: #4CAF50;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">&#127929; Live Keymap Viewer</div>
+            <div class="subtitle">Pick a keymap.c &mdash; the page updates automatically when the file changes</div>
+        </div>
+
+        <div class="toolbar">
+            <label for="keymap-select">Keyboard:</label>
+            <select id="keymap-select">
+                <option value="">Loading keymaps...</option>
+            </select>
+            <button class="btn secondary" onclick="loadKeymapList()">&#128260; Rescan</button>
+            <button class="btn secondary" id="pause-btn" onclick="toggleAutoUpdate()">&#9208; Pause</button>
+        </div>
+
+        <div class="status-bar">
+            <span id="last-update">No file selected</span>
+            <span class="live-indicator" id="live-indicator">
+                <span class="live-dot"></span><span id="live-status">Live</span>
+            </span>
+        </div>
+
+        <div class="content-area">
+            <h3>Visual Keymap</h3>
+            <div id="visual-keymap">
+                <div class="placeholder">Select a keyboard above to view its keymap</div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <details>
+                <summary>Raw keymap.c</summary>
+                <div class="raw-content" id="raw-content">No file loaded</div>
+            </details>
+        </div>
+    </div>
+
+    <script>
+        let autoUpdate = true;
+        let pollTimer = null;
+        let currentFile = null;
+        let lastTimestamp = 0;
+        const POLL_MS = 2000;
+
+        // ---------- Keymap list / selection ----------
+
+        async function loadKeymapList() {
+            const select = document.getElementById('keymap-select');
+            try {
+                const res = await fetch('/api/keymaps');
+                const data = await res.json();
+
+                select.innerHTML = '<option value="">-- choose a keymap --</option>';
+                data.keymaps.forEach(f => {
+                    const opt = document.createElement('option');
+                    opt.value = f;
+                    opt.textContent = f;
+                    select.appendChild(opt);
+                });
+
+                // Priority: ?file= URL parameter, then saved choice
+                const urlFile = new URLSearchParams(window.location.search).get('file');
+                const saved = localStorage.getItem('selectedKeymap');
+                const initial = (urlFile && data.keymaps.includes(urlFile)) ? urlFile
+                              : (saved && data.keymaps.includes(saved)) ? saved
+                              : null;
+                if (initial) {
+                    select.value = initial;
+                    selectKeymap(initial);
+                }
+            } catch (err) {
+                select.innerHTML = '<option value="">Error loading list</option>';
+                console.error(err);
+            }
+        }
+
+        function selectKeymap(file) {
+            currentFile = file || null;
+            lastTimestamp = 0;
+            if (currentFile) {
+                localStorage.setItem('selectedKeymap', currentFile);
+                loadKeymap();
+            } else {
+                localStorage.removeItem('selectedKeymap');
+                document.getElementById('visual-keymap').innerHTML =
+                    '<div class="placeholder">Select a keyboard above to view its keymap</div>';
+                document.getElementById('raw-content').textContent = 'No file loaded';
+                document.getElementById('last-update').textContent = 'No file selected';
+            }
+        }
+
+        // ---------- Polling / loading ----------
+
+        async function loadKeymap() {
+            if (!currentFile) return;
+            try {
+                const res = await fetch('/api/keymap?file=' + encodeURIComponent(currentFile));
+                const data = await res.json();
+
+                if (data.error) {
+                    showError(data.error);
+                    return;
+                }
+
+                if (data.timestamp > lastTimestamp) {
+                    lastTimestamp = data.timestamp;
+                    document.getElementById('raw-content').textContent = data.content;
+                    renderKeymap(parseLayers(data.content), parseCombos(data.content));
+
+                    const date = new Date(data.timestamp * 1000);
+                    document.getElementById('last-update').textContent =
+                        currentFile + ' \u2014 last modified ' + date.toLocaleTimeString();
+
+                    flashIndicator('Updated!');
+                }
+            } catch (err) {
+                showError('Failed to load keymap: ' + err.message);
+            }
+        }
+
+        function showError(msg) {
+            document.getElementById('visual-keymap').innerHTML =
+                '<div class="error">' + msg + '</div>';
+        }
+
+        function flashIndicator(text) {
+            const el = document.getElementById('live-status');
+            el.textContent = text;
+            setTimeout(() => { el.textContent = autoUpdate ? 'Live' : 'Paused'; }, 1500);
+        }
+
+        function startPolling() {
+            if (pollTimer) clearInterval(pollTimer);
+            pollTimer = setInterval(() => {
+                if (autoUpdate && currentFile) loadKeymap();
+            }, POLL_MS);
+        }
+
+        function toggleAutoUpdate() {
+            autoUpdate = !autoUpdate;
+            const btn = document.getElementById('pause-btn');
+            const indicator = document.getElementById('live-indicator');
+            if (autoUpdate) {
+                btn.innerHTML = '&#9208; Pause';
+                indicator.classList.remove('paused');
+                document.getElementById('live-status').textContent = 'Live';
+                loadKeymap();
+            } else {
+                btn.innerHTML = '&#9654; Resume';
+                indicator.classList.add('paused');
+                document.getElementById('live-status').textContent = 'Paused';
+            }
+        }
+
+        // ---------- keymap.c parsing ----------
+
+        // Split a string at top-level commas (ignores commas inside parens,
+        // so LT(1, KC_SPC) stays together).
+        function splitTopLevel(str) {
+            const parts = [];
+            let depth = 0, cur = '';
+            for (const ch of str) {
+                if (ch === '(') depth++;
+                if (ch === ')') depth--;
+                if (ch === ',' && depth === 0) {
+                    parts.push(cur.trim());
+                    cur = '';
+                } else {
+                    cur += ch;
+                }
+            }
+            if (cur.trim()) parts.push(cur.trim());
+            return parts;
+        }
+
+        // Extract the balanced-paren argument list starting at openIdx ("(").
+        function extractParenBody(str, openIdx) {
+            let depth = 0;
+            for (let i = openIdx; i < str.length; i++) {
+                if (str[i] === '(') depth++;
+                else if (str[i] === ')') {
+                    depth--;
+                    if (depth === 0) return str.slice(openIdx + 1, i);
+                }
+            }
+            return null;
+        }
+
+        // Parse all layers. Returns [{name, rows: [[key,...], ...]}, ...]
+        function parseLayers(content) {
+            const layers = [];
+            // Match "[NAME] = LAYOUT_anything(" -- name can be number or identifier
+            const layerStart = /\[\s*([A-Za-z0-9_]+)\s*\]\s*=\s*(LAYOUT\w*)\s*\(/g;
+            let m;
+            while ((m = layerStart.exec(content)) !== null) {
+                const openIdx = layerStart.lastIndex - 1;
+                const body = extractParenBody(content, openIdx);
+                if (body === null) continue;
+
+                // Use source lines as rows (how keymaps are typically formatted)
+                const rows = body
+                    .split('\n')
+                    .map(line => splitTopLevel(line.replace(/\/\/.*$/, '').replace(/,\s*$/, ',')))
+                    .map(keys => keys.filter(k => k.length > 0))
+                    .filter(row => row.length > 0);
+
+                layers.push({ name: m[1], rows: rows });
+            }
+            return layers;
+        }
+
+        function parseCombos(content) {
+            const combos = [];
+            const comboRegex = /const uint16_t PROGMEM combo_(\w+)\[\]\s*=\s*\{([^}]+)\}/g;
+            let m;
+            while ((m = comboRegex.exec(content)) !== null) {
+                const keys = m[2].split(',')
+                    .map(k => k.trim())
+                    .filter(k => k && k !== 'COMBO_END');
+                combos.push({ name: m[1], keys: keys });
+            }
+            return combos;
+        }
+
+        // ---------- Rendering ----------
+
+        function renderKeymap(layers, combos) {
+            const container = document.getElementById('visual-keymap');
+            if (!layers.length) {
+                container.innerHTML =
+                    '<div class="error">No LAYOUT layers found in this keymap.c</div>';
+                return;
+            }
+
+            let html = '<div class="layer-tabs">';
+            layers.forEach((layer, i) => {
+                html += '<button class="layer-tab' + (i === 0 ? ' active' : '') +
+                        '" data-layer="' + i + '">' + escapeHtml(layer.name) + '</button>';
+            });
+            html += '</div>';
+
+            layers.forEach((layer, i) => {
+                html += '<div class="layer-content' + (i === 0 ? ' active' : '') +
+                        '" id="layer-' + i + '">';
+                layer.rows.forEach(row => {
+                    html += '<div class="key-row">';
+                    row.forEach(key => {
+                        html += '<div class="key ' + getKeyClass(key) + '" title="' +
+                                escapeHtml(key) + '">' + escapeHtml(formatKey(key)) + '</div>';
+                    });
+                    html += '</div>';
+                });
+                html += '</div>';
+            });
+
+            if (combos.length) {
+                html += '<div style="margin-top:15px;font-size:12px;color:#81C784;">' +
+                        '<strong>&#128279; Combos:</strong><br>';
+                combos.forEach(c => {
+                    html += '<div>' + escapeHtml(c.keys.map(formatKey).join(' + ')) +
+                            ' &rarr; ' + escapeHtml(c.name) + '</div>';
+                });
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+
+            container.querySelectorAll('.layer-tab').forEach(tab => {
+                tab.addEventListener('click', () => showLayer(parseInt(tab.dataset.layer)));
+            });
+        }
+
+        function showLayer(i) {
+            document.querySelectorAll('.layer-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.layer-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('layer-' + i).classList.add('active');
+            document.querySelectorAll('.layer-tab')[i].classList.add('active');
+        }
+
+        function getKeyClass(key) {
+            if (/^(KC_TRNS|_______|KC_NO|XXXXXXX)$/.test(key)) return 'trans';
+            if (/^(MO|TG|TO|TT|DF|OSL|LT|LM)\(/.test(key)) return 'layer';
+            if (/^KC_F\d+$/.test(key)) return 'function';
+            if (/^(KC_MUTE|KC_VOLD|KC_VOLU|KC_MPLY|KC_MPRV|KC_MNXT|KC_MSTP|KC_CALC)$/.test(key)) return 'media';
+            if (/^RGB_/.test(key)) return 'rgb';
+            if (/^KC_(L|R)(SFT|CTL|ALT|GUI)$/.test(key) || /^(LSFT|RSFT|LCTL|RCTL|LALT|RALT|LGUI|RGUI)_T\(/.test(key)) return 'modifier';
+            return '';
+        }
+
+        function formatKey(key) {
+            const map = {
+                'KC_BSPC': '\u232B', 'KC_ENT': '\u21B5', 'KC_SPC': '\u2423',
+                'KC_TAB': '\u21E5', 'KC_ESC': 'Esc',
+                'KC_TRNS': '\u25BD', '_______': '\u25BD',
+                'KC_NO': '', 'XXXXXXX': '',
+                'KC_MUTE': '\uD83D\uDD07', 'KC_VOLD': '\uD83D\uDD09', 'KC_VOLU': '\uD83D\uDD0A',
+                'KC_MPLY': '\u23EF', 'KC_MPRV': '\u23EE', 'KC_MNXT': '\u23ED', 'KC_MSTP': '\u23F9',
+                'KC_UP': '\u2191', 'KC_DOWN': '\u2193', 'KC_LEFT': '\u2190', 'KC_RGHT': '\u2192',
+                'KC_LSFT': 'Shift', 'KC_RSFT': 'Shift',
+                'KC_LCTL': 'Ctrl', 'KC_RCTL': 'Ctrl',
+                'KC_LALT': 'Alt', 'KC_RALT': 'AltGr',
+                'KC_LGUI': 'Win', 'KC_RGUI': 'Win'
+            };
+            if (key in map) return map[key];
+            return key.replace(/^KC_/, '');
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // ---------- Init ----------
+
+        document.getElementById('keymap-select').addEventListener('change', e => {
+            selectKeymap(e.target.value);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadKeymapList();
+            startPolling();
+        });
+    </script>
+</body>
+</html>

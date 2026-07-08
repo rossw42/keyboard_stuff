@@ -1,9 +1,15 @@
 {
   "name": "alice",
-  "description": "Alice - Ergonomic staggered layout with split spacebar",
+  "description": "Alice layout - 65 keys (LAYOUT_alice)",
   "key_count": 65,
-  "layout_functions": ["LAYOUT_alice_split_bs"],
+  "layout_functions": [
+    "LAYOUT_alice"
+  ],
   "template_file": "alice.txt",
-  "author": "Generated from QMK default",
-  "tags": ["ergonomic", "staggered", "split_spacebar"]
+  "author": "Generated from QMK keyboard.json",
+  "tags": [
+    "alice",
+    "ergonomic",
+    "65-key"
+  ]
 }

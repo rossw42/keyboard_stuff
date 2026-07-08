@@ -1,0 +1,52 @@
+# =============================================================================
+# TRAY MOUNT template (Option A)  — difficulty: ★
+# STATUS: DESIGN SKETCH — UNTESTED. See README.md in this folder.
+#
+# Concept: one-piece case tray; PCB screws down onto internal standoff bosses.
+# No structural plate connection — plate (if any) floats on the switches.
+# Requires: _shared.yaml + user contract, PLUS points tagged `standoff`
+#           (interior PCB standoff locations matching PCB mounting holes).
+# Assembly: drop PCB into tray, screw from top of PCB into bosses
+#           (self-tapping) or into heat-set inserts in the bosses.
+# =============================================================================
+
+outlines:
+  # solid boss cylinders around each standoff
+  _standoff_bosses:
+    - what: circle
+      where: standoff
+      radius: insert_d / 2 + wall
+
+  # screw bores down the center of each boss
+  _standoff_bores:
+    - what: circle
+      where: standoff
+      radius: screw_d / 2
+
+cases:
+  tray:
+    # solid block: floor + cavity + plate zone + bezel
+    - what: outline
+      name: _case_outer
+      extrude: floor + cavity + plate_t + bezel
+    # hollow out everything above the floor
+    - what: outline
+      name: _case_inner
+      extrude: cavity + plate_t + bezel
+      shift: [0, 0, floor]
+      operation: subtract
+    # standoff bosses rise from the floor to PCB underside height
+    - what: outline
+      name: _standoff_bosses
+      extrude: floor + cavity - plate_pcb_gap
+    # bore the screw holes through the bosses (and floor, for cleanout)
+    - what: outline
+      name: _standoff_bores
+      extrude: floor + cavity
+      operation: subtract
+
+  # optional loose plate resting on switches (non-structural)
+  floating_plate:
+    - what: outline
+      name: _plate
+      extrude: plate_t

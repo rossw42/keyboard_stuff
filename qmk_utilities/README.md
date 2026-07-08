@@ -6,8 +6,8 @@ A collection of utilities for working with QMK (Quantum Mechanical Keyboard) fir
 
 ## What's Actually In This Folder (For Real This Time)
 
-### [`ascii_keymap_gen/`](ascii_keymap_gen/) ✅ **Actually Works!**
-Generates ASCII art of keyboard layouts because sometimes you need to see your keymap in glorious monospace font. Supports 18+ keyboards and has the rare distinction of actually doing what it says on the tin. No external dependencies, no drama, just pure ASCII art goodness. Working on supporting more keyboard layouts.
+### [`ascii_keymap_gen/`](ascii_keymap_gen/) ✅ **Actually Works! (Verified, Even)**
+Generates ASCII art of keyboard layouts because sometimes you need to see your keymap in glorious monospace font. Supports 19 keyboards with key counts verified against real QMK `keyboard.json` definitions (turns out about half of them were wrong before — the Corne config claimed 37 keys for a 42-key board, oops). Recently cleaned up: UTF-8-safe on Windows, proper argparse CLI, runs from any directory, and no longer chokes on multi-argument keycodes like `LT(_LOWER, KC_SPC)`. No external dependencies, no drama, just pure ASCII art goodness. See its [README](ascii_keymap_gen/README.md) for usage and how to add new keyboards.
 
 ### [`qmk_format_converter/`](qmk_format_converter/) 🔧 **Mostly Works (With Caveats)**
 Converts between keyboard formats with the enthusiasm of a tired seagull. Sometimes it works perfectly, sometimes it counts wrong, sometimes it forgets how parentheses work. But hey, when it works, it's magical! Features "automatic" format detection and a universal data model that's more like guidelines than actual rules... and forgets about the number of keys in a keyboard randomly.

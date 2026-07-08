@@ -1,0 +1,73 @@
+# Mounting-style descriptor — TOP MOUNT
+# STATUS: DESIGN PROPOSAL (no generator yet). Schema: ../mounting_style.schema.yaml
+# Ergogen-fragment equivalent: ../../option_a_templates/top_mount.yaml
+
+style: top_mount
+description: Plate tabs screwed to a ledge in the top case from above
+difficulty: 3
+
+requires:
+  outlines: [_panel, _switch_cutouts]
+  tags: [mount]
+  min_points:
+    mount: 6
+
+parameters:
+  wall:     {default: 2.5, min: 2,   unit: mm, description: case wall thickness}
+  floor:    {default: 3,   min: 2,   unit: mm, description: case bottom thickness}
+  plate_t:  {default: 1.5, min: 1.2, max: 5, unit: mm, description: plate thickness}
+  fit:      {default: 0.25, min: 0, max: 0.6, unit: mm, description: mating clearance}
+  cavity:   {default: 8,   min: 5,  unit: mm, description: floor top to plate bottom}
+  bezel:    {default: 2,   min: 1,  unit: mm, description: case rise above plate}
+  screw_d:  {default: 3.2, min: 2,  unit: mm, description: screw shank clearance}
+  insert_d: {default: 4.6, min: 3,  unit: mm, description: heat-set insert bore}
+  insert_h: {default: 5.7, min: 3,  unit: mm, description: heat-set insert depth}
+  head_d:   {default: 6,   min: 4,  unit: mm, description: screw head recess diameter}
+  head_h:   {default: 1.8, min: 1,  unit: mm, description: screw head recess depth}
+  tab_w:    {default: 8,   min: 6,  unit: mm, description: plate tab width}
+  tab_l:    {default: 4,   min: 3,  unit: mm, description: tab protrusion beyond plate edge}
+
+outline_recipes:
+  case_outer:      "panel expand($fit + $wall)"
+  case_inner:      "panel expand($fit)"
+  wall_ring:       "case_outer - case_inner"
+  plate_with_tabs: "panel - switch_cutouts + rect($tab_w, 2*$tab_l) @mount"
+  tab_pockets:     "rect($tab_w + 2*$fit, 2*$tab_l + 2*$fit) @mount"
+  tab_screw_holes: "circle($screw_d) @mount"
+  head_recess:     "circle($head_d) @mount"
+  insert_bores:    "circle($insert_d) @mount"
+
+pieces:
+  - id: plate
+    layers:
+      - {outline: plate_with_tabs, extrude: $plate_t, z: 0, op: add}
+      - {outline: tab_screw_holes, extrude: "*",      z: 0, op: subtract}
+  - id: top_case
+    description: wall ring with tab ledge + stepped-bore countersinks
+    layers:
+      - {outline: wall_ring,       extrude: "$plate_t + $bezel + $fit", z: 0, op: add}
+      - {outline: tab_pockets,     extrude: "$plate_t + $fit",          z: 0, op: subtract}
+      - {outline: tab_screw_holes, extrude: "*",                        z: 0, op: subtract}
+      - {outline: head_recess,     extrude: $head_h, z: "top - $head_h",     op: subtract}
+  - id: bottom_case
+    layers:
+      - {outline: case_outer,   extrude: "$floor + $cavity", z: 0,      op: add}
+      - {outline: case_inner,   extrude: $cavity,            z: $floor, op: subtract}
+      - {outline: insert_bores, extrude: $insert_h, z: "top - $insert_h", op: subtract}
+
+interface:
+  type: tabs
+  at: "points.tag == mount"
+
+fasteners:
+  - between: [plate, top_case]
+    direction: down
+    type: m3_countersunk
+  - between: [top_case, bottom_case]
+    direction: down
+    type: m3_insert
+
+notes:
+  - "Countersinks are stepped bores (cylindrical recess), not conical — fine for FDM."
+  - "Tab rectangles straddle the plate edge: half inside the panel, half outside."
+  - "plate z in assembly = floor + cavity; top_case sits at the same z."

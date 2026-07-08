@@ -1,0 +1,95 @@
+# =============================================================================
+# GASKET MOUNT template (Option A)  — difficulty: ★★★★
+# STATUS: DESIGN SKETCH — UNTESTED. See README.md in this folder.
+#
+# Concept: plate has perimeter gasket tabs (NO screw holes). Gasket strips
+# above and below each tab are squeezed in channels cut into BOTH case
+# halves. The halves bolt to each other; the plate floats on the gaskets.
+#
+# ⚠️ Ergogen produces the geometry only. Gasket compression mechanics
+#    (durometer, interference) are YOUR responsibility. Stackup math:
+#      channel space = 2*channel_d + plate_t
+#      gasket stack  = plate_t + 2*(gasket_t - gasket_squish)
+#    These must be equal — tune channel_d / gasket_t / gasket_squish so the
+#    tabs are held with the designed squish and never bottom out on plastic.
+#
+# Requires: _shared.yaml + user contract (_panel, _switch_cutouts, mount tags)
+# Assembly: stick gasket strips to tab tops+bottoms, drop plate into bottom
+#           channels, bolt top case down (screws at mount points compress
+#           the gaskets).
+# =============================================================================
+
+outlines:
+  # plate with outward gasket tabs at each mount point — no holes in tabs
+  _plate_gasket_tabs:
+    - name: _plate
+    - what: rectangle
+      where: mount
+      size: [tab_w, tab_l * 2]
+
+  # channels in the case halves that receive tab + gasket, with clearance
+  _gasket_channels:
+    - what: rectangle
+      where: mount
+      size: [tab_w + 2 fit, tab_l * 2 + 2 fit]
+
+cases:
+  plate:
+    - what: outline
+      name: _plate_gasket_tabs
+      extrude: plate_t
+
+  bottom_case:
+    # shell: floor + walls up to the mid-plate parting line
+    - what: outline
+      name: _case_outer
+      extrude: floor + cavity + channel_d
+    - what: outline
+      name: _case_inner
+      extrude: cavity + channel_d
+      shift: [0, 0, floor]
+      operation: subtract
+    # lower gasket channels cut into the top face of the walls
+    - what: outline
+      name: _gasket_channels
+      extrude: channel_d
+      shift: [0, 0, floor + cavity]
+      operation: subtract
+    # heat-set insert bores in the wall top for the case-joining screws
+    - what: outline
+      name: _insert_bores
+      extrude: insert_h
+      shift: [0, 0, floor + cavity + channel_d - insert_h]
+      operation: subtract
+
+  top_case:
+    # bezel ring from the parting line up past the plate
+    - what: outline
+      name: _wall_ring
+      extrude: channel_d + plate_t + bezel
+    # upper gasket channels cut into the bottom face of the ring
+    - what: outline
+      name: _gasket_channels
+      extrude: channel_d
+      operation: subtract
+    # case-joining screw bores + head recesses (top -> down into inserts)
+    - what: outline
+      name: _screw_holes
+      extrude: channel_d + plate_t + bezel
+      operation: subtract
+    - what: outline
+      name: _head_recesses
+      extrude: head_h
+      shift: [0, 0, channel_d + plate_t + bezel - head_h]
+      operation: subtract
+
+  # optional preview of the full stack (plate shown mid-channel)
+  assembly_preview:
+    - what: case
+      name: bottom_case
+    - what: case
+      name: plate
+      shift: [0, 0, floor + cavity + channel_d]
+    - what: case
+      name: top_case
+      shift: [0, 0, floor + cavity + channel_d]

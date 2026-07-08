@@ -1,9 +1,14 @@
 {
   "name": "ergodox_ez",
-  "description": "Ergodox EZ - Split ergonomic keyboard with thumb clusters",
+  "description": "ErgoDox EZ - split ergonomic (LAYOUT_ergodox_pretty)",
   "key_count": 76,
-  "layout_functions": ["LAYOUT_ergodox_pretty"],
+  "layout_functions": [
+    "LAYOUT_ergodox_pretty"
+  ],
   "template_file": "ergodox_ez.txt",
-  "author": "Generated from QMK default",
-  "tags": ["split", "ergonomic", "thumb_clusters"]
+  "author": "Generated from QMK keyboard.json",
+  "tags": [
+    "split",
+    "ergonomic"
+  ]
 }

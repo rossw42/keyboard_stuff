@@ -1,15 +1,15 @@
 {
   "name": "kyria",
-  "description": "Kyria - Split keyboard with thumb clusters and rotary encoders",
+  "description": "Kyria - split 3x6+5 ergonomic keyboard",
   "key_count": 50,
   "layout_functions": [
+    "LAYOUT_split_3x6_5",
     "LAYOUT"
   ],
   "template_file": "kyria.txt",
-  "author": "Generated from QMK default",
+  "author": "Generated from QMK keyboard.json",
   "tags": [
     "split",
-    "split",
-    "encoders"
+    "ergonomic"
   ]
 }

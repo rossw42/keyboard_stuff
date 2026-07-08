@@ -1,13 +1,13 @@
 {
   "name": "kbd75",
-  "description": "Kbd75 - Popular 75% keyboard with function row and arrow keys",
-  "key_count": 82,
+  "description": "KBD75 - 75% keyboard (LAYOUT_75_ansi, 84 keys)",
+  "key_count": 84,
   "layout_functions": [
-    "LAYOUT"
+    "LAYOUT_75_ansi"
   ],
   "template_file": "kbd75.txt",
-  "author": "Generated from QMK default",
+  "author": "Generated from QMK keyboard.json",
   "tags": [
-    "standard"
+    "75%"
   ]
 }

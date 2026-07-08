@@ -1,14 +1,15 @@
 {
   "name": "moonlander",
-  "description": "Moonlander - ZSA Moonlander - Premium split ergonomic keyboard",
+  "description": "ZSA Moonlander - split ergonomic keyboard",
   "key_count": 72,
   "layout_functions": [
+    "LAYOUT_moonlander",
     "LAYOUT"
   ],
   "template_file": "moonlander.txt",
-  "author": "Generated from QMK default",
+  "author": "Generated from QMK keyboard.json",
   "tags": [
     "split",
-    "split"
+    "ergonomic"
   ]
 }

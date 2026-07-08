@@ -1,0 +1,86 @@
+# =============================================================================
+# TOP MOUNT template (Option A)  — difficulty: ★★★
+# STATUS: DESIGN SKETCH — UNTESTED. See README.md in this folder.
+#
+# Concept: plate has perimeter tabs; tabs sit in pockets under a ledge in the
+# TOP case and are screwed from above (stepped bore fakes a countersink).
+# Top and bottom case halves join with heat-set inserts at the wall line.
+# Requires: _shared.yaml + user contract (_panel, _switch_cutouts, mount tags)
+# Assembly: screw plate to top case from above, then top case to bottom case.
+# =============================================================================
+
+outlines:
+  # plate with tabs sticking outward at each mount point.
+  # tab rectangles straddle the plate edge (half inside, half outside).
+  _plate_tabs:
+    - name: _plate
+    - what: rectangle
+      where: mount
+      size: [tab_w, tab_l * 2]
+
+  # pockets in the top case that receive the tabs, with clearance
+  _tab_pockets:
+    - what: rectangle
+      where: mount
+      size: [tab_w + 2 fit, tab_l * 2 + 2 fit]
+
+cases:
+  plate:
+    - what: outline
+      name: _plate_tabs
+      extrude: plate_t
+    - what: outline
+      name: _screw_holes
+      extrude: plate_t
+      operation: subtract
+
+  top_case:
+    # wall ring spanning the plate zone + bezel
+    - what: outline
+      name: _wall_ring
+      extrude: plate_t + bezel + fit
+    # pockets for tabs: remove material from the bottom of the ring so a
+    # ledge remains above the tabs
+    - what: outline
+      name: _tab_pockets
+      extrude: plate_t + fit
+      operation: subtract
+    # screw shank bores through the full ring height
+    - what: outline
+      name: _screw_holes
+      extrude: plate_t + bezel + fit
+      operation: subtract
+    # stepped bore ~= countersink: head recess from the top surface
+    - what: outline
+      name: _head_recesses
+      extrude: head_h
+      shift: [0, 0, plate_t + bezel + fit - head_h]
+      operation: subtract
+
+  bottom_case:
+    # shell: floor + walls up to the underside of the top case
+    - what: outline
+      name: _case_outer
+      extrude: floor + cavity
+    - what: outline
+      name: _case_inner
+      extrude: cavity
+      shift: [0, 0, floor]
+      operation: subtract
+    # heat-set insert bores in the top face of the walls (top case screws in)
+    - what: outline
+      name: _insert_bores
+      extrude: insert_h
+      shift: [0, 0, floor + cavity - insert_h]
+      operation: subtract
+
+  # optional preview of the full stack
+  assembly_preview:
+    - what: case
+      name: bottom_case
+    - what: case
+      name: plate
+      shift: [0, 0, floor + cavity]
+    - what: case
+      name: top_case
+      shift: [0, 0, floor + cavity]

@@ -1,0 +1,59 @@
+# =============================================================================
+# INTEGRATED PLATE template (Option A)  — difficulty: ★★
+# STATUS: DESIGN SKETCH — UNTESTED. See README.md in this folder.
+#
+# Concept: the plate IS the top case — one piece combining plate + wall ring.
+# The two case halves bolt to each other; the plate never moves independently.
+# Requires: _shared.yaml + user contract (_panel, _switch_cutouts, mount tags)
+# Assembly: solder/assemble PCB to top piece, screw top piece down onto
+#           bottom case (screws from below into inserts in the top walls,
+#           or from above through the plate edge).
+# =============================================================================
+
+outlines:
+  # plate + wall ring merged into one footprint (full outer, with cutouts)
+  _integrated_top:
+    - name: _case_outer
+    - operation: subtract
+      name: _switch_cutouts
+
+cases:
+  top_piece:
+    # plate layer spans the entire outer footprint (plate + wall top)
+    - what: outline
+      name: _integrated_top
+      extrude: plate_t
+      shift: [0, 0, cavity]
+    # walls continuing downward from the plate to meet the bottom case
+    - what: outline
+      name: _wall_ring
+      extrude: cavity
+    # heat-set insert bores up into the wall undersides
+    - what: outline
+      name: _insert_bores
+      extrude: insert_h
+      operation: subtract
+
+  bottom_case:
+    # floor only (walls belong to the top piece), with a small lip if desired
+    - what: outline
+      name: _case_outer
+      extrude: floor
+    # screw shank holes up through the floor into the wall inserts
+    - what: outline
+      name: _screw_holes
+      extrude: floor
+      operation: subtract
+    # screw head recesses in the underside
+    - what: outline
+      name: _head_recesses
+      extrude: head_h
+      operation: subtract
+
+  # optional preview of the full stack
+  assembly_preview:
+    - what: case
+      name: bottom_case
+    - what: case
+      name: top_piece
+      shift: [0, 0, floor]

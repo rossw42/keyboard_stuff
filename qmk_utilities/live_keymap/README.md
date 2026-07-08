@@ -1,71 +1,87 @@
-# 🎹 Live QMK Keymap Visualizer
+# Live Keymap Viewer
 
-A simple tool to visualize and monitor your QMK keymap.c files in real-time.
+View your QMK `keymap.c` files in the browser, live. Pick **one keyboard**
+from a dropdown and the page shows only that board — with layer tabs, key
+coloring, and combo listings. When you edit and save the `keymap.c` file,
+the page updates automatically within ~2 seconds.
 
-## 🚀 Quick Start
+## Quick Start
 
-1. **Run the watcher:**
-   ```bash
-   python watch_keymap.py
-   ```
+Double-click **`start_viewer.bat`** — it scans the repo's `keyboards\`
+folder, starts the server, and opens your browser at
+`http://localhost:8000/`.
 
-2. **Select your keymap** from the list (e.g., 3x4, lily58, macropad)
+Then just pick your board from the **Keyboard** dropdown. Your choice is
+remembered (in browser localStorage), so next time the page opens straight
+to your board.
 
-3. **Open browser** to: `http://localhost:8000`
+## Usage
 
-4. **Edit your keymap.c file** and save - watch it update live!
+```
+python keymap_viewer.py [--dir DIR] [--port PORT] [--no-browser]
+```
 
-## ✨ Features
+| Option | Default | Description |
+|---|---|---|
+| `--dir`, `-d` | `.` (current dir) | Directory to scan recursively for `keymap.c` files |
+| `--port`, `-p` | `8000` | HTTP server port |
+| `--no-browser` | off | Don't auto-open the browser |
 
-- **🔍 Auto-discovery** - Finds all keymap.c files in your project
-- **🎯 Focused viewing** - Watch one specific keymap at a time
-- **🎨 Visual layout** - See your keys in a grid with color coding
-- **📱 Layer switching** - Click tabs to view different layers
-- **🔗 Combo display** - Shows key combinations
-- **⚡ Live updates** - Automatically refreshes when you save changes
-- **📝 Raw view** - See the actual C code alongside the visualization
+Examples:
 
-## 🎨 Color Coding
+```powershell
+# Scan this repo's keyboards folder (what the .bat file does)
+python keymap_viewer.py --dir ..\..\keyboards
 
-- **🟠 Orange**: Modifiers (Backspace, Enter, Shift, etc.)
-- **🔵 Blue**: Function keys (F1-F12)
-- **🟣 Purple**: Media keys (Volume, Play, Stop, etc.)
-- **🔴 Pink**: RGB lighting controls
-- **⚪ Gray**: Regular keys (letters, numbers)
+# Scan a full qmk_firmware checkout on another port
+python keymap_viewer.py --dir D:\qmk_firmware\keyboards\lily58 --port 9000
+```
 
-## 🎮 Keyboard Shortcuts
+You can also pass a directory to the launcher:
 
-- **Ctrl+R**: Refresh content
-- **Ctrl+Space**: Pause/Resume auto-updates
+```
+start_viewer.bat D:\some\other\keyboards
+```
 
-## 📁 Supported Layouts
+## Files
 
-Works with any QMK keymap.c file! Automatically detects:
-- Grid layouts (3x4, 4x2, etc.)
-- Split keyboards (Lily58, etc.)
-- Macropads
-- Custom layouts
+| File | Purpose |
+|---|---|
+| `keymap_viewer.py` | The whole server: scans for keymaps, serves the UI and the JSON API |
+| `viewer.html` | The web UI (dropdown, layer tabs, visual keymap, raw view) |
+| `start_viewer.bat` | Windows launcher, defaults to scanning `..\..\keyboards` |
 
-## 🛠️ Requirements
+## API
 
-- **Python 3.x**
-- **Modern web browser**
+| Endpoint | Returns |
+|---|---|
+| `GET /api/keymaps` | `{ root, keymaps: ["lily58/keymaps/default/keymap.c", ...] }` |
+| `GET /api/keymap?file=<rel>` | `{ file, timestamp, content }` for one keymap |
 
-## 💡 Usage Tips
+## Requirements
 
-1. **Keep the Python script running** while you edit
-2. **Save your keymap.c file** to see changes
-3. **Use layer tabs** to switch between different layers
-4. **Check combos section** to see key combinations
-5. **Copy content** button to grab the raw keymap code
+- Python 3 (standard library only — no pip installs needed)
 
-## 🎯 Perfect For
+## How live updates work
 
-- **Keymap development** - See changes as you code
-- **Layout planning** - Visual feedback while designing
-- **Learning QMK** - Understand layer structures
-- **Debugging** - Quickly spot issues in your layout
+The page polls `GET /api/keymap?file=...` every 2 seconds and compares the
+file's modification timestamp. When it changes, the keymap is re-parsed and
+re-rendered. Use the **Pause** button to stop polling, and **Rescan** to
+refresh the dropdown after adding new keymap files.
 
----
+## Notes
 
-**Happy keymap coding!** 🎹✨
+- The parser handles `[NAME] = LAYOUT_xxx( ... )` blocks with numeric or
+  named layers, keeps `LT(1, KC_SPC)`-style keys intact, and uses the
+  source line breaks in `keymap.c` as visual rows.
+- Keys are color-coded: modifiers (orange), layer keys (purple),
+  F-keys (blue), media (teal), RGB (pink), transparent/no-op (dimmed).
+
+## History
+
+This folder previously contained three overlapping server scripts
+(`keymap_server.py`, `simple_keymap_viewer.py`, `watch_keymap.py`), three
+HTML pages (one with a hardcoded static gallery of six boards), an unused
+`keymap_watcher.js`, three start scripts, and three README files. All of
+that was consolidated into the single server + single page above
+(2026-07-08).
