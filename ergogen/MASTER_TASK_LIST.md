@@ -47,7 +47,7 @@
 - [x] `working_samples/` tidied: duplicates archived, `mantis.yaml`→`ai_generated_numpad.yaml`, loose files → `uncategorized/`, new README
 - [x] New READMEs: root, kle-to-ergogen, kle-to-scad, working_samples, archive, mounting_styles (corrected — old one described 6 configs that don't exist)
 
-### Milestone 2 — Converter hardening ✅ CORE COMPLETE
+### Milestone 2 — Converter hardening ✅ COMPLETE
 - [x] `requirements.txt` added; PyYAML verified as only dep
 - [x] Fixed package imports broken by folder rename (cli.py, generators, parsers)
 - [x] **Bug fixed:** KLE metadata object (first array element) crashed the parser
@@ -55,7 +55,9 @@
 - [x] Internal validator updated to zones-based structure
 - [x] Regression input 1: `macropad-with-3-encoders.json` → 27 points ✅
 - [x] Regression input 2: `test_40percent.json` (spacebar/stabilizer board) → 40 points ✅
-- [ ] DEFERRED: port stabilizer detection + matrix assignment from kle-to-scad into the Python converter (next code work)
+- [x] Ported stabilizer detection from kle-to-scad → `data_models/stabilizers.py` (Cherry spacing table, `stabilized`/`stab_*` tags + per-point `meta.stabilizer`)
+- [x] Ported matrix assignment from kle-to-scad → `data_models/matrix.py` (position-based row grouping, 0.1u Y tolerance; replaces naive per-KLE-row counters)
+- [x] D2 regression: `test_40percent.json` → 40 keys, 4×12 matrix, 1 stabilizer (`stab_6_25u`) — matches kle-to-scad reference; output accepted by Ergogen 4.1.0 (40 points)
 
 ### Milestone 3 — Local pipeline ✅ VERIFIED
 - [x] Ergogen 4.1.0 confirmed installed and working locally
@@ -102,3 +104,4 @@
 | 2026-07-07 | Converters repaired + smoke-tested; 5 bugs fixed |
 | 2026-07-07 | End-to-end pipeline verified with Ergogen 4.1.0 (both regression boards) |
 | 2026-07-07 | Agent K: PCB footprints guide written — Milestones 1–3 complete, M4 docs done |
+| 2026-07-07 | D2 finished: stabilizer detection + matrix assignment ported from kle-to-scad into Python converter; regressions re-verified vs. Ergogen 4.1.0 — Milestone 2 complete; all CONSOLIDATION_DECISIONS (D1–D16) executed |

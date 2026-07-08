@@ -1,3 +1,5 @@
+﻿> **Snapshot notice (added 2026-07-07):** compiled October 22, 2025. Links-based content ages well but verify against current Ergogen releases (local install is v4.1.0). See ../ERGOGEN_REFERENCE.md for the authoritative config reference.
+
 # Ergogen Research - Working Samples & Resources
 
 *Research compiled: October 22, 2025*
@@ -48,7 +50,7 @@ language:YAML ergogen
 
 ### Known Keyboard Repositories to Check
 Based on documentation references:
-- **Absolem** by Dénes Bán (the original Ergogen keyboard)
+- **Absolem** by DÃ©nes BÃ¡n (the original Ergogen keyboard)
 - **Sofle Choc** (popular ergonomic split)
 - Keyboards by **Ben Vallack** (prolific Ergogen user)
 - **ChonkV** by FlatFootFox (tutorial keyboard)
@@ -132,12 +134,12 @@ From the research, good examples should have:
 ### Where to Store Examples
 ```
 working_samples/
-├── simple/           # Basic rectangular layouts
-├── split/            # Split keyboard designs
-├── unibody/          # Single-piece ergonomic
-├── macropads/        # Simple test cases
-├── advanced/         # Complex features
-└── mounting_styles/  # Different case approaches (already exists)
+â”œâ”€â”€ simple/           # Basic rectangular layouts
+â”œâ”€â”€ split/            # Split keyboard designs
+â”œâ”€â”€ unibody/          # Single-piece ergonomic
+â”œâ”€â”€ macropads/        # Simple test cases
+â”œâ”€â”€ advanced/         # Complex features
+â””â”€â”€ mounting_styles/  # Different case approaches (already exists)
 ```
 
 ### What to Document for Each Sample
@@ -187,4 +189,5 @@ Ergogen needs footprint libraries for components:
 5. **Organize by complexity** for learning progression
 6. **Extract patterns** that work well
 7. **Update lessons learned** with new insights
+
 

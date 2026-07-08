@@ -1,4 +1,4 @@
-﻿"""
+"""
 KLE to Ergogen Converter
 
 This module provides the main converter class for transforming KLE layouts 
@@ -13,6 +13,8 @@ from pathlib import Path
 # Use the simple KLE parser for standalone operation
 from .simple_kle_parser import SimpleKLEParser as KLEParser, KLEParseError, UniversalLayout, KeyDefinition
 
+from data_models.stabilizers import get_stabilizer_info
+from data_models.matrix import assign_matrix_positions
 from data_models.ergogen_point import (
     ErgogenPoint, 
     PointsCollection, 
@@ -123,6 +125,11 @@ class KLEToErgogenConverter:
         if not kle_layout.keys:
             raise KLEToErgogenError("No keys found in KLE layout")
         
+        # Matrix assignment (ported from kle-to-scad): replace the parser's
+        # naive per-KLE-row counters with position-based row/col grouping
+        # (0.1u Y tolerance). Handles y-offset rows, splits, thumb clusters.
+        assign_matrix_positions(kle_layout.keys)
+        
         # Create points collection
         points_collection = PointsCollection(
             naming_strategy=self.naming_strategy,
@@ -227,6 +234,12 @@ class KLEToErgogenConverter:
         if key.matrix_col is not None:
             tags.append(f"col_{key.matrix_col}")
         
+        # Stabilizer detection (ported from kle-to-scad): keys >= 2u wide/tall
+        stab_info = get_stabilizer_info(key.width or 1.0, key.height or 1.0)
+        if stab_info:
+            tags.append('stabilized')
+            tags.append(stab_info['type'])
+        
         point.tags = tags
         
         # Add metadata
@@ -237,6 +250,8 @@ class KLEToErgogenConverter:
             'original_x': x_kle,
             'original_y': y_kle
         }
+        if stab_info:
+            point.meta['stabilizer'] = stab_info
         
         return point
     
