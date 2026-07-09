@@ -625,14 +625,52 @@ def convert_keyboard_data_to_vial(kb, layout_name=None, kb_path=None):
     return vial
 
 
+# ---------------------------------------------------------------------------
+# keymaps/via/keymap.c generation (research finding: via = copy of the
+# default keymap, plus documented per-board divergence patches; see
+# via_keymap_generator.py for the full knowledge base and evidence)
+# ---------------------------------------------------------------------------
+
+def generate_via_keymap_c(kb_path, output_root):
+    """Generate keymaps/via/keymap.c for a board into a separate output
+    folder (never into the source repo).
+
+    Returns (generated_path, is_match, detail) where is_match reports the
+    byte-for-byte comparison against the real keymaps/via/keymap.c when one
+    exists (None when the board has no real via keymap to compare against).
+    """
+    from via_keymap_generator import (generate_via_keymap,
+                                      verify_via_keymap,
+                                      find_real_via_keymap)
+    gen_path = generate_via_keymap(kb_path, output_root)
+    if find_real_via_keymap(kb_path):
+        ok, _, detail = verify_via_keymap(kb_path, gen_path)
+        return gen_path, ok, detail
+    return gen_path, None, "no real via keymap to compare against"
+
+
 if __name__ == "__main__":
     import sys
     test_kb = r"D:\GitHub2\vial-qmk\keyboards\alps64\keyboard.json"
-    if len(sys.argv) > 1:
-        test_kb = sys.argv[1]
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    if args:
+        test_kb = args[0]
 
     vial, kb = convert_keyboard_to_vial(test_kb)
     if vial:
         print(json.dumps(vial, indent=2))
     else:
         print("Conversion failed for {}".format(test_kb))
+
+    # optional: also generate keymaps/via/keymap.c alongside the vial.json
+    if "--via-keymap" in sys.argv:
+        out_root = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                "out_via")
+        try:
+            gen_path, ok, detail = generate_via_keymap_c(test_kb, out_root)
+            print("\nvia keymap.c generated: {}".format(gen_path))
+            print("verification: {} - {}".format(
+                "PASS" if ok else ("N/A" if ok is None else "FAIL"), detail))
+        except Exception as e:
+            print("\nvia keymap.c generation failed: {}: {}".format(
+                type(e).__name__, e))
