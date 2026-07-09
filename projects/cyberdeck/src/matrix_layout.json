@@ -1,0 +1,50 @@
+{
+  "comment": "Cyberdeck physical matrix map — Micro Journal Rev 2.1 68-key PCB wired to Pi Zero 2W.",
+  "comment_source": "Transcribed from stock Vial keymap layer 0 (micro-journal-rev-2.1/keyboard/keymaps/vial/keymap.c) cross-referenced with keyboard.json matrix positions.",
+  "comment_pins": "BCM GPIO numbers per design.md section 4. rows[i] = matrix row i, cols[j] = matrix col j.",
+  "comment_fn": "The stock MO(1) key at [7,1] emits KEY_F13; bind layer(fn) to f13 in /etc/keyd/default.conf.",
+  "comment_knobs": "[7,6] = left knob push (Space), [7,7] = right knob push (Enter) — wired into the matrix by the PCB.",
+
+  "pins": {
+    "gpiochip": 0,
+    "rows": [4, 17, 27, 22, 5, 6, 13, 19],
+    "cols": [12, 16, 20, 21, 26, 18, 23, 24, 25]
+  },
+
+  "scan": {
+    "rate_hz": 500,
+    "debounce_ms": 5
+  },
+
+  "keymap": [
+    ["KEY_ESC",        "KEY_1",     "KEY_2",        "KEY_3",        "KEY_4",         "KEY_5",          "KEY_6",         "KEY_7",        "KEY_8"],
+    ["KEY_9",          "KEY_0",     "KEY_MINUS",    "KEY_EQUAL",    "KEY_BACKSPACE", "KEY_DELETE",     "KEY_TAB",       "KEY_Q",        "KEY_W"],
+    ["KEY_E",          "KEY_R",     "KEY_T",        "KEY_Y",        "KEY_U",         "KEY_I",          "KEY_O",         "KEY_P",        "KEY_LEFTBRACE"],
+    ["KEY_RIGHTBRACE", "KEY_ENTER", "KEY_PAGEUP",   "KEY_CAPSLOCK", "KEY_A",         "KEY_S",          "KEY_D",         "KEY_F",        "KEY_G"],
+    ["KEY_H",          "KEY_J",     "KEY_K",        "KEY_L",        "KEY_SEMICOLON", "KEY_APOSTROPHE", "KEY_BACKSLASH", "KEY_PAGEDOWN", "KEY_LEFTSHIFT"],
+    ["KEY_GRAVE",      "KEY_Z",     "KEY_X",        "KEY_C",        "KEY_V",         "KEY_B",          "KEY_N",         "KEY_M",        "KEY_COMMA"],
+    ["KEY_DOT",        "KEY_SLASH", "KEY_RIGHTSHIFT", "KEY_UP",     "KEY_END",       "KEY_LEFTCTRL",   "KEY_LEFTMETA",  "KEY_LEFTALT",  "KEY_SPACE"],
+    ["KEY_RIGHTALT",   "KEY_F13",   "KEY_HOME",     "KEY_LEFT",    "KEY_DOWN",      "KEY_RIGHT",      "KEY_SPACE",     "KEY_ENTER",    null]
+  ],
+
+  "encoders": [
+    {
+      "name": "encoder1",
+      "comment": "PCB pins 22/23 (stock Pico GP19/GP20). Stock action: CCW=Left, CW=Right.",
+      "pin_a": 7,
+      "pin_b": 8,
+      "ccw": "KEY_LEFT",
+      "cw": "KEY_RIGHT",
+      "steps_per_detent": 4
+    },
+    {
+      "name": "encoder2",
+      "comment": "PCB pins 24/25 (stock Pico GP21/GP22). Stock action: CCW=Up, CW=Down.",
+      "pin_a": 9,
+      "pin_b": 10,
+      "ccw": "KEY_UP",
+      "cw": "KEY_DOWN",
+      "steps_per_detent": 4
+    }
+  ]
+}

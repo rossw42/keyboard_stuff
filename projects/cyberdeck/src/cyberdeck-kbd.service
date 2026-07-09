@@ -1,0 +1,19 @@
+[Unit]
+Description=Cyberdeck matrix keyboard driver (Micro Journal Rev 2.1 Pico-less mod)
+DefaultDependencies=no
+After=local-fs.target
+Before=getty.target
+ConditionPathExists=/opt/cyberdeck/cyberdeck_kbd.py
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /opt/cyberdeck/cyberdeck_kbd.py
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=1
+Nice=-10
+# root required for /dev/uinput and /dev/gpiochip0
+User=root
+
+[Install]
+WantedBy=sysinit.target
