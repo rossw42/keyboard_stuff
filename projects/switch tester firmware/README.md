@@ -118,6 +118,26 @@ indicator.
 Macro index ↔ key position is row-major: `M0` = top-left … `M73`, with
 `M74` unused (bottom-right is the exit key).
 
+### Reactive same-type RGB highlighting
+
+The ID75 has one addressable RGB LED per key (RGB_MATRIX, not just
+underglow), so the Test layer does more than type text: **pressing any
+switch lights up every other key of the same type** and turns everything
+else off — Clicky = blue, Tactile = purple, Linear = red. The board stays
+dark until the first press after entering the Test layer.
+
+This works with **zero changes to `switches.md` or `vil_tool.py`** — the
+generated macro text already always starts with the literal type word
+(`"Clicky - ..."`, `"Tactile - ..."`, `"Linear - ..."`), and the firmware
+reads that first character straight out of the Vial dynamic-macro EEPROM
+buffer at runtime (`dynamic_keymap_macro_get_buffer()`), rebuilding its
+75-entry type map every time the Test layer is (re-)entered — so it always
+matches whatever `.vil` you last loaded. See `keymap.c` in the vial-qmk
+keymap folder for the implementation. Changing the *highlight logic itself*
+(colors, behavior) does require a firmware rebuild, but the day-to-day
+switch-swap workflow below is completely unaffected.
+
+
 ---
 
 ## The update loop (every switch swap)

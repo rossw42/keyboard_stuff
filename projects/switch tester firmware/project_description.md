@@ -300,7 +300,47 @@ Design rules that keep this board-agnostic:
 
 ---
 
+## 10.5 Reactive same-type RGB highlighting (added post-M2)
+
+The ID75's `info.json` (vial-qmk) defines `RGB_MATRIX` (not just underglow):
+75 of its 89 LEDs are per-key (`flags: 4`, one per matrix position, matching
+the 5×15 grid 1:1), the other 14 are underglow-only. This makes a reactive
+"highlight same switch type" effect possible with no extra hardware.
+
+**Behavior:** on the Test layer, pressing any switch key lights every other
+key of the same type (Clicky = blue, Tactile = purple, Linear = red) and
+turns every non-matching key off. The board is dark until the first press
+after entering the Test layer (per-session reset).
+
+**Key design point — no tooling changes required:** `vil_tool.py` already
+always generates macro text as `"{Type} - {name}..."`, so the type is
+recoverable from just the *first character* of each macro string. The
+firmware reads that byte directly out of the Vial dynamic-macro EEPROM
+buffer at runtime via the existing public API `dynamic_keymap_macro_get_buffer()`
+(`quantum/dynamic_keymap.h`) — it never calls `dynamic_keymap_macro_send()`,
+so nothing is typed/played during the scan. A 75-byte `switch_type[]` map is
+built once whenever the Test layer is (re-)entered (in `layer_state_set_user()`),
+so it always reflects whatever `.vil` was most recently loaded — the
+`switches.md` → `generate` → "Load saved layout" workflow is completely
+unaffected; this is a pure firmware/keymap.c addition.
+
+Implementation lives entirely in
+`d:\GitHub2\vial-qmk\keyboards\ymdk\id75\keymaps\switch_tester\keymap.c`
+(`build_switch_type_map()`, `process_record_user()` capturing the last
+pressed macro's type, and `rgb_matrix_indicators_user()` painting each key
+LED via `g_led_config.matrix_co[row][col]` → `rgb_matrix_set_color()`).
+Requires a firmware rebuild to change the highlight logic/colors, but not
+for switch-inventory edits.
+
+A manual category filter (e.g. "show me all linear switches without
+pressing one first") was considered (double-tap the exit key, a combo, or
+pre-select keys on the Fn layer) but deliberately **descoped** — the
+reactive-only version was chosen as sufficient for v1.
+
+---
+
 ## 11. Open questions
+
 
 1. ~~Which ID75 variant is it?~~ **Resolved:** board is being purchased new; both current PCB variants (rp2040 / f103) are supported, have ~4 KB EEPROM, and flash via UF2. Identify the exact variant on arrival to pick the build target — no design impact.
 2. **Vial client**: desktop Vial app, vial.rocks in Chrome, or both? (Both support "Load saved layout"; desktop app is recommended for reliability of the load-file workflow.)
