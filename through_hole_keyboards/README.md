@@ -4,6 +4,8 @@
 
 Gathered this information using a long term research project with multiple agents, sources:  GitHub searches,  network crawls, Reddit Threads, QMK/VIAL firmware database, vendor/community sites.
 
+Some of these boards might need to be regrouped, pending investigation.
+
 
 ### 60% / 65% / Alice
 
@@ -28,7 +30,7 @@ Gathered this information using a long term research project with multiple agent
 | Lagom | https://github.com/mohoyt/lagom | TH keyboard (sthlmkb), likely mid-size 60% | — | [ ] |
 | Claudia | https://github.com/subottimale/Claudia | TH keyboard (size unconfirmed, grouped here) | — | [ ] |
 | Kawung65 | https://github.com/sugengz/Kawung65 | 65%, ATmega32A, hotswap sockets + RGB underglow | 0 | [ ] |
-| C-13X-PCB | https://github.com/ramonimbao/C-13X-PCB | Alice (QAZ-ish), ATmega32A, ai03 daughterboard compatible, solder + hotswap | 16 | [ ] |
+| 00Key | https://github.com/ZeroZeroOne-dev/00Key | TH keyboard | — | [ ] |
 
 
 ### 75% / TKL / 1800 / full-size
@@ -50,17 +52,13 @@ Gathered this information using a long term research project with multiple agent
 | LCK75 v3 | https://github.com/lyso1/LCK75v3 | 75% TH v3 | — | [ ] |
 | Barleycorn | https://github.com/yiancar/barleycorn_pcb | Compact 1800 TH (Yiancar) | — | [ ] |
 | Större | https://github.com/mohoyt/sthlmkb-storre | TH keyboard (sthlmkb), likely full-size/1800 | — | [ ] |
-| m0116_usb | https://github.com/str-dst/m0116_usb | Novelty/vintage: drop-in QMK replacement PCB for the Apple M0116 keyboard, entirely THT parts, ATmega32A 40-pin DIP | 34 | [ ] |
-
 
 ### Ortho / ergo / split
 
 | Keyboard | Repo | Notes | Stars | Built |
 |---|---|---|---|---|
 | Planck THK | https://github.com/olkb/planck_thk | Official OLKB Planck Through Hole Kit | 166 | [ ] |
-| Panama | https://github.com/jsmercier/panama-keyboard | ATmega32A-PU DIP-40, USB-C | 1 | [ ] |
 | EgyptBar-70 | https://github.com/zzsmoky/EygptBar-70 | 5x14 ortho, ATmega328P-PU DIP + built-in USB hub | 2 | [ ] |
-| Tripel | https://github.com/peej/tripel-keyboard | Modular ortho 60%, 3-part PCB | 53 | [ ] |
 | Red Herring | https://github.com/dcpedit/redherring | Unibody ergo, ATmega32A, OLED/encoder/solenoid | — | [ ] |
 | OrthoCode | https://github.com/Jrodna/OrthoCode | Ortho w/ thumb clusters + encoder, all THT | 17 | [ ] |
 | Framework | https://github.com/stevennguyen/framework | 5x12 ortho w/ encoder + USB-C (7c8) | — | [ ] |
@@ -68,7 +66,6 @@ Gathered this information using a long term research project with multiple agent
 | Masochist | https://github.com/RSchneyer/masochist | TH 27% (Pain27 × Romeo) | 7 | [ ] |
 | Orthgyle | https://github.com/peej/orthgyle-keyboard | 5x15 ortho, ATmega328p, duplex matrix | 1 | [ ] |
 | Madras | https://github.com/hsgw/Madras | QAZ layout w/ relay (Plaid designer) | 1 | [ ] |
-| Kilt | https://github.com/piit79/kilt-keyboard | 5-column ortho inspired by Plaid | 0 | [ ] |
 | OK96 | https://github.com/mothdotmonster/OK96 | 96-key ortho (untested per README) | 2 | [ ] |
 | CN62B | https://github.com/covah901/CN62B---Ergo-Keyboard | ATmega32A ergo based on Mysterium | 1 | [ ] |
 | Livewire | https://github.com/ElKinoflop/Livewire | 40% exposed TH diodes, acrylic case | 1 | [ ] |
@@ -106,10 +103,8 @@ Gathered this information using a long term research project with multiple agent
 | Plaid-Pad | https://github.com/Keycapsss/Plaid-Pad | Plaid-based numpad | — | [ ] |
 | Litl | https://github.com/mohoyt/litl | 40% TH (sthlmkb) | — | [ ] |
 | Rosaline | https://github.com/peej/rosaline-keyboard | 40% TH | — | [ ] |
-| 00Key | https://github.com/ZeroZeroOne-dev/00Key | TH keyboard, macropad-style (grouped here per name) | — | [ ] |
-| Scientist | https://github.com/godders/scientist | TH keyboard (grouped here pending size confirmation) | — | [ ] |
-| carpckeyboard | https://github.com/a6p/carpckeyboard | Macropad w/ rotary encoder + wheel buttons, ATmega8 MCU + V-USB firmware | 0 | [ ] |
 
+| Scientist | https://github.com/godders/scientist | TH keyboard (grouped here pending size confirmation) | — | [ ] |
 
 ---
 
@@ -121,7 +116,7 @@ Gathered this information using a long term research project with multiple agent
 | Argyle 60 | Yiancar | QMK `keyboards/argyle`; prototypist.net | Premium 60% TH w/ RGB, ATmega328p + V-USB | [ ] |
 | Mercutio | MechWild (kylemccreery) | QMK `keyboards/mechwild/mercutio`; mechwild.com | TH 40% w/ encoder + OLED — popular budget kit | [ ] |
 | Jabberwocky | nopunin10did | QMK `keyboards/nopunin10did/jabberwocky` | Full-size columnar Alice TH kit, southpaw variants | [ ] |
-| Lattice60 | emdarcher / KeyHive | QMK `keyboards/keyhive/lattice60` | HHKB layout, TH only, USBasploader | [ ] |
+| Lattice60 | emdarcher / KeyHive | QMK `keyboards/keyhive/lattice60` | HHKB layout, TH only, USBasploader | [X] |
 | Resume1800 | CrimsonKeyboards (DeeDesired) | QMK `keyboards/crimsonkeyboards/resume1800` | 1800 compact, solely TH, ATmega32A | [ ] |
 | HACKBOARD | c0ldbru / rot13labs | QMK `keyboards/rot13labs/hackboard`; rot13labs.com | TKL on Mysterium platform | [ ] |
 | Mine | Arturo Avila (ADPenrose) | QMK `keyboards/adpenrose/mine` | 1800 Alice, THT-only, solenoid + encoder | [ ] |
