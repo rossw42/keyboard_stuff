@@ -2,7 +2,7 @@
 
 *For when "just solder it yourself" means every single component.*
 
-Gathered this information using a long term research project with multiple agents, sources where GitHub search, designer network crawls, Reddit Threads, QMK/VIAL firmware database, vendor/community sites.
+Gathered this information using a long term research project with multiple agents, sources:  GitHub searches,  network crawls, Reddit Threads, QMK/VIAL firmware database, vendor/community sites.
 
 
 ### 60% / 65% / Alice
