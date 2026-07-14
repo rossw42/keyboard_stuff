@@ -1,7 +1,8 @@
-# Yet another Through-Hole Keyboard List - as of 2026-07-13
-
+# Yet another Through Hole Keyboard List - as of 2026-07-13
 
 *For when "just solder it yourself" means every single component.*
+
+Gathered this information using a long term research project with multiple agents, sources where GitHub search, designer network crawls, Reddit Threads, QMK/VIAL firmware database, vendor/community sites.
 
 
 ### 60% / 65% / Alice

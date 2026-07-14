@@ -3,8 +3,17 @@
 
 *For when "just solder it yourself" means every single component.*
 
+Deep research findings compiled 2026-07-13. Goal: find through-hole (THT) keyboards — boards where the MCU and passives all come in DIP/THT packages, nothing SMD — **not already in** the [rossw42 through-hole stars list](https://github.com/stars/rossw42/lists/through-hole).
+
+Sources: GitHub search, designer network crawls, Reddit/PullPush, QMK firmware database, vendor/community sites.
+
+---
+
+## ⭐ New GitHub repos to star — Confirmed fully through-hole (discrete TH MCU)
 
 ### 60% / 65% / Alice
+
+
 
 | Keyboard | Repo | Notes | Stars | Built |
 |---|---|---|---|---|
