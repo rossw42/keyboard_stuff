@@ -21,8 +21,8 @@
 | Plaid LoPro | https://github.com/FrancisUsher/plaid-lopro-keeb | Plaid variant, Kailh low-profile | 1 | [ ] |
 | 0xCB Static | https://github.com/0xCB-dev/0xCB-Static | TH keyboard kit | — | [ ] |
 | KBIC65 | https://github.com/b-karl/KBIC65 | 65% TH | — | [ ] |
-| Discipline | https://github.com/coseyfannitutti/discipline | 65% TH classic (CFTKB) | — | [ ] |
-| Basketweave | https://github.com/null-ll/basketweave | 65% TH | — | [ ] |
+| Discipline | https://github.com/coseyfannitutti/discipline | 65% TH classic (CFTKB) | — | [X] |
+| Basketweave | https://github.com/null-ll/basketweave | 65% TH | — | [X] |
 | Pinstripe | https://github.com/null-ll/pinstripe | TH keyboard (likely 65%, same designer as Basketweave) | — | [ ] |
 | Lagom | https://github.com/mohoyt/lagom | TH keyboard (sthlmkb); "lagom" = Swedish for "just the right amount", likely mid-size 60% | — | [ ] |
 | Claudia | https://github.com/subottimale/Claudia | TH keyboard (size unconfirmed, grouped here) | — | [ ] |
@@ -44,7 +44,7 @@
 | D3lta_M3 Southpaw 65 | https://github.com/D3lta-M3/D3lta_M3-Southpaw-65 | 65% southpaw, TH soldering | 0 | [ ] |
 | TKLpcb | https://github.com/jbennet-t/TKLpcb | TH TKL PCB | 0 | [ ] |
 | TH1800 | https://github.com/mechlovin/PCB/tree/master/1800-Compact | Mechlovin 1800, ATmega32A (QMK: mechlovin/th1800) | — | [ ] |
-| Mysterium | https://github.com/coseyfannitutti/mysterium | TKL TH (CFTKB) | — | [ ] |
+| Mysterium | https://github.com/coseyfannitutti/mysterium | TKL TH (CFTKB) | — | [X] |
 | LCK75 | https://github.com/lyso1/LCK75 | 75% TH | — | [ ] |
 | LCK75 v3 | https://github.com/lyso1/LCK75v3 | 75% TH v3 | — | [ ] |
 | Barleycorn | https://github.com/yiancar/barleycorn_pcb | Compact 1800 TH (Yiancar) | — | [ ] |
@@ -73,10 +73,10 @@
 | Livewire | https://github.com/ElKinoflop/Livewire | 40% exposed TH diodes, acrylic case | 1 | [ ] |
 | Plaid | https://github.com/hsgw/plaid | The original TH icon, 4x12 ortho, ATmega328p + V-USB | — | [ ] |
 | punk75 | https://github.com/dsanchezseco/punk75 | 75% TH ortho | — | [ ] |
-| Lumberjack | https://github.com/peej/lumberjack-keyboard | 5x12 ortho TH classic | — | [ ] |
+| Lumberjack | https://github.com/peej/lumberjack-keyboard | 5x12 ortho TH classic | — | [X] |
 | Torn | https://github.com/rtitmuss/torn | Split TH classic | — | [ ] |
 | Axon | https://github.com/thatfellarobin/axon | 40% ortho TH | — | [ ] |
-| Lesovoz | https://github.com/Tsquash/lesovoz-files | TH keyboard, 10x4 ortho-style matrix w/ layer taps | — | [ ] |
+| Lesovoz | https://github.com/Tsquash/lesovoz-files | TH keyboard, 10x4 ortho-style matrix w/ layer taps | — | [X] |
 | voidPointer | https://github.com/RafaelCasamaximo/voidPointer | TH keyboard (grouped here pending size confirmation) | — | [ ] |
 | cambkb | https://github.com/cosimini/cambkb | TH keyboard (grouped here pending size confirmation) | — | [ ] |
 | Nullwing Keyboard | https://github.com/CityRunner/nullwing-keyboard | Split w/ rotary encoder, THT diodes/switches + nice!nano module (TH-adjacent) | 1 | [ ] |
@@ -100,7 +100,7 @@
 | Causeway THT | https://github.com/isandrocks/Causeway_THT | DIY kit, ATmega32A | 0 | [ ] |
 | numpad-keyboard | https://github.com/cmanon/numpad-keyboard | KiCad numpad, TH only | 0 | [ ] |
 | Discipad | https://github.com/coseyfannitutti/discipad | TH numpad (CFTKB) | — | [ ] |
-| Romeo | https://github.com/coseyfannitutti/romeo | 40% TH (CFTKB) | — | [ ] |
+| Romeo | https://github.com/coseyfannitutti/romeo | 40% TH (CFTKB) | — | [X] |
 | NumDiscipline | https://github.com/ericrlau/NumDiscipline | Discipline-based numpad | — | [ ] |
 | Plaid-Pad | https://github.com/Keycapsss/Plaid-Pad | Plaid-based numpad | — | [ ] |
 | Litl | https://github.com/mohoyt/litl | 40% TH (sthlmkb) | — | [ ] |
@@ -173,22 +173,15 @@
 | SNAP | https://github.com/nullbitsco/snap | Split 75% kit, Pro Micro compatible hand-solder | [ ] |
 | CYOA Ortho | https://github.com/mohoyt/cyoa_ortho | Adjustable 5x12→3x3 ortho, Pro Micro, solder-only (no hotswap) | [ ] |
 
-*Note: the `cfbender/keyboards` repo is a monorepo covering both Nightmare and May Pad, both listed individually above.*
-
-
-## Unverified / needs follow-up
+## Unverified / needs follow-up / mentioned in threads
 
 - https://github.com/ScatteredDrifter/Quasar-67 — Lumberjack-style for KBD67-lite (unbuilt concept, prototypes never ordered)
 - https://github.com/htpkbs/splotch — TH ortho split (abandoned, matrix bug)
 - Lelelab Y2K 76 — commercial prebuilt TH-aesthetic, no repo
-
-## Dead ends (Round 2 verified — unresolvable)
-
 - casio59 (mrninhvn), keyboard60-throughole (davidgraeff), Wanda (ianfhunter) — repos deleted/renamed, not in users' repo lists
 - Avlo44, ErgoMorph55 — kbd.news TH-tagged, no repos found via gh or Wayback
 - KP24 — Reddit interest-check only, never released
 - Berm — personal one-off, no repo posted
 - TU40 / Juliet40 — TaoBao-only TH 40%, no repo exists (QMK: handwired/juliet is a handwire)
-- "Barleycorne 75%" — misspelling of Barleycorn (already starred), not a distinct board
 
 ---
