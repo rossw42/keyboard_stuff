@@ -1,5 +1,5 @@
 // ============================================================================
-// PG1350 -> PG1425 Switch Adapter (Rectangular Block Design, v3)
+// PG1350 -> PG1425 Switch Adapter (Rectangular Block Design, v3.1)
 //
 // CONCEPT:
 //   A rectangular block, like a tiny "adapter PCB" with a bezel:
@@ -111,14 +111,31 @@ plate_t          = 1.20;       // mm - effective "plate" thickness above window
 clip_window_w    = 6.0;        // mm - window width (Choc clips ~5mm, + margin)
 
 // ---------------------------------------------------------------------------
-// PIN ROUTING THROUGH-SLOTS
-// Each slot is a polyline cut all the way THROUGH the floor, connecting a
-// Choc pin entry (top) to its PG1425 pin-hole position (bottom). A bent
-// Choc pin, wire, or stamped contact routes through the slot and exits
-// straight down into the PCB pin hole. Slots are flush with the bottom
-// face - only the two alignment pins protrude.
+// PIN ROUTING - CAPTIVE WIRE CHANNELS (v3.1)
+// Each channel is a polyline trench connecting a Choc pin entry to its
+// PG1425 pin-hole position. Unlike v3's full through-slots, the channel
+// keeps a thin MEMBRANE of floor material underneath, so a wire laid in
+// the channel cannot fall out the bottom. The channel is open at the TOP
+// (into the Choc pocket): the wire drops in from above during assembly,
+// and once the switch is seated its housing caps the channel - the wire
+// is fully captive.
+//
+// Through-openings remain at exactly two places per channel:
+//   * PIN ENTRY  - round through-pocket at the Choc pin position, full
+//                  floor depth, so the 2.65mm pin descends fully and the
+//                  pin<->wire solder joint is reachable from below
+//   * WIRE EXIT  - round through-hole directly above the PG1425 plated
+//                  hole, so the wire's end bends down through it into
+//                  the PCB hole
+//
+// Set wire_channel = false to restore the v3 full through-slots.
 // ---------------------------------------------------------------------------
-slot_w           = 1.4;        // mm - routing slot width
+slot_w              = 1.4;     // mm - routing channel width
+wire_channel        = true;    // true = captive channel; false = v3 through-slot
+channel_membrane_t  = 0.50;    // mm - floor membrane left under the channel
+wire_exit_hole_d    = 1.40;    // mm - wire exit through-hole (over PG1425 hole)
+pin_entry_pocket_d  = 1.60;    // mm - Choc pin entry through-pocket (pin 1.2
+                               //      + room for the wire lying beside it)
 
 // Slot polylines: first point = Choc pin entry, last = PG1425 pin hole.
 // Slot 2 detours below center to clear the Choc center-post pocket and
@@ -182,11 +199,16 @@ module pg1350_holes() {
     through_hole([ choc_side_post_x, 0], choc_side_post_d);
 }
 
-// One routing through-slot: rounded polyline slot cut through the floor
-// (z = 0 .. floor_h), built as chained hulls over consecutive points
+// One routing channel: rounded polyline trench, built as chained hulls
+// over consecutive points.
+//   wire_channel = true : cut from channel_membrane_t up through the top
+//                         (bottom membrane stays -> wire is captive)
+//   wire_channel = false: v3 behaviour, cut through the full floor
 module routing_slot(pts) {
-    translate([0, 0, -eps])
-        linear_extrude(height = floor_h + 2*eps)
+    z0 = wire_channel ? channel_membrane_t : -eps;
+    h  = wire_channel ? (floor_h - channel_membrane_t + eps) : (floor_h + 2*eps);
+    translate([0, 0, z0])
+        linear_extrude(height = h)
             for (i = [0 : len(pts) - 2])
                 hull() {
                     translate(pts[i])     circle(d = slot_w);
@@ -194,9 +216,24 @@ module routing_slot(pts) {
                 }
 }
 
-// All pin routing through-slots
+// All pin routing channels
 module pin_routing_slots() {
     for (s = slots) routing_slot(s);
+}
+
+// Through-openings at the channel ends (only used with wire_channel):
+//   - pin entry pockets at the Choc pin positions (full floor depth)
+//   - wire exit holes directly over the PG1425 plated holes
+module channel_end_openings() {
+    // Choc pin entry through-pockets
+    for (p = [choc_pin1_pos, choc_pin2_pos])
+        translate([p[0], p[1], -eps])
+            cylinder(h = floor_h + 2*eps, d = pin_entry_pocket_d);
+
+    // Wire exit through-holes over the PG1425 pin holes
+    for (p = [pg1425_pin1_pos, pg1425_pin2_pos])
+        translate([p[0], p[1], -eps])
+            cylinder(h = floor_h + 2*eps, d = wire_exit_hole_d);
 }
 
 // Two printed alignment pins that drop into the PG1425 PCB's non-plated
@@ -219,6 +256,7 @@ module adapter() {
             clip_windows();
             pg1350_holes();
             pin_routing_slots();
+            if (wire_channel) channel_end_openings();
         }
         pg1425_alignment_pins();
     }

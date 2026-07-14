@@ -1,12 +1,22 @@
 # Switch Converter × Ergogen Integration — Feasibility & Recommended Approach
 
-> **STATUS: IMPLEMENTED (2026-07-08).** All three layers below are now built
-> into kbforge (`D:\GitHub\keyboard_stuff\ergogen\kbforge`) and verified
-> end-to-end (Ergogen 4.x build + OpenSCAD STL renders). See
+> **STATUS: IMPLEMENTED (2026-07-08), synced to adapter v3.1 (2026-07-12).**
+> All three layers below are built into kbforge
+> (`D:\GitHub\keyboard_stuff\ergogen\kbforge`) and verified end-to-end
+> (Ergogen 4.x build + OpenSCAD STL renders). See
 > **"How to use the pipeline"** at the bottom of this document, and the
 > "Switch-converter pipeline" section of the kbforge README.
 > Pre-change backups of every modified kbforge file are in
 > `kbforge/backup/pre_converter_2026-07-08/`.
+>
+> **v3.1 sync (2026-07-12):** the adapter geometry inlined in
+> `converter_scad.py` now matches adapter **v3.1** — the pin-routing slots
+> are captive wire channels (0.5 mm bottom membrane so the wire can't fall
+> out; through-openings only at the Choc pin entry pockets (φ1.6) and the
+> wire exit holes (φ1.4) over the PG1425 plated holes). `wire_channel = false`
+> in the generated SCAD restores the old through-slots. Re-verified:
+> `numpad.json --converter-keys all` → 17-adapter sprued panel renders
+> manifold with the channel geometry (`out_test/numpad_panel_v31.png`).
 
 Research findings from analyzing three sources:
 - `D:\GitHub\keyboard_stuff\projects\switch_converter` (the PG1350→PG1425 adapter project)
@@ -189,13 +199,20 @@ openscad -o out\plate.stl -D "part=""plate""" out\<name>.converter.scad
 openscad -o out\adapter.stl -D "part=""adapter""" out\<name>.converter.scad
 ```
 
-## Assembly (per converter position)
-1. Place the adapter on the PG1425 PCB footprint — its two printed pins
-   drop into the 1.3 mm non-plated alignment holes.
-2. Route the Choc pins / stamped contacts through the adapter's slots into
-   the two plated pin holes; solder.
-3. Snap the PG1350 (Choc V1) switch into the adapter pocket — the clips
-   engage the adapter's clip windows exactly like a 1.2 mm plate.
+## Assembly (per converter position, v3.1 captive channels)
+1. Lay a 0.6 mm bus wire into each channel **from above** — the channel jigs
+   the bends and the membrane keeps it from falling out. Bend the wire tail
+   down through the exit hole.
+2. Snap the PG1350 (Choc V1) switch into the adapter pocket — the clips
+   engage the adapter's clip windows exactly like a 1.2 mm plate, the switch
+   body caps the channels (wire fully captive), and each pin lands in its
+   entry pocket beside the wire.
+3. Place the adapter on the PG1425 PCB footprint — its two printed pins
+   drop into the 1.3 mm non-plated alignment holes and the wire tails drop
+   into the plated pin holes.
+4. Solder pin↔wire at each entry pocket and wire↔PCB on the underside.
+   (See `electrical_connection_research.md` for the full contact-options
+   analysis.)
 
 ## Implementation map
 
@@ -212,8 +229,8 @@ The `switch_pg1425.js` footprint geometry was translated from the verified
 `Kailh-PG1425-X-Switch.kicad_mod` in this folder (re-centered on the switch
 center: the module origin sat at (-3.4, 2.9) relative to the center). The
 adapter geometry in `converter_scad.py` is inlined from
-`OpenSCAD/pg1350_to_pg1425_adapter.scad` (v3) — **keep them in sync** if the
-adapter design changes.
+`OpenSCAD/pg1350_to_pg1425_adapter.scad` (**v3.1**, synced 2026-07-12) —
+**keep them in sync** if the adapter design changes.
 
 ## Verified
 * `numpad.json --converter-keys all` → YAML with 17 converter tags,

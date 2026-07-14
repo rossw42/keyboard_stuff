@@ -189,31 +189,43 @@ kbforge integrates the
 **PG1425 "Choc X"** PCB footprint (edge-mount, plateless). Design rationale:
 `projects/switch_converter/ergogen_integration.md`.
 
-Mark any subset of keys as converter positions and the whole pipeline
-adapts:
+**The pipeline is fully opt-in, and a board is either all-converter or
+not.** You don't mix switch types on a board, so there are exactly two
+modes:
+
+| Project | Command |
+|---|---|
+| No converters (default) | `python -m kbforge board.json -o out` — zero converter content: no tags, no extra outlines, no custom footprints, no `.converter.scad` |
+| Converter board | add `-f ... converter --converter-keys all` — every key gets the PG1425 footprint + converter, print the **`plate`** part (integrated converter plate) |
+
+To retrofit an existing project, just re-run the same generate command
+with those flags — nothing else in the workflow changes.
+(`--converter-keys` technically accepts subsets like `r0c0`, but that
+exists only for fit-testing single positions — production boards are
+all-or-nothing.)
 
 ```powershell
-# 1. Generate — mark keys (all | matrix refs | labels), request the
-#    converter SCAD alongside the usual outputs:
+# 1. Generate — request the converter SCAD alongside the usual outputs:
 python -m kbforge board.json -o out -f ergogen docs json converter --converter-keys all
-python -m kbforge board.json -o out -f ergogen converter --converter-keys r0c0 r0c1 Enter
 
 # 2. Build the Ergogen outputs as usual (the custom PG1425 footprint is
 #    staged automatically):
 python -m kbforge out\board.ergogen.yaml -o out
 
-# 3. Render the printable converter parts from the .converter.scad:
-openscad -o out\adapters.stl -D "part=""panel"""  out\board.converter.scad
-openscad -o out\plate.stl    -D "part=""plate"""  out\board.converter.scad
+# 3. Render the printable converter parts from the .converter.scad
+#    (PowerShell: use backslash-escaped quotes, or the value silently
+#    falls back to the default "panel"):
+openscad -o out\adapters.stl -D 'part=\"panel\"'  out\board.converter.scad
+openscad -o out\plate.stl    -D 'part=\"plate\"'  out\board.converter.scad
 ```
 
 What each layer produces:
 
 | Layer | Output | Converter behavior |
 |---|---|---|
-| **Plate (Ergogen)** | `ergogen/outlines/plate.dxf`, `cases/case_plate.*` | converter keys get a **15.2 mm rounded opening** (`conv_cutout` unit) the adapter body drops through — the adapter's own 1.2 mm bezel retains the switch; normal keys keep the `sw_cutout` opening (14.0 MX / `--switch-cutout 13.8` Choc) |
-| **PCB (Ergogen)** | `ergogen/pcbs/<name>.kicad_pcb` | converter keys get the **`kbforge:switch_pg1425`** footprint (plated pin holes, alignment holes for the adapter's pins, center cutout — translated from the verified shikamiya KiCad footprint); normal keys keep the hotswap MX footprint; diodes/nets unchanged |
-| **3D (OpenSCAD)** | `<name>.converter.scad` | three parts via `part=`: `adapter` (one, at origin), `panel` (all adapters at true board positions joined by snap-off sprues — print once, snap apart), `plate` (integrated converter plate: plate slab fused with the adapter bodies — one print, built-in switch retention) |
+| **Plate (Ergogen)** | `ergogen/outlines/plate.dxf`, `cases/case_plate.*` | converter keys get a **15.2 mm rounded opening** (`conv_cutout` unit) the adapter body drops through — the adapter's own 1.2 mm bezel retains the switch. (On an all-converter board you'll normally skip this and print the integrated `plate` part instead.) |
+| **PCB (Ergogen)** | `ergogen/pcbs/<name>.kicad_pcb` | every key gets the **`kbforge:switch_pg1425`** footprint (plated pin holes, alignment holes for the adapter's pins, center cutout — translated from the verified shikamiya KiCad footprint); diodes/nets unchanged |
+| **3D (OpenSCAD)** | `<name>.converter.scad` | three parts via `part=`: **`plate`** (integrated converter plate: plate slab fused with the adapter bodies — one print, built-in switch retention; the primary output), `panel` (all adapters at board positions joined by snap-off sprues — alternative if you prefer loose adapters), `adapter` (one at the origin, for fit testing) |
 
 Notes:
 
@@ -223,12 +235,12 @@ Notes:
   staged into `.ergogen-build/footprints/` automatically whenever the config
   references it.
 * The adapter geometry in `<name>.converter.scad` is inlined from
-  `projects/switch_converter/OpenSCAD/pg1350_to_pg1425_adapter.scad` (v3) —
-  if that design changes, update `kbforge/generators/converter_scad.py` to
-  match.
-* The integrated `plate` part assumes an all-converter (or converter-major)
-  board: the slab top sits at the adapter-stack height (5 mm above the PCB).
-  Mixed boards should use the `panel` part plus the normal Ergogen plate.
+  `projects/switch_converter/OpenSCAD/pg1350_to_pg1425_adapter.scad`
+  (**v3.1** — captive wire channels: 0.5 mm bottom membrane, pin entry
+  pockets, wire exit holes; synced 2026-07-12) — if that design changes,
+  update `kbforge/generators/converter_scad.py` to match.
+* The integrated `plate` part is designed for the all-converter board: the
+  slab top sits at the adapter-stack height (5 mm above the PCB).
 * Ergogen itself can't produce the adapter's 3D features (pockets, clip
   windows) — it's a 2D/2.5D tool — which is why the 3D layer is OpenSCAD.
 
