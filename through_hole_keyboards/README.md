@@ -6,8 +6,10 @@ Gathered this information using a long term research project with multiple agent
 
 Some of these boards might need to be regrouped, pending investigation.
 
+📷 **[View the photo gallery →](gallery.md)** — thumbnails for every board below, pulled from each project's own repo/README where available.
 
 ### 60% / 65% / Alice
+
 
 | Keyboard | Repo | Notes | Stars | Built |
 |---|---|---|---|---|
