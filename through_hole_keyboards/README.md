@@ -8,13 +8,13 @@
 
 | Keyboard | Repo | Notes | Stars | Built |
 |---|---|---|---|---|
-| Sesame (kb-elmo) | https://github.com/kb-elmo/sesame (also str-dst/sesame) | Alice 60%, only THT parts; sold at 42keebs | 328 | [ ] |
+| Sesame  | https://github.com/kb-elmo/sesame | Alice 60%, only THT parts; sold at 42keebs | 328 | [ ] |
 | Tartan | https://github.com/hsgw/tartan | 60% row-stagger sibling of Plaid, ATmega328p + V-USB | 97 | [ ] |
 | Gingham | https://github.com/yiancar/gingham_pcb | 60% TH inspired by Plaid | 84 | [ ] |
 | Seigaiha | https://github.com/yiancar/Seigaiha | Alice TH w/ USB-C, ATmega328p + V-USB | 63 | [ ] |
 | Gingham USB-C | https://github.com/yiancar/gingham_usbc_pcb | Gingham with USB-C | 42 | [ ] |
 | Donegal-C | https://github.com/piit79/donegal-c | 60% TH w/ USB-C; sold at 42keebs | — | [ ] |
-| Gingerham | https://github.com/itsnoteasy/gingerham | Gingham fork, ISO-UK/ANSI/ABNT2, no I/O expander | 7 | [ ] |
+| Gingerham | https://github.com/itsnoteasy/gingerham | Gingham fork, no I/O expander | 7 | [ ] |
 | SEGMENT | https://github.com/slonket/segment-keyboard | 60% TH kit, 1980s PCB aesthetic | 3 | [ ] |
 | Poppy | https://github.com/jamerhar/poppy | 70% Alice expanding on Sesame | 0 | [ ] |
 | Luckyboard70 | https://github.com/luckybusted/luckyboard70 | 70%, entirely TH incl. USB-C | 1 | [ ] |
@@ -24,7 +24,7 @@
 | Discipline | https://github.com/coseyfannitutti/discipline | 65% TH classic (CFTKB) | — | [X] |
 | Basketweave | https://github.com/null-ll/basketweave | 65% TH | — | [X] |
 | Pinstripe | https://github.com/null-ll/pinstripe | TH keyboard (likely 65%, same designer as Basketweave) | — | [ ] |
-| Lagom | https://github.com/mohoyt/lagom | TH keyboard (sthlmkb); "lagom" = Swedish for "just the right amount", likely mid-size 60% | — | [ ] |
+| Lagom | https://github.com/mohoyt/lagom | TH keyboard (sthlmkb), likely mid-size 60% | — | [ ] |
 | Claudia | https://github.com/subottimale/Claudia | TH keyboard (size unconfirmed, grouped here) | — | [ ] |
 | Kawung65 | https://github.com/sugengz/Kawung65 | 65%, ATmega32A, hotswap sockets + RGB underglow | 0 | [ ] |
 | C-13X-PCB | https://github.com/ramonimbao/C-13X-PCB | Alice (QAZ-ish), ATmega32A, ai03 daughterboard compatible, solder + hotswap | 16 | [ ] |
@@ -41,14 +41,14 @@
 | Rabelius | https://github.com/LordRabel/Rabelius | Compact 1800 based on Mysterium | 2 | [ ] |
 | Swissterium | https://github.com/Davines123/Swissterium | Mysterium variant, TH incl. USB-C | 1 | [ ] |
 | Southpaw Discipline | https://github.com/JZolko/southpaw_discipline | Discipline 65% + left-hand numpad | 0 | [ ] |
-| D3lta_M3 Southpaw 65 | https://github.com/D3lta-M3/D3lta_M3-Southpaw-65 | 65% southpaw, TH soldering | 0 | [ ] |
+| D3lta_M3 Southpaw 65 | https://github.com/D3lta-M3/D3lta_M3-Southpaw-65 | 65% southpaw | 0 | [ ] |
 | TKLpcb | https://github.com/jbennet-t/TKLpcb | TH TKL PCB | 0 | [ ] |
 | TH1800 | https://github.com/mechlovin/PCB/tree/master/1800-Compact | Mechlovin 1800, ATmega32A (QMK: mechlovin/th1800) | — | [ ] |
 | Mysterium | https://github.com/coseyfannitutti/mysterium | TKL TH (CFTKB) | — | [X] |
 | LCK75 | https://github.com/lyso1/LCK75 | 75% TH | — | [ ] |
 | LCK75 v3 | https://github.com/lyso1/LCK75v3 | 75% TH v3 | — | [ ] |
 | Barleycorn | https://github.com/yiancar/barleycorn_pcb | Compact 1800 TH (Yiancar) | — | [ ] |
-| Större | https://github.com/mohoyt/sthlmkb-storre | TH keyboard (sthlmkb); "större" = Swedish for "bigger", likely full-size/1800 | — | [ ] |
+| Större | https://github.com/mohoyt/sthlmkb-storre | TH keyboard (sthlmkb), likely full-size/1800 | — | [ ] |
 | m0116_usb | https://github.com/str-dst/m0116_usb | Novelty/vintage: drop-in QMK replacement PCB for the Apple M0116 keyboard, entirely THT parts, ATmega32A 40-pin DIP | 34 | [ ] |
 
 
@@ -57,8 +57,8 @@
 | Keyboard | Repo | Notes | Stars | Built |
 |---|---|---|---|---|
 | Planck THK | https://github.com/olkb/planck_thk | Official OLKB Planck Through Hole Kit | 166 | [ ] |
-| Panama | https://github.com/jsmercier/panama-keyboard | ATmega32A-PU DIP-40, USB-C, USBaspLoader (verified via schematic) | 1 | [ ] |
-| EgyptBar-70 | https://github.com/zzsmoky/EygptBar-70 | 5x14 ortho, ATmega328P-PU DIP + built-in USB hub (hub SMD) | 2 | [ ] |
+| Panama | https://github.com/jsmercier/panama-keyboard | ATmega32A-PU DIP-40, USB-C | 1 | [ ] |
+| EgyptBar-70 | https://github.com/zzsmoky/EygptBar-70 | 5x14 ortho, ATmega328P-PU DIP + built-in USB hub | 2 | [ ] |
 | Tripel | https://github.com/peej/tripel-keyboard | Modular ortho 60%, 3-part PCB | 53 | [ ] |
 | Red Herring | https://github.com/dcpedit/redherring | Unibody ergo, ATmega32A, OLED/encoder/solenoid | — | [ ] |
 | OrthoCode | https://github.com/Jrodna/OrthoCode | Ortho w/ thumb clusters + encoder, all THT | 17 | [ ] |
@@ -113,7 +113,7 @@
 ---
 
 
-## Confirmed TH but no dedicated GitHub hardware repo found
+## Confirmed TH but no dedicated GitHub hardware repo found, could be commercial kits
 
 | Keyboard | Designer | Where | Notes | Built |
 |---|---|---|---|---|
