@@ -1,58 +1,54 @@
 # keyboards
 
-Welcome to the digital equivalent of that junk drawer in your kitchen - you know, the one with the dead batteries, random screws, and that thing you're pretty sure is important but can't remember why.
+Welcome to the digital equivalent of that junk drawer in your kitchen. I dump alot of things here, mostly my via/vial keyboard configs. There are active projects here, there are dead ideas here and there are many keyboards that I have sold or given away.
 
-> **Warning**: This folder has more cobwebs than a haunted house and changes more often than my mind about which switches I actually like. Enter at your own risk. 🕷️
+> **Warning**: This folder is a mess. It has been *partially* cleaned up, but don't let that fool you. The chaos runs deep. 🕷️
 
-## What's Probably In Here (Subject to Change Without Notice)
+---
 
-### VIA/QMK Keymaps 
-- JSON files for various keyboards that may or may not work
-- `keymap.c` files that definitely worked... once... on a Tuesday
-- `rules.mk` files with `VIA_ENABLE = yes` because who has time for compiling?
+## What's In Here
 
-### 3D Files That May or May Not Print
-- `plate.3mf` - A switch plate that looked good in the slicer
-- Various `.scad` files for cases that seemed like a good idea at 2 AM
-- STL files that are probably the right scale (no promises)
+Each subdirectory is (roughly) a keyboard or project. Files *should* be in the folder for the keyboard they belong to. The word "should" is doing a lot of heavy lifting there.
 
-### Ergogen Configurations
-- `Lintilla.yaml`, `forestv0.3.1.yaml`, `forestv3.yaml` - Keyboard designs in various states of "almost working"
-- YAML files that generate PCBs that may actually fit the cases (fingers crossed)
-- Some configs are "borrowed" from other people's projects while I learn how this stuff works (thanks, internet strangers!)
+| Folder | What It Probably Is |
+|---|---|
+| `Arisu/` | Arisu layout keymaps & PCB files |
+| `Basketweave/` | Basketweave keymaps |
+| `biaxial/` | BiAxial custom keyboard design (ergogen, KLE, DXF, STL) |
+| `BM60_Poker/` | BM60 Poker layout files |
+| `cocot46plus/` | aki27 cocot46plus trackball keyboard |
+| `corne/`, `crkbd/`, `CorneLeft/`, `corneLP/` | Various Corne/CRKBD variants |
+| `Discipline/` | Discipline65 build files, BOM, keymaps |
+| `DZ60/` | DZ60 layout files |
+| `egg58/`, `egg58 white/` | Eggsworks Egg58 keymaps (black & white versions) |
+| `Lattice/` | Lattice60 build guide, VIA config, case files |
+| `macropad/`, `macropadv2/` | Handwired macropad QMK firmware |
+| `minivan/` | Minivan keymaps and configs |
+| `mysterium/` | Mysterium TKL build files |
+| `nuphy-air96-v2-via3/` | NuPhy Air96 V2 VIA config |
+| `Romeo/` | Romeo build files, BOM CSVs, PCB, case models |
+| `air60v2/`, `air75v2/` | NuPhy Air60/Air75 V2 layout files |
+| `a_dux/` | A-Dux split keyboard |
+| `3key/`, `4key/`, `3x4/`, `4x2/`, `2key/` | Small macropads and test boards |
+| `sweep/`, `kyria/`, `lily58/`, `helix/`, `redox/` | Various split keyboards |
+| `charybdis/`, `ploopy/` | Trackball/trackpad builds |
+| `planckv7/` | Planck rev7 |
+| ... and many more | It's a mess. See above. |
 
-### Random Hardware Configs
-- `config.h` files with pin definitions that worked on my specific setup
-- `info.json` files with layouts that are definitely correct (until they're not)
-- `mcuconf.h` files that enable the magic smoke to stay inside the chips
+---
 
-### Documentation (Loosely Defined)
-- READMEs for specific keyboards that I'll update "eventually"
-- Notes about modifications that seemed brilliant at the time
-- Troubleshooting guides for problems I've definitely solved before
+## The State of This Folder
 
-## Usage Philosophy
+Honestly? It's a mess. It has always been a mess. A partial cleanup was done on 2026-07-14 to move loose root-level files into their keyboard subdirectories, and orphaned/duplicate files into `archive/`. The underlying folder structure was not changed.
 
-This is my personal keyboard graveyard/laboratory/treasure chest. Files appear and disappear based on:
-- Whether I'm currently obsessed with that particular keyboard
-- If I remembered to commit changes before switching projects
-- The phase of the moon
-- How much coffee I've had
+Organizational principles applied (loosely):
+- Files named after a keyboard → moved into that keyboard's folder
+- Duplicate files (newer copy in a subfolder) → moved to `archive/`
+- Weird orphan DLLs, random JSONs, mystery ZIPs with no obvious home → also in `archive/`
 
 ## Disclaimer
 
-- **Nothing is guaranteed to work** - but hey, that's half the fun!
-- **Files may vanish** - I reorganize this folder like I reorganize my desk (chaotically and often)
-- **Compatibility is a suggestion** - your mileage may vary wildly
-- **Documentation is aspirational** - I'll write proper docs "next time"
-
-## Contributing
-
-Feel free to add your own keyboard chaos to this collection! Just remember:
-- Label things clearly (unlike me)
-- Test your configs (also unlike me)
-- Document your changes (definitely unlike me)
-
+- **Nothing is guaranteed to work** — but hey, that's half the fun!
 ---
 
 *"It's not hoarding if it's keyboard files... right?"*
