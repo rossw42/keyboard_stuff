@@ -14,6 +14,7 @@ design (architecture, pin mapping, connector plan).
 | `cyberdeck-kbd.service` | `/etc/systemd/system/` | Early-boot systemd unit, `Restart=always` |
 | `install.sh` | — | One-shot installer/overlay for a stock micro-journal-linux image |
 | `matrix_test.py` | `/opt/cyberdeck/` | Wiring diagnostic — prints (row, col) of pressed keys |
+| `test_driver_sim.py` | — (dev only) | Host-side simulation tests (fake lgpio/evdev); run `python test_driver_sim.py` on any machine |
 
 ## Architecture
 
@@ -78,5 +79,19 @@ new versions land as `*.new`).
   matrix keys `[7,6]` (Space) and `[7,7]` (Enter).
 - The uinput device reports vendor `0x1209` / product `0xCD68`; keyd's `*`
   wildcard matches it (keyd ignores only its own virtual device).
+- Duplicate keycodes (Space and Enter each exist twice: matrix key + knob
+  push) are reference-counted by the driver, so holding one and releasing
+  the other can't drop a held key.
+- Encoder GPIO 7/8/9/10 overlap SPI0 — `install.sh` warns if `dtparam=spi=on`
+  is set in config.txt (it must be off or the driver can't claim those pins).
 - Everything runs as root (uinput + gpiochip access). SSH stays enabled as
   the recovery path.
+
+## Verification status
+
+`test_driver_sim.py` (22 checks, all passing): layout is exactly 8x9 with 71
+positions matching the stock Vial keymap transcription; scan drives columns
+LOW one at a time and returns them to Hi-Z; 5 ms stable-state debounce fires
+press/release correctly; duplicate-keycode refcounting; encoder quadrature
+emits exactly one tap per 4-transition detent in each direction and rejects
+bounce; uinput capabilities cover every emittable keycode.

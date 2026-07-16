@@ -60,6 +60,16 @@ else
     install -m 0644 "$SRC_DIR/keyd/default.conf" /etc/keyd/default.conf
 fi
 
+echo "==> Checking for SPI conflict (encoder pins GPIO 7/8/9/10 are SPI0)"
+for CFG in /boot/firmware/config.txt /boot/config.txt; do
+    if [[ -f "$CFG" ]] && grep -Eq '^\s*dtparam=spi=on' "$CFG"; then
+        echo "    WARNING: dtparam=spi=on found in $CFG"
+        echo "    SPI0 claims GPIO 7/8/9/10, which this mod uses for the encoders."
+        echo "    Disable it (comment out the line) or the driver will fail to claim those pins."
+        break
+    fi
+done
+
 echo "==> Installing systemd services"
 install -m 0644 "$SRC_DIR/cyberdeck-kbd.service" /etc/systemd/system/cyberdeck-kbd.service
 systemctl daemon-reload

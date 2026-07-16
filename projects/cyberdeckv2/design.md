@@ -342,6 +342,17 @@ Notes for that phase:
 - Key challenges: hinge design for the 7.84" LCD's weight, HDMI + display power routing through/near the hinge, and keeping the 18650 shield low in the base for balance.
 - Treat as a separate design document once the electronics mod is proven.
 
+**Status: prototype v0.1 exists** — see `archive/case_v1/case_design.md` (design doc) and
+`archive/case_v1/cyberdeck_case.scad` (parametric OpenSCAD model). Highlights:
+
+- Full-cover clamshell like Rev 8's final design: 324 × 170 mm footprint, ~52 mm closed; flat 0° keyboard deck.
+- Dimensions derived from the upstream Rev 2.1 STLs (measured with `archive/case_v1/measure_stl.py`): keyboard plates 314.4 × 104.6 mm, base redesigned around them.
+- **Rev 8-style single-barrel hinge (v0.3, pinless):** the lid's rear edge is a continuous Ø22 roll that snap-fits into C-cradle segments on the base — same construction as the Rev 8 display enclosure. 60 mm center gap in the barrel for the HDMI + display-power cables. Interference-checked over the full 0–110° sweep (`archive/case_v1/interference_check.scad`).
+- Rev 8 aesthetic package: 12 mm rounded corners, parametric face→side edge treatment (`edge_style` = "round" or "chamfer", size via `bev_lid`/`bev_base`), flat mating seam, front thumb scoop.
+- Base & lid each split into 3 pieces (216 mm middle + 54 mm wings) for a 220 mm bed, Rev 8 style; bezel splits in 2. Ten print STLs exported to `archive/case_v1/stl/`.
+- Pi Zero 2W + 18650 shield in a rear bay under the hinge (balance); panel + MIPI-HDMI driver in the lid; EC11 knobs move to top-mount on the rear strip (side wheels don't survive the fold).
+- Open items (bench-verify before final print) are tracked in `archive/case_v1/case_design.md` §6.
+
 ---
 
 ## 10. References

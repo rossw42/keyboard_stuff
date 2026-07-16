@@ -154,6 +154,32 @@ class Encoder:
         return None
 
 
+class KeycodeRefCount:
+    """Reference-counts pressed keycodes so duplicate physical keys sharing
+    one keycode (e.g. spacebar + left-knob-push both emit KEY_SPACE, enter +
+    right-knob-push both emit KEY_ENTER) don't release each other early.
+
+    press() returns True only on the 0->1 transition (emit press event);
+    release() returns True only on the ->0 transition (emit release event).
+    """
+
+    def __init__(self):
+        self.counts = {}
+
+    def press(self, code):
+        n = self.counts.get(code, 0) + 1
+        self.counts[code] = n
+        return n == 1
+
+    def release(self, code):
+        n = self.counts.get(code, 0) - 1
+        if n <= 0:
+            self.counts.pop(code, None)
+            return True
+        self.counts[code] = n
+        return False
+
+
 class MatrixScanner:
     """ROW2COL scan: drive one column LOW at a time, read rows (pull-ups).
 
@@ -221,6 +247,7 @@ def main():
         ui = make_uinput(cfg)
         scanner = MatrixScanner(chip, cfg)
         encoders = [Encoder(chip, spec) for spec in cfg["encoders"]]
+        refs = KeycodeRefCount()
         period = 1.0 / cfg["rate_hz"]
         log(f"[cyberdeck-kbd] scanning {len(cfg['rows'])}x{len(cfg['cols'])} "
             f"matrix @ {cfg['rate_hz']} Hz, debounce {cfg['debounce_ms']} ms, "
@@ -232,15 +259,25 @@ def main():
 
                 dirty = False
                 for code, value in scanner.scan(t0):
-                    ui.write(ecodes.EV_KEY, code, value)
-                    dirty = True
+                    if value:
+                        emit = refs.press(code)
+                    else:
+                        emit = refs.release(code)
+                    if emit:
+                        ui.write(ecodes.EV_KEY, code, value)
+                        dirty = True
 
                 for enc in encoders:
                     tap = enc.poll()
                     if tap is not None:
-                        ui.write(ecodes.EV_KEY, tap, 1)
-                        ui.write(ecodes.EV_KEY, tap, 0)
-                        dirty = True
+                        # Route through refcount so a tap can't release a
+                        # matrix key that shares the same keycode.
+                        if refs.press(tap):
+                            ui.write(ecodes.EV_KEY, tap, 1)
+                            dirty = True
+                        if refs.release(tap):
+                            ui.write(ecodes.EV_KEY, tap, 0)
+                            dirty = True
 
                 if dirty:
                     ui.syn()
