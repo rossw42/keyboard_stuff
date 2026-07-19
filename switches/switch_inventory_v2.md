@@ -64,3 +64,5 @@ flat inventory list — no tray position column, no notes column.
 | Unknown              | Gray stem (tray 1,8)        | TBD             | TBD       | 1     | 0         |
 | Unknown              | Cream/white (tray 1,12)     | TBD             | TBD       | 1     | 0         |
 | Unknown              | Speed Pink ?                | TBD             | TBD       | 58    | 0         |
+| Gateron              | Cap Yellow                  | Linear          | 50        | 2    | 0         |
+| KTT                  |  Kang White                 | Linear          | 50       | TBD    | 0         |
