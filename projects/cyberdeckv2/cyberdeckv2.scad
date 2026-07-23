@@ -32,9 +32,9 @@ STL = "stl/";
 // ---------------------------------------------------------------------------
 // 7.84" Wisecoco panel (VERIFY on the bench before final print)
 // ---------------------------------------------------------------------------
-pan_w = 213.6;             // panel outline width
-pan_h = 71.9;              // panel outline height
-pan_t = 2.9;               // panel thickness
+pan_w = 210;             // panel outline width
+pan_h = 68;              // panel outline height
+pan_t = 4.6;               // panel thickness
 act_w = 205.4;             // active area width
 act_h = 64.2;              // active area height
 

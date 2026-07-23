@@ -27,6 +27,12 @@ from pathlib import Path
 PCB_PATH = Path(r"D:\GitHub2\eggsworks\le-oeuf\le-oeuf\le-oeuf.kicad_pcb")
 OUT_PATH = Path(__file__).parent / "le-oeuf.converter.scad"
 SWITCH_FOOTPRINT = "le-oeuf:Kailh-PG1425-X-Switch"
+MCU_FOOTPRINT    = "le-oeuf:Xiao_nRF52840_AC_Reflow"  # controller footprint ref
+# Physical PCB dimensions of the controller (width × length, mm).
+# Adjust here when swapping to a different controller board.
+MCU_CONTROLLER_W = 17.5   # Seeed Xiao BLE (nRF52840) width,  mm
+MCU_CONTROLLER_L = 21.0   # Seeed Xiao BLE (nRF52840) length, mm
+MCU_CLEARANCE    =  1.25  # extra clearance added on every side, mm
 SPRUE_MAX_DIST = 25.0   # mm - connect adapters closer than this with sprues
 ARC_SEG_LEN = 1.0       # mm - arc sampling resolution for Edge.Cuts
 CHAIN_TOL = 0.05        # mm - endpoint matching tolerance when chaining edge
@@ -61,6 +67,15 @@ def extract_blocks(text: str, token: str):
 
 
 NUM = r"(-?\d+(?:\.\d+)?)"
+
+
+def parse_mcu(text: str):
+    """Return (x, y) center of the MCU footprint in KiCad coords, or None."""
+    for block in extract_blocks(text, f'(footprint "{MCU_FOOTPRINT}"'):
+        m_at = re.search(rf"\(at\s+{NUM}\s+{NUM}(?:\s+{NUM})?\)", block)
+        if m_at:
+            return float(m_at.group(1)), float(m_at.group(2))
+    return None
 
 
 def parse_switches(text: str):
@@ -393,6 +408,61 @@ module plate_cutouts_2d() {
             square(mcu_cutout_size, center = true);
 }
 
+// Outline chamfer implementation: builds a stack of thin extruded layers
+// whose OUTER boundary is offset() by a fraction of plate_chamfer, so the
+// outer edge bevels smoothly while concave features in board_edge (like the
+// center waist) remain correct - offset() handles concavity properly, unlike
+// hull(). plate_cutouts_2d() is subtracted from every layer so switch
+// pockets / MCU window stay full-height straight cuts through the chamfer.
+//
+// invert = false: outline shrinks as z increases within the zone (top chamfer)
+// invert = true : outline shrinks as z decreases within the zone (bottom chamfer)
+module chamfer_layer_stack(zone_h, steps, max_delta, base_z, invert) {
+    layer_h = zone_h / steps;
+    for (i = [0 : steps - 1]) {
+        frac = invert ? (steps - i - 0.5) / steps : (i + 0.5) / steps;
+        d = -max_delta * frac;
+        translate([0, 0, base_z + i * layer_h])
+            linear_extrude(height = layer_h + eps)
+                difference() {
+                    offset(delta = d) plate_outline_2d();
+                    plate_cutouts_2d();
+                }
+    }
+}
+
+// Full plate outline solid, z = 0 .. body_h, with the outer edge optionally
+// chamfered on the top and/or bottom face (see plate_chamfer* variables).
+module chamfered_outline_solid() {
+    chamfer_active = (plate_chamfer > 0) && (plate_chamfer_top || plate_chamfer_bottom);
+    if (!chamfer_active) {
+        linear_extrude(body_h)
+            difference() {
+                plate_outline_2d();
+                plate_cutouts_2d();
+            }
+    } else {
+        top_h    = plate_chamfer_top    ? plate_chamfer : 0;
+        bottom_h = plate_chamfer_bottom ? plate_chamfer : 0;
+        mid_h    = body_h - top_h - bottom_h;
+        union() {
+            if (bottom_h > 0)
+                chamfer_layer_stack(bottom_h, plate_chamfer_steps, plate_chamfer,
+                                     0, invert = true);
+            if (mid_h > 0)
+                translate([0, 0, bottom_h])
+                    linear_extrude(mid_h)
+                        difference() {
+                            plate_outline_2d();
+                            plate_cutouts_2d();
+                        }
+            if (top_h > 0)
+                chamfer_layer_stack(top_h, plate_chamfer_steps, plate_chamfer,
+                                     body_h - top_h, invert = false);
+        }
+    }
+}
+
 // Relief voids cut into the slab directly behind each adapter clip window,
 // so the Choc clips can still flex outward and snap into the windows.
 module plate_clip_reliefs() {
@@ -420,14 +490,45 @@ module center_relief_cut() {
               body_h - center_top_t + eps]);
 }
 
+// Center window: trapezoid through-cutout in the upper bridge section,
+// between the top of the board and the top of the key clusters.
+// The shape widens toward the top (following the board outline) and
+// narrows toward the key rows.  Defined as a clean 4-point trapezoid
+// then inset by center_window_margin on every side.
+//
+// Outer trapezoid corners (before margin, y-up):
+//   top-left:     ~[120, -48]  (near board top edge)
+//   top-right:    ~[158, -48]
+//   bottom-right: ~[154, -64]  (just above top key row)
+//   bottom-left:  ~[124, -64]
+//
+// Tune center_window_top_y / center_window_bot_y to shift the window up/down,
+// and center_window_top_w / center_window_bot_w to adjust the taper.
+center_window_top_y  = -48.0;   // y of the wide top edge (board top ≈ -44)
+center_window_bot_y  = -64.0;   // y of the narrow bottom edge (key rows start ≈ -56)
+center_window_top_cx = 139.0;   // X center of the window
+center_window_top_w  =  38.0;   // width of top edge (before margin)
+center_window_bot_w  =  30.0;   // width of bottom edge (before margin)
+
+module center_window_cut() {
+    hw_top = center_window_top_w / 2;
+    hw_bot = center_window_bot_w / 2;
+    cx     = center_window_top_cx;
+    trap = [
+        [cx - hw_top, center_window_top_y],
+        [cx + hw_top, center_window_top_y],
+        [cx + hw_bot, center_window_bot_y],
+        [cx - hw_bot, center_window_bot_y]
+    ];
+    linear_extrude(height = body_h + 2*eps)
+        offset(delta = -center_window_margin)
+            polygon(trap);
+}
+
 module integrated_plate() {
     union() {
         difference() {
-            linear_extrude(body_h)
-                difference() {
-                    plate_outline_2d();
-                    plate_cutouts_2d();
-                }
+            chamfered_outline_solid();
             plate_clip_reliefs();
             if (center_relief) center_relief_cut();
         }
@@ -435,10 +536,22 @@ module integrated_plate() {
     }
 }
 
+module integrated_plate_windowed() {
+    if (center_window) {
+        difference() {
+            integrated_plate();
+            translate([0, 0, -eps])
+                center_window_cut();
+        }
+    } else {
+        integrated_plate();
+    }
+}
+
 // ==========================================================================
 
 if (part == "adapter")     adapter();
-else if (part == "plate")  integrated_plate();
+else if (part == "plate")  integrated_plate_windowed();
 else                       panel();
 """
 
@@ -496,6 +609,17 @@ def main():
                                converters[j][0], converters[j][1]))
     print(f"sprues: {len(sprues)} pairs (max dist {SPRUE_MAX_DIST}mm)")
 
+    # MCU position (KiCad y-down -> OpenSCAD y-up)
+    mcu_pos = parse_mcu(text)
+    if mcu_pos:
+        mcu_cx, mcu_cy = mcu_pos[0], -mcu_pos[1]
+        print(f"MCU '{MCU_FOOTPRINT}' center: ({mcu_cx:.3f}, {mcu_cy:.3f}) y-up")
+    else:
+        mcu_cx = (min(c[0] for c in converters) + max(c[0] for c in converters)) / 2
+        mcu_cy = max(c[1] for c in converters) + 2
+        print(f"warning: MCU footprint '{MCU_FOOTPRINT}' not found; "
+              f"using fallback center ({mcu_cx:.3f}, {mcu_cy:.3f})")
+
     xs = [c[0] for c in converters]
     ys = [c[1] for c in converters]
 
@@ -544,6 +668,27 @@ plate_pins        = false; // per-key alignment pins under the plate.
 plate_edge_offset = 0.0;   // grow (+) / shrink (-) the PCB outline, mm
 clip_relief_depth = 1.2;   // slab relief behind each clip window, mm
 
+// Outline chamfer: bevels the plate's OUTER edge (the board_edge boundary)
+// so it isn't a sharp 90° edge. Implemented with a stack of thin offset()
+// layers rather than hull()-lofting, because hull() takes the convex hull
+// of the outline and would erase the board's concave notches (e.g. the
+// center waist); offset() shrinks/grows a polygon correctly even where
+// it's concave. Only the OUTER boundary is chamfered - interior cutouts
+// (switch pockets, MCU window, center window, etc.) stay straight-walled.
+plate_chamfer        = 1.0;   // mm — bevel size on the outer edge (0 = disable, square edge)
+plate_chamfer_top    = true;  // chamfer the top-facing outer edge
+plate_chamfer_bottom = false; // leave false: the bottom must stay flat/full-size
+                               // so the outline keeps resting flush on the PCB
+                               // edge (alignment + zero-support printing)
+plate_chamfer_steps  = 8;     // stepped layers approximating the slope (higher = smoother/slower)
+
+// Center window: a trapezoid through-cutout in the bridge between the two
+// key clusters.  The trapezoid matches the shape of the bridge (narrow at
+// the top, wider at the bottom — like a keystone), inset uniformly by
+// center_window_margin mm on all sides.  Set center_window = false to disable.
+center_window        = true;
+center_window_margin = 4.0;  // mm of slab remaining around every edge
+
 // Center relief: thins the middle bridge (between the two key clusters)
 // from BELOW, leaving center_top_t of material on top, so components
 // mounted on the PCB under that section have clearance. The X span is
@@ -553,9 +698,16 @@ center_relief   = true;
 center_top_t    = 1.5;     // remaining plate thickness over the relief, mm
 center_relief_x = [{left_max:.3f}, {right_min:.3f}];  // X span of the relief
 
-mcu_cutout        = false; // full through-cutout, if partial relief isn't enough
-mcu_cutout_center = [{(min(xs)+max(xs))/2:.3f}, {max(ys)+2:.3f}];
-mcu_cutout_size   = [30, 40];
+// MCU cutout: {MCU_FOOTPRINT} (PCB center extracted from KiCad footprint).
+// Physical board: {MCU_CONTROLLER_W} × {MCU_CONTROLLER_L} mm; clearance: {MCU_CLEARANCE} mm per side.
+// Adjust mcu_controller_w / mcu_controller_l to match a different controller.
+mcu_controller_w  = {MCU_CONTROLLER_W};   // controller PCB width,  mm
+mcu_controller_l  = {MCU_CONTROLLER_L};   // controller PCB length, mm
+mcu_clearance     =  {MCU_CLEARANCE};  // extra clearance added on every side, mm
+mcu_cutout        = true;   // full through-cutout for the MCU
+mcu_cutout_center = [{mcu_cx:.3f}, {mcu_cy:.3f}]; // PCB footprint center (y-up)
+mcu_cutout_size   = [mcu_controller_w + 2*mcu_clearance,
+                     mcu_controller_l + 2*mcu_clearance];
 
 /* [Hidden] */
 $fn = 48;
