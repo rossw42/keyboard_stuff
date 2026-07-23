@@ -1,0 +1,3 @@
+[submodule "keeb_snakeskin"]
+	path = keeb_snakeskin
+	url = https://github.com/rossw42/keeb_snakeskin.git
