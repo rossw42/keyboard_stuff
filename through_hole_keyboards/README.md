@@ -1,10 +1,6 @@
-# Yet another Through Hole Keyboard List - as of 2026-07-13
+# Yet another Through Hole Keyboard List - as of 2026-07-23
 
-*For when "just solder it yourself" means every single component.*
-
-Gathered this information using a long term research project with multiple agents, sources:  GitHub searches,  network crawls, Reddit Threads, QMK/VIAL firmware database, vendor/community sites.
-
-Some of these boards might need to be regrouped, pending investigation.
+Project to collect all the through hole boards I can find, opensource, commerical or otherwise. Scoured the Internet looking for any mention of these beauties. If I missed yours please create an issue and I will add.
 
 📷 **[View the photo gallery →](gallery.md)** — thumbnails for every board below, pulled from each project's own repo/README where available.
 
@@ -22,7 +18,6 @@ Some of these boards might need to be regrouped, pending investigation.
 | Gingerham | https://github.com/itsnoteasy/gingerham | Gingham fork, no I/O expander | 7 | [ ] |
 | SEGMENT | https://github.com/slonket/segment-keyboard | 60% TH kit, 1980s PCB aesthetic | 3 | [ ] |
 | Poppy | https://github.com/jamerhar/poppy | 70% Alice expanding on Sesame | 0 | [ ] |
-| Luckyboard70 | https://github.com/luckybusted/luckyboard70 | 70%, entirely TH incl. USB-C | 1 | [ ] |
 | Plaid LoPro | https://github.com/FrancisUsher/plaid-lopro-keeb | Plaid variant, Kailh low-profile | 1 | [ ] |
 | 0xCB Static | https://github.com/0xCB-dev/0xCB-Static | TH keyboard kit | — | [ ] |
 | KBIC65 | https://github.com/b-karl/KBIC65 | 65% TH | — | [ ] |
@@ -30,9 +25,11 @@ Some of these boards might need to be regrouped, pending investigation.
 | Basketweave | https://github.com/null-ll/basketweave | 65% TH | — | [X] |
 | Pinstripe | https://github.com/null-ll/pinstripe | TH keyboard (likely 65%, same designer as Basketweave) | — | [ ] |
 | Lagom | https://github.com/mohoyt/lagom | TH keyboard (sthlmkb), likely mid-size 60% | — | [ ] |
-| Claudia | https://github.com/subottimale/Claudia | TH keyboard (size unconfirmed, grouped here) | — | [ ] |
 | Kawung65 | https://github.com/sugengz/Kawung65 | 65%, ATmega32A, hotswap sockets + RGB underglow | 0 | [ ] |
 | 00Key | https://github.com/ZeroZeroOne-dev/00Key | TH keyboard | — | [ ] |
+| Red Herring | https://github.com/dcpedit/redherring | Unibody Alice-ergo, ATmega32A, OLED/encoder/solenoid | — | [ ] |
+| AELITH | https://github.com/ramonimbao/AELITH | Alice-layout TH, ATmega32A DIP | 2 | [ ] |
+| Draytronics Jade | https://github.com/ghostseven/Draytronics-Jade-PCB-V1 | 65% TH (pre-production) | 0 | [ ] |
 
 
 ### 75% / TKL / 1800 / full-size
@@ -47,66 +44,74 @@ Some of these boards might need to be regrouped, pending investigation.
 | Swissterium | https://github.com/Davines123/Swissterium | Mysterium variant, TH incl. USB-C | 1 | [ ] |
 | Southpaw Discipline | https://github.com/JZolko/southpaw_discipline | Discipline 65% + left-hand numpad | 0 | [ ] |
 | D3lta_M3 Southpaw 65 | https://github.com/D3lta-M3/D3lta_M3-Southpaw-65 | 65% southpaw | 0 | [ ] |
-| TKLpcb | https://github.com/jbennet-t/TKLpcb | TH TKL PCB | 0 | [ ] |
 | TH1800 | https://github.com/mechlovin/PCB/tree/master/1800-Compact | Mechlovin 1800, ATmega32A (QMK: mechlovin/th1800) | — | [ ] |
 | Mysterium | https://github.com/coseyfannitutti/mysterium | TKL TH (CFTKB) | — | [X] |
 | LCK75 | https://github.com/lyso1/LCK75 | 75% TH | — | [ ] |
 | LCK75 v3 | https://github.com/lyso1/LCK75v3 | 75% TH v3 | — | [ ] |
 | Barleycorn | https://github.com/yiancar/barleycorn_pcb | Compact 1800 TH (Yiancar) | — | [ ] |
 | Större | https://github.com/mohoyt/sthlmkb-storre | TH keyboard (sthlmkb), likely full-size/1800 | — | [ ] |
+| Malay Retro | https://github.com/syauqi-alias/Mechanical-Keyboard-Malay-Retro-Design | Exposed TH w/ Malay art, 65%/75% size | 1 | [ ] |
 
-### Ortho / ergo / split
+### Ortho
 
 | Keyboard | Repo | Notes | Stars | Built |
 |---|---|---|---|---|
 | Planck THK | https://github.com/olkb/planck_thk | Official OLKB Planck Through Hole Kit | 166 | [ ] |
 | EgyptBar-70 | https://github.com/zzsmoky/EygptBar-70 | 5x14 ortho, ATmega328P-PU DIP + built-in USB hub | 2 | [ ] |
-| Red Herring | https://github.com/dcpedit/redherring | Unibody ergo, ATmega32A, OLED/encoder/solenoid | — | [ ] |
 | OrthoCode | https://github.com/Jrodna/OrthoCode | Ortho w/ thumb clusters + encoder, all THT | 17 | [ ] |
 | Framework | https://github.com/stevennguyen/framework | 5x12 ortho w/ encoder + USB-C (7c8) | — | [ ] |
 | Crosshatch | https://github.com/peej/crosshatch-keyboard | 13x5 ortho for 60% tray cases | 6 | [ ] |
 | Masochist | https://github.com/RSchneyer/masochist | TH 27% (Pain27 × Romeo) | 7 | [ ] |
 | Orthgyle | https://github.com/peej/orthgyle-keyboard | 5x15 ortho, ATmega328p, duplex matrix | 1 | [ ] |
-| Madras | https://github.com/hsgw/Madras | QAZ layout w/ relay (Plaid designer) | 1 | [ ] |
 | OK96 | https://github.com/mothdotmonster/OK96 | 96-key ortho (untested per README) | 2 | [ ] |
 | CN62B | https://github.com/covah901/CN62B---Ergo-Keyboard | ATmega32A ergo based on Mysterium | 1 | [ ] |
 | Livewire | https://github.com/ElKinoflop/Livewire | 40% exposed TH diodes, acrylic case | 1 | [ ] |
 | Plaid | https://github.com/hsgw/plaid | The original TH icon, 4x12 ortho, ATmega328p + V-USB | — | [ ] |
 | punk75 | https://github.com/dsanchezseco/punk75 | 75% TH ortho | — | [ ] |
 | Lumberjack | https://github.com/peej/lumberjack-keyboard | 5x12 ortho TH classic | — | [X] |
-| Torn | https://github.com/rtitmuss/torn | Split TH classic | — | [ ] |
-| Axon | https://github.com/thatfellarobin/axon | 40% ortho TH | — | [ ] |
 | Lesovoz | https://github.com/Tsquash/lesovoz-files | TH keyboard, 10x4 ortho-style matrix w/ layer taps | — | [X] |
-| voidPointer | https://github.com/RafaelCasamaximo/voidPointer | TH keyboard (grouped here pending size confirmation) | — | [ ] |
-| cambkb | https://github.com/cosimini/cambkb | TH keyboard (grouped here pending size confirmation) | — | [ ] |
-| Nullwing Keyboard | https://github.com/CityRunner/nullwing-keyboard | Split w/ rotary encoder, THT diodes/switches + nice!nano module (TH-adjacent) | 1 | [ ] |
+| Nullwing Keyboard | https://github.com/CityRunner/nullwing-keyboard | Ortho w/ rotary encoder, THT diodes/switches + nice!nano module (TH-adjacent) | 1 | [ ] |
 
+### Split
 
+| Keyboard | Repo | Notes | Stars | Built |
+|---|---|---|---|---|
+| Torn | https://github.com/rtitmuss/torn | Split TH classic | — | [ ] |
+| cambkb | https://github.com/cosimini/cambkb | Split TH keyboard | — | [ ] |
 
-### 40% and smaller / macropads
+### 40%
+
 | Keyboard | Repo | Notes | Stars | Built |
 |---|---|---|---|---|
 | Chevron | https://github.com/ramonimbao/Chevron | ~40% TH, ATmega32A DIP | 0 | [ ] |
-| AELITH | https://github.com/ramonimbao/AELITH | Alice-layout TH, ATmega32A DIP | 2 | [ ] |
+| Causeway THT | https://github.com/isandrocks/Causeway_THT | DIY kit, ATmega32A | 0 | [ ] |
+| Romeo | https://github.com/coseyfannitutti/romeo | 40% TH (CFTKB) | — | [X] |
+| Litl | https://github.com/mohoyt/litl | 40% TH (sthlmkb) | — | [ ] |
+| Axon | https://github.com/thatfellarobin/axon | 40% TH | — | [ ] |
+| Madras | https://github.com/hsgw/Madras | QAZ layout w/ relay (Plaid designer) | 1 | [ ] |
+| Claudia | https://github.com/subottimale/Claudia | TH keyboard (size unconfirmed) | — | [ ] |
+| Rosaline | https://github.com/peej/rosaline-keyboard | 40% TH | — | [ ] |
+| Rosalina | https://github.com/rpiguy9907/Keyboards/tree/master/Rosalina | 40%+numpad in 60% tray case, fork of Rosaline | 25 | [ ] |
+| voidPointer | https://github.com/RafaelCasamaximo/voidPointer | TH keyboard (size unconfirmed, grouped here) | — | [ ] |
+| Scientist | https://github.com/godders/scientist | TH keyboard (grouped here pending size confirmation) | — | [ ] |
+
+
+### Macropads / smaller
+
+| Keyboard | Repo | Notes | Stars | Built |
+|---|---|---|---|---|
 | F12 | https://github.com/hadi-syafiq/F12 | 2x6 macropad + encoder, ATmega32A, Vial | 21 | [ ] |
 | Neopad | https://github.com/ivndbt/neopad | 4 switches + 2 encoders, TH only | 20 | [ ] |
 | LATE-9 | https://github.com/ivndbt/late-9 | 90s-phone multi-tap pad, TH only, OLED | — | [ ] |
 | Mysteripad | https://github.com/piit79/mysteripad | TH numpad matching Mysterium | 11 | [ ] |
 | Draytronics Scarlet | https://github.com/ghostseven/Draytronics-Scarlet-PCB-V1 | 17-key TH numpad | 4 | [ ] |
-| Draytronics Jade | https://github.com/ghostseven/Draytronics-Jade-PCB-V1 | 65% TH (pre-production) | 0 | [ ] |
 | The Kenit | https://github.com/syauqi-alias/The-Kenit-Numpad | TH numpad | 1 | [ ] |
-| Malay Retro | https://github.com/syauqi-alias/Mechanical-Keyboard-Malay-Retro-Design | Exposed TH w/ Malay art | 1 | [ ] |
 | Pin-Check | https://github.com/htpkbs/pin-check | All-TH PCB for hand-wired boards | 1 | [ ] |
-| Causeway THT | https://github.com/isandrocks/Causeway_THT | DIY kit, ATmega32A | 0 | [ ] |
 | numpad-keyboard | https://github.com/cmanon/numpad-keyboard | KiCad numpad, TH only | 0 | [ ] |
 | Discipad | https://github.com/coseyfannitutti/discipad | TH numpad (CFTKB) | — | [ ] |
-| Romeo | https://github.com/coseyfannitutti/romeo | 40% TH (CFTKB) | — | [X] |
 | NumDiscipline | https://github.com/ericrlau/NumDiscipline | Discipline-based numpad | — | [ ] |
 | Plaid-Pad | https://github.com/Keycapsss/Plaid-Pad | Plaid-based numpad | — | [ ] |
-| Litl | https://github.com/mohoyt/litl | 40% TH (sthlmkb) | — | [ ] |
-| Rosaline | https://github.com/peej/rosaline-keyboard | 40% TH | — | [ ] |
-
-| Scientist | https://github.com/godders/scientist | TH keyboard (grouped here pending size confirmation) | — | [ ] |
+| May Pad | https://github.com/cfbender/keyboards | KeyHive 20-key TH numpad, Pro Micro footprint — already starred via cfbender/keyboards | — | [ ] |
 
 ---
 
@@ -158,7 +163,6 @@ Some of these boards might need to be regrouped, pending investigation.
 | Kilt | https://github.com/piit79/kilt-keyboard | Plaid-inspired 5-col ortho | [ ] |
 | Tripel | https://github.com/peej/tripel-keyboard | (Pro Micro; listed above too) | [ ] |
 | Nightmare | https://github.com/cfbender/keyboards (nightmare/) | Pseudo-TMO50, TH parts + Pro Micro — already starred via cfbender/keyboards | [ ] |
-| May Pad | https://github.com/cfbender/keyboards | KeyHive 20-key TH numpad, Pro Micro footprint — already starred via cfbender/keyboards | [ ] |
 | Orange Boy Ergo (OBE) | mechwild.com/product/orange-boy-ergo/ | Alice-like kit, TH parts + STM32 Blackpill module | [ ] |
 | Nullwing | https://github.com/CityRunner/nullwing-keyboard | THT diodes + nice!nano module | [ ] |
 | For Science | https://github.com/peej/for-science-keyboard | 46-key split ergo (4x5+3 thumb), Pro Micro, THT diodes/TRRS | [ ] |
@@ -183,3 +187,8 @@ Some of these boards might need to be regrouped, pending investigation.
 - TU40 / Juliet40 — TaoBao-only TH 40%, no repo exists (QMK: handwired/juliet is a handwire)
 
 ---
+
+
+Gathered this information using a long term research project with multiple agents, sources:  GitHub searches,  network crawls, Reddit Threads, QMK/VIAL firmware database, vendor/community sites.
+
+Some of these boards might need to be regrouped, pending investigation.
