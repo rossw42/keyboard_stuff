@@ -1,7 +1,8 @@
 # Switch Tester Keyboard — Project Description
 
-**Status:** Implemented (firmware + tooling built; awaiting hardware for on-device testing) — see `README.md` for usage
-**Target hardware (reference build):** YMDK / Idobao ID75 (5×15 ortho, 75 keys)
+**Status:** Firmware + tooling complete for ID75; **target hardware changed to custom RP2040 Lumberjack-style board** — keyboard definition port in progress (awaiting GPIO/LED wiring details)
+**Target hardware:** Custom RP2040 Lumberjack-style board (5×12 ortho, 60 keys, per-key RGB, unreleased)
+**Previous target (design reference):** YMDK / Idobao ID75 (5×15 ortho, 75 keys) — architecture unchanged
 **Firmware base:** vial-qmk (`d:\GitHub2\vial-qmk`, branch `vial`)
 **Project folder:** `D:\GitHub\keyboard_stuff\projects\switch tester firmware\`
 
@@ -28,7 +29,7 @@ The switch descriptions live in Vial **dynamic macros** (EEPROM), so relabeling 
 
 Editing 75 macro strings one at a time in the Vial GUI (vial.rocks or the desktop app) is painful. Instead:
 
-> **Single source of truth = a plain text file on disk** (`switches.md`, a Markdown table — see §4). A small script converts that file into a Vial **saved layout (`.vil`)**, which is then loaded into Vial in one action: *File → Load saved layout*. Done — all 75 macros updated at once.
+> **Single source of truth = a plain text file on disk** (`switches.md`, a Markdown table — see §4). A small script converts that file into a Vial **saved layout (`.vil`)**, which is then loaded into Vial in one action: *File → Load saved layout*. Done — all 60 macros updated at once.
 
 No firmware rebuild, no per-macro GUI clicking. Round-trip is also supported: export `.vil` from Vial → script extracts the current macros back into the inventory file.
 
@@ -148,7 +149,7 @@ A single Python script (stdlib only — `json`, `argparse`) with subcommands:
 Notes:
 
 - Macro encoding in `.vil` is the Vial GUI's JSON action list (`["text", "..."]`, `["tap", "KC_ENTER"]`) — the GUI handles conversion to the on-wire/EEPROM byte format when loading. The script never has to touch the binary macro format.
-- Macro index assignment: `index = row × matrix_cols + col` from each entry's explicit `Pos` (M0 = top-left … M74 = bottom-right on the ID75). This matches how the test layer keys are compiled, so the mapping is exact even with mixed types and gaps. Matrix width is auto-detected from the template's layout (override with `--cols`).
+- Macro index assignment: `index = row × matrix_cols + col` from each entry's explicit `Pos` (M0 = top-left … M59 = bottom-right on the 5×12 board). This matches how the test layer keys are compiled, so the mapping is exact even with mixed types and gaps. Matrix width is auto-detected from the template's layout (override with `--cols 12`).
 - The Markdown parser is deliberately strict-but-forgiving: it only needs the `## Row` headings and the table pipes; column alignment/whitespace is free-form.
 - The script is **board-agnostic**: point it at any board's exported `.vil` and a matching `switches.md` shaped to that board's rows.
 
@@ -171,25 +172,22 @@ swap a switch  →  edit one table cell in switches.md
 
 ## 6. Firmware (one-time flash)
 
-Custom Vial keymap: `keyboards/ymdk/id75/keymaps/switch_tester/` in `d:\GitHub2\vial-qmk` (copied from the existing `keymaps/vial/` and modified).
+Custom Vial keymap: `keyboards/<vendor>/<boardname>/keymaps/switch_tester/` in `d:\GitHub2\vial-qmk`.
 
-### 6.1 ID75 hardware variants (in vial-qmk)
+### 6.1 Target hardware
 
-The current-production YMDK/Idobao ID75 ships with one of two PCBs, **both fully supported** in vial-qmk (`keyboards/ymdk/id75/`, shared `keymaps/vial/`):
+This is an **unreleased custom RP2040 Lumberjack-style board** — same 5×12 ortholinear physical layout and case fit as the Peej Lumberjack, but with:
+- **RP2040** controller instead of ATmega328p
+- **Per-key RGB** (WS2812 or similar, one LED per key)
+- **UF2 flashing** (drag-and-drop to `RPI-RP2` drive — no Zadig/USBaspLoader needed)
+- **~4 KB emulated EEPROM** (RP2040 flash-backed, wear-leveled) — same budget as the original ID75 plan
 
-| Variant | MCU | Bootloader / flashing | Logical EEPROM | Fit? |
-|---|---|---|---|---|
-| `ymdk/id75/rp2040` | RP2040 | UF2 drag-and-drop (`RPI-RP2` volume) | ~4 KB (8 KB flash backing, wear-leveled) | ✅ |
-| `ymdk/id75/f103` | APM32F103 (STM32F103 clone) | UF2 drag-and-drop (`MT.KEY` volume) | ~4 KB (embedded-flash wear-leveled) | ✅ |
-
-**→ Buying a new ID75 does not limit the project** — whichever PCB arrives, the EEPROM budget below holds and flashing is the same drag-and-drop UF2 process (enter bootloader: double-tap the reset button on the PCB back, or hold top-left key while plugging in). Identify the variant on arrival (check the PCB / which volume name appears in bootloader mode) and build the matching target:
+Because this board is not yet in `vial-qmk`, a new keyboard definition must be created. The `LAYOUT_ortho_5x12` logical key positions are the same as the Peej Lumberjack and can be reused; the `matrix_pins`, `rgb_matrix` LED config, and UID are board-specific. GPIO wiring details are needed from the hardware designer to complete `keyboard.json`.
 
 ```
-make ymdk/id75/rp2040:switch_tester   # or
-make ymdk/id75/f103:switch_tester
+qmk compile -kb <vendor>/<boardname> -km switch_tester
+# Flashing: double-tap reset → RPI-RP2 drive appears → copy .uf2
 ```
-
-The keymap folder is shared between both variants, so only the build target differs.
 
 ### 6.2 `config.h` (keymap-level)
 
@@ -198,9 +196,9 @@ The keymap folder is shared between both variants, so only the build target diff
 
 #define VIAL_KEYBOARD_UID { /* fresh UID from util/vial_generate_keyboard_uid.py */ }
 #define VIAL_UNLOCK_COMBO_ROWS {0, 0}
-#define VIAL_UNLOCK_COMBO_COLS {0, 14}   // hold top-left + top-right to unlock
+#define VIAL_UNLOCK_COMBO_COLS {0, 11}   // hold top-left + top-right to unlock (12-wide board)
 
-#define DYNAMIC_KEYMAP_MACRO_COUNT 80    // ≥ 75 (default is 16; stock vial keymap uses 32)
+#define DYNAMIC_KEYMAP_MACRO_COUNT 64    // ≥ 60 (one per key; default is 16)
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4     // base / daily 1 / daily 2 / test (test = highest layer)
 
 // Trim unused Vial dynamic features to reclaim EEPROM for macro text:
@@ -211,16 +209,16 @@ The keymap folder is shared between both variants, so only the build target diff
 
 > Note: in current vial-qmk the macro **buffer** is not a fixed `#define` — it automatically gets *all EEPROM remaining* after keymaps/combos/tap-dances/etc. (`nvm_dynamic_keymap.c`). So the way to enlarge it is to shrink everything else (fewer layers, fewer dynamic-feature entries).
 
-### 6.3 EEPROM budget (ID75, either variant, 4 layers)
+### 6.3 EEPROM budget (RP2040, 4 layers)
 
 | Consumer | Bytes (approx.) |
 |---|---|
-| Keymap: 75 keys × 2 B × 4 layers | 600 |
+| Keymap: 60 keys × 2 B × 4 layers | 480 |
 | Vial dynamic features (trimmed) + QMK settings + base | ~300 |
-| **Remaining for macros** (of ~4 KB emulated EEPROM) | **~3.0 KB** |
-| Needed: 75 × ~33 B avg (`"Tactile - Wuque Studio Aurora (63g)"` + Enter) | ~2.5 KB |
+| **Remaining for macros** (of ~4 KB emulated EEPROM) | **~3.2 KB** |
+| Needed: 60 × ~33 B avg (`"Tactile - Wuque Studio Aurora (63g)"` + Enter) | ~2.0 KB |
 
-✅ Fits with ~18% headroom. `vil_tool.py check` enforces this before every load.
+✅ Fits with ~38% headroom (better than the ID75 due to fewer keys). `vil_tool.py check` enforces this before every load.
 
 ### 6.4 `rules.mk`
 
@@ -237,10 +235,10 @@ Layers 1 and 2 stay free for normal daily-driver use; the Test layer is the **hi
 
 | Layer | Purpose | Contents |
 |---|---|---|
-| **0 – Base** | Real keyboard | Standard ortho 5×15 layout (as stock vial keymap) |
+| **0 – Base** | Real keyboard | Standard ortho 5×12 layout |
 | **1 – Daily** | User's working layer | Free for daily-use config (nav, symbols, whatever — set up in Vial) |
 | **2 – Daily / Fn** | User's working layer + utility | Free for daily use; also hosts `QK_BOOT`, RGB controls, `EE_CLR`, and `TG(3)` to enter test mode |
-| **3 – Test** | Switch tester | Every key = `M0` … `M74` (row-major); one key stays `TG(3)` so you can get back out |
+| **3 – Test** | Switch tester | Every key = `M0` … `M59` (row-major); one key stays `TG(3)` so you can get back out |
 
 Entering test mode: `TG(3)` on layer 2 (deliberate action — avoids accidentally spraying switch names mid-sentence). One designated key on the Test layer keeps `TG(3)` to exit; that position is excluded from macro assignment.
 
@@ -248,7 +246,7 @@ Optional nicety (RP2040 has room): `layer_state_set_user()` sets the RGB matrix 
 
 ### 6.6 `vial.json`
 
-Reuse the stock ID75 `vial.json` (5×15 grid) unchanged.
+Based on the Peej Lumberjack `vial.json` structure (the Lumberjack's unusual 6×10 physical matrix with `LAYOUT_ortho_5x12` logical mapping). Adapt from `d:\GitHub2\vial-qmk\keyboards\peej\lumberjack\keymaps\vial\vial.json` — update `vendorId`, `productId`, and `lighting` to `"rgb_matrix"` once the board's USB IDs are known. The key grid (`"layouts"."keymap"`) maps logical layout positions to physical matrix coordinates and can be copied from the Lumberjack definition if the matrix wiring is the same.
 
 ---
 
@@ -291,8 +289,8 @@ Design rules that keep this board-agnostic:
 
 ## 10. Milestones
 
-1. **M0 — Confirm hardware**: board on order; on arrival identify variant (rp2040 vs f103 — check PCB / bootloader volume name), flash stock vial keymap to verify the board works.
-2. **M1 — Firmware**: create `keymaps/switch_tester/` (config.h, rules.mk, keymap.c, vial.json), fresh UID, build `make ymdk/id75/<variant>:switch_tester`, flash, verify in Vial (macro count = 80 visible).
+1. **M0 — Confirm hardware**: obtain GPIO/LED wiring details from the board designer; create the `keyboard.json` definition and flash stock vial keymap to verify the board is recognized.
+2. **M1 — Firmware**: create `keymaps/switch_tester/` (config.h, rules.mk, keymap.c, vial.json), fresh UID, build `qmk compile -kb <vendor>/<boardname> -km switch_tester`, flash, verify in Vial (macro count = 64 visible, 5×12 layout displayed).
 3. **M2 — Tooling**: implement `vil_tool.py` (`extract` → `generate` → `check` → `report`), export template `.vil` from the real board.
 4. **M3 — Inventory**: fill `switches.md` with the real switch collection (placeholder example list until then), sorted per the row rules.
 5. **M4 — End-to-end test**: edit a switch name in the file → generate → load in Vial → press key → correct string types out. Time the loop (target: under 60 seconds).
@@ -302,10 +300,9 @@ Design rules that keep this board-agnostic:
 
 ## 10.5 Reactive same-type RGB highlighting (added post-M2)
 
-The ID75's `info.json` (vial-qmk) defines `RGB_MATRIX` (not just underglow):
-75 of its 89 LEDs are per-key (`flags: 4`, one per matrix position, matching
-the 5×15 grid 1:1), the other 14 are underglow-only. This makes a reactive
-"highlight same switch type" effect possible with no extra hardware.
+The custom RP2040 Lumberjack board has per-key RGB (one LED per key, 60 total —
+no underglow-only LEDs unlike the ID75). This makes a reactive "highlight same
+switch type" effect possible with no extra hardware.
 
 **Behavior:** on the Test layer, pressing any switch key lights every other
 key of the same type (Clicky = blue, Tactile = purple, Linear = red) and
@@ -324,8 +321,8 @@ so it always reflects whatever `.vil` was most recently loaded — the
 `switches.md` → `generate` → "Load saved layout" workflow is completely
 unaffected; this is a pure firmware/keymap.c addition.
 
-Implementation lives entirely in
-`d:\GitHub2\vial-qmk\keyboards\ymdk\id75\keymaps\switch_tester\keymap.c`
+Implementation lives entirely in the new board's
+`keymaps/switch_tester/keymap.c`
 (`build_switch_type_map()`, `process_record_user()` capturing the last
 pressed macro's type, and `rgb_matrix_indicators_user()` painting each key
 LED via `g_led_config.matrix_co[row][col]` → `rgb_matrix_set_color()`).
@@ -342,11 +339,11 @@ reactive-only version was chosen as sufficient for v1.
 ## 11. Open questions
 
 
-1. ~~Which ID75 variant is it?~~ **Resolved:** board is being purchased new; both current PCB variants (rp2040 / f103) are supported, have ~4 KB EEPROM, and flash via UF2. Identify the exact variant on arrival to pick the build target — no design impact.
+1. ~~Which hardware variant?~~ **Resolved:** custom unreleased RP2040 Lumberjack-style board with per-key RGB. Architecture fully compatible — RP2040 gives ~4 KB emulated EEPROM and UF2 flashing. GPIO/LED wiring needed to write `keyboard.json`.
 2. **Vial client**: desktop Vial app, vial.rocks in Chrome, or both? (Both support "Load saved layout"; desktop app is recommended for reliability of the load-file workflow.)
 3. ~~Inventory file format?~~ **Resolved:** Markdown table (`switches.md`) is the primary editing surface; the script parses it directly (JSON only as an internal/debug intermediate).
 4. ~~Output terminator?~~ **Resolved:** Enter (one name per line). Still configurable in the `switches.md` options comment if ever needed.
 5. ~~One-type-per-row?~~ **Resolved:** it's a guideline only. The `Type` column override is a **v1 feature**; the output always states each switch's actual type.
 6. ~~Script patches test-layer keys?~~ **Resolved:** roadmap (§8). v1 relies on compiled keymap defaults for the `M0…M74` test-layer assignments; the script only patches macros. (Clarified: this is not live updating — live/Raw-HID push is a separate roadmap item.)
 7. ~~Which layer for testing?~~ **Resolved:** layer **3** (highest). Layers 1 and 2 remain free for daily-driver use. Entry via `TG(3)` on layer 2 is the working default (changeable in Vial anytime).
-8. **Row allocation on 5 rows / 3 types** (soft, guideline only): starting split Clicky ×1, Tactile ×2, Linear ×2 — adjust once the real inventory is catalogued.
+8. **Row allocation on 5 rows × 12 cols / 3 types** (soft, guideline only): starting split Clicky ×1 row (12 keys), Tactile ×2 rows (24 keys), Linear ×2 rows (24 keys) — adjust once the real inventory is catalogued. Exit key at `4,11` (bottom-right).

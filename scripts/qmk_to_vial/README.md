@@ -1,17 +1,34 @@
-# QMK to VIAL Porting Script
+# QMK → Vial Porting Script
 
-Converts a QMK keyboard directory into a VIAL-enabled keymap folder —
-generates `vial.json`, `config.h`, `rules.mk`, `keymap.c`, and a README.
+Point it at a QMK keyboard directory, get back a complete, buildable
+`keymaps/vial/` folder — `vial.json`, `config.h`, `rules.mk`, `keymap.c`,
+and a README. I hated hand-writing KLE JSON for hours. I lost track of matrix columns and positions so many times.
+This just works, because it was tested against every single keyboard in the vial-qmk repo until it did.
+
+I have recently converted the following boards with this script:
+
+keyhive/opus
+eggsworks/tamagov2
+eggsworks/egg58  
+wilba_tech/wt60_d        
+peej/lumberjack           
+splitkb/kyria_rev1
 
 For how it works internally, see [TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md).
-For the research behind it, see [Methodology & Research](#methodology--research) below.
+For the frankly excessive research behind it, see
+[Methodology & Research](#methodology--research) below.
 
 ---
 
-## Quick Start
+## Usage
 
 ```bash
-python qmk_to_vial_porting.py "<keyboard_dir>" "<output_dir>"
+# Write to a separate output directory (keeps your source tree clean)
+python qmk_to_vial_porting.py "path\to\my_keyboard" "path\to\output"
+
+# Write directly into the keyboard directory (creates keymaps/vial/ in place)
+# use --allow-vial-qmk to override
+python qmk_to_vial_porting.py "path\to\my_keyboard" --allow-vial-qmk
 ```
 
 Example:
@@ -24,49 +41,22 @@ Output:
 
 ```
 output\eggsworks_tamago\keymaps\vial\
-├── vial.json     # Vial layout definition
+├── vial.json     # Vial layout definition (real KLE format, encoders and all)
 ├── config.h      # Vial UID + unlock combo
 ├── rules.mk      # VIA/VIAL build flags
 ├── keymap.c      # copied from the keyboard's default keymap
-└── README.md     # build instructions
+└── README.md     # build instructions (yes, the output has its own README)
 ```
 
----
-
-## Usage Options
-
-```bash
-# Write into the keyboard directory itself (creates keymaps/vial/)
-python qmk_to_vial_porting.py "path\to\my_keyboard"
-
-# Write to a separate output directory (recommended)
-python qmk_to_vial_porting.py "path\to\my_keyboard" "path\to\output"
-
-# The script refuses to write inside a vial-qmk checkout.
-# Override only if you really mean it:
-python qmk_to_vial_porting.py "...\vial-qmk\keyboards\foo" --allow-vial-qmk
-```
-
-Generate just a vial.json (printed to stdout):
-
-```bash
-python keyboard_to_vial_converter.py "path\to\keyboard.json"
-```
-
-Generate a `keymaps/via/keymap.c` alongside the vial.json and verify it
-against the real one when present:
-
-```bash
-python keyboard_to_vial_converter.py "path\to\keyboard.json" --via-keymap
-python test_via_keymaps.py        # regression: all known via keymaps must byte-match
-```
+That's it. Five files, zero guesswork.
 
 ---
 
 ## Using the Output
 
 1. Copy the generated `keymaps\vial\` folder into the keyboard's directory
-   in your vial-qmk tree (back up any existing `keymaps\vial\` first).
+   in your vial-qmk tree. (Back up any existing `keymaps\vial\` first —
+   future you will thank present you.)
 2. Build and flash:
 
 ```bash
@@ -74,16 +64,35 @@ make <keyboard>:vial          # e.g. make eggsworks/tamago:vial
 make <keyboard>:vial:flash
 ```
 
-3. Open the board in [Vial](https://get.vial.today/).
+3. Open the board in [Vial](https://get.vial.today/) and remap to your
+   heart's content. No recompiling. That's the whole point.
+
+---
+
+## Notes
+
+- Handles keyboards using `keyboard.json` **or** `info.json`, including
+  multi-level configs (parent/child directories), split keyboards, and
+  rotary encoders.
+- Also survives QMK JSON files containing `//` comments, trailing commas,
+  and the occasional *missing* comma. (Yes, those exist in the wild. Yes,
+  we were surprised too.)
+- If the keyboard has no `keymaps/default/keymap.c`, a stub `keymap.c` is
+  generated — edit it before building, or enjoy a keyboard that types
+  nothing very reliably.
+- Validated against **504 real keyboards** from the vial-qmk repository
+  (100% pass), plus 11/11 byte-exact via keymaps and 2,092 historical QMK
+  via keymaps. Details in [TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md).
 
 ---
 
 ## Methodology & Research
 
-This converter was not written from a spec — **no official spec exists** for
+This converter was not written from a spec, because **no spec exists** for
 how `keyboard.json` maps to `vial.json` or to a VIA/Vial keymap. Every rule
 in it was **reverse-engineered from real firmware repositories and verified
-against ground truth with a 100%-match standard**. 
+against ground truth with a 100%-match standard**. In other words: we
+didn't guess, we cross-examined 2,600 keyboards until they confessed.
 
 ### Campaign 1 — vial.json format (504 keyboard pairs)
 
@@ -96,13 +105,16 @@ against ground truth with a 100%-match standard**.
 2. Diffed generated output against every real file, categorized every
    mismatch, fixed the converter, and repeated until all pairs passed.
 
-**Key discoveries** (each one found by a failing comparison, not documentation):
+**Key discoveries** (each one found by a failing comparison, not by
+documentation — again, there is no documentation):
 - `layouts.keymap` is a genuine **KLE (keyboard-layout-editor) serialized
   document** — rows of relative offsets, not absolute coordinates. Earlier
-  attempts that emitted absolute x/y rendered nothing in Vial.
+  attempts that emitted absolute x/y rendered a beautiful, perfectly valid
+  layout of exactly zero keys in Vial.
 - KLE parsers inherit a JavaScript quirk: `r`/`rx`/`ry` values of **0 are
   falsy and ignored**, so rotation state must never be "reset to zero" —
   rotation clusters must be emitted in an order that only increases.
+  (JavaScript strikes again, even in a Python project.)
 - Encoders are keys whose legend line 9 is `"e"` and whose label is
   `encoderIndex,direction` — not a matrix coordinate.
 - The electrical matrix comes from a **priority chain**: `config.h`
@@ -111,8 +123,6 @@ against ground truth with a 100%-match standard**.
   transposed-matrix detection (e.g. planck rev6's 4×12 pins wired as 8×6).
 - QMK definitions are **layered**: leaf `keyboard.json` inherits from parent
   `info.json` files, so the loader deep-merges the whole directory chain.
-  QMK JSON in the wild also contains `//` comments, trailing commas, and
-  even missing commas — the loader repairs all of it.
 
 **Result:** validated against all 504 real keyboards (100% pass).
 
@@ -123,8 +133,8 @@ against ground truth with a 100%-match standard**.
 
 **Method:** the pairs CSV was extended with a `via_keymap.c` column; every
 via keymap was diffed against its board's `default` keymap and against
-**git history** (blob-hash matching against every historical revision of the
-default keymap).
+**git history** (blob-hash matching against every historical revision of
+the default keymap).
 
 **Core rule discovered:**
 
@@ -135,9 +145,9 @@ default keymap).
 Every divergence was explained and captured as a byte-exact patch:
 frozen historical snapshots (proven via git — the via blob equals an old
 default blob from before the `RESET`→`QK_BOOT` rename), whitespace drift,
-and tiny author edits. 
+and tiny author edits.
 
-**11/11 boards generated 100% byte-identical** 
+**11/11 boards generated 100% byte-identical.**
 
 ### Campaign 3 — keymaps/via/keymap.c in QMK proper (2,092 files via git archaeology)
 
@@ -147,7 +157,8 @@ and tiny author edits.
 deleted all of them in Aug 2024. Solution: all 2,092 files were recovered
 from git history at ref `45dc2499dc~1` using read-only git plumbing
 (`ls-tree` + `cat-file --batch`), letting ~3,500 file blobs be compared in
-seconds without a checkout.
+seconds without a checkout. Git remembers everything. Git *forgives*
+nothing.
 
 **Findings at scale (2,092 boards, `qmk_via_keymap_pairs.csv`):**
 
@@ -166,15 +177,14 @@ seconds without a checkout.
 - **Byte-exact matching was achieved for every board where a deterministic
   rule exists** (600 boards / 28.7%); beyond that, ~2,000 different authors'
   whitespace makes byte-identity information-theoretically impossible, so
-  the remaining matches are verified at the token level (compilation-
-  equivalent keymaps).
+  the remaining matches are verified at the token level
+  (compilation-equivalent keymaps).
 - The vial-qmk "frozen snapshot" rule does *not* generalize (1/1,504) —
   confirming vial-qmk's via folders are pre-removal leftovers, while QMK's
   were independently authored.
 
-**Result:** the converter's keymap generation policy —
-*copy default, pad with transparent layers to 4* (`pad_to_layers()` in
-`via_keymap_generator.py`) — reproduces what real keyboard authors actually
+**Result:** the converter's keymap policy — *copy default, pad with
+transparent layers to 4* — reproduces what real keyboard authors actually
 did for 61.6% of 2,092 boards, and is the correct scaffold for the rest.
 
 ### The methodology in one sentence
@@ -184,21 +194,8 @@ did for 61.6% of 2,092 boards, and is the correct scaffold for the rest.
 > explanation as a rule, and repeat until the failures are provably
 > human-authored content rather than missing rules.
 
-
 All research was performed strictly read-only against the source
-repositories.
----
-
-## Notes
-
-- Works with keyboards that use `keyboard.json` or `info.json`, including
-  multi-level configs (parent/child directories), split keyboards, and
-  rotary encoders.
-- If the keyboard has no `keymaps/default/keymap.c`, a stub `keymap.c` is
-  created — edit it before building.
-- Validated against 504 real keyboards from the vial-qmk repository
-  (100% pass) plus 11/11 byte-exact via keymaps and 2,092 historical QMK
-  via keymaps. Details in [TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md).
+repositories. No keyboards were harmed in the making of this converter.
 
 ---
 
