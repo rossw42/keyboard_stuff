@@ -7,12 +7,14 @@ This just works, because it was tested against every single keyboard in the vial
 
 I have recently converted the following boards with this script:
 
+```
 keyhive/opus
 eggsworks/tamagov2
-eggsworks/egg58  
-wilba_tech/wt60_d        
-peej/lumberjack           
+eggsworks/egg58
+wilba_tech/wt60_d
+peej/lumberjack
 splitkb/kyria_rev1
+```
 
 For how it works internally, see [TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md).
 For the frankly excessive research behind it, see
@@ -99,6 +101,7 @@ didn't guess, we cross-examined 2,600 keyboards until they confessed.
 **Question:** How does Vial's `vial.json` derive from QMK's `keyboard.json`?
 
 **Method:**
+
 1. Scanned the entire vial-qmk repo and built a CSV of every
    `keyboard.json` ↔ `keymaps/vial/vial.json` pair (504 pairs,
    `vial_keyboard_pairs.csv`).
@@ -107,6 +110,7 @@ didn't guess, we cross-examined 2,600 keyboards until they confessed.
 
 **Key discoveries** (each one found by a failing comparison, not by
 documentation — again, there is no documentation):
+
 - `layouts.keymap` is a genuine **KLE (keyboard-layout-editor) serialized
   document** — rows of relative offsets, not absolute coordinates. Earlier
   attempts that emitted absolute x/y rendered a beautiful, perfectly valid
@@ -162,13 +166,14 @@ nothing.
 
 **Findings at scale (2,092 boards, `qmk_via_keymap_pairs.csv`):**
 
-| Rule | Boards | % |
-|---|---|---|
-| via = copy of default (token-level) | 774 | 37.0% |
-| via = default + transparent padding layers | 507 | 24.2% |
-| truncation / era-keycode drift | 8 | 0.4% |
+
+| Rule                                               | Boards    | %         |
+| -------------------------------------------------- | --------- | --------- |
+| via = copy of default (token-level)                | 774       | 37.0%     |
+| via = default + transparent padding layers         | 507       | 24.2%     |
+| truncation / era-keycode drift                     | 8         | 0.4%      |
 | **Mechanically derivable (100% functional match)** | **1,289** | **61.6%** |
-| genuine human-authored edits | 739 | 35.3% |
+| genuine human-authored edits                       | 739       | 35.3%     |
 
 - **The 4-layer convention is proven, not assumed:** of boards that add
   layers, 90% land on exactly **4** — VIA's `DYNAMIC_KEYMAP_LAYER_COUNT`
