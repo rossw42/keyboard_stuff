@@ -1,0 +1,27 @@
+Component,Qty (x2 builds),Qty per unit,Manufacturer,MPN,Category,Unit Price Est,Notes,Source
+ATmega32A-PU Microcontroller,2,1,Microchip,ATMEGA32A-PU,IC,$4.89,DIP-40 package; confirmed via Mouser 556-ATMEGA32A-PU,https://github.com/coseyfannitutti/discipline
+40-pin IC Socket,2,1,TE Connectivity,1-2199299-5,Socket,$1.00,DIP-40 dual wipe socket; Mouser 571-1-2199299-5,https://github.com/coseyfannitutti/discipline
+16MHz Crystal,2,1,Abracon,ABL-16.000MHZ-B4Y,Crystal,$0.36,HC-49 style thru-hole; Mouser 815-ABL-16-B4Y,https://github.com/coseyfannitutti/discipline
+75 Ohm Resistor 1/6W,4,2,Yageo,CFR-12JR-52-75R,Resistor,$0.10,Mouser 603-CFR-12JR-52-75R,https://github.com/coseyfannitutti/discipline
+1.5K Ohm Resistor 1/6W,4,2,Yageo,MFR-12FTF52-1K5,Resistor,$0.10,Mouser 603-MFR-12FTF52-1K5,https://github.com/coseyfannitutti/discipline
+5.1K Ohm Resistor 1/6W,4,2,Yageo,MFR-12FTF52-5K1,Resistor,$0.10,Mouser 603-MFR-12FTF52-5K1,https://github.com/coseyfannitutti/discipline
+10K Ohm Resistor 1/6W,2,1,Yageo,MFR-12FTF52-10K,Resistor,$0.12,Mouser 603-MFR-12FTF52-10K,https://github.com/coseyfannitutti/discipline
+22pF Ceramic Capacitor,4,2,Murata,RCE5C2A220J0A2H03B,Capacitor,$0.45,Mouser 81-RCE5C2A220J0A2H3B,https://github.com/coseyfannitutti/discipline
+0.1uF Ceramic Capacitor,4,2,Murata,RDER71H104K0M1H03A,Capacitor,$0.46,Mouser 81-RDER71H104K0M1H3A,https://github.com/coseyfannitutti/discipline
+4.7uF Electrolytic Capacitor,2,1,Nichicon,UMT1H4R7MDD,Capacitor,VERIFY,"UMT1H4R7MDD is listed obsolete on Octopart. Suggested equivalent: Nichicon UVR2V4R7MPD1TD (4.7uF 350V radial can - confirmed cross-compatible in Lattice60 corrected BOM). Verify voltage/size fits PCB pads before ordering.",https://github.com/coseyfannitutti/discipline
+1N4148 Switching Diode,138,69,onsemi,1N4148TR,Diode,$0.041,DO-35 thru-hole; Mouser 512-1N4148TR,https://github.com/coseyfannitutti/discipline
+3.6V Zener Diode,4,2,Vishay,TZX3V6A-TR,Diode,$0.10,DO-35; keep visually separate from 1N4148 - looks similar! Mouser 78-TZX3V6A,https://github.com/coseyfannitutti/discipline
+3mm Red LED,2,1,Lite-On,LTL-4222,LED,$0.19,T-1 package; Mouser 859-LTL-4222,https://github.com/coseyfannitutti/discipline
+2x3 Pin Header (ISP),2,1,Amphenol,68602-406HLF,Connector,$0.23,2.54mm unshrouded header; Mouser 649-68602-406HLF,https://github.com/coseyfannitutti/discipline
+6mm Tactile Pushbutton (Reset/Bootmagic),4,2,APEM,MJTP1230A,Switch,$0.33,Mouser 642-MJTP1230A,https://github.com/coseyfannitutti/discipline
+USB Type-C Receptacle,2,1,GCT (Global Connector Technology),USB4085-GF-A,Connector,VERIFY,"Through-hole 16-pin USB-C jack. MPN inferred from common GCT USB4085 series used in similar DIY boards - CONFIRM against your PCB silkscreen/schematic before ordering, listed as TBD in original build guide.",https://github.com/coseyfannitutti/discipline
+500mA Resettable Fuse (PTC),2,1,Bourns,MF-R050,Fuse,$0.38,Mouser 652-MFR050,https://github.com/coseyfannitutti/discipline
+--- NON-ELECTRONIC (source from keyboard vendor, not Octopart) ---,,,,,,,,
+DISCIPLINE PCB,2,1,cftkb/coseyfannitutti,N/A,PCB,N/A,Through-hole 65% PCB kit,https://github.com/coseyfannitutti/discipline
+POM Flexible Plate,2,1,cftkb/coseyfannitutti,N/A,Plate,N/A,Included with PCB kit typically,https://github.com/coseyfannitutti/discipline
+MX-style Switches,136,68,Your choice,N/A,Switch,N/A,67-68 switches per unit depending on layout (ANSI/ISO); plate or PCB mount,N/A
+2u Screw-in Stabilizer (ANSI: Backspace/Enter/LShift),6,3,Your choice,N/A,Stabilizer,N/A,ANSI layout needs 3x per unit. Screw-in ONLY - plate-mount stabs NOT supported,N/A
+2u Screw-in Stabilizer (ISO: Enter/LShift),4,2,Your choice,N/A,Stabilizer,N/A,ISO layout needs 2x per unit instead of the ANSI 3x row above (pick one),N/A
+6.25u or 7u Screw-in Stabilizer (Spacebar),2,1,Your choice,N/A,Stabilizer,N/A,Pick spacebar width option; screw-in only,N/A
+Keycap Set (65% layout),2,1,Your choice,N/A,Keycaps,N/A,MX-compatible,N/A
+USB Type-C Cable,2,1,Your choice,N/A,Cable,N/A,,N/A

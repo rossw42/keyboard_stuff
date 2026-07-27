@@ -1,0 +1,29 @@
+Component,Qty Needed,Kit Qty (incl. spares),Manufacturer,MPN,Category,Notes,Source
+ATmega328p Microcontroller (pre-flashed w/ usbasploader),1,1,Microchip,ATMEGA328P-PU,IC,"Ships preprogrammed from MechWild. MPN is a reasonable assumption (same chip family as Lattice60) - MechWild does not publish exact part number since it's a proprietary pre-flashed kit part.",https://mechwild.com/learn/build-guides/mercutio-build-guide/
+28-pin IC Socket,1,1,TE Connectivity,1-2199299-2,Socket,VERIFY - assumed same DIP-28 narrow socket used on Lattice60 (same MCU package),https://mechwild.com/learn/build-guides/mercutio-build-guide/
+1N4148 Switching Diode,46,50,onsemi,1N4148TR,Diode,"D1-D46 (46 needed for switch matrix). Kit ships 50 to account for mistakes.",https://mechwild.com/learn/build-guides/mercutio-build-guide/
+6x6mm Tactile Pushbutton (Boot/Reset),2,2,APEM,MJTP1230A,Switch,VERIFY - generic 6x6mm tactile switch assumption,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+1.5K Ohm Resistor (R1),1,1,Yageo,CFR-25JR-52-1K5,Resistor,VERIFY exact wattage/package,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+68 Ohm Resistor (R2/R3),2,2,Yageo,CFR-25JR-52-68R,Resistor,VERIFY exact wattage/package,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+5.6K Ohm Resistor (R4/R5),2,2,Yageo,CFR-25JR-52-5K6,Resistor,"VERIFY - not previously seen on Discipline/Lattice60 BOMs, 5.6K is unique to Mercutio per official build guide",https://mechwild.com/learn/build-guides/mercutio-build-guide/
+3.6V Zener Diode (D47/D48),2,2,Vishay,TZX3V6A-TR,Diode,VERIFY - assumed same zener as other keyhive/cftkb boards,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+Resettable Fuse (F1),1,1,Littelfuse,RXEF010S,Fuse,"VERIFY rating - guide doesn't publish trip current, assumed similar to Lattice60's 100mA fuse",https://mechwild.com/learn/build-guides/mercutio-build-guide/
+22pF Ceramic Capacitor (C1/C2),2,2,Murata,RCE5C2A220J0A2H03B,Capacitor,VERIFY,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+0.1uF Capacitor (C3),1,1,Murata,RDER71H104K0M1H03A,Capacitor,VERIFY,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+10uF Capacitor 16V+ (C4),1,1,Kemet or similar,VERIFY-10uF,Capacitor,"NOTE: 10uF, NOT 4.7uF like Discipline/Lattice60 - do not substitute the 4.7uF part",https://mechwild.com/learn/build-guides/mercutio-build-guide/
+16MHz Crystal (Y1),1,1,Abracon,ABL-16.000MHZ-B4Y,Crystal,VERIFY - assumed same as Discipline's 16MHz crystal,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+Rotary Encoder (EC11-style),1,1,Generic,VERIFY-EC11,Encoder,Standard 15-detent PCB-mount rotary encoder w/ push,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+USB Type-C Receptacle (J1),1,1,GCT,USB4085-GF-A,Connector,VERIFY - assumed same USB-C part as Discipline,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+I2C OLED Display (SSD1306-style),1,1,Generic,VERIFY-SSD1306-0.91in,Display,4-pin I2C OLED w/ header - common 128x32 0.91in module,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+--- NON-ELECTRONIC (source from keyboard vendor, not Octopart) ---,,,,,,,
+Mercutio PCB,1,1,MechWild,N/A,PCB,,https://mechwild.com/product/mercutio/
+Switch Plate,1,1,MechWild,N/A,Plate,,https://mechwild.com/product/mercutio/
+Bottom Plate,1,1,MechWild,N/A,Plate,,https://mechwild.com/product/mercutio/
+Acrylic Guard,1,1,MechWild,N/A,Case,,https://mechwild.com/product/mercutio/
+Encoder Knob,1,1,MechWild,N/A,Accessory,,https://mechwild.com/product/mercutio/
+M2 10mm Standoffs,10,10,Generic,N/A,Hardware,,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+M2 15mm Standoffs,3,3,Generic,N/A,Hardware,,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+M2x6 Screws,26,26,Generic,N/A,Hardware,,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+Rubber Feet,4,4,Generic,N/A,Hardware,,https://mechwild.com/learn/build-guides/mercutio-build-guide/
+40% MX-Compatible Switches,~47,~47,Your choice,N/A,Switch,Confirm exact count for your chosen layout (default vs 625u space),N/A
+2u/6.25u Stabilizers (per layout),varies,varies,Your choice,N/A,Stabilizer,Depends on layout chosen (default vs 625u_space keymap),N/A

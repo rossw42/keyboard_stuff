@@ -1,0 +1,29 @@
+Component,Qty,Manufacturer,MPN,Category,Unit Price Est,Notes,Source
+ATmega328P-PU Microcontroller,1,Microchip,ATMEGA328P-PU,IC,$2.89,DIP-28; Mouser 556-ATMEGA328P-PU,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+Mini USB Type-B Socket,1,TE Connectivity,1734753-1,Connector,$0.99,5-way thru-hole vertical; Avnet/Newark 1734753-1,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+Red LED 3mm,1,Lite-On,LTL-4222,LED,$0.19,Mouser 859-LTL-4222,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+Green LED 3mm,1,Kingbright,WP7113GT,LED,$0.30,Mouser 604-WP7113GT,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+1.5K Ohm Resistor 1/4W,1,Yageo,CFR-25JR-52-1K5,Resistor,$0.01,Newark 49AK5068,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+10K Ohm Resistor 1/4W,1,Yageo,CFR-25JR-52-10K,Resistor,$0.10,Mouser 603-CFR-25JR-5210K,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+1K Ohm Resistor 1/4W,2,Yageo,CFR-25JR-52-1K,Resistor,$0.10,Mouser 603-CFR-25JR-521K,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+68 Ohm Resistor 1/4W,2,Yageo,CFR-25JR-52-68R,Resistor,$0.10,Mouser 603-CFR-25JR-52-68R,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+100mA Resettable Fuse (PTC),1,Littelfuse,RXEF010S,Fuse,$0.34,Mouser 650-RXEF010S,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+28-pin DIP Socket (narrow),1,TE Connectivity,1-2199299-2,Socket,$0.58,Mouser 571-1-2199299-2. NOTE: prior sourcing doc listed -3 suffix; -2 confirmed via corrected Octopart CSV in this repo,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+12MHz Crystal HC-49S,1,Jauch,J49SMH-A-G-G-K-12M0,Crystal,$0.21,DigiKey 1908-J49SMH-A-G-G-K-12M0CT-ND,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+3.6V Zener Diode,2,Vishay,TZX3V6A-TR,Diode,$0.10,DO-35; Mouser 78-TZX3V6A,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+0.1uF Ceramic Capacitor,1,Murata,RDER71H104K0M1H03A,Capacitor,$0.46,Mouser 81-RDER71H104K0M1H3A,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+22pF Ceramic Capacitor,2,Murata,RCE5C2A220J0A2H03B,Capacitor,$0.45,Mouser 81-RCE5C2A220J0A2H3B,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+6x6x5mm Tactile Pushbutton (Reset/Boot),2,APEM,MJTP1230A,Switch,$0.33,Mouser 642-MJTP1230A,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+4.7uF Electrolytic Capacitor 16V,1,Kemet,ESK475M016AC3AA,Capacitor,$0.19,Mouser 80-ESK475M016AC3AA,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+1N4148 Switching Diode,66,onsemi,1N4148TR,Diode,$0.041,"QTY DISCREPANCY NOTE: prior sourcing md said 63, but the Octopart-corrected CSV already in this repo (lattice60_octopart_corrected-v2.csv) lists 66 and was Octopart-verified - using 66 (60 switches + ~6 for split-spacebar/extra matrix positions). Recount against your actual PCB silkscreen if possible.",https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+2x3 Pin Header (ISP),1,Amphenol,68602-406HLF,Connector,$0.23,Mouser 649-68602-406HLF,https://github.com/qmk/qmk_firmware/tree/master/keyboards/keyhive/lattice60
+--- NON-ELECTRONIC (source from keyboard vendor, not Octopart) ---,,,,,,,
+Lattice60 Top PCB,1,emdarcher/KeyHive,N/A,PCB,N/A,,https://keyhive.xyz/
+Lattice60 Backplate PCB,1,emdarcher/KeyHive,N/A,PCB,N/A,Optional if using a case,https://keyhive.xyz/
+MX/Alps-compatible Switches,61,Your choice,N/A,Switch,N/A,60_hhkb community layout - confirm split spacebar vs single spacebar switch count,N/A
+2u Screw-in Stabilizer,5,Your choice,N/A,Stabilizer,N/A,Split-spacebar layout selected per prior notes,N/A
+4mm M2 Spacers,13,Generic,N/A,Hardware,N/A,,N/A
+3mm M2 Screws,26,Generic,N/A,Hardware,N/A,22 if using standoffs instead,N/A
+10mm M2 Standoffs,4,Generic,N/A,Hardware,N/A,Optional - for acrylic cover,N/A
+6mm M2 Screws,4,Generic,N/A,Hardware,N/A,Optional - for acrylic cover,N/A
+Keycap Set (60% HHKB layout),1,Your choice,N/A,Keycaps,N/A,,N/A

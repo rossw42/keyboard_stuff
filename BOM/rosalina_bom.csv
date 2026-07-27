@@ -1,0 +1,28 @@
+Component,Ref,Qty,Value/Part#,Manufacturer,Category,Notes,Source
+"NOTE: Rosalina firmware repo states it uses the same BOM as Lumberjack (by peej) - this CSV is the official Lumberjack BOM.md content, confirmed source.",,,,,,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Multilayer Ceramic Capacitor,"C1,C2",2,22pF p2.5mm,Generic,Capacitor,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Electrolytic Capacitor,C3,1,4.7uF p1.5mm,Generic,Capacitor,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Multilayer Ceramic Capacitor,"C4,C5",2,100nF p5.0mm,Generic,Capacitor,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Diode,D1-D60,60,1N4148,Generic/onsemi,Diode,Matrix diodes for 60 switches,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Zener Diode,"D61,D62",2,3.6V,Generic,Diode,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Polyfuse (Resettable Fuse),F1,1,100mA,Generic,Fuse,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+USB-C Connector,J1,1,TYPE-C-31-M-12,Generic,Connector,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+AVR ISP Pin Header,J2,1,2x3 p2.54mm,Generic,Connector,Optional,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+JST Connector,J3,1,SM04B-SRSS-TB,JST,Connector,Optional - for daughterboard,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Molex Pico-EZmate Connector,J5,1,781710004,Molex,Connector,Optional,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+LED 3mm,"LED1,LED2",2,3mm,Generic,LED,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Keyboard Switch,MX1-MX60,60,MX/Alps/Choc,Your choice,Switch,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Resistor,"R1,R7,R8",3,1.5k Ohm,Generic,Resistor,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Resistor,"R2,R3",2,75 Ohm,Generic,Resistor,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Resistor,R4,1,10k Ohm,Generic,Resistor,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Resistor,"R5,R6",2,5.1k Ohm,Generic,Resistor,For USB-C only,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Tactile Switch,"SW1,SW2",2,6x6mm,Generic,Switch,Reset/Boot buttons,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+IC Socket,IC socket,1,28pin narrow,Generic,Socket,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Microcontroller,U1,1,ATMEGA328P-PU,Microchip,IC,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Crystal,Y1,1,HC49-4H 16MHz,Generic,Crystal,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Acrylic Component Cover,cover,1,95x57x2mm,Generic,Case,,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Screw,screw,8,M2 4mm,Generic,Hardware,For standoff,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+Standoff,standoff,4,M2 10mm,Generic,Hardware,For component cover,https://github.com/peej/lumberjack-keyboard/blob/master/BOM.md
+--- NON-ELECTRONIC (source from keyboard vendor, not Octopart) ---,,,,,,,
+Rosalina/Lumberjack PCB,PCB,1,N/A,peej / rpiguy9907 build,PCB,5x12 ortholinear through-hole PCB for standard 60% cases,https://github.com/peej/lumberjack-keyboard
+Keycap Set,N/A,1,N/A,Your choice,Keycaps,60-key ortholinear compatible,N/A

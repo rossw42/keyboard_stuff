@@ -41,7 +41,7 @@ clip_relief_depth = 1.2;   // slab relief behind each clip window, mm
 // center waist); offset() shrinks/grows a polygon correctly even where
 // it's concave. Only the OUTER boundary is chamfered - interior cutouts
 // (switch pockets, MCU window, center window, etc.) stay straight-walled.
-plate_chamfer        = 1.5;   // mm — bevel size on the outer edge (0 = disable, square edge)
+plate_chamfer        = 2.0;   // mm — bevel size on the outer edge (0 = disable, square edge)
 plate_chamfer_top    = true;  // chamfer the top-facing outer edge
 plate_chamfer_bottom = false; // leave false: the bottom must stay flat/full-size
                                // so the outline keeps resting flush on the PCB
@@ -328,15 +328,25 @@ module pg1350_holes() {
 }
 
 module routing_slot(pts) {
+    // A single hull() over ALL circles in the path (rather than hull()-ing
+    // segment pairs and unioning them) guarantees one simple, non-self-
+    // intersecting convex polygon. The per-segment approach previously
+    // used here produced two capsules that each pick their own tangent
+    // points at a shared interior joint (a bend) - since the incoming and
+    // outgoing segment directions differ, the two capsule boundaries cross
+    // rather than nest cleanly, leaving degenerate slivers once extruded
+    // (the source of persistent non-manifold edges at z=channel_membrane_t
+    // even after patching the joint with an extra circle). Since this is
+    // just a wire-routing channel (not precision-fit geometry), using the
+    // convex hull of the whole path is a safe simplification - it always
+    // fully contains every original per-segment capsule.
     z0 = wire_channel ? channel_membrane_t : -eps;
     h  = wire_channel ? (floor_h - channel_membrane_t + eps) : (floor_h + 2*eps);
     translate([0, 0, z0])
         linear_extrude(height = h)
-            for (i = [0 : len(pts) - 2])
-                hull() {
-                    translate(pts[i])     circle(d = slot_w);
-                    translate(pts[i + 1]) circle(d = slot_w);
-                }
+            hull()
+                for (p = pts)
+                    translate(p) circle(d = slot_w);
 }
 
 module pin_routing_slots() {
@@ -344,13 +354,22 @@ module pin_routing_slots() {
 }
 
 // v3.1: through-openings at the channel ends
+//
+// wire_exit_hole_d (1.40mm) is numerically identical to slot_w (1.40mm),
+// the routing_slot() capsule/hull width. Since both cylinders here are
+// centered at the exact same point as the routing slot's terminal circle,
+// their circular boundaries would otherwise be bit-for-bit coincident once
+// unioned/differenced - a classic CGAL non-manifold trigger. Growing these
+// cutters by a tiny endpoint_overlap margin guarantees they fully consume
+// the routing slot's end caps instead of merely touching them.
+endpoint_overlap = 0.02;
 module channel_end_openings() {
     for (p = [choc_pin1_pos, choc_pin2_pos])
         translate([p[0], p[1], -eps])
-            cylinder(h = floor_h + 2*eps, d = pin_entry_pocket_d);
+            cylinder(h = floor_h + 2*eps, d = pin_entry_pocket_d + endpoint_overlap);
     for (p = [pg1425_pin1_pos, pg1425_pin2_pos])
         translate([p[0], p[1], -eps])
-            cylinder(h = floor_h + 2*eps, d = wire_exit_hole_d);
+            cylinder(h = floor_h + 2*eps, d = wire_exit_hole_d + endpoint_overlap);
 }
 
 module pg1425_alignment_pins() {
@@ -433,15 +452,31 @@ module plate_outline_2d() {
         polygon(board_edge);
 }
 
+// The cutout that makes room for each fused adapter is intentionally made
+// a hair SMALLER than the adapter's own footprint (by cutout_overlap on
+// every side). Without this, the cutout boundary and the adapter body's
+// boundary are bit-for-bit coincident surfaces once unioned - which after
+// going through independent rotate()/offset() transforms, do not land on
+// EXACTLY the same floating point coordinates. CGAL then sees a sliver of
+// near-zero-thickness/self-touching geometry along that whole boundary
+// (top face, bottom face, and the vertical wall), which is the single
+// biggest source of non-manifold edges in this model (they cluster at
+// z=0 and z=body_h - the slab's flat top/bottom faces - right where the
+// cutout and adapter perimeters are supposed to meet). Shrinking the
+// cutout guarantees the adapter genuinely overlaps solid slab material
+// on all sides instead of merely touching it.
+cutout_overlap = 0.02;
+
 module plate_cutouts_2d() {
     // full adapter footprint (rounded to match adapter_corner_radius) so
     // the fused adapter supplies all geometry within it, corner-gap free
     for (c = converters)
         translate([c[0], c[1]])
             rotate([0, 0, c[2]])
-                offset(r = adapter_corner_radius)
-                    offset(delta = -adapter_corner_radius)
-                        square([body_x, body_y], center = true);
+                offset(delta = -cutout_overlap)
+                    offset(r = adapter_corner_radius)
+                        offset(delta = -adapter_corner_radius)
+                            square([body_x, body_y], center = true);
     if (mcu_cutout)
         translate(mcu_cutout_center)
             square(mcu_cutout_size, center = true);
@@ -458,17 +493,33 @@ module plate_cutouts_2d() {
 // invert = true : outline shrinks as z decreases within the zone (bottom chamfer)
 module chamfer_layer_stack(zone_h, steps, max_delta, base_z, invert) {
     layer_h = zone_h / steps;
+    // Only the layer touching the INTERNAL boundary (the neighboring mid_h
+    // slab / other chamfer zone) gets padded by eps, to guarantee a clean
+    // overlapping union there. The layer touching the model's true EXPOSED
+    // outer face (top face for a top chamfer, bottom face for a bottom
+    // chamfer) must NOT be padded, or the whole stack overshoots past
+    // body_h / below z=0.
+    // Interior layer-to-layer boundaries need no padding at all: adjacent
+    // layers have different (stepped) offset outlines, so they meet at an
+    // exact shared Z plane rather than a coincident face - padding them
+    // with a FIXED eps (as before) makes many thin layers overlap each
+    // other by several layer-heights at once, which is what caused the
+    // non-manifold geometry (eps=0.10mm >> layer_h=0.03mm at the default
+    // plate_chamfer_steps=50).
     for (i = [0 : steps - 1]) {
         frac = invert ? (steps - i - 0.5) / steps : (i + 0.5) / steps;
         d = -max_delta * frac;
-        translate([0, 0, base_z + i * layer_h])
-            linear_extrude(height = layer_h + eps)
+        pad_lo = (i == 0)         && !invert ? eps : 0;
+        pad_hi = (i == steps - 1) &&  invert ? eps : 0;
+        translate([0, 0, base_z + i * layer_h - pad_lo])
+            linear_extrude(height = layer_h + pad_lo + pad_hi)
                 difference() {
                     offset(delta = d) plate_outline_2d();
                     plate_cutouts_2d();
                 }
     }
 }
+
 
 // Full plate outline solid, z = 0 .. body_h, with the outer edge optionally
 // chamfered on the top and/or bottom face (see plate_chamfer* variables).
