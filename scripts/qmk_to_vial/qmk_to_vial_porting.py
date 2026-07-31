@@ -39,6 +39,7 @@ from keyboard_to_vial_converter import (
     is_split,
     derive_lighting,
 )
+from layout_options import option_bits
 
 
 # ---------------------------------------------------------------------------
@@ -82,8 +83,12 @@ def find_unlock_combo(kb_data):
 # file generators
 # ---------------------------------------------------------------------------
 
-def generate_config_h(kb_data, unlock_a, unlock_b):
-    """Generate keymaps/vial/config.h with UID and unlock combo."""
+def generate_config_h(kb_data, unlock_a, unlock_b, labels=None):
+    """Generate keymaps/vial/config.h with UID and unlock combo.
+
+    When derived layout options need more than the default 1 byte of VIA
+    EEPROM (option bitfield > 8 bits), VIA_EEPROM_LAYOUT_OPTIONS_SIZE is
+    emitted so the firmware stores the full bitfield."""
     uid = (kb_data.get("usb", {}) or {}).get("uid", "")
     uid_list = None
     if uid:
@@ -101,7 +106,7 @@ def generate_config_h(kb_data, unlock_a, unlock_b):
     rows = "{{{}, {}}}".format(unlock_a[0], unlock_b[0])
     cols = "{{{}, {}}}".format(unlock_a[1], unlock_b[1])
 
-    return "\n".join([
+    lines = [
         "/* SPDX-License-Identifier: GPL-2.0-or-later */",
         "",
         "#pragma once",
@@ -109,8 +114,18 @@ def generate_config_h(kb_data, unlock_a, unlock_b):
         "#define VIAL_KEYBOARD_UID {{{}}}".format(uid_hex),
         "#define VIAL_UNLOCK_COMBO_ROWS {}".format(rows),
         "#define VIAL_UNLOCK_COMBO_COLS {}".format(cols),
-        "",
-    ])
+    ]
+    bits = option_bits(labels) if labels else 0
+    if bits > 8:
+        lines += [
+            "",
+            "/* layout options need {} bits (> 1-byte default) */".format(
+                bits),
+            "#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE {}".format(
+                (bits + 7) // 8),
+        ]
+    lines.append("")
+    return "\n".join(lines)
 
 
 def generate_rules_mk(kb_data, enable_encoder_map=False):
@@ -237,7 +252,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {};
 # main conversion
 # ---------------------------------------------------------------------------
 
-def convert_keyboard(keyboard_path, output_dir=None, allow_vial_qmk=False):
+def convert_keyboard(keyboard_path, output_dir=None, allow_vial_qmk=False,
+                     layout_options=True):
     """Generate a full keymaps/vial/ folder for one QMK keyboard dir."""
     print("=" * 60)
     print("Converting: {}".format(keyboard_path))
@@ -258,10 +274,12 @@ def convert_keyboard(keyboard_path, output_dir=None, allow_vial_qmk=False):
                   .format(keyboard_path))
             return False
 
-    vial_output, kb_data = convert_keyboard_to_vial(kb_json_path)
+    vial_output, kb_data = convert_keyboard_to_vial(
+        kb_json_path, layout_options=layout_options)
     if not vial_output or not kb_data:
         print("ERROR: conversion failed for {}".format(kb_json_path))
         return False
+    labels = vial_output.get("layouts", {}).get("labels")
 
     keyboard_name = kb_data.get("keyboard_name") or \
         os.path.basename(os.path.normpath(keyboard_path))
@@ -283,6 +301,16 @@ def convert_keyboard(keyboard_path, output_dir=None, allow_vial_qmk=False):
     print("  Split    : {}".format(split))
     n_rows = len(vial_output["layouts"]["keymap"])
     print("  Keymap   : {} KLE rows".format(n_rows))
+    if labels:
+        names = [l[0] if isinstance(l, list) else l for l in labels]
+        print("  Options  : {} layout option group(s): {}".format(
+            len(labels), ", ".join(names)))
+    else:
+        n_layouts = len(kb_data.get("layouts") or {})
+        if layout_options and n_layouts > 1:
+            print("  Options  : none (could not derive a provably-exact "
+                  "option set from {} layouts; using first layout)"
+                  .format(n_layouts))
 
     # output location
     if output_dir:
@@ -310,7 +338,7 @@ def convert_keyboard(keyboard_path, output_dir=None, allow_vial_qmk=False):
     unlock_a, unlock_b = find_unlock_combo(kb_data)
     config_h_path = os.path.join(vial_dir, "config.h")
     with open(config_h_path, "w", encoding="utf-8") as f:
-        f.write(generate_config_h(kb_data, unlock_a, unlock_b))
+        f.write(generate_config_h(kb_data, unlock_a, unlock_b, labels))
     print("  Saved: {}  (unlock combo {} + {})".format(
         config_h_path, unlock_a, unlock_b))
 
@@ -368,18 +396,21 @@ def convert_keyboard(keyboard_path, output_dir=None, allow_vial_qmk=False):
 
 
 def main():
-    args = [a for a in sys.argv[1:] if a != "--allow-vial-qmk"]
+    flags = ("--allow-vial-qmk", "--no-layout-options")
+    args = [a for a in sys.argv[1:] if a not in flags]
     allow_vial_qmk = "--allow-vial-qmk" in sys.argv
+    layout_options = "--no-layout-options" not in sys.argv
 
     if not args:
         print("Usage: python qmk_to_vial_porting.py <keyboard_dir> "
-              "[output_dir] [--allow-vial-qmk]")
+              "[output_dir] [--allow-vial-qmk] [--no-layout-options]")
         sys.exit(1)
 
     keyboard_path = args[0]
     output_dir = args[1] if len(args) > 1 else None
     ok = convert_keyboard(keyboard_path, output_dir,
-                          allow_vial_qmk=allow_vial_qmk)
+                          allow_vial_qmk=allow_vial_qmk,
+                          layout_options=layout_options)
     sys.exit(0 if ok else 1)
 
 

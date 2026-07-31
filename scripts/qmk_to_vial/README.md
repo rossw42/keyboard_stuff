@@ -31,6 +31,9 @@ python qmk_to_vial_porting.py "path\to\my_keyboard" "path\to\output"
 # Write directly into the keyboard directory (creates keymaps/vial/ in place)
 # use --allow-vial-qmk to override
 python qmk_to_vial_porting.py "path\to\my_keyboard" --allow-vial-qmk
+
+# Disable layout-option derivation (always emit just the first layout)
+python qmk_to_vial_porting.py "path\to\my_keyboard" "out" --no-layout-options
 ```
 
 Example:
@@ -71,6 +74,49 @@ make <keyboard>:vial:flash
 
 ---
 
+## Layout Options (multiple layouts)
+
+When a `keyboard.json` defines **multiple layout macros** (e.g.
+`LAYOUT_60_ansi`, `LAYOUT_60_iso`, `LAYOUT_60_ansi_split_bs_rshift`), the
+converter now derives real **Vial layout options** — the dropdowns/checkboxes
+in the Vial GUI's Layouts pane (`layouts.labels` + per-key `"row,col\n\n\ng,c"`
+tags in the KLE keymap). Alternative choices are drawn below the board, exactly
+like hand-made vial.json files; the Vial GUI re-anchors them onto the default
+keys automatically.
+
+**Accuracy guarantee:** options are only emitted when the generated file passes
+a built-in validator that simulates the Vial GUI's rendering (bounding-box
+re-anchoring of the selected choice) and proves that **every layout macro in
+keyboard.json is reproduced exactly** — matrix ids and absolute
+x/y/w/h/rotation — by some combination of option choices. If that proof fails
+for any macro, the converter silently falls back to the previous single-layout
+behavior. There is no "almost right" output.
+
+Verified across the full vial-qmk keyboards tree (`test_layout_options.py`):
+3,967 boards, 1,467 multi-layout, **1,384 got provably-exact options,
+83 fell back, 0 failures**. When derived options need more than VIA's default
+1 byte of EEPROM (bitfield > 8 bits), the generated `config.h` includes
+`VIA_EEPROM_LAYOUT_OPTIONS_SIZE` automatically.
+
+Caveats (by design):
+
+- Option/choice **names** are heuristic ("Backspace: 2u/Split", "Bottom Row:
+  6.25u Space/7u Space", or generic "Option 1/2") — geometry and key
+  membership are exact, the *text* is cosmetic and easy to hand-edit in the
+  generated vial.json.
+- The default (choice 0) is the plainest-named macro (honoring
+  `layout_aliases.LAYOUT`), which may differ from what a human author would
+  pick — also cosmetic.
+- Only combinations asserted by keyboard.json macros are proven; like
+  hand-made files, the option lattice may allow extra combinations, which is
+  harmless (Vial addresses keys by matrix position).
+
+Research backing this feature lives in [research/](research/):
+`vial_layout_options_format.md`, `vial_gui_option_rendering.md`,
+`multi_layout_diff_analysis.md`.
+
+---
+
 ## Notes
 
 - Handles keyboards using `keyboard.json` **or** `info.json`, including
@@ -82,9 +128,13 @@ make <keyboard>:vial:flash
 - If the keyboard has no `keymaps/default/keymap.c`, a stub `keymap.c` is
   generated — edit it before building, or enjoy a keyboard that types
   nothing very reliably.
+- `config.h` `MATRIX_ROWS/COLS` parsing understands product expressions
+  like `6*2` (split boards such as viktus/sp111).
 - Validated against **504 real keyboards** from the vial-qmk repository
   (100% pass), plus 11/11 byte-exact via keymaps and 2,092 historical QMK
-  via keymaps. Details in [TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md).
+  via keymaps, plus the 3,967-board layout-options regression
+  (`test_layout_options.py`, 0 failures). Details in
+  [TECHNICAL_DETAILS.md](TECHNICAL_DETAILS.md).
 
 ---
 
@@ -192,6 +242,39 @@ nothing.
 transparent layers to 4* — reproduces what real keyboard authors actually
 did for 61.6% of 2,092 boards, and is the correct scaffold for the rest.
 
+### Campaign 4 — Layout options from multi-layout keyboard.json (3,967 boards)
+
+**Question:** Can Vial's GUI layout options (ISO/ANSI, split backspace,
+bottom-row variants...) be derived from a keyboard.json with multiple layout
+macros — accurately enough to ship?
+
+**Method:**
+
+1. Reverse-engineered the option encoding from 293 real vial.json files with
+   `layouts.labels` (`research/vial_layout_options_format.md`): defaults carry
+   explicit `g,0` tags (280/293), alternates reuse matrix coords when
+   electrically identical, and are drawn beside/below the board.
+2. Read the actual vial-gui source (`research/vial_gui_option_rendering.md`)
+   to learn the rendering contract: the GUI shows only the selected choice per
+   group and **rigidly translates it so its collective bounding-box top-left
+   snaps onto choice 0's** — meaning alternates can live anywhere in the KLE,
+   but every group needs an in-place choice-0 and consistent group anchors.
+3. Proved on hand-made files (`research/multi_layout_diff_analysis.md`) that
+   option membership is a geometric diff between layout macros (same matrix id
+   + same geometry = common key; leftovers cluster into option regions), while
+   names/ordering are editorial.
+4. Implemented diff → cluster → merge → anchor-stabilize → emit
+   (`layout_options.py`), then closed the loop with a validator that
+   re-parses the final KLE, **simulates the GUI re-anchoring, and requires
+   every keyboard.json macro to be reproduced exactly** by some choice
+   combination. No proof, no options — the converter falls back to the old
+   single-layout output.
+
+**Result:** `test_layout_options.py` over every keyboard.json in vial-qmk:
+3,967 boards, 1,384 with provably-exact options, 83 clean fallbacks,
+**0 failures**. The single failure found along the way was a pre-existing
+matrix-size bug (`MATRIX_ROWS 6*2` parsed as 6) — fixed.
+
 ### The methodology in one sentence
 
 > Build a ground-truth corpus of real file pairs, generate candidates,
@@ -204,4 +287,4 @@ repositories. No keyboards were harmed in the making of this converter.
 
 ---
 
-*Last Updated: July 2026*
+*Last Updated: July 2026 (layout options added)*

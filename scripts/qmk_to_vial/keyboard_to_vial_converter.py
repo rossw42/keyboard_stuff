@@ -383,6 +383,20 @@ def is_split(kb):
     return True
 
 
+def _parse_matrix_define(text, name):
+    """Extract '#define NAME <value>' where value may be a plain integer
+    or a simple product expression like '6*2' or '(6 * 2)' (used by split
+    boards, e.g. viktus/sp111 'MATRIX_ROWS 6*2')."""
+    m = re.search(r"#\s*define\s+{}\s+\(?\s*(\d+(?:\s*\*\s*\d+)*)\s*\)?"
+                  .format(name), text)
+    if not m:
+        return None
+    val = 1
+    for part in m.group(1).split("*"):
+        val *= int(part.strip())
+    return val
+
+
 def _config_h_matrix(kb_path):
     """Read MATRIX_ROWS / MATRIX_COLS from config.h, searching from the
     keyboard.json directory up to the keyboards/ root.  Boards with custom
@@ -400,13 +414,9 @@ def _config_h_matrix(kb_path):
                 with open(cfg, "r", encoding="utf-8", errors="replace") as f:
                     text = f.read()
                 if rows is None:
-                    m = re.search(r"#\s*define\s+MATRIX_ROWS\s+(\d+)", text)
-                    if m:
-                        rows = int(m.group(1))
+                    rows = _parse_matrix_define(text, "MATRIX_ROWS")
                 if cols is None:
-                    m = re.search(r"#\s*define\s+MATRIX_COLS\s+(\d+)", text)
-                    if m:
-                        cols = int(m.group(1))
+                    cols = _parse_matrix_define(text, "MATRIX_COLS")
             except OSError:
                 pass
         if rows is not None and cols is not None:
@@ -580,11 +590,47 @@ def pick_layout(kb, layout_name=None):
     return name, layouts[name].get("layout", [])
 
 
+def build_layout_options(kb):
+    """Derive Vial layout options from a multi-layout keyboard.json.
+
+    Returns {"labels": [...], "keymap_keys": [...], "base": name} when a
+    provably-correct option set can be derived and validated, else None.
+    Correctness gate: the serialized KLE is re-parsed and every layout
+    macro in keyboard.json must be reproduced EXACTLY (matrix ids +
+    absolute geometry) by some option-choice combination under the Vial
+    GUI's bounding-box re-anchoring semantics (see layout_options.py and
+    the research/ docs).  Anything short of that returns None so callers
+    fall back to the single-layout keymap."""
+    from layout_options import build_options, validate_keymap
+
+    layouts = kb.get("layouts") or {}
+    if not isinstance(layouts, dict) or len(layouts) < 2:
+        return None
+    aliases = kb.get("layout_aliases") or {}
+    preferred = aliases.get("LAYOUT") if aliases.get("LAYOUT") in layouts \
+        else None
+    try:
+        opts = build_options(layouts, preferred_base=preferred)
+    except Exception:
+        return None
+    if not opts:
+        return None
+    keymap = serialize_kle(opts["keys"])
+    try:
+        if not validate_keymap(keymap, layouts, opts["labels"]):
+            return None
+    except Exception:
+        return None
+    return {"labels": opts["labels"], "keys": opts["keys"],
+            "base": opts["base"]}
+
+
 # ---------------------------------------------------------------------------
 # top-level conversion
 # ---------------------------------------------------------------------------
 
-def convert_keyboard_to_vial(kb_path, layout_name=None):
+def convert_keyboard_to_vial(kb_path, layout_name=None,
+                             layout_options=True):
     """Convert a keyboard.json file into a vial.json dict.
 
     Applies QMK directory inheritance (parent info.json / keyboard.json
@@ -599,12 +645,21 @@ def convert_keyboard_to_vial(kb_path, layout_name=None):
         return None, None
 
     vial = convert_keyboard_data_to_vial(kb, layout_name=layout_name,
-                                         kb_path=kb_path)
+                                         kb_path=kb_path,
+                                         layout_options=layout_options)
     return vial, kb
 
 
-def convert_keyboard_data_to_vial(kb, layout_name=None, kb_path=None):
-    """Convert already-loaded keyboard.json data into a vial.json dict."""
+def convert_keyboard_data_to_vial(kb, layout_name=None, kb_path=None,
+                                  layout_options=True):
+    """Convert already-loaded keyboard.json data into a vial.json dict.
+
+    When layout_options is True (default) and keyboard.json defines
+    multiple layout macros, a Vial layout-option set (layouts.labels +
+    per-key "g,c" tags) is derived and emitted - but ONLY when it passes
+    the strict validate_keymap() gate proving every macro is reproduced
+    exactly.  Otherwise the output is the single-layout keymap exactly as
+    before."""
     usb = kb.get("usb", {}) or {}
     name = kb.get("keyboard_name") or ""
 
@@ -618,10 +673,21 @@ def convert_keyboard_data_to_vial(kb, layout_name=None, kb_path=None):
     if matrix:
         vial["matrix"] = matrix
 
-    _, layout_entries = pick_layout(kb, layout_name)
-    keys = layout_to_keys(layout_entries)
-    keys = keys + encoder_keys(kb, keys)
-    vial["layouts"] = {"keymap": serialize_kle(keys)}
+    opts = None
+    if layout_options and not layout_name:
+        opts = build_layout_options(kb)
+
+    if opts:
+        keys = opts["keys"] + encoder_keys(kb, opts["keys"])
+        vial["layouts"] = {
+            "labels": opts["labels"],
+            "keymap": serialize_kle(keys),
+        }
+    else:
+        _, layout_entries = pick_layout(kb, layout_name)
+        keys = layout_to_keys(layout_entries)
+        keys = keys + encoder_keys(kb, keys)
+        vial["layouts"] = {"keymap": serialize_kle(keys)}
     return vial
 
 

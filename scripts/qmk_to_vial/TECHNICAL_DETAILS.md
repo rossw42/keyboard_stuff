@@ -121,12 +121,55 @@ Several keyboard.json files in the wild contain `//` comments, trailing
 commas, or missing commas between members — the loader repairs all of
 these before parsing.
 
+### Layout options (multi-layout keyboard.json)
+
+When keyboard.json defines multiple layout macros, `layout_options.py`
+derives real Vial layout options:
+
+1. **Parse** every macro into keys identified by matrix id **plus** exact
+   geometry (dz60 proves keys keep their matrix id while moving/resizing
+   between ANSI and ISO, so identity must be geometric).
+2. **Base selection**: `layout_aliases.LAYOUT` target, else plain `LAYOUT`,
+   else the fewest-token non-`_all` name, else file order. Multiple
+   candidates are tried until one yields a valid derivation.
+3. **Diff** each other macro against the base; leftover keys on both sides
+   are **clustered** into regions by bounding-box overlap (rotation-aware).
+4. **Merge** regions across macros (shared base keys or overlapping bboxes)
+   into option groups; distinct key-sets a region takes per macro become
+   the group's choices (choice 0 = base form).
+5. **Anchor stabilization**: the Vial GUI renders the selected choice by
+   rigidly translating it so its collective bbox top-left snaps onto
+   choice 0's bbox top-left (verified in vial-gui `keyboard_widget.py`,
+   see `research/vial_gui_option_rendering.md`). When choices have
+   different native anchors (e.g. a choice that simply deletes a key),
+   nearby always-common keys are duplicated into every choice of the group
+   to equalize the anchor — the same trick hand-made files use for ISO
+   enter.
+6. **Emit**: choice-0 keys in place tagged `"row,col\n\n\ng,0"` (matching
+   the 280/293 real-file convention), alternative choices as blocks below
+   the board, `layouts.labels` with heuristic names.
+7. **Validate** (`validate_keymap`): the serialized KLE is re-parsed with
+   the faithful KLE parser, the GUI re-anchoring is simulated, and **every
+   layout macro must be reproduced exactly** (matrix ids + absolute
+   geometry, multiset comparison) by some choice combination; group/choice
+   indices must be contiguous, every group needs a non-empty choice 0, and
+   the option bitfield must fit VIA's uint32. Any failure → the converter
+   silently falls back to the single-layout keymap, so options are
+   **correct by construction**.
+
+The option bitfield packs checkbox = 1 bit, N-choice dropdown =
+`(N-1).bit_length()` bits, first label in the most-significant bits;
+`qmk_to_vial_porting.py` emits `VIA_EEPROM_LAYOUT_OPTIONS_SIZE` in config.h
+when the total exceeds 8 bits. `--no-layout-options` disables the feature.
+
 ### Not derivable from keyboard.json (by design)
 
 Key colors `c`, decals `d`, stepped-key props `w2/h2/x2/y2`, layout-option
-labels/placement, custom display names. Byte-identical output vs.
-hand-authored files is impossible; **functional equivalence** (geometry +
-matrix labels + encoders + matrix size) is what the test suite verifies.
+label *text* / choice ordering / default polarity (editorial — contra and
+plaid picked opposite defaults for identical hardware), custom display
+names. Byte-identical output vs. hand-authored files is impossible;
+**functional equivalence** (geometry + matrix labels + encoders + matrix
+size + provably-exact option combinations) is what the test suites verify.
 
 ---
 
@@ -141,8 +184,17 @@ matrix labels + encoders + matrix size) is what the test suite verifies.
 | `encoder_keys()` | Vial encoder entries from `encoder.rotary` |
 | `serialize_kle()` | absolute keys → valid KLE rows (relative offsets; rotation clusters ordered to avoid the JS falsy-zero reset problem) |
 | `parse_kle()` | faithful kle-serial parser used for validation |
-| `derive_matrix()` / `derive_lighting()` | rules described above |
-| `convert_keyboard_to_vial()` | top-level entry point |
+| `derive_matrix()` / `derive_lighting()` | rules described above (config.h parsing handles `6*2`-style expressions) |
+| `build_layout_options()` | derive + validate layout options (wraps `layout_options.py`) |
+| `convert_keyboard_to_vial()` | top-level entry point (`layout_options=True` by default) |
+
+`layout_options.py`:
+
+| Function | Role |
+|---|---|
+| `build_options()` | multi-macro diff → clustered option groups → labels + tagged absolute keys |
+| `validate_keymap()` | GUI-rendering simulation; proves every macro is an exact choice combination |
+| `option_bits()` | VIA bitfield width for `VIA_EEPROM_LAYOUT_OPTIONS_SIZE` |
 
 `qmk_to_vial_porting.py` (coordinator) imports the converter and adds
 file generation: config.h (UID + unlock combo = first/last key of the
@@ -185,9 +237,34 @@ bottom-up row numbering, missing layouts section, etc.) — documented per
 keyboard in `KNOWN_DISCREPANCIES` inside `test_all_pairs.py`; only the
 affected check is skipped, all others still apply.
 
-See `..\vial-research\docs\KLE_FORMAT_FIX_2026-07.md` for the full
-research write-up.
+Layout-options regression (runs over EVERY keyboard.json/info.json in the
+vial-qmk tree, not just the 504 pairs):
+
+```bash
+python test_layout_options.py            # summary
+python test_layout_options.py --verbose  # per-board option listing
+```
+
+Four checks per board: **OPT-EXACT** (emitted options reproduce every
+macro exactly under simulated GUI rendering), **OPT-STRUCT** (contiguous
+indices, non-empty choice 0, ≤32-bit bitfield, matrix labels in bounds),
+**FALLBACK** (boards without options produce output identical to
+`layout_options=False`), **BASELINE** (single-layout output still
+roundtrips exactly). Current result:
+
+```
+keyboards with layouts        : 3967
+  multi-layout boards         : 1467
+    options emitted           : 1384
+    fallback (single layout)  : 83
+FAILURES                      : 0
+```
+
+See `..\vial-research\docs\KLE_FORMAT_FIX_2026-07.md` and the
+`research/` folder here (`vial_layout_options_format.md`,
+`vial_gui_option_rendering.md`, `multi_layout_diff_analysis.md`) for the
+full research write-ups.
 
 ---
 
-*Last Updated: July 2026*
+*Last Updated: July 2026 (layout options added)*

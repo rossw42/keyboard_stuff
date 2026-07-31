@@ -1,0 +1,91 @@
+======================================================================
+BOARD: cannonkeys/an_c
+ macro LAYOUT_60_ansi keys 61
+ macro LAYOUT_60_ansi_tsangan_split_bs_rshift keys 62
+ macro LAYOUT_all keys 63
+ labels: [['Backspace', 'Full', 'Split'], ['Right Shift', 'Full', 'Split'], ['Bottom Row', '6.25u', '7u']]
+ vial keys: 72
+ group 0 label ['Backspace', 'Full', 'Split']
+  choice 0 n 1 [('0,13', 13.0, 1.75, 2)]
+  choice 1 n 2 [('0,13', 13.0, 0.0, 1.0), ('0,14', 14.0, 0.0, 1.0)]
+ group 1 label ['Right Shift', 'Full', 'Split']
+  choice 0 n 1 [('3,11', 12.25, 4.75, 2.75)]
+  choice 1 n 2 [('3,11', 15.75, 4.75, 1.75), ('3,14', 17.5, 4.75, 1.0)]
+ group 2 label ['Bottom Row', '6.25u', '7u']
+  choice 0 n 8 [('4,0', 0.0, 5.75, 1.25), ('4,1', 1.25, 5.75, 1.25), ('4,10', 11.25, 5.75, 1.25), ('4,11', 12.5, 5.75, 1.25), ('4,14', 13.75, 5.75, 1.25), ('4,2', 2.5, 5.75, 1.25), ('4,5', 3.75, 5.75, 6.25), ('4,9', 10.0, 5.75, 1.25)]
+  choice 1 n 7 [('4,0', 0.0, 7.0, 1.5), ('4,1', 1.5, 7.0, 1.0), ('4,10', 11.0, 7.0, 1.5), ('4,11', 12.5, 7.0, 1.0), ('4,14', 13.5, 7.0, 1.5), ('4,2', 2.5, 7.0, 1.5), ('4,5', 4.0, 7.0, 7)]
+ common keys: 51
+ macro LAYOUT_60_ansi combos: [(0, 0, 0)]
+ macro LAYOUT_60_ansi_tsangan_split_bs_rshift combos: [(1, 1, 1)]
+ macro LAYOUT_all combos: [(1, 1, 0)]
+ all-zero combo matches: ['LAYOUT_60_ansi']
+ geo mismatches vs LAYOUT_60_ansi : 61 [('0,0', (0, 0, 1), (0.0, 1.75, 1.0)), ('0,1', (1, 0, 1), (1.0, 1.75, 1.0)), ('0,2', (2, 0, 1), (2.0, 1.75, 1.0)), ('0,3', (3, 0, 1), (3.0, 1.75, 1.0)), ('0,4', (4, 0, 1), (4.0, 1.75, 1.0)), ('0,5', (5, 0, 1), (5.0, 1.75, 1.0)), ('0,6', (6, 0, 1), (6.0, 1.75, 1.0)), ('0,7', (7, 0, 1), (7.0, 1.75, 1.0))]
+======================================================================
+BOARD: dm9records/plaid
+ macro LAYOUT_ortho_4x12 keys 48
+ macro LAYOUT_planck_mit keys 47
+ labels: [['Bottom Row', 'Grid', 'MIT']]
+ vial keys: 49
+ group 0 label ['Bottom Row', 'Grid', 'MIT']
+  choice 0 n 2 [('3,5', 5.0, 3.0, 1.0), ('3,6', 6.0, 3.0, 1.0)]
+  choice 1 n 1 [('3,5', 5.0, 4.0, 2)]
+ common keys: 46
+ macro LAYOUT_ortho_4x12 combos: [(0,)]
+ macro LAYOUT_planck_mit combos: [(1,)]
+ all-zero combo matches: ['LAYOUT_ortho_4x12']
+ geo mismatches vs LAYOUT_ortho_4x12 : 0 []
+======================================================================
+BOARD: contra
+ macro LAYOUT_ortho_4x12 keys 48
+ macro LAYOUT_planck_mit keys 47
+ labels: ['2u Space']
+ vial keys: 49
+ group 0 label 2u Space
+  choice 0 n 1 [('3,5', 5.0, 3.0, 2)]
+  choice 1 n 2 [('3,5', 5.0, 4.0, 1.0), ('3,6', 6.0, 4.0, 1.0)]
+ common keys: 46
+ macro LAYOUT_ortho_4x12 combos: [(1,)]
+ macro LAYOUT_planck_mit combos: [(0,)]
+ all-zero combo matches: ['LAYOUT_planck_mit']
+ geo mismatches vs LAYOUT_planck_mit : 1 [('3,5', (5, 3, 1), (5.0, 3.0, 2))]
+======================================================================
+BOARD: coseyfannitutti/mysterium
+ macro LAYOUT_tkl_ansi keys 87
+ macro LAYOUT_tkl_ansi_7u keys 86
+ macro LAYOUT_tkl_iso keys 88
+ macro LAYOUT_tkl_iso_7u keys 87
+ labels: [['Bottom Row', '6.25U', '7U'], 'ISO Enter', 'Split Left Shift']
+ vial keys: 122
+ group 0 label ['Bottom Row', '6.25U', '7U']
+  choice 0 n 8 [('5,0', 0.0, 6.25, 1.25), ('5,1', 1.25, 6.25, 1.25), ('5,10', 11.25, 6.25, 1.25), ('5,12', 12.5, 6.25, 1.25), ('5,14', 13.75, 6.25, 1.25), ('5,2', 2.5, 6.25, 1.25), ('5,6', 3.75, 6.25, 6.25), ('5,9', 10.0, 6.25, 1.25)]
+  choice 1 n 7 [('5,0', 0.0, 7.5, 1.5), ('5,1', 1.5, 7.5, 1.0), ('5,10', 11.0, 7.5, 1.5), ('5,12', 12.5, 7.5, 1.0), ('5,14', 13.5, 7.5, 1.5), ('5,2', 2.5, 7.5, 1.5), ('5,6', 4.0, 7.5, 7)]
+ group 1 label ISO Enter
+  choice 0 n 3 [('2,13', 13.5, 2.25, 1.5), ('3,0', 0.0, 3.25, 1.75), ('3,13', 12.75, 3.25, 2.25)]
+  choice 1 n 15 [('2,13', 19.5, 2.25, 1.25), ('2,13', 28.75, 3.25, 1.0), ('3,0', 14.25, 4.5, 1.0), ('3,1', 17.0, 3.25, 1.75), ('3,10', 26.75, 3.25, 1.0), ('3,11', 27.75, 3.25, 1.0), ('3,13', 29.75, 3.25, 1.0), ('3,2', 18.75, 3.25, 1.0), ('3,3', 19.75, 3.25, 1.0), ('3,4', 20.75, 3.25, 1.0), ('3,5', 21.75, 3.25, 1.0), ('3,6', 22.75, 3.25, 1.0), ('3,7', 23.75, 3.25, 1.0), ('3,8', 24.75, 3.25, 1.0), ('3,9', 25.75, 3.25, 1.0)]
+ group 2 label Split Left Shift
+  choice 0 n 1 [('4,0', 0.0, 4.25, 2.25)]
+  choice 1 n 13 [('4,0', 0.0, 5.25, 1.25), ('4,1', 2.25, 5.25, 1.0), ('4,10', 11.25, 5.25, 1.0), ('4,11', 1.25, 5.25, 1.0), ('4,13', 12.25, 5.25, 1.75), ('4,2', 3.25, 5.25, 1.0), ('4,3', 4.25, 5.25, 1.0), ('4,4', 5.25, 5.25, 1.0), ('4,5', 6.25, 5.25, 1.0), ('4,6', 7.25, 5.25, 1.0), ('4,7', 8.25, 5.25, 1.0), ('4,8', 9.25, 5.25, 1.0), ('4,9', 10.25, 5.25, 1.0)]
+ common keys: 75
+ macro LAYOUT_tkl_ansi combos: [(0, 0, 0), (0, 1, 0)]
+ macro LAYOUT_tkl_ansi_7u combos: [(1, 0, 0), (1, 1, 0)]
+ macro LAYOUT_tkl_iso combos: [(0, 0, 1), (0, 1, 1)]
+ macro LAYOUT_tkl_iso_7u combos: [(1, 0, 1), (1, 1, 1)]
+ all-zero combo matches: ['LAYOUT_tkl_ansi']
+ geo mismatches vs LAYOUT_tkl_ansi : 11 [('5,15', (15.25, 5.25, 1), (15.25, 6.25, 1.0)), ('5,16', (16.25, 5.25, 1), (16.25, 6.25, 1.0)), ('5,17', (17.25, 5.25, 1), (17.25, 6.25, 1.0)), ('5,0', (0, 5.25, 1.25), (0.0, 6.25, 1.25)), ('5,1', (1.25, 5.25, 1.25), (1.25, 6.25, 1.25)), ('5,2', (2.5, 5.25, 1.25), (2.5, 6.25, 1.25)), ('5,6', (3.75, 5.25, 6.25), (3.75, 6.25, 6.25)), ('5,9', (10, 5.25, 1.25), (10.0, 6.25, 1.25))]
+======================================================================
+DIFF D:/GitHub2/vial-qmk/keyboards/dz60 LAYOUT_60_ansi 61 vs LAYOUT_60_iso 62
+ identical: 58
+ only-LAYOUT_60_ansi: []
+ only-LAYOUT_60_iso: [('3,1', (1.25, 3, 1))]
+ shared-diff-geom: [('1,14', (13.5, 1, 1.5), (12.75, 2, 1)), ('2,13', (12.75, 2, 2.25), (13.75, 1, 1.25)), ('3,0', (0, 3, 2.25), (0, 3, 1.25))]
+======================================================================
+DIFF D:/GitHub2/vial-qmk/keyboards/dz60 LAYOUT_60_ansi 61 vs LAYOUT_60_ansi_split_bs_rshift 63
+ identical: 59
+ only-LAYOUT_60_ansi: []
+ only-LAYOUT_60_ansi_split_bs_rshift: [('0,13', (13, 0, 1)), ('3,14', (14, 3, 1))]
+ shared-diff-geom: [('0,14', (13, 0, 2), (14, 0, 1)), ('3,13', (12.25, 3, 2.75), (12.25, 3, 1.75))]
+======================================================================
+polaris layouts: ['LAYOUT_60_ansi', 'LAYOUT_60_ansi_split_bs_rshift', 'LAYOUT_60_ansi_tsangan_split_bs_rshift', 'LAYOUT_all']
+======================================================================
+layouts/default:
+60_abnt2 60_ansi 60_ansi_arrow 60_ansi_arrow_split_bs 60_ansi_split_bs_rshift 60_ansi_tsangan 60_ansi_tsangan_split_bs_rshift 60_ansi_wkl 60_ansi_wkl_split_bs_rshift 60_hhkb 60_iso 60_iso_arrow 60_iso_arrow_split_bs 60_iso_split_bs_rshift 60_iso_tsangan 60_iso_tsangan_split_bs_rshift 60_iso_wkl 60_iso_wkl_split_bs_rshift 60_jis 64_ansi 64_iso 65_ansi 65_ansi_blocker 65_ansi_blocker_split_bs 65_ansi_blocker_tsangan 65_ansi_blocker_tsangan_split_bs 65_ansi_split_bs 65_iso 65_iso_blocker 65_iso_blocker_split_bs 65_iso_blocker_tsangan 65_iso_blocker_tsangan_split_bs 65_iso_split_bs 66_ansi 66_iso 68_ansi 68_iso 75_ansi 75_iso 96_ansi 96_iso alice alice_split_bs ergodox fullsize_ansi fullsize_extended_ansi fullsize_extended_iso fullsize_extended_jis fullsize_iso fullsize_jis numpad_4x4 numpad_5x4 numpad_5x6 numpad_6x4 numpad_6x5 ortho_1x1 ortho_2x3 ortho_2x6 ortho_3x10 ortho_3x3 ortho_4x10 ortho_4x12 ortho_4x16 ortho_4x4 ortho_4x6 ortho_5x10 ortho_5x12 ortho_5x13 ortho_5x14 ortho_5x15 ortho_5x4 ortho_5x5 ortho_6x13 ortho_6x4 planck_mit readme.md split_3x5_2 split_3x5_3 split_3x6_3 tkl_ansi tkl_ansi_split_bs_rshift tkl_ansi_tsangan tkl_ansi_tsangan_split_bs_rshift tkl_ansi_wkl tkl_ansi_wkl_split_bs_rshift tkl_f13_ansi tkl_f13_ansi_split_bs_rshift tkl_f13_ansi_tsangan tkl_f13_ansi_tsangan_split_bs_rshift tkl_f13_ansi_wkl tkl_f13_ansi_wkl_split_bs_rshift tkl_f13_iso tkl_f13_iso_split_bs_rshift tkl_f13_iso_tsangan tkl_f13_iso_tsangan_split_bs_rshift tkl_f13_iso_wkl tkl_f13_iso_wkl_split_bs_rshift tkl_f13_jis tkl_iso tkl_iso_split_bs_rshift tkl_iso_tsangan tkl_iso_tsangan_split_bs_rshift tkl_iso_wkl tkl_iso_wkl_split_bs_rshift tkl_jis tkl_nofrow_ansi tkl_nofrow_iso
