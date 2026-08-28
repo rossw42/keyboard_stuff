@@ -1,54 +1,33 @@
 Manufacturer,MPN,Description,Total Qty,Used In (Boards),Needs Verification,Notes
 Microchip,ATMEGA32A-PU,8-bit AVR MCU DIP-40,2,Discipline x2,No,Confirmed via Octopart/Mouser 556-ATMEGA32A-PU
-Microchip,ATMEGA328P-PU,8-bit AVR MCU DIP-28,2,"Lattice60 (1), Mercutio (1)",Yes,Lattice60 qty confirmed; Mercutio qty is an assumption (ships pre-flashed in kit, exact MPN not published by MechWild)
+Microchip,ATMEGA328P-PU,8-bit AVR MCU DIP-28,1,Lattice60 (1),No,Lattice60 qty confirmed. Mercutio and Rosalina removed (parts purchased separately).
 TE Connectivity,1-2199299-5,40-pin DIP IC Socket,2,Discipline x2,No,Confirmed via Octopart/Mouser 571-1-2199299-5
-TE Connectivity,1-2199299-2,28-pin narrow DIP IC Socket,2,"Lattice60 (1), Mercutio (1)",Yes,Lattice60 qty confirmed; Mercutio qty assumed same socket type
-Abracon,ABL-16.000MHZ-B4Y,16MHz Crystal HC-49 thru-hole,3,"Discipline (2), Mercutio (1)",Yes,Discipline qty confirmed; Mercutio assumed same crystal freq
+TE Connectivity,1-2199299-2,28-pin narrow DIP IC Socket,1,Lattice60 (1),No,Lattice60 qty confirmed. Mercutio and Rosalina removed (parts purchased separately).
+Abracon,ABL-16.000MHZ-B4Y,16MHz Crystal HC-49 thru-hole,2,Discipline (2),No,Discipline qty confirmed. Mercutio removed (parts purchased separately).
 Yageo,CFR-12JR-52-75R,75 Ohm Resistor 1/6W,4,Discipline x2,No,Confirmed
 Yageo,MFR-12FTF52-1K5,1.5K Ohm Resistor 1/6W,4,Discipline x2,No,Confirmed
 Yageo,MFR-12FTF52-5K1,5.1K Ohm Resistor 1/6W,4,Discipline x2,No,Confirmed
 Yageo,MFR-12FTF52-10K,10K Ohm Resistor 1/6W,2,Discipline x2,No,Confirmed
-Murata,RCE5C2A220J0A2H03B,22pF Ceramic Capacitor,8,"Discipline (4), Lattice60 (2), Mercutio (2)",Yes,Discipline+Lattice60 confirmed; Mercutio assumed same part
-Murata,RDER71H104K0M1H03A,0.1uF Ceramic Capacitor,6,"Discipline (4), Lattice60 (1), Mercutio (1)",Yes,Discipline+Lattice60 confirmed; Mercutio assumed same part
+Murata,RCE5C2A220J0A2H03B,22pF Ceramic Capacitor,6,"Discipline (4), Lattice60 (2)",No,Discipline+Lattice60 confirmed. Mercutio removed (parts purchased separately).
+Murata,RDER71H104K0M1H03A,0.1uF Ceramic Capacitor,5,"Discipline (4), Lattice60 (1)",No,Discipline+Lattice60 confirmed. Mercutio removed (parts purchased separately).
 Nichicon,UVR2V4R7MPD1TD,4.7uF Electrolytic Capacitor (radial),2,Discipline x2,Yes,"Substitute for obsolete UMT1H4R7MDD originally specified - verify fit/voltage rating against PCB pads"
-onsemi,1N4148TR,Switching Diode DO-35,394,"Discipline (138), Lattice60 (66), Mercutio (50 incl. spares), Absinthe (~80 est.), Rosalina (60)",Yes,"Discipline+Lattice60 qty confirmed from official docs. Mercutio kit ships 50 (46 needed + spares). Rosalina qty CONFIRMED via official Lumberjack BOM.md (D1-D60). Absinthe count is an ESTIMATE from matrix/layout inspection - recount against actual PCB before finalizing order"
-Vishay,TZX3V6A-TR,3.6V Zener Diode DO-35,8,"Discipline (4), Lattice60 (2), Mercutio (2)",Yes,"Discipline+Lattice60 confirmed. Mercutio assumed same zener part. CAUTION: visually similar to 1N4148 - keep bins separate!"
+onsemi,1N4148TR,Switching Diode DO-35,284,"Discipline (138), Lattice60 (66), Absinthe (~80 est.)",Yes,"Discipline+Lattice60 qty confirmed from official docs. Mercutio and Rosalina removed (parts purchased separately). Absinthe count is an ESTIMATE from matrix/layout inspection - recount against actual PCB before finalizing order"
+Vishay,TZX3V6A-TR,3.6V Zener Diode DO-35,6,"Discipline (4), Lattice60 (2)",No,"Discipline+Lattice60 confirmed. Mercutio removed (parts purchased separately). CAUTION: visually similar to 1N4148 - keep bins separate!"
 Lite-On,LTL-4222,3mm Red LED T-1,3,"Discipline (2), Lattice60 (1)",No,Confirmed
 Kingbright,WP7113GT,3mm Green LED T-1,1,Lattice60,No,Confirmed
 Amphenol,68602-406HLF,2x3 Pin Header 2.54mm (ISP),3,"Discipline (2), Lattice60 (1)",No,Confirmed
-APEM,MJTP1230A,6x6mm Tactile Pushbutton,8,"Discipline (4), Lattice60 (2), Mercutio (2)",Yes,Discipline+Lattice60 confirmed; Mercutio assumed same generic tactile switch
-GCT (Global Connector Technology),USB4085-GF-A,USB Type-C Receptacle THT 16-pin,3,"Discipline (2), Mercutio (1)",Yes,"MPN inferred/assumed for both boards - was listed TBD in original Discipline build guide; confirm against PCB silkscreen"
+APEM,MJTP1230A,6x6mm Tactile Pushbutton,6,"Discipline (4), Lattice60 (2)",No,Discipline+Lattice60 confirmed. Mercutio removed (parts purchased separately).
+GCT (Global Connector Technology),USB4085-GF-A,USB Type-C Receptacle THT 16-pin,2,Discipline (2),Yes,"MPN inferred/assumed - was listed TBD in original Discipline build guide; confirm against PCB silkscreen. Mercutio removed (parts purchased separately)."
 Bourns,MF-R050,500mA Resettable Fuse (PTC),2,Discipline x2,No,Confirmed
 TE Connectivity,1734753-1,Mini USB Type-B Socket THT,1,Lattice60,No,Confirmed
-Yageo,CFR-25JR-52-1K5,1.5K Ohm Resistor 1/4W,2,"Lattice60 (1), Mercutio (1, as R1)",Yes,Lattice60 confirmed; Mercutio R1 assumed same value/package
+Yageo,CFR-25JR-52-1K5,1.5K Ohm Resistor 1/4W,1,Lattice60 (1),No,Lattice60 confirmed. Mercutio removed (parts purchased separately).
 Yageo,CFR-25JR-52-10K,10K Ohm Resistor 1/4W,1,Lattice60,No,Confirmed
 Yageo,CFR-25JR-52-1K,1K Ohm Resistor 1/4W,2,Lattice60,No,Confirmed
-Yageo,CFR-25JR-52-68R,68 Ohm Resistor 1/4W,4,"Lattice60 (2), Mercutio (2, as R2/R3)",Yes,Lattice60 confirmed; Mercutio assumed same value/package
-Littelfuse,RXEF010S,100mA Resettable Fuse (PTC),2,"Lattice60 (1), Mercutio (1)",Yes,Lattice60 confirmed; Mercutio fuse rating not published, assumed similar
+Yageo,CFR-25JR-52-68R,68 Ohm Resistor 1/4W,2,Lattice60 (2),No,Lattice60 confirmed. Mercutio removed (parts purchased separately).
+Littelfuse,RXEF010S,100mA Resettable Fuse (PTC),1,Lattice60 (1),No,Lattice60 confirmed. Mercutio and Rosalina removed (parts purchased separately).
 Kemet,ESK475M016AC3AA,4.7uF 16V Electrolytic Capacitor,1,Lattice60,No,Confirmed
 Jauch,J49SMH-A-G-G-K-12M0,12MHz Crystal HC-49S,1,Lattice60,No,Confirmed
-Yageo,CFR-25JR-52-5K6,5.6K Ohm Resistor 1/4W (assumed pkg),2,Mercutio (as R4/R5),Yes,Qty/refdes confirmed via official MechWild build guide; exact MPN/package assumed (5.6K unique to Mercutio, not shared with other boards)
-TBD - verify with multimeter/schematic,VERIFY-10uF-CAP,10uF Electrolytic Capacitor (C4),1,Mercutio,Yes,"Guide specifies 10uF explicitly - distinct from the 4.7uF used on Discipline/Lattice60, do not substitute"
-Generic,VERIFY-EC11,Rotary Encoder (PCB mount w/ push),2,"Mercutio (1), Absinthe (1, optional)",Yes,Standard EC11-style 15-detent encoder assumed for both; Absinthe's is optional (only needed if using Elite-C)
-Generic,VERIFY-SSD1306-0.91in,I2C OLED Display 128x32 4-pin,1,Mercutio,Yes,Common 0.91in SSD1306 module assumed
+Generic,VERIFY-EC11,Rotary Encoder (PCB mount w/ push),1,"Absinthe (1, optional)",Yes,Standard EC11-style 15-detent encoder assumed; only needed if using Elite-C. Mercutio removed (parts purchased separately).
 Generic,WS2812B,Addressable RGB LED (strip/individual),Optional,Absinthe (optional underglow),Yes,Only needed if adding RGB underglow strip; PCB supports up to 32 LEDs per firmware config
 SparkFun-compatible / Elite-C v4,PRO-MICRO-OR-ELITE-C,Pro Micro-footprint MCU daughterboard,1,Absinthe (1),Yes,"Not sourced via Octopart - buy from a keyboard vendor (KBDfans/AliExpress/etc). CONFIRMED socketed (not soldered) via official KeyHive build guide. Elite-C v4 recommended for Absinthe if using its rotary encoder."
-Generic,2.54mm-HEADER-PROMICRO,2.54mm Pin Header (Pro Micro/Elite-C socket),2 rows,Absinthe (1),Yes,CONFIRMED via official KeyHive imgur build guide - headers soldered to PCB, controller plugs in without soldering. Exact pin count not specified - count pads on PCB.
-Microchip,ATMEGA328P-PU,8-bit AVR MCU DIP-28 (additional - Rosalina),1,Rosalina (1),No,"CONFIRMED via official Lumberjack BOM.md (shared BOM per Rosalina firmware readme). Same MPN as Lattice60/Mercutio row above - add to that row's total qty if consolidating further."
-TE Connectivity,1-2199299-2,28-pin narrow DIP IC Socket (additional - Rosalina),1,Rosalina (1),No,"CONFIRMED via official Lumberjack BOM.md. Same MPN as row above - add to that row's total qty if consolidating further."
-Generic,22pF-p2.5mm-MLCC,22pF Multilayer Ceramic Capacitor (2.5mm pitch),2,Rosalina (C1/C2),No,CONFIRMED via official Lumberjack BOM.md
-Generic,4.7uF-p1.5mm-ELEC,4.7uF Electrolytic Capacitor (1.5mm pitch),1,Rosalina (C3),No,CONFIRMED via official Lumberjack BOM.md
-Generic,100nF-p5.0mm-MLCC,100nF Multilayer Ceramic Capacitor (5.0mm pitch),2,Rosalina (C4/C5),No,CONFIRMED via official Lumberjack BOM.md
-Generic,3.6V-ZENER,3.6V Zener Diode,2,Rosalina (D61/D62),No,CONFIRMED via official Lumberjack BOM.md
-Generic,100mA-POLYFUSE,100mA Polyfuse (Resettable Fuse),1,Rosalina (F1),No,CONFIRMED via official Lumberjack BOM.md
-Generic,TYPE-C-31-M-12,USB-C Connector,1,Rosalina (J1),No,CONFIRMED via official Lumberjack BOM.md
-Generic,2x3-p2.54mm-HDR,AVR ISP Pin Header 2x3 2.54mm,1,Rosalina (J2 - optional),No,CONFIRMED via official Lumberjack BOM.md
-JST,SM04B-SRSS-TB,JST Connector (optional daughterboard),1,Rosalina (J3 - optional),No,CONFIRMED via official Lumberjack BOM.md
-Molex,781710004,Molex Pico-EZmate Connector (optional),1,Rosalina (J5 - optional),No,CONFIRMED via official Lumberjack BOM.md
-Generic,3mm-LED,3mm LED,2,Rosalina (LED1/LED2),No,CONFIRMED via official Lumberjack BOM.md
-Generic,1.5K-RESISTOR,1.5K Ohm Resistor,3,Rosalina (R1/R7/R8),No,CONFIRMED via official Lumberjack BOM.md
-Generic,75R-RESISTOR,75 Ohm Resistor,2,Rosalina (R2/R3),No,CONFIRMED via official Lumberjack BOM.md
-Generic,10K-RESISTOR,10K Ohm Resistor,1,Rosalina (R4),No,CONFIRMED via official Lumberjack BOM.md
-Generic,5.1K-RESISTOR,5.1K Ohm Resistor (USB-C only),2,Rosalina (R5/R6),No,CONFIRMED via official Lumberjack BOM.md
-APEM or similar,6x6mm-TACTILE,6x6mm Tactile Switch,2,Rosalina (SW1/SW2),No,CONFIRMED via official Lumberjack BOM.md
-Generic,HC49-4H-16MHZ,16MHz Crystal HC49-4H,1,Rosalina (Y1),No,CONFIRMED via official Lumberjack BOM.md
+Generic,2.54mm-HEADER-PROMICRO,2.54mm Pin Header (Pro Micro/Elite-C socket),2 rows,Absinthe (1),Yes,"CONFIRMED via official KeyHive imgur build guide - headers soldered to PCB, controller plugs in without soldering. Exact pin count not specified - count pads on PCB."

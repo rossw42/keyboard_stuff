@@ -1,7 +1,9 @@
 # Multi-Keyboard BOM Sourcing — Overview
 
 **Created:** 2026-07-26
-**Boards covered:** Discipline 65% (×2 builds), Lattice60, Rosalina, Mercutio, Absinthe (rev4), DumbPad ("combo" variant)
+**Boards covered:** Discipline 65% (×2 builds), Lattice60, Absinthe (rev4), DumbPad ("combo" variant)
+
+> **2026-08-25 update:** Rosalina and Mercutio parts have been **purchased** — their line items were removed from both consolidated CSVs (quantities of shared parts adjusted down accordingly). Their individual BOM files (`rosalina_bom.csv`, `mercutio_bom.csv`) are kept for reference.
 
 This folder contains an individual BOM CSV + sourcing notes for each keyboard being built, plus a single **consolidated CSV** meant to be uploaded to [octopart.com](https://octopart.com)'s BOM tool for pricing/availability across all builds at once.
 
