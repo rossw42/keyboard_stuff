@@ -315,3 +315,6 @@ gridfinity_basic_cup.3mf
 # VS Code Local History
 .history/
 **/.history/
+
+# third-party keyhive mirror, kept local only
+keyhive_archive/
