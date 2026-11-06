@@ -1,0 +1,16 @@
+{
+  "kind": "pipette-key-notes",
+  "version": 1,
+  "keyboard": "0xecc6e119636db850",
+  "exportedAt": "2026-10-28T18:19:50.010Z",
+  "notes": {
+    "0": {
+      "0,0": {
+        "legend": "Copy / Cut"
+      },
+      "1,0": {
+        "legend": "Paste / Undo"
+      }
+    }
+  }
+}

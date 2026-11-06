@@ -2,7 +2,7 @@
   "kind": "pipette-key-notes",
   "version": 1,
   "keyboard": "0x19c66d667d25c55b",
-  "exportedAt": "2026-08-27T19:17:20.581Z",
+  "exportedAt": "2026-09-03T10:32:15.905Z",
   "notes": {
     "0": {
       "0,0": {
@@ -31,6 +31,15 @@
       },
       "3,5": {
         "legend": "Numbers / Space"
+      },
+      "2,8": {
+        "legend": "Period / Up"
+      },
+      "3,2": {
+        "legend": "Nav / GUI"
+      },
+      "2,9": {
+        "legend": "? /"
       }
     }
   }

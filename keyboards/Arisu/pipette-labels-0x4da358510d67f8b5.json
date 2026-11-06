@@ -1,0 +1,13 @@
+{
+  "kind": "pipette-key-notes",
+  "version": 1,
+  "keyboard": "0x4da358510d67f8b5",
+  "exportedAt": "2026-09-03T15:59:00.817Z",
+  "notes": {
+    "0": {
+      "4,0": {
+        "legend": "Control"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+Manufacturer,MPN,Description,Category,Qty,Used In (Boards),Needs Verification,Notes
+Microchip,ATMEGA328P-PU,8-bit AVR MCU DIP-28,IC,2,"Plaid (1), Lattice60 (1)",No,"Plaid and Lattice60 use ATmega328P in a DIP-28 package."
+TE Connectivity,1-2199299-2,28-pin narrow DIP IC Socket,Socket,2,"Plaid (1), Lattice60 (1)",No,"Confirmed for Lattice60; Plaid BOM specifies a 28-pin socket and the same narrow DIP footprint is expected."
+Abracon,ABL-16.000MHZ-B4Y,16MHz Crystal HC-49 thru-hole,Crystal,2,"Plaid (1), Discipline (1)",No,"Discipline MPN confirmed; Plaid specifies a 16MHz crystal."
+Yageo,MFR-12FTF52-1K5,1.5K Ohm Resistor 1/6W 1%,Resistor,5,"Plaid (3), Discipline (1)",Yes,"Plaid specifies three 1.5K 1/6W resistors; Discipline requires two per build."
+Yageo,CFR-12JR-52-75R,75 Ohm Resistor 1/6W 5%,Resistor,4,"Plaid (2), Discipline (1)",No,"Plaid specifies two 75 ohm 1/6W resistors; Discipline requires four per build."
+Yageo,MFR-12FTF52-10K,10K Ohm Resistor 1/6W 1%,Resistor,2,"Plaid (1), Discipline (1)",Yes,"Plaid specifies one 10K 1/6W resistor; Discipline requires two per build."
+Yageo,CFR-25JR-52-1K5,1.5K Ohm Resistor 1/4W 5%,Resistor,1,Lattice60 (1),No,Keep separate from the 1/6W 1.5K resistor.
+Yageo,CFR-25JR-52-10K,10K Ohm Resistor 1/4W 5%,Resistor,1,Lattice60 (1),No,Keep separate from the 1/6W 10K resistor.
+Yageo,CFR-25JR-52-1K,1K Ohm Resistor 1/4W 5%,Resistor,2,Lattice60 (1),No,Confirmed for Lattice60.
+Yageo,CFR-25JR-52-68R,68 Ohm Resistor 1/4W 5%,Resistor,2,Lattice60 (1),No,Confirmed for Lattice60.
+Murata,RCE5C2A220J0A2H03B,22pF Ceramic Capacitor,Capacitor,6,"Plaid (2), Discipline (2), Lattice60 (2)",Yes,"Plaid specifies 2.5mm pitch; verify this MPN's lead pitch before ordering."
+Murata,RDER71H104K0M1H03A,0.1uF (100nF) Ceramic Capacitor,Capacitor,5,"Plaid (2), Discipline (2), Lattice60 (1)",Yes,"Plaid specifies 5mm pitch; verify this MPN's lead pitch before ordering."
+Nichicon,UVR2V4R7MPD1TD,4.7uF Electrolytic Capacitor,Capacitor,1,Discipline (1),Yes,Substitute for obsolete Discipline UMT1H4R7MDD; verify fit and voltage rating.
+Kemet,ESK475M016AC3AA,4.7uF 16V Electrolytic Capacitor,Capacitor,1,Lattice60 (1),No,Confirmed for Lattice60; keep separate from the Discipline part.
+Generic (VERIFY),VERIFY-PLAID-4.7UF-1.5MM,4.7uF Electrolytic Capacitor 1.5mm pitch,Capacitor,1,Plaid (1),Yes,Plaid BOM specifies 1.5mm lead pitch but no manufacturer or MPN. Select a through-hole part matching the PCB footprint.
+onsemi,1N4148TR,Switching Diode DO-35,Diode,186,"Plaid (48), Discipline (69), Lattice60 (66)",No,"Quantity is the sum of the three source BOMs."
+Vishay,TZX3V6A-TR,3.6V Zener Diode DO-35,Diode,6,"Plaid (2), Discipline (2), Lattice60 (2)",Yes,"Plaid calls these 3.6V zener diodes; verify the exact part marking before ordering."
+Lite-On,LTL-4222,3mm Red LED T-1,LED,3,"Plaid (1), Discipline (1), Lattice60 (1)",No,"Confirmed for Discipline and Lattice60; Plaid specifies one red 3mm LED."
+Kingbright,WP7113GT,3mm Green LED T-1,LED,2,"Plaid (1), Lattice60 (1)",Yes,"Plaid specifies one green 3mm LED; verify polarity and lens color."
+Amphenol,68602-406HLF,2x3 Pin Header 2.54mm (ISP),Connector,3,"Plaid (1), Discipline (1), Lattice60 (1)",No,"Confirmed for Discipline and Lattice60; Plaid specifies one 2x3 AVR ISP header."
+"GCT (Global Connector Technology)",USB4085-GF-A,USB Type-C Receptacle THT 16-pin,Connector,1,"Discipline (1)",Yes,"MPN was inferred for Discipline; confirm against the PCB or schematic."
+Omron,XM7D-0512,USB Mini-B Receptacle THT,Connector,1,Plaid (1),Yes,Plaid documentation specifies Omron XM7D-0512 or equivalent.
+TE Connectivity,1734753-1,Mini USB Type-B Socket THT,Connector,1,Lattice60 (1),No,Confirmed for Lattice60. Keep separate from the Plaid USB Mini-B part until footprint compatibility is verified.
+Bourns,MF-R050,500mA Resettable Fuse (PTC),Fuse,1,Discipline (1),No,Confirmed for Discipline.
+Littelfuse,RXEF010S,100mA Resettable Fuse (PTC),Fuse,2,"Plaid (1), Lattice60 (1)",Yes,"Plaid specifies a 100mA resettable fuse; Lattice60 MPN confirmed. Verify Plaid footprint and rating."
+APEM,MJTP1230A,6x6mm Tactile Pushbutton Switch,Switch,6,"Plaid (2), Discipline (2), Lattice60 (2)",No,"Same physical part merged across all three boards."

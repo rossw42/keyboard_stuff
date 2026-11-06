@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KTT Kang White</title>
+<style>
+@page { size: 4in 6in; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 4in; height: 6in; background: white; }
+body { font-family: 'Arial', sans-serif; }
+
+/* â”€â”€ sheet â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Content in top 3.25in; bottom 2.75in blank.
+   Left margin 0.18in compensates for printer clipping. */
+.sheet {
+  width: 4in;
+  height: 3.25in;
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+/* â”€â”€ tag: 2in wide Ã— 0.5in tall, starts at left margin â”€â”€ */
+.tag {
+  position: absolute;
+  top: 0;
+  left: 0.18in;
+  width: 2in;
+  height: 0.5in;
+  display: flex;
+  align-items: center;
+  border: 1pt solid black;
+  overflow: hidden;
+}
+
+/* left edge pattern encodes switch type — force printing of backgrounds */
+.t-marker {
+  width: 8pt;
+  height: 100%;
+  flex-shrink: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.t-marker.tactile {
+  background-image: repeating-linear-gradient(45deg, black 0, black 1pt, white 1pt, white 3pt);
+}
+.t-marker.clicky  { background: black; }
+.t-marker.linear  {
+  background-image: repeating-linear-gradient(0deg, black 0, black 1.5pt, white 1.5pt, white 4pt);
+}
+.t-marker.silent  {
+  background-image: radial-gradient(circle, black 1pt, transparent 1pt);
+  background-size: 3pt 3pt;
+}
+
+/* name: shrinks to give badge room, ellipsis if too long */
+.t-name {
+  flex: 1;
+  min-width: 0;
+  padding: 0 5pt;
+  font-size: 8pt;
+  font-weight: 800;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* type badge: always visible, black bg white text */
+.t-type {
+  flex-shrink: 0;
+  font-size: 6pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8pt;
+  background: black;
+  color: white;
+  padding: 2.5pt 4.5pt;
+  margin-right: 5pt;
+  white-space: nowrap;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* â”€â”€ cut lines â”€â”€ */
+/* vertical: right edge of the 2in tag â€” cut tag to length */
+.cut-v {
+  position: absolute;
+  top: 0;
+  left: calc(0.18in + 2in);
+  width: 0;
+  height: 0.5in;
+  border-left: 0.75pt dashed #aaa;
+}
+.cut-v-label {
+  position: absolute;
+  top: 2pt;
+  left: calc(0.18in + 2in + 2pt);
+  font-size: 5pt;
+  color: #bbb;
+}
+
+/* horizontal: below tag strip â€” cut tag from card */
+.cut-h {
+  position: absolute;
+  top: 0.5in;
+  left: 0.18in;
+  right: 0;
+  border-top: 0.75pt dashed #aaa;
+}
+.cut-h-label {
+  position: absolute;
+  top: 0.5in;
+  right: 4pt;
+  font-size: 5pt;
+  color: #bbb;
+  transform: translateY(-8pt);
+}
+
+/* â”€â”€ reference card â”€â”€ */
+.card {
+  position: absolute;
+  top: 0.54in;
+  left: 0.18in;
+  right: 3pt;
+  bottom: 3pt;
+  border: 1.5pt solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.c-head {
+  border-bottom: 1.5pt solid black;
+  padding: 0.1in 0.13in 0.08in;
+}
+.c-name {
+  font-size: 22pt;
+  font-weight: 900;
+  color: #000;
+  line-height: 0.92;
+  letter-spacing: -0.3pt;
+}
+.c-mfr {
+  font-size: 7pt;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1.5pt;
+  margin-top: 4pt;
+}
+
+/* type badge inside card: black bg white text */
+.c-type-box {
+  font-size: 7.5pt;
+  font-weight: 700;
+  letter-spacing: 1.5pt;
+  text-transform: uppercase;
+  background: black;
+  color: white;
+  padding: 2pt 7pt;
+  flex-shrink: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.c-type-row {
+  padding: 5pt 11pt;
+  border-bottom: 0.5pt solid #ccc;
+  display: flex;
+  gap: 7pt;
+  align-items: center;
+}
+.c-type-desc {
+  font-size: 6.5pt;
+  color: #555;
+  font-style: italic;
+}
+
+/* spec grid: 3 cols Ã— 2 rows */
+.c-specs-grid {
+  padding: 7pt 11pt;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5pt 8pt;
+  flex: 1;
+  align-content: start;
+}
+.s-label {
+  font-size: 5.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.6pt;
+  color: #888;
+  margin-bottom: 1pt;
+}
+.s-val {
+  font-size: 12pt;
+  font-weight: 800;
+  color: #000;
+  line-height: 1.1;
+}
+
+.c-notes {
+  font-size: 6pt;
+  color: #666;
+  border-top: 0.5pt solid #ddd;
+  padding: 4pt 11pt;
+  font-style: italic;
+  margin-top: auto;
+}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="tag">
+    <div class="t-marker linear"></div>
+    <span class="t-name">KTT Kang White</span>
+    <span class="t-type">Linear</span>
+  </div>
+
+  <div class="cut-v"></div>
+  <span class="cut-v-label">&#9988;</span>
+  <div class="cut-h"></div>
+  <span class="cut-h-label">&#9988; cut</span>
+
+  <div class="card">
+    <div class="c-head">
+      <div class="c-name">KTT<br>Kang White</div>
+      <div class="c-mfr">KTT</div>
+    </div>
+    <div class="c-type-row">
+      <span class="c-type-box">Linear</span>
+      <span class="c-type-desc">Smooth linear, no bump</span>
+    </div>
+    <div class="c-specs-grid">
+      <div><div class="s-label">Actuation</div><div class="s-val">50 g</div></div>
+      <div><div class="s-label">Bottom Out</div><div class="s-val">&#8212;</div></div>
+      <div><div class="s-label">Stem</div><div class="s-val">MX</div></div>
+      <div><div class="s-label">Compatibility</div><div class="s-val">MX-style</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
