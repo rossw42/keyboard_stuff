@@ -1,0 +1,19 @@
+{
+ "schema": 1,
+ "vaultId": "9573dbcd-de5f-4899-91f6-0b1324b97fb2",
+ "items": {},
+ "installs": {},
+ "photos": {},
+ "receipts": {},
+ "categories": {},
+ "logs": {},
+ "clips": {},
+ "settings": {
+  "currency": "USD",
+  "kindsVersion": 4,
+  "times": {
+   "kindsVersion": "2026-11-01T22:01:49.987Z"
+  },
+  "updatedAt": "2026-11-01T22:01:49.987Z"
+ }
+}
